@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     // 初期設定
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('sample', function () {
