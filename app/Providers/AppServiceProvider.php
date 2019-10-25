@@ -22,7 +22,12 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        //
+    {   
+        //<head>の中身
+        Blade::component('components.head.head', 'head');
+
+        //<header>の中身 
+        Blade::component('components.header.header', 'header');
+
     }
 }
