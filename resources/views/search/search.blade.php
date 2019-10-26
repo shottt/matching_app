@@ -16,6 +16,7 @@ $footer_flg = true;
           <img class="pr-1" src="/images/search-icon-white.png" style="display: inline-block; vertical-align: sub;" alt="">
           はじめる
         </button>
+        @csrf
       </form>
     </div>
   </main>
