@@ -3,14 +3,12 @@
     <head>
         @head
         @endhead
-
     </head>
-    <body id="sign" class="{{ $body_color ?? '' }}">
+    <body id="sign" class="bg-main">
         @header
-        @yield('main')
-
+        @section('main')
+        @show
         
-        @footer
         <script src="/js/app.js"></script>
     </body>
 </html>

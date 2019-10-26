@@ -13042,6 +13042,7 @@ a.text-dark:focus {
 
 .u-down-arrow:after {
   content: "";
+  background: url(/images/down-arrow.png) no-repeat center;
   display: inline-block;
   width: 12px;
   height: 7px;
@@ -13089,6 +13090,10 @@ a.text-dark:focus {
 /*=====================
         全体
 =======================*/
+
+body {
+  background-color: #fff;
+}
 
 #defalut {
   background: #3333;
@@ -13590,6 +13595,20 @@ img {
 .c-Header--short {
   height: 100px;
   border-bottom: solid 2px #E2E8ED;
+}
+
+.c-Footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  background: #fff;
+  z-index: 3;
 }
 
 #top h2 {

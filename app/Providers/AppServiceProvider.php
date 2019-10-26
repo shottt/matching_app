@@ -27,7 +27,12 @@ class AppServiceProvider extends ServiceProvider
         //<head>の中身
         Blade::component('components.head.head', 'head');
 
-        //<header>の中身 
-        Blade::component('components.header.header', 'header');
+        //<header>の中身 変数を渡してifつかなかったのでコメントアウト　
+        //@if ({{ $patter}} === 1)　これはできない  <?php if (<?php となるため
+        //Blade::component('components.header.header', 'header');
+        Blade::include('includes.header.header', 'header');
+
+
+        Blade::include('includes.footer.footer', 'footer');
     }
 }
