@@ -56,3 +56,20 @@ Route::get('/search/result', function () {
     
     return view('/search/search-result');
 });
+
+//Vue組み混みver
+Route::get('/vue/sign_in', function () {
+    
+    return view('/sign_in_vue/sign_in');
+});
+
+Route::get('/vue/register', function () {
+    
+    return view('/sign_in_vue/register');
+});
+
+//サインイン
+Route::post('/ctrl_sign_in', function () {
+    
+    //サインインのコントローラに投げる
+});
