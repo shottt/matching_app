@@ -65,9 +65,8 @@ Route::get('/vue/sign_in', function () {
     
     return view('/sign_in_vue/sign_in');
 });
-
-Route::get('/vue/register', function () {
+/*
+Route::get('/', function () {
     
-    return view('/sign_in_vue/register');
-});
-*/
+    return view('/index');
+});*/

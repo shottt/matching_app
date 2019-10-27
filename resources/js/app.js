@@ -4,14 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 window.Vue = require('vue');
+
 import store from "./store";
+import router from './router';
 
 require('./bootstrap');
 
-
-
-//import router from './router/index.js'
-//import router_app from './router/router_app'
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -23,6 +21,9 @@ require('./bootstrap');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+
+
+
 Vue.component('sign-register', require('./components/sign-register.vue').default);
 Vue.component('button-sign-register', require('./components/button-sign-register.vue').default);
 
@@ -33,7 +34,8 @@ Vue.component('button-sign-register', require('./components/button-sign-register
  */
 
 const vue_body = new Vue({
-    el: '#vue_body',
+    //el: '#vue_body',
     store,
-
-});
+    router,
+    
+}).$mount("#vue_body");

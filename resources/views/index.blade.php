@@ -14,25 +14,51 @@
     <body id="sign" class="bg-main">
       <div id="vue_body">
 
+      
 
-        <head></header>
-
-        <main class="container u-conainer-y text-center" id="main">
-
-          <sign-register></sign-register>
-          
-          
-          <a class="mt-3 u-txt-w3 d-inline-block w-100 text-center">パスワード忘れましたか？</a>
-          
-          
-          <button-sign-register></button-sign-register>
-
-        </main>
-
-        <footer></footer>
+        
+        <!--header-->
+        
+        <router-view name="c_header"></router-view>
+        
+        <!--main-->
+        <router-view name="c_main"></router-view>
 
 
-      </div>
+
+
+
+        <footer class="c-Footer container">
+          <ul class="nav">
+              <li class="nav-item col">
+                  <router-link class="nav-link active" to='/home'>
+                      <img src="/images/footer/home-icon--active.png" alt="" class="img-fluid">
+                  </router-link><br>
+              </li>
+       
+              <li class="nav-item col">
+                  <router-link class="nav-link" to="/top">
+                      <img src="/images/footer/frends-icon.png" alt="" class="img-fluid">
+                  </router-link>
+              </li>
+              <!--
+              <li class="nav-item col">
+                  <router-link class="nav-link" :to="{name: 'f_messages'}">
+                      <img src="/images/footer/messages-icon.png" alt="" class="img-fluid">
+                  </router-link>
+              </li>
+              <li class="nav-item col">
+                  <router-link class="nav-link" :to="{name: 'f_settings'}">
+                      <img src="/images/footer/settings-icon.png" alt="" class="img-fluid">
+                  </router-link>
+              </li>
+              -->
+          </ul>
+        </footer>
+
+       
+
+      </div><!--end vue_body-->
       <script src=" {{ mix('js/app.js') }} "></script>
     </body>
 </html>

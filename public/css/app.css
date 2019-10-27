@@ -13607,6 +13607,10 @@ img {
   z-index: 3;
 }
 
+.c-Footer a:hover {
+  cursor: pointer;
+}
+
 #top h2 {
   color: #333;
 }
