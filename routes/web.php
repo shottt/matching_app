@@ -10,18 +10,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-Route::get('/', function () {
-    // 初期設定
-    return view('home');
-});*/
 
-Route::get('sample', function () {
-    // Hello world
-    return view('sample');
-});
 
 Auth::routes();
+
+//初期レンダリング
+//あとは api.phpに記述
+//ログインのセッションかクッキーを判定して、
+//trueなら、Homeを描画できるようにする
+
+Route::get('/{any}', function () {
+    return view('/index');
+})->where('any', '.*');
+
+
+/*
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -67,9 +70,4 @@ Route::get('/vue/register', function () {
     
     return view('/sign_in_vue/register');
 });
-
-//サインイン
-Route::post('/ctrl_sign_in', function () {
-    
-    //サインインのコントローラに投げる
-});
+*/

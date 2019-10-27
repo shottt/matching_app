@@ -3,7 +3,6 @@
     <head>
         @head
         @endhead
-
     </head>
     <body id="sign" class="{{ $body_color ?? '' }}">
         @header
@@ -11,6 +10,7 @@
 
         
         @footer
+       
         <script src=" {{ mix('js/app.js') }} "></script>
     </body>
 </html>

@@ -3,11 +3,15 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+window.Vue = require('vue');
+import store from "./store";
 
 require('./bootstrap');
 
-window.Vue = require('vue');
-import store from "./store";
+
+
+//import router from './router/index.js'
+//import router_app from './router/router_app'
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -28,7 +32,8 @@ Vue.component('button-sign-register', require('./components/button-sign-register
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app1 = new Vue({
-    el: '#app1',
-    store
+const vue_body = new Vue({
+    el: '#vue_body',
+    store,
+
 });

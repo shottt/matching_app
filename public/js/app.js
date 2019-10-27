@@ -1883,8 +1883,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1931,11 +1931,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+ //import axios from 'axios';
 
 var usr = new URLSearchParams();
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {},
+  props: {
+    test: String
+  },
   data: function data() {
     return {
       sign_email: "",
@@ -1973,10 +1977,16 @@ var usr = new URLSearchParams();
       if (Object.keys(this.sign_errors).length === 0) {
         //Post値　準備
         usr.append('email', this.sign_email);
-        usr.append('pass', this.sign_pass);
-        console.log(usr); //サインイン jsonで投げる
+        usr.append('pass', this.sign_pass); //CSRFトークン送信準備
+        //let token = $('meta[name="csrf-token"]').attr('content');
 
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('http://localhost:8000/ctrl_sign_in', usr).then(function (res) {
+        console.log(this.$http); //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
+
+        this.$http.post('http://localhost:8000/api/ctrl_sign_in', {
+          params: usr
+        }).then(function (res) {
+          console.log(_typeof(res));
+          console.log(_typeof(res.data));
           console.log(res.data);
           _this.json_data = res.data;
         })["catch"](function (err) {
@@ -1985,7 +1995,7 @@ var usr = new URLSearchParams();
           return console.log('finally');
         });
       } else {
-        alert("入力漏れがあります。");
+        alert("予期せぬエラーが出ました。画面を更新してください");
       }
     },
     null_check_Sign_Mail: function null_check_Sign_Mail() {
@@ -1994,11 +2004,15 @@ var usr = new URLSearchParams();
 
       if (result == null) {
         this.sign_errors.sign_email = 'メール形式で入力してください。';
+      } else {
+        delete this.sign_errors.sign_email;
       }
     },
     null_check_Sign_Pass: function null_check_Sign_Pass() {
       if (this.sign_pass === "") {
         this.sign_errors.sign_pass = 'パスワードを入力してください。';
+      } else {
+        delete this.sign_errors.sign_pass;
       }
     },
     error_Pass: function error_Pass() {
@@ -37454,8 +37468,7 @@ var render = function() {
               }
             },
             [_vm._v("はじめる")]
-          ),
-          _vm._v("\n    \n    @csrf\n  ")
+          )
         ]),
         _vm._v(" "),
         _c("p", { staticClass: "text-white" }, [
@@ -37620,12 +37633,12 @@ var render = function() {
                 }
               }
             }),
-            _vm._v("\n\n    @csrf\n    "),
+            _vm._v(" "),
             _c(
               "button",
               {
                 staticClass: "btn btn-light w-100 u-text-pink mt-5",
-                attrs: { type: "button", disabled: _vm.buttonFlag }
+                attrs: { type: "button" }
               },
               [_vm._v("新規登録")]
             )
@@ -50823,9 +50836,11 @@ __webpack_require__.r(__webpack_exports__);
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //import router from './router/index.js'
+//import router_app from './router/router_app'
 
 /**
  * The following block of code may be used to automatically register your
@@ -50837,6 +50852,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+
 Vue.component('sign-register', __webpack_require__(/*! ./components/sign-register.vue */ "./resources/js/components/sign-register.vue")["default"]);
 Vue.component('button-sign-register', __webpack_require__(/*! ./components/button-sign-register.vue */ "./resources/js/components/button-sign-register.vue")["default"]);
 /**
@@ -50845,8 +50861,8 @@ Vue.component('button-sign-register', __webpack_require__(/*! ./components/butto
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app1 = new Vue({
-  el: '#app1',
+var vue_body = new Vue({
+  el: '#vue_body',
   store: _store__WEBPACK_IMPORTED_MODULE_0__["default"]
 });
 
@@ -50879,8 +50895,17 @@ try {
  */
 
 
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); //window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/*
+https://qiita.com/acro5piano/items/f33381fc60408abe9865
+*/
+
+window.axios.defaults.headers.common = {
+  'X-CSRF-TOKEN': window.Laravel.csrfToken,
+  'X-Requested-With': 'XMLHttpRequest'
+};
+Vue.prototype.$http = window.axios;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

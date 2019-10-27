@@ -1,5 +1,7 @@
 <template>
+  
   <div v-if="display_flg === 1">
+
     <h1>サインイン</h1>
     <img class="img-fluid u-mt-40" src="/images/man-1.png" alt="">
     <form action="" class="sign-Form mt-5">
@@ -9,7 +11,7 @@
 
       <button @click.prevent="doSign_in" type="button" class="btn btn-light w-100 u-text-pink mt-5">はじめる</button>
       
-      @csrf
+     
     </form>
     <p class="text-white">{{ $store.state.dispaly }}</p>
   </div>
@@ -30,8 +32,8 @@
       <input v-model="pass" class="u-bg-tr text-left pl-2" type="password" name="pass" id="pass" placeholder="パスワードを入力してください。">
       <input v-model="repass" class="u-bg-tr text-left pl-2" type="password" name="repass" id="repass" placeholder="再度パスワードを入力してください。">
  
-      @csrf
-      <button type="button" :disabled="buttonFlag" class="btn btn-light w-100 u-text-pink mt-5">新規登録</button>
+      
+      <button type="button" class="btn btn-light w-100 u-text-pink mt-5">新規登録</button>
     </form>
 
   </div>
@@ -40,15 +42,16 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import axios from 'axios';
+    //import axios from 'axios';
     const usr = new URLSearchParams();
 
     export default {
       props: {
-
+        test: String
       },
       data: function () {
         return {
+          
           sign_email: "",
           sign_pass: "",
           name: "",
@@ -89,19 +92,26 @@
             //Post値　準備
             usr.append('email', this.sign_email);
             usr.append('pass', this.sign_pass);
-            console.log(usr);
-            
-            //サインイン jsonで投げる
-            axios.post('http://localhost:8000/ctrl_sign_in', usr)
+
+            //CSRFトークン送信準備
+            //let token = $('meta[name="csrf-token"]').attr('content');
+            console.log(this.$http);
+
+            //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
+            this.$http.post('http://localhost:8000/api/ctrl_sign_in', {
+                params: usr,
+              })
               .then(res => {
-                console.log(res.data)
+                console.log(typeof(res));
+                console.log(typeof(res.data));
+                console.log(res.data);
                 this.json_data = res.data;
               })
               .catch(err => console.log(err))
               .finally(() => console.log('finally'));
 
           } else {
-            alert("入力漏れがあります。");
+            alert("予期せぬエラーが出ました。画面を更新してください");
           }
         },
 
@@ -110,11 +120,15 @@
           var result = this.sign_email.match(this.regexp_email);
           if (result == null) {
             this.sign_errors.sign_email = 'メール形式で入力してください。';
+          } else {
+            delete this.sign_errors.sign_email;
           }
         },
         null_check_Sign_Pass: function () {
           if (this.sign_pass === "") {
             this.sign_errors.sign_pass = 'パスワードを入力してください。';
+          } else {
+            delete this.sign_errors.sign_pass;
           }
         },
 
