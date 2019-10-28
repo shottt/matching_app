@@ -36,15 +36,17 @@ Route::get('/home', function () {
     return view('/home/home');
 });
 
-Route::get('/sign_in', function () {
+// 変更　laravelに標準搭載のAuth::routes()を使う
+// 下記のviewファイルはAuthの下のlogin.blade.phpとregister.blade.phpの中にコピーする
+// Route::get('/sign_in', function () {
     
-    return view('/sign_in/sign_in');
-});
+//     return view('/sign_in/sign_in');
+// });
 
-Route::get('/register', function () {
+// Route::get('/register', function () {
     
-    return view('/sign_in/register');
-});
+//     return view('/sign_in/register');
+// });
 
 
 
@@ -56,3 +58,10 @@ Route::get('/search/result', function () {
     
     return view('/search/search-result');
 });
+
+// 10/28追記（清水）
+Route::resource('posts', 'PostsController');
+Route::resource('schedules', 'SchedulesController');
+Route::resource('chats', 'ChatsController');
+Route::resource('messages', 'MessagesController');
+
