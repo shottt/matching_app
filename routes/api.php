@@ -25,5 +25,12 @@ Route::group(['middleware' => 'api'], function() {
         //サインインのコントローラに投げる
         return view('/home/home');
     });
+
+    //サインイン axios経由
+    Route::post('/ctrl_registration', function () {
+
+        //サインインのコントローラに投げる
+        return view('/home/home');
+    });
     
 });

@@ -2029,6 +2029,23 @@ var usr = new URLSearchParams();
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/router/components/footer.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/router/components/footer.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['pattern'],
+  template: "\n    <footer class=\"c-Footer container\">\n        <ul class=\"nav\">\n            <li class=\"nav-item col\">\n                <router-link class=\"nav-link active\" to='/home'>\n                    <img src=\"/images/footer/home-icon--active.png\" alt=\"\" class=\"img-fluid\">\n                </router-link><br>\n            </li>\n            <li class=\"nav-item col\">\n                  <router-link class=\"nav-link\" to=\"/\">\n                      <img src=\"/images/footer/frends-icon.png\" alt=\"\" class=\"img-fluid\">\n                  </router-link>\n            </li>\n        </ul>\n    </footer>\n    "
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/router/components/header.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/router/components/header.vue?vue&type=script&lang=js& ***!
@@ -2057,7 +2074,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['pattern'],
-  template: "\n<main class=\"u-conainer-y text-center\">\n  <div class=\"c-Card-Hero\">\n    <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n    <div class=\"c-Card-Hero__detail text-center\">\n      <p class=\"\">\u9234\u6728 \u82B1\u5B50</p>\n      <p style=\"opacity: 0.5;\">\u5199\u771F\u5BB6,\u5927\u962A</p>\n      <p class=\"mt-2 mb-4\">\u307B\u3057</p>\n    </div>\n  </div>\n  <div class=\"c-Card-Hero\">\n      <img class=\"w-100\" src=\"/images/avator2.png\" alt=\"\">\n      <div class=\"c-Card-Hero__detail text-center\">\n        <p class=\"\">Mike Wilson</p>\n        <p style=\"opacity: 0.5;\">Graphic Designer, Bristol</p>\n        <p class=\"mt-2 mb-4\">\u307B\u3057</p>\n      </div>\n    </div>\n</main>\n  "
+  template: "\n  <main class=\"u-conainer-y text-center\">\n    <article>\n      <section>\n        <div class=\"c-Card-Hero\">\n          <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n          <div class=\"c-Card-Hero__detail text-center\">\n            <p class=\"\">\u9234\u6728 \u82B1\u5B50</p>\n            <p style=\"opacity: 0.5;\">\u5199\u771F\u5BB6,\u5927\u962A</p>\n            <p class=\"mt-2 mb-4\">\u307B\u3057</p>\n          </div>\n        </div>\n        <div class=\"c-Card-Hero\">\n            <img class=\"w-100\" src=\"/images/avator2.png\" alt=\"\">\n            <div class=\"c-Card-Hero__detail text-center\">\n              <p class=\"\">Mike Wilson</p>\n              <p style=\"opacity: 0.5;\">Graphic Designer, Bristol</p>\n              <p class=\"mt-2 mb-4\">\u307B\u3057</p>\n            </div>\n          </div>\n      </section>\n    </article>\n  </main>\n  "
 });
 
 /***/ }),
@@ -2090,12 +2107,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['auth_displaying/getDisplay_Vuex' // ...
   ]), {
+    //サインインか登録の描画判定のフラグです
     display_flg: function display_flg() {
       //後ほどpropsを変化させて、propsでbutton表示判定させたい
       return this.$store.getters['auth_displaying/getDisplay_Vuex'];
     }
   }),
-  template: "\n    <div>\n      <button>button</button>\n    </div>\n  "
+  template: "\n    <div>\n      <a v-if=\"display_flg === 1\" v-on:click.prevent=\"changeDisplay_Regi\" href=\"\" class=\"mb-80 text-center sign-To-Register\">\u65B0\u898F\u767B\u9332\u3057\u307E\u3059\u304B\uFF1F</a>\n      <a v-if=\"display_flg === 2\" v-on:click.prevent=\"changeDisplay_Sign\" href=\"\" class=\"mb-80 text-center sign-To-Register\">\u30B5\u30A4\u30F3\u30A4\u30F3\u3057\u307E\u3059\u304B\uFF1F</a>\n    </div>\n  "
 });
 
 /***/ }),
@@ -2140,6 +2158,7 @@ var usr = new URLSearchParams();
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['auth_displaying/getDisplay_Vuex' // ...
   ]), {
+    //サインインか登録の描画判定のフラグです
     display_flg: function display_flg() {
       //後ほどpropsを変化させて、propsでbutton表示判定させたい
       return this.$store.getters['auth_displaying/getDisplay_Vuex'];
@@ -2168,7 +2187,7 @@ var usr = new URLSearchParams();
         this.$http.post('http://localhost:8000/api/ctrl_sign_in', {
           params: usr
         }).then(function (res) {
-          console.log("成功");
+          console.log("サインイン成功");
           _this.json_data = res.data;
 
           _this.$router.push({
@@ -2179,6 +2198,42 @@ var usr = new URLSearchParams();
         })["finally"](function () {
           delete _this.sign_errors.sign_email;
           delete _this.sign_errors.sign_pass;
+          console.log('finally');
+        });
+      } else {
+        alert("予期せぬエラーが出ました。画面を更新してください");
+      }
+    },
+    doRegisteration: function doRegisteration() {
+      var _this2 = this;
+
+      console.log("button"); //validation あとでやる
+      //まだ画面にエラーメッセージもまだ
+
+      if (Object.keys(this.sign_errors).length === 0) {
+        //Post値　準備
+        usr.append('name', this.name);
+        usr.append('location', this.location);
+        usr.append('email', this.email);
+        usr.append('pass', this.pass); //CSRFトークン送信準備
+        //let token = $('meta[name="csrf-token"]').attr('content');
+
+        console.log(this.$http); //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
+
+        this.$http.post('http://localhost:8000/api/ctrl_registration', {
+          params: usr
+        }).then(function (res) {
+          console.log("登録成功");
+          _this2.json_data = res.data;
+
+          _this2.$router.push({
+            path: 'home'
+          });
+        })["catch"](function (err) {
+          return console.log(err);
+        })["finally"](function () {
+          delete _this2.sign_errors.sign_email;
+          delete _this2.sign_errors.sign_pass;
           console.log('finally');
         });
       } else {
@@ -2210,7 +2265,7 @@ var usr = new URLSearchParams();
       }
     }
   },
-  tempalte: "\n  <p>aaaa</p>  \n  "
+  template: "\n    <article>\n      <section v-if=\"display_flg === 1\">\n\n        <h1>\u30B5\u30A4\u30F3\u30A4\u30F3</h1>\n        <img class=\"img-fluid u-mt-40\" src=\"/images/man-1.png\" alt=\"\">\n        <form action=\"\" class=\"sign-Form mt-5\">\n          \n          <input v-model=\"sign_email\" class=\"u-bg-tr\" type=\"email\" name=\"email\" id=\"\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\">\n          <input v-model=\"sign_pass\" class=\"u-bg-tr mt-2\" type=\"password\" name=\"pass\" id=\"\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\">\n\n          <button @click.prevent=\"doSign_in\" type=\"button\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u306F\u3058\u3081\u308B</button>\n          \n        \n        </form>\n        <p class=\"text-white\">{{ $store.state.dispaly }}</p>\n        <a class=\"mt-3 u-txt-w3 d-inline-block w-100 text-center\">\u30D1\u30B9\u30EF\u30FC\u30C9\u5FD8\u308C\u307E\u3057\u305F\u304B\uFF1F</a>\n      </section>\n\n      <section v-else-if=\"display_flg === 2\">\n\n        <h1>\u65B0\u898F\u767B\u9332</h1>\n        <form action=\"\" class=\"sign-Form mt-5 text-left\">\n          \n          <label class=\"mt-2\" for=\"name\">\u6C0F\u540D</label>\n          <input v-model=\"name\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"name\" id=\"name\" placeholder=\"\u82D7\u5B57\u3068\u540D\u524D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          \n          <label class=\"mt-2\" for=\"location\">\u4F4F\u6240</label>\n          <input v-model=\"location\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"location\" id=\"location\" placeholder=\"\u4F4F\u6240\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          \n          <label class=\"mt-2\" for=\"email\">\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9</label>\n          <input v-model=\"email\" class=\"u-bg-tr text-left pl-2\" type=\"email\" name=\"email\" id=\"email\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">      \n          \n          <label class=\"mt-2\" for=\"pass\">\u30D1\u30B9\u30EF\u30FC\u30C9</label>\n          <input v-model=\"pass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"pass\" id=\"pass\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          <input v-model=\"repass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"repass\" id=\"repass\" placeholder=\"\u518D\u5EA6\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n    \n          \n          <button @click.prevent=\"doRegisteration\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u65B0\u898F\u767B\u9332</button>\n        </form>\n\n\n      </section>\n      \n    </article>\n  "
 });
 
 /***/ }),
@@ -2224,18 +2279,17 @@ var usr = new URLSearchParams();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _button_sign_register_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button-sign-register.vue */ "./resources/js/router/projects/top/button-sign-register.vue");
-/* harmony import */ var _sign_register_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sign-register.vue */ "./resources/js/router/projects/top/sign-register.vue");
+/* harmony import */ var _sign_register_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sign-register.vue */ "./resources/js/router/projects/top/sign-register.vue");
+/* harmony import */ var _button_sign_register_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./button-sign-register.vue */ "./resources/js/router/projects/top/button-sign-register.vue");
 //これらのコンポーネントを含めて、Vue Routerを通して描画したい
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  /*
   components: {
-    main,
-    button
-  },*/
-  template: "\n      <main class=\"container u-conainer-y text-center\">\n        <p>test</p>\n        <button>test</button>\n        <p>\u8ABF\u6574\u4E2D</p>\n      </main>\n    "
+    main_content: _sign_register_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    button_content: _button_sign_register_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  template: "\n      <main class=\"container u-conainer-y text-center\">\n        <main_content></main_content>\n        <button_content></button_content>\n      </main>\n    "
 });
 
 /***/ }),
@@ -54169,6 +54223,56 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/router/components/footer.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/router/components/footer.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./footer.vue?vue&type=script&lang=js& */ "./resources/js/router/components/footer.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/router/components/footer.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/router/components/footer.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/router/components/footer.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./footer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/router/components/footer.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/router/components/header.vue":
 /*!***************************************************!*\
   !*** ./resources/js/router/components/header.vue ***!
@@ -54232,14 +54336,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _projects_top_top_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./projects/top/top.vue */ "./resources/js/router/projects/top/top.vue");
-/* harmony import */ var _projects_top_button_sign_register_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./projects/top/button-sign-register.vue */ "./resources/js/router/projects/top/button-sign-register.vue");
-/* harmony import */ var _projects_top_sign_register_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./projects/top/sign-register.vue */ "./resources/js/router/projects/top/sign-register.vue");
-/* harmony import */ var _components_header_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/header.vue */ "./resources/js/router/components/header.vue");
-/* harmony import */ var _projects_home_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./projects/home.vue */ "./resources/js/router/projects/home.vue");
+/* harmony import */ var _components_footer_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/footer.vue */ "./resources/js/router/components/footer.vue");
+/* harmony import */ var _components_header_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/header.vue */ "./resources/js/router/components/header.vue");
+/* harmony import */ var _projects_home_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./projects/home.vue */ "./resources/js/router/projects/home.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // 2.
-
 
 
 
@@ -54248,9 +54350,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 // 4.
 
 var routes = [{
-  path: '/top',
+  path: '/',
   components: {
-    c_header: _components_header_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     c_main: _projects_top_top_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
   /*
@@ -54266,11 +54367,11 @@ var routes = [{
 }, {
   path: '/home',
   components: {
-    c_header: _components_header_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    c_main: _projects_home_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    c_header: _components_header_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    c_main: _projects_home_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    c_footer: _components_footer_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
-}];
-console.log(routes); // 5.
+}]; // 5.
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',

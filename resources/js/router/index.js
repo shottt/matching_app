@@ -5,11 +5,11 @@ Vue.use(VueRouter)
 
 // 2.
 import top from './projects/top/top.vue';
-import button_ from "./projects/top/button-sign-register.vue";
-import main_content from "./projects/top/sign-register.vue";
 
-
+import footer from './components/footer.vue';
 import header from './components/header.vue';
+
+
 import home from './projects/home.vue';
 
 
@@ -19,9 +19,9 @@ import home from './projects/home.vue';
 // 4.
 const routes = [
     {
-        path: '/top',
+        path: '/',
         components: {
-            c_header: header, c_main: top
+            c_main: top
         },
         /*
         children: [
@@ -36,11 +36,11 @@ const routes = [
     {
         path: '/home',
         components: {
-            c_header: header, c_main: home
+            c_header: header, c_main: home, c_footer: footer
         }
     }
 ];
-console.log(routes);
+
 // 5.
 const router = new VueRouter({
 

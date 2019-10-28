@@ -1,21 +1,21 @@
 <script>
 
 //これらのコンポーネントを含めて、Vue Routerを通して描画したい
-import button_ from "./button-sign-register.vue";
 import main_content from "./sign-register.vue";
+import button_content from "./button-sign-register.vue";
+
 
 
   export default {
-    /*
+    
     components: {
-      main,
-      button
-    },*/
+      main_content,
+      button_content
+    },
     template: `
       <main class="container u-conainer-y text-center">
-        <p>test</p>
-        <button>test</button>
-        <p>調整中</p>
+        <main_content></main_content>
+        <button_content></button_content>
       </main>
     `
   }
