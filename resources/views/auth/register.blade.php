@@ -12,13 +12,14 @@ $footer_flg = false;
     @csrf
       <label class="mt-2" for="name">{{ __('Name') }}</label>
       <input class="u-bg-tr text-left pl-2  @error('name') is-invalid @enderror" type="text" name="name" value="{{ old('name') }}" id="name" placeholder="苗字と名前を入力してください。">
+      
         @error('name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
 
-      <label class="mt-2" for="location">{{ __('Adress') }}¥</label>
+      <label class="mt-2" for="location">{{ __('Adress') }}</label>
       <input class="u-bg-tr text-left pl-2" type="text" name="location" id="location" placeholder="住所を入力してください。">
       <label class="mt-2" for="email">{{ __('E-Mail Address') }}</label>
       <input class="u-bg-tr text-left pl-2 @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" id="email" placeholder="メールアドレスを入力してください。">

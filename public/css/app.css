@@ -13091,10 +13091,6 @@ a.text-dark:focus {
         全体
 =======================*/
 
-body {
-  background-color: #fff;
-}
-
 #defalut {
   background: #3333;
 }
@@ -13609,6 +13605,10 @@ img {
           align-items: center;
   background: #fff;
   z-index: 3;
+}
+
+.c-Footer a:hover {
+  cursor: pointer;
 }
 
 #top h2 {
