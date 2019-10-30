@@ -1,10 +1,9 @@
-@php
-$header_pattern = 2;
-$footer_flg = true;
-@endphp
-@extends('layouts.default')
- 
-  @section('main')  
+<script>
+export default {
+  props: {
+    pattern: String
+  },
+  template: `
   <main class="u-conainer-y">
     <div class="container-fluid">
       
@@ -16,8 +15,8 @@ $footer_flg = true;
           <img class="pr-1" src="/images/search-icon-white.png" style="display: inline-block; vertical-align: sub;" alt="">
           はじめる
         </button>
-        @csrf
       </form>
     </div>
-  </main>
-  @endsection
+  </main>`
+}
+</script>

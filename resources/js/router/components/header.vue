@@ -1,12 +1,37 @@
 
 <script>
+  import { mapGetters } from 'vuex';
+  const usr = new URLSearchParams();
+  
   export default {
-    props: [
-       'pattern'
-    ],
+    props: {
+      //pattern: String
+    },
+    data: function () {
+      return {
+        pattern: "aaa",
+        test: 11
+      }
+    },      
+    computed: {
+      ...mapGetters([
+      'page_displaying/getPattern_Vuex'
+      // ...
+      ]),
+      //サインインか登録の描画判定のフラグです
+      page_pattern: function () {
+        //後ほどpropsを変化させて、propsでbutton表示判定させたい
+        this.pattern = this.$store.getters['page_displaying/getPattern_Vuex'];
+        return this.pattern;
+      },
+    },
     template: `
-      <header class="c-Header">
-        <h1 class="u-text-pink text-center">おすすめ<a class="c-right-icon" href="/search"><img src="/images/search-icon.png" alt=""></a></h1>
+      <header class="c-Header">{{ this.test }}
+        <h1 class="u-text-pink text-center">
+          <router-link class="c-right-icon" to='/search'>
+            <img src="/images/search-icon.png" alt="">
+          </router-link>
+        </h1>
         <a class="u-down-arrow u-txt-b d-block text-center mt-3" href="./filter.html">フィルター</a>
       </header>
     `

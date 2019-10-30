@@ -5,12 +5,15 @@ Vue.use(VueRouter)
 
 // 2.
 import top from './projects/top/top.vue';
+import home from './projects/home.vue';
+import search from './projects/search/search.vue';
 
 import footer from './components/footer.vue';
 import header from './components/header.vue';
 
+//import search_icon from './components/search_icon.vue';
 
-import home from './projects/home.vue';
+
 
 
 // 3.
@@ -36,7 +39,17 @@ const routes = [
     {
         path: '/home',
         components: {
-            c_header: header, c_main: home, c_footer: footer
+            c_header: header, 
+            c_main: home, 
+            c_footer: footer
+        }
+    },
+    {
+        path: '/search',
+        components: {
+            c_header: header, 
+            c_main: search, 
+            c_footer: footer
         }
     }
 ];

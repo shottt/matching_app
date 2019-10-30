@@ -7,7 +7,9 @@ import button_content from "./button-sign-register.vue";
 
 
   export default {
-    
+    props: {
+      pattern: String
+    },
     components: {
       main_content,
       button_content

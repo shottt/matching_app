@@ -2,7 +2,9 @@
     import { mapGetters } from 'vuex';
 
     export default {
-
+      props: {
+        pattern: String
+      },
       methods: {
         changeDisplay_Sign: function () {
           this.$store.dispatch('auth_displaying/sign')

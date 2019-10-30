@@ -6,12 +6,6 @@ const state = () => ({
     disiplay: 1
 })
 
-const mutations = {
-    change: function (state, flg) {
-
-        state.disiplay = flg;
-    },   
-}
 const actions = {
     sign: function (context) {
         context.commit('change', 1)
@@ -23,6 +17,14 @@ const actions = {
     repass: function (context) {
         context.commit('change', 3)
     },
+}
+
+
+const mutations = {
+    change: function (state, flg) {
+
+        state.disiplay = flg;
+    },   
 }
 
 const getters = {

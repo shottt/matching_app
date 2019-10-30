@@ -1,9 +1,9 @@
 
 <script>
 export default {
-    props: [
-       'pattern'
-    ],
+    props: {
+       'pattern': String
+    },
     template: `
     <footer class="c-Footer container">
         <ul class="nav">

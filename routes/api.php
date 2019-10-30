@@ -23,14 +23,14 @@ Route::group(['middleware' => 'api'], function() {
     Route::post('/ctrl_sign_in', function () {
         
         //サインインのコントローラに投げる
-        return view('/home/home');
+        //return view('/');
     });
 
     //サインイン axios経由
     Route::post('/ctrl_registration', function () {
 
         //サインインのコントローラに投げる
-        return view('/home/home');
+        //return view('/home/home');
     });
     
 });
