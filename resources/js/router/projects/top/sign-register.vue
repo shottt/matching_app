@@ -58,8 +58,7 @@
 
           //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
           this.$http.post('/api/ctrl_sign_in', {
-              email: this.sign_email,
-              pass:  this.sign_pass
+              usr
             })
             .then(res => {
               console.log("サインイン成功");
