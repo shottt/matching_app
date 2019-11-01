@@ -6,7 +6,7 @@ $footer_flg = false;
 @extends('layouts.default')
 
 @section('main')
-<main class="container u-conainer-y text-center">
+<main class="container u-container-y text-center">
   <h1>サインイン</h1>
   <img class="img-fluid u-mt-40" src="/images/man-1.png" alt="">
   <form action="" class="sign-Form mt-5">

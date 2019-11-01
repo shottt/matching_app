@@ -8,7 +8,7 @@ $footer_flg = true;
   
  
 @section('main')  
-  <main class="u-conainer-y text-center">
+  <main class="u-container-y text-center">
 
       <div class="c-Card-Hero">
         <img class="w-100" src="/images/avator1.png" alt="">

@@ -17,7 +17,7 @@
 
         <head></header>
 
-        <main class="container u-conainer-y text-center" id="main">
+        <main class="container u-container-y text-center" id="main">
 
           <sign-register></sign-register>
           

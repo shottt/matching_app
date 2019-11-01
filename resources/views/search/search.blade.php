@@ -5,7 +5,7 @@ $footer_flg = true;
 @extends('layouts.default')
  
   @section('main')  
-  <main class="u-conainer-y">
+  <main class="u-container-y">
     <div class="container-fluid">
       
       <form class="search-Form text-center" action="">

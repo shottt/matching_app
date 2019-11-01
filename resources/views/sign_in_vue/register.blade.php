@@ -6,7 +6,7 @@ $footer_flg = false;
 @extends('layouts.default')
 
   @section('main')
-  <main class="container u-conainer-y text-center" id="app1">
+  <main class="container u-container-y text-center" id="app1">
  
       <sign-register test="test"></sign-register>
   </main>

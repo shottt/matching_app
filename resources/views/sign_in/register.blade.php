@@ -6,7 +6,7 @@ $footer_flg = false;
 @extends('layouts.default')
 
   @section('main')
-  <main class="container u-conainer-y text-center">
+  <main class="container u-container-y text-center">
     <h1>新規登録</h1>
     <form action="" class="sign-Form mt-5 text-left">
       <label class="mt-2" for="name">氏名</label>
