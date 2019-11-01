@@ -22,11 +22,12 @@ Route::group(['middleware' => 'api'], function() {
     //サインイン axios経由
     
     Route::get('/ctrl_sign_in', function (Request $request) {
-        var_dump("ルーティング");
-        var_dump($request);
-       
+
+       var_dump("aaa");
+        $all = $request->all();
+        //var_dump($all);
         //サインインのコントローラに投げる
-        return view('/index');
+        return view($all);
     });
 
     //登録 axios経由

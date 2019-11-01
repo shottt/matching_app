@@ -2769,12 +2769,15 @@ var usr = new URLSearchParams();
 
         console.log(this.$http); //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
 
-        this.$http.get('http://localhost:8000/ctrl_sign_in', {
-          params: usr
+        this.$http.get('/api/ctrl_sign_in', {
+          params: usr,
+          headers: {
+            "Content-Type": "application/json"
+          }
         }).then(function (res) {
           console.log("サインイン成功");
           _this.json_data = res.data;
-          console.log(res.data); //描画のための画面判定値を更新
+          console.log(_this.json_data); //描画のための画面判定値を更新
 
           _this.$store.dispatch('page_displaying/pattern_home');
 
@@ -54654,8 +54657,8 @@ try {
  */
 
 
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); //window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 /*
 https://qiita.com/acro5piano/items/f33381fc60408abe9865
 */
@@ -55260,6 +55263,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 var routes = [{
   path: '/',
+  components: {
+    c_main: _projects_top_top_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }
+  /*
+  children: [
+     {
+      path: "",  components: {
+          content: main_content,
+          button: button_
+      } 
+     }
+  ]*/
+
+}, {
+  path: '/index',
   components: {
     c_main: _projects_top_top_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
