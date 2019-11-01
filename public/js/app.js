@@ -2769,15 +2769,15 @@ var usr = new URLSearchParams();
 
         console.log(this.$http); //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
 
-        this.$http.get('/api/ctrl_sign_in', {
-          params: usr,
-          headers: {
-            "Content-Type": "application/json"
-          }
+        this.$http.post('/api/ctrl_sign_in', {
+          email: this.sign_email,
+          pass: this.sign_pass
         }).then(function (res) {
           console.log("サインイン成功");
-          _this.json_data = res.data;
-          console.log(_this.json_data); //描画のための画面判定値を更新
+          _this.json_data = res.data; //取ってきたjsonの中身表示
+
+          console.log(_this.json_data.email);
+          console.log(_this.json_data.pass); //描画のための画面判定値を更新
 
           _this.$store.dispatch('page_displaying/pattern_home');
 
@@ -54665,9 +54665,12 @@ https://qiita.com/acro5piano/items/f33381fc60408abe9865
 
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
-  'X-Requested-With': 'XMLHttpRequest'
+  'X-Requested-With': 'XMLHttpRequest',
+  "Content-Type": "application/json" //'Authorization' : AUTH_TOKEN
+
 };
-Vue.prototype.$http = window.axios;
+Vue.prototype.$http = window.axios; //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

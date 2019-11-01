@@ -29,11 +29,13 @@ https://qiita.com/acro5piano/items/f33381fc60408abe9865
 */
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
-  'X-Requested-With': 'XMLHttpRequest'
+  'X-Requested-With': 'XMLHttpRequest',
+  "Content-Type": "application/json",
+  //'Authorization' : AUTH_TOKEN
 }
 Vue.prototype.$http = window.axios
 
-
+//axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

@@ -21,13 +21,14 @@ Route::group(['middleware' => 'api'], function() {
 
     //サインイン axios経由
     
-    Route::get('/ctrl_sign_in', function (Request $request) {
+    Route::post('/ctrl_sign_in', function (Request $request) {
 
-       var_dump("aaa");
-        $all = $request->all();
-        //var_dump($all);
+        $email = $request->input('email');
+        $pass = $request->input('pass');
+
+
         //サインインのコントローラに投げる
-        return view($all);
+        return response()->json(['email' => $email, 'pass' => $pass]);
     });
 
     //登録 axios経由

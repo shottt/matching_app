@@ -57,16 +57,18 @@
           console.log(this.$http);
 
           //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-          this.$http.get('/api/ctrl_sign_in', {
-              params: usr,
-              headers: {
-               "Content-Type": "application/json"
-              }
+          this.$http.post('/api/ctrl_sign_in', {
+              email: this.sign_email,
+              pass:  this.sign_pass
             })
             .then(res => {
               console.log("サインイン成功");
               this.json_data = res.data;
-              console.log(this.json_data);
+
+              //取ってきたjsonの中身表示
+              console.log(this.json_data.email);
+              console.log(this.json_data.pass);
+              
               //描画のための画面判定値を更新
               this.$store.dispatch('page_displaying/pattern_home')
               this.$router.push({ path: 'home' })
