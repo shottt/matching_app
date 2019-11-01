@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Post;
-use Illuminate\Support\Facades\Auth;
-
-class PostsController extends Controller
+class FriendsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +13,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-
-        return view('posts.index', [
-            'posts' => $posts,
-        ]);
+        //
     }
 
     /**
@@ -30,11 +23,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $post = new Post;
-
-        return view('posts.create', [
-            'post' => $post,
-        ]);
+        //
     }
 
     /**
@@ -45,14 +34,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post;
-        $user = Auth::user();
-        $post->user_id = $user->id;
-        $post->detail = $request->input('detail');
-        $post->send_date = date("Y/m/d H:i:s");
-        $post->save();
-
-        return redirect('/posts');
+        //
     }
 
     /**
@@ -63,11 +45,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
-
-        return view('posts.show', [
-            'post' => $post,
-        ]);
+        //
     }
 
     /**

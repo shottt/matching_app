@@ -23,9 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('profile');
             $table->string('location');
             $table->string('picture');
-            $table->string('friend');
             $table->string('review');
-            $table->string('block_user');
+            $table->integer('block_user');
             $table->rememberToken();
             $table->timestamps();
         });

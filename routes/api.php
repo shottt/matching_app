@@ -20,17 +20,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'api'], function() {
 
     //サインイン axios経由
-    Route::post('/ctrl_sign_in', function () {
+    // Route::post('/ctrl_sign_in', function () {
         
-        //サインインのコントローラに投げる
-        return view('/home/home');
-    });
+    //     //サインインのコントローラに投げる
+    //     return view('/home/home');
+    // });
+
+    Route::post('/ctrl_sign_in', 'Ajax\SigninController@show');
 
     //サインイン axios経由
-    Route::post('/ctrl_registration', function () {
+    // Route::post('/ctrl_registration', function () {
 
-        //サインインのコントローラに投げる
-        return view('/home/home');
-    });
-    
+    //     //サインインのコントローラに投げる
+    //     return view('/home/home');
+    // });
+    Route::post('/ctrl_registration','Ajax\RegistrationController@store');
 });

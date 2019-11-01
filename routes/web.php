@@ -72,7 +72,11 @@ Route::get('/', function () {
 });*/
 
 // 10/28追記（清水）
-Route::resource('posts', 'PostsController');
-Route::resource('schedules', 'SchedulesController');
-Route::resource('chats', 'ChatsController');
-Route::resource('messages', 'MessagesController');
+Route::group(['middleware' => ['auth']], function(){
+    Route::resource('posts', 'PostsController');
+    Route::resource('schedules', 'SchedulesController');
+    Route::resource('chats', 'ChatsController');
+    Route::resource('messages', 'MessagesController');
+    Route::resource('friends', 'FriendsController');
+});
+
