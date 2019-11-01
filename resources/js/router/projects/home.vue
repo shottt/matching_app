@@ -5,7 +5,7 @@
       pattern: String
     },
     template: `
-    <main class="u-conainer-y text-center">
+    <main class="u-container-y text-center">
       <article>
         <section>
           <div class="c-Card-Hero">

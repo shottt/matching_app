@@ -17,6 +17,27 @@ const actions = {
   pattern_search: function (context) {
       context.commit('change', "search")
   },
+  pattern_search_result: function (context) {
+    context.commit('change', "search_result")
+  },
+  pattern_settings: function (context) {
+    context.commit('change', "settings")
+  },
+
+  //settings page
+  pattern_set_Prof: function (context) {
+    context.commit('change', "set_Prof")
+  },
+  pattern_set_Pass: function (context) {
+    context.commit('change', "set_Pass")
+  },
+  pattern_set_Sign_out: function (context) {
+    context.commit('change', "set_Sign_out")
+  },
+  pattern_set_Unsub: function (context) {
+    context.commit('change', "set_Unsub")
+  },
+
 }
 
 const mutations = {

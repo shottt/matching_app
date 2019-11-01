@@ -15,7 +15,7 @@ import button_content from "./button-sign-register.vue";
       button_content
     },
     template: `
-      <main class="container u-conainer-y text-center">
+      <main class="container u-container-y text-center">
         <main_content></main_content>
         <button_content></button_content>
       </main>
@@ -25,7 +25,7 @@ import button_content from "./button-sign-register.vue";
 
 
 <!--
-<main class="container u-conainer-y text-center">
+<main class="container u-container-y text-center">
   <router-view　name=""content></router-view>
   <router-view　name=""button></router-view>
 </main>

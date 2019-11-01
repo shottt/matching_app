@@ -19,7 +19,8 @@ Auth::routes();
 //ログインのセッションかクッキーを判定して、
 //trueなら、Homeを描画できるようにする
 
-Route::get('/{any}', function () {
+Route::get('/{any}', function (Request $request) {
+   
     return view('/index');
 })->where('any', '.*');
 

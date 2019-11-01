@@ -7,14 +7,15 @@
   
   export default {
     props: {
-      pro_pattern: String
+      pro_pattern: String,
+      search_query: String
     },
     components: {
       search_icon,
     },
     data: function () {
       return {
-        pattern: "default",
+        pattern: "Setting",
         
       }
     },
@@ -32,54 +33,22 @@
       page_pattern: function () {
         
         this.pattern = this.$store.getters['page_displaying/getPattern_Vuex'];
+        console.log("headr_settings");
         console.log("computed : " + this.pattern);
         //return this.pattern;
         //return this.pattern;
       },
     },
-    beforeCreate: function () {
-      console.log("beforeCreate : " + this.pattern + "  " + this.page_pattern);
-    },
-    created: function () {
-      console.log("created : " + this.pattern + "  " + this.page_pattern);
-    },
-    beforeMount: function () {
-      console.log("beforeMount : " + this.pattern + "  " + this.page_pattern);
-    },
-    mounted: function () {
-      console.log("mounted : " + this.pattern + "  " + this.page_pattern);
-    },
-    beforeUpdate: function () {
-      console.log("beforeUpdate : " + this.pattern + "  " + this.page_pattern);
-    },
-    updated: function () {
-      console.log("updated : " + this.pattern + "  " + this.page_pattern);
-    },
-    activated: function () {
-      console.log("activated : " + this.pattern + "  " + this.page_pattern);
-    },
-    deactivated: function () {
-      console.log("deactivated : " + this.pattern + "  " + this.page_pattern);
-    },
-    beforeDestroy: function () {
-      console.log("beforeDestroy : " + this.pattern + "  " + this.page_pattern);
-    },
-    destroyed: function () {
-      console.log("destroyed : " + this.pattern);
-    },
 
 
+  //検索キーワード表示はまだ
 
     template: `
-      <header class="c-Header">
-        <h1 class="u-text-pink text-center">{{ pattern }}
-          <div @click="change_Page_Pattern">
-            <search_icon>
-            </search_icon>
-          </div>
-        </h1>
-        <a class="u-down-arrow u-txt-b d-block text-center mt-3" href="./filter.html">フィルター</a>
-      </header>
+    <header class="c-Header--short">
+      <div class="c-Header--short__inner">
+        <h1 class="u-text-pink text-center"> {{ $store.state.page_displaying.pattern }} </h1>
+      </div>
+    </header>
     `
   }
 

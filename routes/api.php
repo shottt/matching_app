@@ -20,16 +20,39 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'api'], function() {
 
     //サインイン axios経由
-    Route::post('/ctrl_sign_in', function () {
-        
+    
+    Route::get('/ctrl_sign_in', function (Request $request) {
+        var_dump("ルーティング");
+        var_dump($request);
+       
         //サインインのコントローラに投げる
-        //return view('/');
+        return view('/index');
     });
 
-    //サインイン axios経由
+    //登録 axios経由
     Route::post('/ctrl_registration', function () {
 
-        //サインインのコントローラに投げる
+        //登録のコントローラに投げる
+        //return view('/home/home');
+    });
+
+    //友達検索 axios経由
+    Route::post('/ctrl_search_for_frends', function () {
+
+        //検索のコントローラに投げる
+        //return view('/home/home');
+    });
+
+    
+    Route::post('/ctrl_change_pass', function () {
+
+   
+        //return view('/home/home');
+    });
+
+    Route::get('/ctrl_change_pass', function () {
+
+   
         //return view('/home/home');
     });
     

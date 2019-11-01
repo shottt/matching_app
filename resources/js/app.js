@@ -34,8 +34,8 @@ Vue.component('button-sign-register', require('./components/button-sign-register
  */
 
 const vue_body = new Vue({
-    //el: '#vue_body',
+    el: '#vue_body',
     store,
     router,
     
-}).$mount("#vue_body");
+});//.$mount("#vue_body");
