@@ -24,8 +24,8 @@ require('./bootstrap');
 
 
 
-Vue.component('sign-register', require('./components/sign-register.vue').default);
-Vue.component('button-sign-register', require('./components/button-sign-register.vue').default);
+//Vue.component('sign-register', require('./components/sign-register.vue').default);
+//Vue.component('button-sign-register', require('./components/button-sign-register.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

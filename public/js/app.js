@@ -1829,206 +1829,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/button-sign-register.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/button-sign-register.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  methods: {
-    changeDisplay_Sign: function changeDisplay_Sign() {
-      this.$store.dispatch('auth_displaying/sign');
-    },
-    changeDisplay_Regi: function changeDisplay_Regi() {
-      this.$store.dispatch('auth_displaying/register');
-    }
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['auth_displaying/getDisplay_Vuex' // ...
-  ]), {
-    display_flg: function display_flg() {
-      //後ほどpropsを変化させて、propsでbutton表示判定させたい
-      return this.$store.getters['auth_displaying/getDisplay_Vuex'];
-    }
-  })
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sign-register.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sign-register.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
- //import axios from 'axios';
-
-var usr = new URLSearchParams();
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    test: String
-  },
-  data: function data() {
-    return {
-      sign_email: "",
-      sign_pass: "",
-      name: "",
-      location: "",
-      email: "",
-      pass: "",
-      repass: "",
-      regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
-      json_data: "",
-      sign_errors: {},
-      errors: {}
-    };
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['auth_displaying/getDisplay_Vuex' // ...
-  ]), {
-    display_flg: function display_flg() {
-      //後ほどpropsを変化させて、propsでbutton表示判定させたい
-      return this.$store.getters['auth_displaying/getDisplay_Vuex'];
-    },
-    computed_erros: function computed_erros() {
-      return this.sign_errors;
-    }
-  }),
-  methods: {
-    doSign_in: function doSign_in() {
-      var _this = this;
-
-      console.log("button"); //validation まだ画面にエラーメッセージだせてない
-
-      this.null_check_Sign_Mail();
-      this.null_check_Sign_Pass();
-
-      if (Object.keys(this.sign_errors).length === 0) {
-        //Post値　準備
-        usr.append('email', this.sign_email);
-        usr.append('pass', this.sign_pass); //CSRFトークン送信準備
-        //let token = $('meta[name="csrf-token"]').attr('content');
-
-        console.log(this.$http); //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-
-        this.$http.post('http://localhost:8000/api/ctrl_sign_in', {
-          params: usr
-        }).then(function (res) {
-          console.log("成功");
-          _this.json_data = res.data;
-
-          _this.$router.push({
-            path: 'home'
-          });
-        })["catch"](function (err) {
-          return console.log(err);
-        })["finally"](function () {
-          delete _this.sign_errors.sign_email;
-          delete _this.sign_errors.sign_pass;
-          console.log('finally');
-        });
-      } else {
-        alert("予期せぬエラーが出ました。画面を更新してください");
-      }
-    },
-    null_check_Sign_Mail: function null_check_Sign_Mail() {
-      //メール形式判定
-      var result = this.sign_email.match(this.regexp_email);
-
-      if (result == null) {
-        this.sign_errors.sign_email = 'メール形式で入力してください。';
-      } else {
-        delete this.sign_errors.sign_email;
-      }
-    },
-    null_check_Sign_Pass: function null_check_Sign_Pass() {
-      if (this.sign_pass === "") {
-        this.sign_errors.sign_pass = 'パスワードを入力してください。';
-      } else {
-        delete this.sign_errors.sign_pass;
-      }
-    },
-    error_Pass: function error_Pass() {
-      if (this.pass === this.repass) {}
-
-      if (this.errors['pass']) {
-        this.pass === this.repass ? "" : this.errors['pass'] = "一致してません";
-      }
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/router/components/action-btn.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/router/components/action-btn.vue?vue&type=script&lang=js& ***!
@@ -2763,18 +2563,21 @@ var usr = new URLSearchParams();
 
       if (Object.keys(this.sign_errors).length === 0) {
         //Post値　準備
-        usr.append('email', this.sign_email);
-        usr.append('pass', this.sign_pass); //CSRFトークン送信準備
+        //usr.append('email', this.sign_email);
+        //usr.append('pass', this.sign_pass);
+        //CSRFトークン送信準備
         //let token = $('meta[name="csrf-token"]').attr('content');
+        console.log(this.usr); //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
 
-        console.log(this.$http); //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-
-        this.$http.get('http://localhost:8000/ctrl_sign_in', {
-          params: usr
+        this.$http.post('/api/ctrl_sign_in', {
+          email: this.sign_email,
+          pass: this.sign_pass
         }).then(function (res) {
           console.log("サインイン成功");
-          _this.json_data = res.data;
-          console.log(res.data); //描画のための画面判定値を更新
+          _this.json_data = res.data; //取ってきたjsonの中身表示
+
+          console.log(_this.json_data.email);
+          console.log(_this.json_data.pass); //描画のための画面判定値を更新
 
           _this.$store.dispatch('page_displaying/pattern_home');
 
@@ -2810,7 +2613,7 @@ var usr = new URLSearchParams();
         //let token = $('meta[name="csrf-token"]').attr('content');
         console.log(this.$http); //登録 jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
 
-        this.$http.post('http://localhost:8000/api/ctrl_registration', {
+        this.$http.post('/api/ctrl_registration', {
           name: this.name,
           location: this.location,
           email: this.email,
@@ -38181,342 +37984,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/button-sign-register.vue?vue&type=template&id=45f81bba&":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/button-sign-register.vue?vue&type=template&id=45f81bba& ***!
-  \***********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _vm.display_flg === 1
-      ? _c(
-          "a",
-          {
-            staticClass: "mb-80 text-center sign-To-Register",
-            attrs: { href: "" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.changeDisplay_Regi($event)
-              }
-            }
-          },
-          [_vm._v("新規登録しますか？")]
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.display_flg === 2
-      ? _c(
-          "a",
-          {
-            staticClass: "mb-80 text-center sign-To-Register",
-            attrs: { href: "" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.changeDisplay_Sign($event)
-              }
-            }
-          },
-          [_vm._v("サインインしますか？")]
-        )
-      : _vm._e()
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sign-register.vue?vue&type=template&id=fa497a10&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/sign-register.vue?vue&type=template&id=fa497a10& ***!
-  \****************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm.display_flg === 1
-    ? _c("div", [
-        _c("h1", [_vm._v("サインイン")]),
-        _vm._v(" "),
-        _c("img", {
-          staticClass: "img-fluid u-mt-40",
-          attrs: { src: "/images/man-1.png", alt: "" }
-        }),
-        _vm._v(" "),
-        _c("form", { staticClass: "sign-Form mt-5", attrs: { action: "" } }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.sign_email,
-                expression: "sign_email"
-              }
-            ],
-            staticClass: "u-bg-tr",
-            attrs: {
-              type: "email",
-              name: "email",
-              id: "",
-              placeholder: "メールアドレス"
-            },
-            domProps: { value: _vm.sign_email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.sign_email = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.sign_pass,
-                expression: "sign_pass"
-              }
-            ],
-            staticClass: "u-bg-tr mt-2",
-            attrs: {
-              type: "password",
-              name: "pass",
-              id: "",
-              placeholder: "パスワード"
-            },
-            domProps: { value: _vm.sign_pass },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.sign_pass = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-light w-100 u-text-pink mt-5",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.doSign_in($event)
-                }
-              }
-            },
-            [_vm._v("はじめる")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "text-white" }, [
-          _vm._v(_vm._s(_vm.$store.state.dispaly))
-        ])
-      ])
-    : _vm.display_flg === 2
-    ? _c("div", [
-        _c("h1", [_vm._v("新規登録")]),
-        _vm._v(" "),
-        _c(
-          "form",
-          { staticClass: "sign-Form mt-5 text-left", attrs: { action: "" } },
-          [
-            _c("label", { staticClass: "mt-2", attrs: { for: "name" } }, [
-              _vm._v("氏名")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.name,
-                  expression: "name"
-                }
-              ],
-              staticClass: "u-bg-tr text-left pl-2",
-              attrs: {
-                type: "text",
-                name: "name",
-                id: "name",
-                placeholder: "苗字と名前を入力してください。"
-              },
-              domProps: { value: _vm.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.name = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { staticClass: "mt-2", attrs: { for: "location" } }, [
-              _vm._v("住所")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.location,
-                  expression: "location"
-                }
-              ],
-              staticClass: "u-bg-tr text-left pl-2",
-              attrs: {
-                type: "text",
-                name: "location",
-                id: "location",
-                placeholder: "住所を入力してください。"
-              },
-              domProps: { value: _vm.location },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.location = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { staticClass: "mt-2", attrs: { for: "email" } }, [
-              _vm._v("メールアドレス")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.email,
-                  expression: "email"
-                }
-              ],
-              staticClass: "u-bg-tr text-left pl-2",
-              attrs: {
-                type: "email",
-                name: "email",
-                id: "email",
-                placeholder: "メールアドレスを入力してください。"
-              },
-              domProps: { value: _vm.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.email = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { staticClass: "mt-2", attrs: { for: "pass" } }, [
-              _vm._v("パスワード")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.pass,
-                  expression: "pass"
-                }
-              ],
-              staticClass: "u-bg-tr text-left pl-2",
-              attrs: {
-                type: "password",
-                name: "pass",
-                id: "pass",
-                placeholder: "パスワードを入力してください。"
-              },
-              domProps: { value: _vm.pass },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.pass = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.repass,
-                  expression: "repass"
-                }
-              ],
-              staticClass: "u-bg-tr text-left pl-2",
-              attrs: {
-                type: "password",
-                name: "repass",
-                id: "repass",
-                placeholder: "再度パスワードを入力してください。"
-              },
-              domProps: { value: _vm.repass },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.repass = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-light w-100 u-text-pink mt-5",
-                attrs: { type: "button" }
-              },
-              [_vm._v("新規登録")]
-            )
-          ]
-        )
-      ])
-    : _vm._e()
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -54609,15 +54076,15 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+//Vue.component('sign-register', require('./components/sign-register.vue').default);
+//Vue.component('button-sign-register', require('./components/button-sign-register.vue').default);
 
-
-Vue.component('sign-register', __webpack_require__(/*! ./components/sign-register.vue */ "./resources/js/components/sign-register.vue")["default"]);
-Vue.component('button-sign-register', __webpack_require__(/*! ./components/button-sign-register.vue */ "./resources/js/components/button-sign-register.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
 
 var vue_body = new Vue({
   el: '#vue_body',
@@ -54654,17 +54121,20 @@ try {
  */
 
 
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); //window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 /*
 https://qiita.com/acro5piano/items/f33381fc60408abe9865
 */
 
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
-  'X-Requested-With': 'XMLHttpRequest'
+  'X-Requested-With': 'XMLHttpRequest',
+  "Content-Type": "application/json" //'Authorization' : AUTH_TOKEN
+
 };
-Vue.prototype.$http = window.axios;
+Vue.prototype.$http = window.axios; //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -54678,144 +54148,6 @@ Vue.prototype.$http = window.axios;
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
-
-/***/ }),
-
-/***/ "./resources/js/components/button-sign-register.vue":
-/*!**********************************************************!*\
-  !*** ./resources/js/components/button-sign-register.vue ***!
-  \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _button_sign_register_vue_vue_type_template_id_45f81bba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button-sign-register.vue?vue&type=template&id=45f81bba& */ "./resources/js/components/button-sign-register.vue?vue&type=template&id=45f81bba&");
-/* harmony import */ var _button_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./button-sign-register.vue?vue&type=script&lang=js& */ "./resources/js/components/button-sign-register.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _button_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _button_sign_register_vue_vue_type_template_id_45f81bba___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _button_sign_register_vue_vue_type_template_id_45f81bba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/button-sign-register.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/button-sign-register.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/button-sign-register.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_button_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./button-sign-register.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/button-sign-register.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_button_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/button-sign-register.vue?vue&type=template&id=45f81bba&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/components/button-sign-register.vue?vue&type=template&id=45f81bba& ***!
-  \*****************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_button_sign_register_vue_vue_type_template_id_45f81bba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./button-sign-register.vue?vue&type=template&id=45f81bba& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/button-sign-register.vue?vue&type=template&id=45f81bba&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_button_sign_register_vue_vue_type_template_id_45f81bba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_button_sign_register_vue_vue_type_template_id_45f81bba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/sign-register.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/components/sign-register.vue ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _sign_register_vue_vue_type_template_id_fa497a10___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sign-register.vue?vue&type=template&id=fa497a10& */ "./resources/js/components/sign-register.vue?vue&type=template&id=fa497a10&");
-/* harmony import */ var _sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sign-register.vue?vue&type=script&lang=js& */ "./resources/js/components/sign-register.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _sign_register_vue_vue_type_template_id_fa497a10___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _sign_register_vue_vue_type_template_id_fa497a10___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/sign-register.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/sign-register.vue?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/sign-register.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./sign-register.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sign-register.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/sign-register.vue?vue&type=template&id=fa497a10&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/sign-register.vue?vue&type=template&id=fa497a10& ***!
-  \**********************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_template_id_fa497a10___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./sign-register.vue?vue&type=template&id=fa497a10& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/sign-register.vue?vue&type=template&id=fa497a10&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_template_id_fa497a10___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_template_id_fa497a10___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
 
 /***/ }),
 
@@ -55260,6 +54592,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 var routes = [{
   path: '/',
+  components: {
+    c_main: _projects_top_top_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }
+  /*
+  children: [
+     {
+      path: "",  components: {
+          content: main_content,
+          button: button_
+      } 
+     }
+  ]*/
+
+}, {
+  path: '/index',
   components: {
     c_main: _projects_top_top_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }

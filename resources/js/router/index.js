@@ -41,6 +41,21 @@ const routes = [
         ]*/
     },
     {
+        path: '/index',
+        components: {
+            c_main: top
+        },
+        /*
+        children: [
+           {
+            path: "",  components: {
+                content: main_content,
+                button: button_
+            } 
+           }
+        ]*/
+    },
+    {
         path: '/home',
         components: {
             c_header: header, 

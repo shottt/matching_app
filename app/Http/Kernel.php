@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             
-            //CSRF保護を起動　webと同じものを追記
+            //CSRF保護を起動　webと同じものを追記/*
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,

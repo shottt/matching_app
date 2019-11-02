@@ -49,22 +49,25 @@
         if (Object.keys(this.sign_errors).length === 0) {
           
           //Post値　準備
-          usr.append('email', this.sign_email);
-          usr.append('pass', this.sign_pass);
+          //usr.append('email', this.sign_email);
+          //usr.append('pass', this.sign_pass);
 
           //CSRFトークン送信準備
           //let token = $('meta[name="csrf-token"]').attr('content');
-          console.log(this.$http);
+          console.log(this.usr);
 
           //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-          this.$http.get('http://localhost:8000/ctrl_sign_in', {
-              params: usr,
+          this.$http.post('/api/ctrl_sign_in', {
+              email: this.sign_email,
+              pass: this.sign_pass
             })
             .then(res => {
-
               console.log("サインイン成功");
               this.json_data = res.data;
-              console.log(res.data);
+
+              //取ってきたjsonの中身表示
+              console.log(this.json_data.email);
+              console.log(this.json_data.pass);
               
               //描画のための画面判定値を更新
               this.$store.dispatch('page_displaying/pattern_home')
@@ -101,7 +104,7 @@
           console.log(this.$http);
 
           //登録 jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-          this.$http.post('http://localhost:8000/api/ctrl_registration', {
+          this.$http.post('/api/ctrl_registration', {
               name: this.name,
               location: this.location,
               email:this.email,
