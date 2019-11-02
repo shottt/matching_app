@@ -25,8 +25,7 @@ Route::group(['middleware' => 'api'], function() {
 
         $email = $request->input('email');
         $pass = $request->input('pass');
-
-
+        
         //サインインのコントローラに投げる
         return response()->json(['email' => $email, 'pass' => $pass]);
     });
