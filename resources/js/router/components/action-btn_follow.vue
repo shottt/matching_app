@@ -52,7 +52,7 @@ export default {
     }
   },
   template: `
-    <button @click="search_for" type="button" class="btn w-100 bg-main u-mt-200 position-relative text-light">
+    <button @click="search_for" type="button" class="btn w-100 bg-main position-relative text-light">
 
      <router-link :to="{ name: 'search_result', params: { query : search_query } }">
       <img class="pr-1" src="/images/search-icon-white.png" style="display: inline-block; vertical-align: sub;" alt="">

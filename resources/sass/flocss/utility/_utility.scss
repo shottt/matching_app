@@ -217,6 +217,14 @@ display: none;
     margin-right: #{$i * 10 + "px"};
   }
 }
+.u-mx-a {
+  margin-left: auto;
+  margin-right: auto;
+}
+.u-my-a {
+  margin-top: auto;
+  margin-bottom: auto;
+}
 
 /*=====================
       レイアウト組
@@ -419,6 +427,7 @@ display: none;
 /*=====================
   ページごとのフォント
 =======================*/
+@import "./_area";
 @import "./_text.scss";
 @import "./icon";
 @import "./border";

@@ -12368,6 +12368,16 @@ a.text-dark:focus {
   margin-right: 200px;
 }
 
+.u-mx-a {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.u-my-a {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 /*=====================
       レイアウト組
 =======================*/
@@ -13015,6 +13025,14 @@ a.text-dark:focus {
 /*=====================
   ページごとのフォント
 =======================*/
+
+.u-bg-grey3 {
+  background: #F2F6F8;
+}
+
+.u-bg-w {
+  background: #FFFFFF;
+}
 
 .u-text-pink {
   color: #F271A8;

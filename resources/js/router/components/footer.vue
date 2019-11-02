@@ -47,7 +47,7 @@ export default {
             </li>
 
             <li class="nav-item col" @click="change_Page_Pattern('settings')">
-                <router-link class="nav-link" :to="{name: 'settings'}">
+                <router-link class="nav-link" to="/settings">
                     <img src="/images/footer/settings-icon.png" alt="" class="img-fluid">
                 </router-link>
             </li>

@@ -25,6 +25,9 @@ const actions = {
   },
 
   //settings page
+  pattern_my_Prof: function (context) {
+    context.commit('change', "my_Prof")
+  },
   pattern_set_Prof: function (context) {
     context.commit('change', "set_Prof")
   },
