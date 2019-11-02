@@ -18,11 +18,15 @@ export default {
       this.$router.push({ path: '/my_profile' })
     },
     change_Page_Pattern: function (pattern) {
-      console.log("change_Page_Pattern");
-      this.pattern = this.$store.dispatch('page_displaying/pattern_' + pattern);
+
+      //settings
+      console.log("setting:change_Page_Pattern");
+      this.$store.dispatch('page_displaying/pattern_' + pattern);
+
+
       //console.log("1 :" + this.pattern);
       //console.log("2 :" + this.$store.getters['page_displaying/getPattern_Vuex']);
-
+    
       //console.log(this.$store.getters['page_displaying/getPattern_Vuex']);
     },
     doSign_out: function () {
@@ -76,9 +80,10 @@ export default {
     <main class="u-container-y--short">
       <div class="container">
 
-        <div @click="change_Page_Pattern('my_Prof')">
-          <router-link class="d-block mt-3" to="/my_profile">プロフィール確認する</router-link>
-        </div>
+
+        <router-link class="d-block mt-3" to="/my_profile">
+          <div @click="change_Page_Pattern('my_Prof')">プロフィール確認する</div>
+        </router-link>
 
         <div @click="change_Page_Pattern('set_Prof')">
           <router-link class="d-block mt-3" to="/set_Prof">プロフィール編集</router-link>
