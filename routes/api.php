@@ -20,15 +20,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'api'], function() {
 
     //サインイン axios経由
-    Route::post('/ctrl_sign_in', function (Request $request) {
+    // Route::post('/ctrl_sign_in', function (Request $request) {
 
-        $email = $request->input('email');
-        $pass = $request->input('pass');
+    //     $email = $request->input('email');
+    //     $pass = $request->input('pass');
         
-        //サインインのコントローラに投げる
-        return response()->json(['email' => $email, 'pass' => $pass]);
-    });
-    // Route::post('/ctrl_sign_in', 'Ajax\SigninController@show');
+    //     //サインインのコントローラに投げる
+    //     return response()->json(['email' => $email, 'pass' => $pass]);
+    // });
+    Route::post('/ctrl_sign_in', 'Ajax\SigninController@show');
 
     //サインイン axios経由
     // Route::post('/ctrl_registration', function () {
@@ -36,22 +36,23 @@ Route::group(['middleware' => 'api'], function() {
     //     //サインインのコントローラに投げる
     //     return view('/home/home');
     // });
-    Route::post('/ctrl_registration','Ajax\RegistrationController@store');
     
     // Route::get('/ctrl_sign_in', function (Request $request) {
     //     var_dump("ルーティング");
     //     var_dump($request);
        
+    
     //     //サインインのコントローラに投げる
     //     return view('/index');
     // });
 
     //登録 axios経由
-    Route::post('/ctrl_registration', function () {
+    // Route::post('/ctrl_registration', function () {
 
-        //登録のコントローラに投げる
-        //return view('/home/home');
-    });
+    //     //登録のコントローラに投げる
+    //     //return view('/home/home');
+    // });
+    Route::post('/ctrl_registration','Ajax\RegistrationController@store');
 
     //友達検索 axios経由
     Route::post('/ctrl_search_for_frends', function () {

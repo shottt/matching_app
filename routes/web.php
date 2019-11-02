@@ -72,7 +72,7 @@ Route::get('/', function () {
     return view('/index');
 });*/
 
-// 10/28追記（清水）
+// laravelのみの処理
 Route::group(['middleware' => ['auth']], function(){
     Route::resource('posts', 'PostsController');
     Route::resource('schedules', 'SchedulesController');

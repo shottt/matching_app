@@ -21,10 +21,11 @@ class RegistrationController extends Controller
         $user->name = $request->input('name');
         $user->location = $request->input('location');
         $user->email = $request->input('email');
-        $user->password = $request->input('pass');
-        $user->save();
+        $user->password = bcrypt($request->input('pass'));
+        $result = $user->save();
 
-        return redirect('/home/home');
+        $data = response()->json($result);
+        return $data;
 
     }
 }

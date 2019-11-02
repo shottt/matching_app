@@ -12,10 +12,12 @@ class SigninController extends Controller
         
         $email = $request->input('email');
         $pass = $request->input('pass');
-        $user = User::where('email', $email)->where('password', $pass)->get();
-
-        $data = response()->json($user[0]);
-        return $data;
+        $user = User::where('email', $email)->where('password', $pass)->get()->toArray();
+        
+        $auth_flg = (!empty($user)) ? true : false;
+        $data = response()->json($user);
+        
+        return [$auth_flg, $data];
         
     }
 }
