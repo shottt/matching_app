@@ -22,7 +22,7 @@
     methods: {
       change_Page_Pattern: function () {
         console.log("change_Page_Pattern");
-        this.$store.dispatch('page_displaying/pattern_search')
+        this.$store.dispatch('page_displaying/pattern_search');
       }
     },
     computed: {
