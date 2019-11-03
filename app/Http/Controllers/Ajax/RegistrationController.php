@@ -10,11 +10,11 @@ class RegistrationController extends Controller
 {
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:191',
-            'location' => 'required|max:191',
-            'email' => 'required|max:191',
-            'pass' => 'required|max:191',
+        $request->validate([
+            'name' => 'required|max:255',
+            'location' => 'required|max:255',
+            'email' => 'required|max:255',
+            'pass' => 'required|max:255',
         ]);
 
         $user = new User;

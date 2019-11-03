@@ -50,14 +50,15 @@ Route::group(['middleware' => 'api'], function() {
 
     
     //settings 
-    Route::post('/ctrl_set_prof', function (Request $request) {
-        //プロフィール編集
-        //user_idでひっかけてプロフィールを更新
-        $user_id = $request->input('user_id');
-        $prof_data = $request->input('prof_data');
+    // Route::post('/ctrl_set_prof', function (Request $request) {
+    //     //プロフィール編集
+    //     //user_idでひっかけてプロフィールを更新
+    //     $user_id = $request->input('user_id');
+    //     $prof_data = $request->input('prof_data');
         
-        return response()->json(['user_id' => $user_id, 'prof_data' => $prof_data]);
-    });
+    //     return response()->json(['user_id' => $user_id, 'prof_data' => $prof_data]);
+    // });
+    Route::post('/ctrl_set_prof', 'Ajax\SetprofController@update');
     Route::post('/ctrl_change_pass', function (Request $request) {
 
         $user_id = $request->input('user_id');
