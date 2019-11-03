@@ -18,6 +18,11 @@ class RegistrationController extends Controller
         ]);
 
         $user = new User;
+
+        // fillメソッド使用（$fillableで入力するデータを指定）
+        // $result = $user->fill($request->all()->save());
+
+        // 1つ1つ入力
         $user->name = $request->input('name');
         $user->location = $request->input('location');
         $user->email = $request->input('email');
