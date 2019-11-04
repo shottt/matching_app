@@ -19,31 +19,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'api'], function() {
 
-    // //サインイン axios経由
-    // Route::post('/ctrl_sign_in', function (Request $request) {
-
-    //      $email = $request->input('email');
-    //      $pass = $request->input('pass');
-        
-    //      //サインインのコントローラに投げる
-    //      return response()->json(['email' => $email, 'pass' => $pass]);
-    // });
-
-
-    // 
+    /*
+    from name, pass
+    return  user_id, result_flag;
+    */
     Route::post('/ctrl_sign_in', 'Ajax\UsersController@show');
 
-
-    //登録 axios経由
-    // Route::post('/ctrl_registration', function () {
-
-    // //     //登録のコントローラに投げる
-    // //     //return view('/home/home');
-    // // });
+    /*
+    from
+        name,
+        location,
+        email,
+        pass
+    return user_id, result_flag
+    */
     Route::post('/ctrl_registration','Ajax\UsersController@store');
 
-
-    
     //友達検索
     Route::post('/ctrl_search_for_frends', function () {
 
@@ -51,30 +42,23 @@ Route::group(['middleware' => 'api'], function() {
         //return view('/home/home');
     });
 
-    
-    //settings 
-    Route::post('/ctrl_set_prof', function (Request $request) {
-        //プロフィール編集
-        //user_idでひっかけてプロフィールを更新
-        $user_id = $request->input('user_id');
-        $prof_data = $request->input('prof_data');
-        
-    //     return response()->json(['user_id' => $user_id, 'prof_data' => $prof_data]);
-    });
-
+    //settings フォルダ
+    /*
+    from user_id, object: prof_data
+    return result_flag
+    */
     Route::post('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
 
-    // Route::post('/ctrl_change_pass', function (Request $request) {
-
-    //     $user_id = $request->input('user_id');
-    //     $pass_now = $request->input('pass_now');
-    //     $pass_new = $request->input('pass_new');
-        
-    //     return response()->json(['user_id' => $user_id, 'pass_now' => $pass_now, 'pass_new' => $pass_new]);
-    //     //return view('/home/home');
-    // });
+    /*
+    from user_id,pass_now,pass_new
+    return result_flag
+    */
     Route::post('/ctrl_change_pass', 'Ajax\UsersController@change_pass');
 
+    /*
+    from user_id,
+    return result_flag
+    */
     Route::post('/ctrl_sign_out', function (Request $request) {
 
         $email = $request->input('email');
@@ -82,6 +66,11 @@ Route::group(['middleware' => 'api'], function() {
   
         return response()->json(['email' => $email, 'pass' => $pass]);
     });
+
+    /*
+    from user_id,
+    return result_flag
+    */
     Route::post('/ctrl_unsubscription', function (Request $request) {
         //user_idを受け取って、コントローラ通してレコード論理削除
    
