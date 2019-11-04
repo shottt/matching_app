@@ -19,16 +19,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'api'], function() {
 
-    //サインイン axios経由
-    /*
-    Route::post('/ctrl_sign_in', function (Request $request) {
+    // //サインイン axios経由
+    // Route::post('/ctrl_sign_in', function (Request $request) {
 
-         $email = $request->input('email');
-         $pass = $request->input('pass');
+    //      $email = $request->input('email');
+    //      $pass = $request->input('pass');
         
-         //サインインのコントローラに投げる
-         return response()->json(['email' => $email, 'pass' => $pass]);
-    });*/
+    //      //サインインのコントローラに投げる
+    //      return response()->json(['email' => $email, 'pass' => $pass]);
+    // });
 
 
     // 
@@ -41,7 +40,7 @@ Route::group(['middleware' => 'api'], function() {
     // //     //登録のコントローラに投げる
     // //     //return view('/home/home');
     // // });
-    Route::post('/ctrl_registration','Ajax\RegistrationController@store');
+    Route::post('/ctrl_registration','Ajax\UsersController@store');
 
 
     
@@ -60,17 +59,22 @@ Route::group(['middleware' => 'api'], function() {
         $user_id = $request->input('user_id');
         $prof_data = $request->input('prof_data');
         
-        return response()->json(['user_id' => $user_id, 'prof_data' => $prof_data]);
+    //     return response()->json(['user_id' => $user_id, 'prof_data' => $prof_data]);
     });
-    Route::post('/ctrl_change_pass', function (Request $request) {
 
-        $user_id = $request->input('user_id');
-        $pass_now = $request->input('pass_now');
-        $pass_new = $request->input('pass_new');
+    Route::post('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
+
+    // Route::post('/ctrl_change_pass', function (Request $request) {
+
+    //     $user_id = $request->input('user_id');
+    //     $pass_now = $request->input('pass_now');
+    //     $pass_new = $request->input('pass_new');
         
-        return response()->json(['user_id' => $user_id, 'pass_now' => $pass_now, 'pass_new' => $pass_new]);
-        //return view('/home/home');
-    });
+    //     return response()->json(['user_id' => $user_id, 'pass_now' => $pass_now, 'pass_new' => $pass_new]);
+    //     //return view('/home/home');
+    // });
+    Route::post('/ctrl_change_pass', 'Ajax\UsersController@change_pass');
+
     Route::post('/ctrl_sign_out', function (Request $request) {
 
         $email = $request->input('email');

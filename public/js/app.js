@@ -3082,8 +3082,7 @@ var usr = new URLSearchParams();
       //後ほどpropsを変化させて、propsでbutton表示判定させたい
       return this.$store.getters['auth_displaying/getDisplay_Vuex'];
     },
-    computed_erros: function computed_erros() {
-      return this.sign_errors;
+    computed_erros: function computed_erros() {//return this.sign_errors;
     }
   }),
   mounted: function mounted() {
@@ -3109,8 +3108,10 @@ var usr = new URLSearchParams();
           console.log("サインイン成功");
           _this.json_data = res.data; //取ってきたjsonの中身表示
 
-          console.log(_this.json_data.email);
-          console.log(_this.json_data.pass); //描画のための画面判定値を更新
+          console.log("サインデータ表示");
+          console.log(_this.json_data); //console.log(this.json_data.email);
+          //console.log(this.json_data.pass);
+          //描画のための画面判定値を更新
 
           _this.$store.dispatch('page_displaying/pattern_home');
 
@@ -3120,8 +3121,8 @@ var usr = new URLSearchParams();
         })["catch"](function (err) {
           return console.log(err);
         })["finally"](function () {
-          delete _this.sign_errors.sign_email;
-          delete _this.sign_errors.sign_pass;
+          //delete this.sign_errors.sign_email;
+          //delete this.sign_errors.sign_pass;
           console.log('finally');
         });
       } else {
@@ -3131,10 +3132,10 @@ var usr = new URLSearchParams();
     doRegisteration: function doRegisteration() {
       var _this2 = this;
 
-      console.log("button"); //validation あとでやる
+      console.log("登録開始"); //validation あとでやる
       //まだ画面にエラーメッセージもまだ
 
-      if (Object.keys(this.sign_errors).length === 0) {
+      if (Object.keys(this.errors).length === 0) {
         //Post値　準備
 
         /*
@@ -3152,6 +3153,7 @@ var usr = new URLSearchParams();
           //成功
           console.log("登録成功");
           _this2.json_data = res.data;
+          console.log(_this2.json_data);
 
           _this2.$router.push({
             path: 'home'
@@ -3160,30 +3162,26 @@ var usr = new URLSearchParams();
         })["catch"](function (err) {
           console.log(err);
         })["finally"](function () {
-          delete _this2.sign_errors.sign_email;
-          delete _this2.sign_errors.sign_pass;
+          //delete this.sign_errors.sign_email;
+          //delete this.sign_errors.sign_pass;
           console.log('finally');
         });
       } else {
-        alert();
+        alert(1111);
       }
     },
     null_check_Sign_Mail: function null_check_Sign_Mail() {
       //メール形式判定
       var result = this.sign_email.match(this.regexp_email);
 
-      if (result == null) {
-        this.sign_errors.sign_email = 'メール形式で入力してください。';
-      } else {
-        delete this.sign_errors.sign_email;
-      }
+      if (result == null) {//this.sign_errors.sign_email = 'メール形式で入力してください。';
+      } else {//delete this.sign_errors.sign_email;
+        }
     },
     null_check_Sign_Pass: function null_check_Sign_Pass() {
-      if (this.sign_pass === "") {
-        this.sign_errors.sign_pass = 'パスワードを入力してください。';
-      } else {
-        delete this.sign_errors.sign_pass;
-      }
+      if (this.sign_pass === "") {//this.sign_errors.sign_pass = 'パスワードを入力してください。';
+      } else {//delete this.sign_errors.sign_pass;
+        }
     },
     error_Pass: function error_Pass() {
       if (this.pass === this.repass) {}

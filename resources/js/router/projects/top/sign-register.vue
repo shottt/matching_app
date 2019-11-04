@@ -37,7 +37,7 @@
         },
 
         computed_erros: function () {
-          return this.sign_errors;
+          //return this.sign_errors;
         },
     },
     mounted: function () {
@@ -68,8 +68,10 @@
               this.json_data = res.data;
 
               //取ってきたjsonの中身表示
-              console.log(this.json_data.email);
-              console.log(this.json_data.pass);
+              console.log("サインデータ表示");
+              console.log(this.json_data);
+              //console.log(this.json_data.email);
+              //console.log(this.json_data.pass);
               
               //描画のための画面判定値を更新
               this.$store.dispatch('page_displaying/pattern_home')
@@ -77,8 +79,8 @@
             })
             .catch(err => console.log(err))
             .finally(() => {
-              delete this.sign_errors.sign_email;
-              delete this.sign_errors.sign_pass;
+              //delete this.sign_errors.sign_email;
+              //delete this.sign_errors.sign_pass;
               console.log('finally')
             });
 
@@ -87,12 +89,12 @@
         }
       },
       doRegisteration: function () {
-        console.log("button");
+        console.log("登録開始");
 
         //validation あとでやる
         //まだ画面にエラーメッセージもまだ
 
-        if (Object.keys(this.sign_errors).length === 0) {
+        if (Object.keys(this.errors).length === 0) {
           
           //Post値　準備
           /*
@@ -114,6 +116,7 @@
               //成功
               console.log("登録成功");
               this.json_data = res.data;
+              console.log(this.json_data);
               this.$router.push({ path: 'home' })
 
               //失敗 msg=>メールとパスが不一致です。
@@ -122,13 +125,13 @@
               console.log(err);
             })
             .finally(() => {
-              delete this.sign_errors.sign_email;
-              delete this.sign_errors.sign_pass;
+              //delete this.sign_errors.sign_email;
+              //delete this.sign_errors.sign_pass;
               console.log('finally')
             });
 
         } else {
-          alert();
+          alert(1111);
         }
       },
 
@@ -136,16 +139,16 @@
         //メール形式判定
         var result = this.sign_email.match(this.regexp_email);
         if (result == null) {
-          this.sign_errors.sign_email = 'メール形式で入力してください。';
+          //this.sign_errors.sign_email = 'メール形式で入力してください。';
         } else {
-          delete this.sign_errors.sign_email;
+          //delete this.sign_errors.sign_email;
         }
       },
       null_check_Sign_Pass: function () {
         if (this.sign_pass === "") {
-          this.sign_errors.sign_pass = 'パスワードを入力してください。';
+          //this.sign_errors.sign_pass = 'パスワードを入力してください。';
         } else {
-          delete this.sign_errors.sign_pass;
+          //delete this.sign_errors.sign_pass;
         }
       },
 
