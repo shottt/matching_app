@@ -14,11 +14,11 @@ class UsersController extends Controller
         $pass = $request->input('pass');
         $user = User::where('email', $email)->where('password', $pass)->get()->toArray();
         
-        $auth_flg = (!empty($user)) ? true : false;
+        //$auth_flg = (!empty($user)) ? true : false;
         $data = response()->json($user);
         
-        return [$auth_flg, $data];
-        
+        //return [$auth_flg, $data];
+        return $data;
     }
 
     public function store(Request $request)
