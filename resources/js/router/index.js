@@ -194,6 +194,7 @@ const routes = [
         },
 
     },
+    /*
     {
         path: '/set_Prof', name: 'set_Prof',
         components: {
@@ -202,7 +203,7 @@ const routes = [
             c_footer: footer
         },
 
-    },
+    },*/
 
     {
         path: '/change_pass', name: 'change_pass',

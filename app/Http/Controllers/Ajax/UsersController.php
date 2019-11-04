@@ -9,7 +9,7 @@ use App\User;
 class UsersController extends Controller
 {
     public function show(Request $request){
-        
+
         $email = $request->input('email');
         $pass = $request->input('pass');
         $user = User::where('email', $email)->where('password', $pass)->get()->toArray();
