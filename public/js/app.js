@@ -2674,6 +2674,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     action_btn: _components_action_btn_follow_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['page_displaying/getPattern_Vuex', 'user_info/getUser_id'])),
+  mounted: function mounted() {
+    this.$nextTick(function () {
+      // ビュー全体がレンダリングされた後にのみ実行されるコード
+      console.log("about_me : next trick");
+      this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
+    });
+  },
   methods: {
     change_Page_Pattern: function change_Page_Pattern(pattern) {
       console.log("change_Page_Pattern");
@@ -2845,7 +2852,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.$nextTick(function () {
       // ビュー全体がレンダリングされた後にのみ実行されるコード
-      console.log("next trick");
+      console.log("profile : next trick");
       this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
     });
   },
@@ -2854,7 +2861,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('page_displaying/pattern_set_' + pattern);
     }
   },
-  template: "\n    <main class=\"text-center u-bg-w u-pb-180\">\n      <div class=\"c-Card-Hero\">\n        <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n        <dl class=\"c-Card-Hero__detail text-center\">\n          <dt class=\"\">\u9234\u6728 \u82B1\u5B50</dt>\n          <dd style=\"opacity: 0.5;\">\u5199\u771F\u5BB6,\u5927\u962A</dd>\n          <dd class=\"mt-2 mb-4\">\u307B\u3057</dd>\n        </dl>\n      </div>\n      {{ pattern_data }}\n      <div @click=\"change_Page_Pattern('Prof')\">\n        <router-link class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/set_Prof\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6</router-link>\n      </div>\n      \n      <div class=\"container-fluid profile-Sticy u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n              <router-link to=\"/my_frends\">\n                <p>111</p>\n                <p>\u53CB\u9054</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n              <router-link to=\"/my_reviews\">\n                <p>333</p>\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n                <router-link to=\"/my_posts\">\n                  <p>2232</p>\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n\n    \u3000<router-view name=\"my_profile\"></router-view>\n      <router-view name=\"my_frends\"></router-view>\n      <router-view name=\"frend_reviews\"></router-view>\n      <router-view name=\"my_posts\"></router-view>\n\n    </main>\n    "
+  template: "\n    <main class=\"text-center u-bg-w u-pb-180\">\n      <div class=\"c-Card-Hero\">\n        <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n        <dl class=\"c-Card-Hero__detail text-center\">\n          <dt class=\"\">\u9234\u6728 \u82B1\u5B50</dt>\n          <dd style=\"opacity: 0.5;\">\u5199\u771F\u5BB6,\u5927\u962A</dd>\n          <dd class=\"mt-2 mb-4\">\u307B\u3057</dd>\n        </dl>\n      </div>\n      <div @click=\"change_Page_Pattern('Prof')\">\n        <router-link class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/set_Prof\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6</router-link>\n      </div>\n      \n      <div class=\"container-fluid profile-Sticy u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n              <router-link to=\"/my_frends\">\n                <p>111</p>\n                <p>\u53CB\u9054</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n              <router-link to=\"/my_reviews\">\n                <p>333</p>\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n                <router-link to=\"/my_posts\">\n                  <p>2232</p>\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n\n    \u3000<router-view name=\"my_profile\"></router-view>\n      <router-view name=\"my_frends\"></router-view>\n      <router-view name=\"frend_reviews\"></router-view>\n      <router-view name=\"my_posts\"></router-view>\n\n    </main>\n    "
 });
 
 /***/ }),
@@ -2984,7 +2991,7 @@ var usr = new URLSearchParams();
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['page_displaying/getPattern_Vuex', 'user_info/getUser_id'])),
-  template: "\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n\n\n        <router-link class=\"d-block mt-3\" to=\"/my_profile\">\n          <div @click=\"change_Page_Pattern('my_Prof')\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u78BA\u8A8D\u3059\u308B</div>\n        </router-link>\n\n        <div @click=\"change_Page_Pattern('set_Prof')\">\n          <router-link class=\"d-block mt-3\" to=\"/set_Prof\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6</router-link>\n        </div>\n\n        <div @click=\"change_Page_Pattern('set_Pass')\">\n          <router-link class=\"d-block my-3\" to=\"/set_Pass\" >\u30D1\u30B9\u30EF\u30FC\u30C9\u5909\u66F4</router-link>\n        </div>\n\n        <p class=\"d-block my-3\" data-toggle=\"modal\" data-target=\"#sign_out\">\n          \u30B5\u30A4\u30F3\u30A2\u30A6\u30C8\n        </p>\n\n        <p class=\"d-block my-3\" data-toggle=\"modal\" data-target=\"#unSub\">\n          \u9000\u4F1A\u51E6\u7406\n        </p>\n\n\n\n\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"sign_out\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"sign_outLabel\">\n          <div class=\"modal-dialog modal-margin\" role=\"document\">\n            <div class=\"modal-content w-75 u-mx-a p-4 text-center\">\n              <dl>\n                <dt id=\"exampleModalLabel\" class=\"modal-title u-txt-b\">\u30B5\u30A4\u30F3\u30A2\u30A6\u30C8\u3057\u307E\u3059\u304B\uFF1F</dt>\n                <dd class=\"u-txt-b\">Are you sure you wish to sign out?</dd>\n              </dl>\n              <div class=\"sing_out_button\">\n                <a @click.prevent=\"doSign_out\" class=\"u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u306F\u3044</a>\n                <a class=\"u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u3044\u3044\u3048</a>\n              </div>\n            </div><!-- /.modal-content -->\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"unSub\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"sign_outLabel\">\n          <div class=\"modal-dialog modal-margin\" role=\"document\">\n            <div class=\"modal-content w-75 u-mx-a p-4 text-center\">\n              <dl>\n                <dt id=\"exampleModalLabel\" class=\"modal-title u-txt-b\">\u672C\u5F53\u306B\u9000\u4F1A\u3055\u308C\u307E\u3059\u304B\uFF1F</dt>\n                <dd class=\"u-txt-b\">Are you sure you wish to unbSubscribe ?</dd>\n              </dl>\n              <div class=\"sing_out_button\">\n                <a @click.prevent=\"unSubscripton\" class=\"u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u306F\u3044</a>\n                <a class=\"u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u3044\u3044\u3048</a>\n              </div>\n            </div><!-- /.modal-content -->\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n\n      </div>\n    </main>\n\n  "
+  template: "\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n\n        <div @click.capture=\"change_Page_Pattern('my_Prof')\">\n          <router-link class=\"d-block mt-3\" to=\"/my_profile\">\n            \u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u78BA\u8A8D\u3059\u308B\n          </router-link>\n        </div>\n        <div @click=\"change_Page_Pattern('set_Prof')\">\n          <router-link class=\"d-block mt-3\" to=\"/set_Prof\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6</router-link>\n        </div>\n\n        <div @click=\"change_Page_Pattern('set_Pass')\">\n          <router-link class=\"d-block my-3\" to=\"/set_Pass\" >\u30D1\u30B9\u30EF\u30FC\u30C9\u5909\u66F4</router-link>\n        </div>\n\n        <p class=\"d-block my-3\" data-toggle=\"modal\" data-target=\"#sign_out\">\n          \u30B5\u30A4\u30F3\u30A2\u30A6\u30C8\n        </p>\n\n        <p class=\"d-block my-3\" data-toggle=\"modal\" data-target=\"#unSub\">\n          \u9000\u4F1A\u51E6\u7406\n        </p>\n\n\n\n\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"sign_out\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"sign_outLabel\">\n          <div class=\"modal-dialog modal-margin\" role=\"document\">\n            <div class=\"modal-content w-75 u-mx-a p-4 text-center\">\n              <dl>\n                <dt id=\"exampleModalLabel\" class=\"modal-title u-txt-b\">\u30B5\u30A4\u30F3\u30A2\u30A6\u30C8\u3057\u307E\u3059\u304B\uFF1F</dt>\n                <dd class=\"u-txt-b\">Are you sure you wish to sign out?</dd>\n              </dl>\n              <div class=\"sing_out_button\">\n                <a @click.prevent=\"doSign_out\" class=\"u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u306F\u3044</a>\n                <a class=\"u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u3044\u3044\u3048</a>\n              </div>\n            </div><!-- /.modal-content -->\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"unSub\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"sign_outLabel\">\n          <div class=\"modal-dialog modal-margin\" role=\"document\">\n            <div class=\"modal-content w-75 u-mx-a p-4 text-center\">\n              <dl>\n                <dt id=\"exampleModalLabel\" class=\"modal-title u-txt-b\">\u672C\u5F53\u306B\u9000\u4F1A\u3055\u308C\u307E\u3059\u304B\uFF1F</dt>\n                <dd class=\"u-txt-b\">Are you sure you wish to unbSubscribe ?</dd>\n              </dl>\n              <div class=\"sing_out_button\">\n                <a @click.prevent=\"unSubscripton\" class=\"u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u306F\u3044</a>\n                <a class=\"u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u3044\u3044\u3048</a>\n              </div>\n            </div><!-- /.modal-content -->\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n\n      </div>\n    </main>\n\n  "
 });
 
 /***/ }),
@@ -3064,7 +3071,7 @@ var usr = new URLSearchParams();
       repass: "",
       regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
       json_data: "",
-      sign_errors: {},
+      //sign_errors: {},
       errors: {}
     };
   },
@@ -3079,23 +3086,22 @@ var usr = new URLSearchParams();
       return this.sign_errors;
     }
   }),
+  mounted: function mounted() {
+    console.log(this.errors);
+  },
   methods: {
     doSign_in: function doSign_in() {
       var _this = this;
 
-      console.log("button"); //validation まだ画面にエラーメッセージだせてない
+      console.log("ini: ");
+      this.$vali["default"].email(this.sign_email, this);
+      this.$vali["default"].required(this.sign_pass, this);
 
-      this.null_check_Sign_Mail();
-      this.null_check_Sign_Pass();
-
-      if (Object.keys(this.sign_errors).length === 0) {
+      if (Object.keys(this.errors).length === 0) {
         //Post値　準備
         //usr.append('email', this.sign_email);
         //usr.append('pass', this.sign_pass);
-        //CSRFトークン送信準備
-        //let token = $('meta[name="csrf-token"]').attr('content');
-        console.log(this.usr); //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-
+        //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
         this.$http.post('/api/ctrl_sign_in', {
           email: this.sign_email,
           pass: this.sign_pass
@@ -3119,7 +3125,7 @@ var usr = new URLSearchParams();
           console.log('finally');
         });
       } else {
-        alert("予期せぬエラーが出ました。画面を更新してください");
+        console.log(this.__ob__);
       }
     },
     doRegisteration: function doRegisteration() {
@@ -3136,31 +3142,30 @@ var usr = new URLSearchParams();
         usr.append('location', this.location);
         usr.append('email', this.email);
         usr.append('pass', this.pass);*/
-        //CSRFトークン送信準備
-        //let token = $('meta[name="csrf-token"]').attr('content');
-        console.log(this.$http); //登録 jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-
+        //登録 jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
         this.$http.post('/api/ctrl_registration', {
           name: this.name,
           location: this.location,
           email: this.email,
           pass: this.pass
         }).then(function (res) {
+          //成功
           console.log("登録成功");
           _this2.json_data = res.data;
 
           _this2.$router.push({
             path: 'home'
-          });
+          }); //失敗 msg=>メールとパスが不一致です。
+
         })["catch"](function (err) {
-          return console.log(err);
+          console.log(err);
         })["finally"](function () {
           delete _this2.sign_errors.sign_email;
           delete _this2.sign_errors.sign_pass;
           console.log('finally');
         });
       } else {
-        alert("予期せぬエラーが出ました。画面を更新してください");
+        alert();
       }
     },
     null_check_Sign_Mail: function null_check_Sign_Mail() {
@@ -3188,7 +3193,7 @@ var usr = new URLSearchParams();
       }
     }
   },
-  template: "\n    <article>\n      <section v-if=\"display_flg === 1\">\n\n        <h1>\u30B5\u30A4\u30F3\u30A4\u30F3</h1>\n        <img class=\"img-fluid u-mt-40\" src=\"/images/man-1.png\" alt=\"\">\n        <form action=\"\" class=\"sign-Form mt-5\">\n          \n          <input v-model=\"sign_email\" class=\"u-bg-tr\" type=\"email\" name=\"email\" id=\"\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\">\n          <input v-model=\"sign_pass\" class=\"u-bg-tr mt-2\" type=\"password\" name=\"pass\" id=\"\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\">\n\n          <button @click.prevent=\"doSign_in\" type=\"button\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u306F\u3058\u3081\u308B</button>\n          \n        \n        </form>\n        <p class=\"text-white\">{{ $store.state.dispaly }}</p>\n        <a class=\"mt-3 u-txt-w3 d-inline-block w-100 text-center\">\u30D1\u30B9\u30EF\u30FC\u30C9\u5FD8\u308C\u307E\u3057\u305F\u304B\uFF1F</a>\n      </section>\n\n      <section v-else-if=\"display_flg === 2\">\n\n        <h1>\u65B0\u898F\u767B\u9332</h1>\n        <form action=\"\" class=\"sign-Form mt-5 text-left\">\n          \n          <label class=\"mt-2\" for=\"name\">\u6C0F\u540D</label>\n          <input v-model=\"name\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"name\" id=\"name\" placeholder=\"\u82D7\u5B57\u3068\u540D\u524D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          \n          <label class=\"mt-2\" for=\"location\">\u4F4F\u6240</label>\n          <input v-model=\"location\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"location\" id=\"location\" placeholder=\"\u4F4F\u6240\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          \n          <label class=\"mt-2\" for=\"email\">\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9</label>\n          <input v-model=\"email\" class=\"u-bg-tr text-left pl-2\" type=\"email\" name=\"email\" id=\"email\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">      \n          \n          <label class=\"mt-2\" for=\"pass\">\u30D1\u30B9\u30EF\u30FC\u30C9</label>\n          <input v-model=\"pass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"pass\" id=\"pass\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          <input v-model=\"repass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"repass\" id=\"repass\" placeholder=\"\u518D\u5EA6\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n    \n          \n          <button @click.prevent=\"doRegisteration\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u65B0\u898F\u767B\u9332</button>\n        </form>\n\n\n      </section>\n      \n    </article>\n  "
+  template: "\n    <article>\n      <section v-if=\"display_flg === 1\">\n\n        <h1>\u30B5\u30A4\u30F3\u30A4\u30F3</h1>\n        <img class=\"img-fluid u-mt-40\" src=\"/images/man-1.png\" alt=\"\">\n        <form action=\"\" class=\"sign-Form mt-5\">\n          <input v-model=\"sign_email\" class=\"u-bg-tr\" type=\"email\" name=\"email\" id=\"\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\" required>\n          <input v-model=\"sign_pass\" class=\"u-bg-tr mt-2\" type=\"password\" name=\"pass\" id=\"\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\" required minlength=\"8\">\n\n          <button @click.prevent=\"doSign_in\" type=\"button\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u306F\u3058\u3081\u308B</button>\n          \n        \n        </form>\n        <p class=\"text-white\">{{ $store.state.dispaly }}</p>\n        <a class=\"mt-3 u-txt-w3 d-inline-block w-100 text-center\">\u30D1\u30B9\u30EF\u30FC\u30C9\u5FD8\u308C\u307E\u3057\u305F\u304B\uFF1F</a>\n      </section>\n\n      <section v-else-if=\"display_flg === 2\">\n\n        <h1>\u65B0\u898F\u767B\u9332</h1>\n        <form action=\"\" class=\"sign-Form mt-5 text-left\">\n          \n          <label class=\"mt-2\" for=\"name\">\u6C0F\u540D</label>\n          <input v-model=\"name\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"name\" id=\"name\" placeholder=\"\u82D7\u5B57\u3068\u540D\u524D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n          \n          <label class=\"mt-2\" for=\"location\">\u4F4F\u6240</label>\n          <input v-model=\"location\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"location\" id=\"location\" placeholder=\"\u4F4F\u6240\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n          \n          <label class=\"mt-2\" for=\"email\">\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9</label>\n          <input v-model=\"email\" class=\"u-bg-tr text-left pl-2\" type=\"email\" name=\"email\" id=\"email\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>      \n          \n          <label class=\"mt-2\" for=\"pass\">\u30D1\u30B9\u30EF\u30FC\u30C9</label>\n          <input v-model=\"pass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"pass\" id=\"pass\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          <input v-model=\"repass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"repass\" id=\"repass\" placeholder=\"\u518D\u5EA6\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n    \n          \n          <button @click.prevent=\"doRegisteration\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u65B0\u898F\u767B\u9332</button>\n        </form>\n\n\n      </section>\n      \n    </article>\n  "
 });
 
 /***/ }),
@@ -7696,7 +7701,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".c-PsnCard__img[data-v-fc01a4e4] {\n  border-radius: 10px;\n  overflow: hidden;\n}\n.c-PsnCard__text[data-v-fc01a4e4] {\n  vertical-align: middle;\n  position: relative;\n}\n.c-PsnCard__text[data-v-fc01a4e4]:after {\n  background: url(\"/images/options-icon.png\");\n  content: \"\";\n  display: inline-block;\n  width: 20px;\n  height: 5px;\n  text-align: right;\n  position: absolute;\n  right: 15px;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n}\n.post-Icons[data-v-fc01a4e4] {\n  text-align: left;\n}\n.post-Icons figure[data-v-fc01a4e4] {\n  display: inline-block;\n}\n.w-auto[data-v-fc01a4e4] {\n  width: auto;\n}\n.post-Icons figure[data-v-fc01a4e4] {\n  margin-bottom: 0;\n}\n.c-opition-icon[data-v-fc01a4e4] {\n  position: relative;\n}\n.c-opition-icon[data-v-fc01a4e4]:after {\n  background: url(\"/images/options-icon.png\");\n  content: \"\";\n  display: inline-block;\n  width: 20px;\n  height: 5px;\n  text-align: right;\n  position: absolute;\n  right: 15px;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n}\n.modal-dialog[data-v-fc01a4e4] {\n  margin-top: 70vh;\n}\n.modal-dialog textarea[data-v-fc01a4e4] {\n  height: 100px;\n  font-size: 20px;\n}\n.modal-body[data-v-fc01a4e4] {\n  padding: 0;\n}", ""]);
+exports.push([module.i, ".post-Icons[data-v-fc01a4e4] {\n  text-align: left;\n}\n.post-Icons figure[data-v-fc01a4e4] {\n  display: inline-block;\n}\n.w-auto[data-v-fc01a4e4] {\n  width: auto;\n}\n.post-Icons figure[data-v-fc01a4e4] {\n  margin-bottom: 0;\n}\n.c-opition-icon[data-v-fc01a4e4] {\n  position: relative;\n}\n.c-opition-icon[data-v-fc01a4e4]:after {\n  background: url(\"/images/options-icon.png\");\n  content: \"\";\n  display: inline-block;\n  width: 20px;\n  height: 5px;\n  text-align: right;\n  position: absolute;\n  right: 15px;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n}\n.modal-dialog[data-v-fc01a4e4] {\n  margin-top: 70vh;\n}\n.modal-dialog textarea[data-v-fc01a4e4] {\n  height: 100px;\n  font-size: 20px;\n}\n.modal-body[data-v-fc01a4e4] {\n  padding: 0;\n}\n.modal-footer[data-v-fc01a4e4] {\n  border: none;\n}", ""]);
 
 // exports
 
@@ -55631,6 +55636,22 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/*
+import VeeValidateJaLocale from 'vee-validate/dist/locale/ja'
+
+
+import { ValidationProvider, extend } from 'vee-validate';
+
+import { required } from 'vee-validate/dist/rules';
+
+extend('required', {
+  ...required,
+  message: 'The {_field_} field is required'
+});
+
+Vue.use(VeeValidate, { locale: 'ja' });
+*/
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -55653,7 +55674,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var vue_body = new Vue({
   el: '#vue_body',
   store: _store__WEBPACK_IMPORTED_MODULE_0__["default"],
-  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"]
+  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
+  components: {//ValidationProvider
+  }
 }); //.$mount("#vue_body");
 
 /***/ }),
@@ -55697,7 +55720,10 @@ window.axios.defaults.headers.common = {
   "Content-Type": "application/json" //'Authorization' : AUTH_TOKEN
 
 };
-Vue.prototype.$http = window.axios; //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+Vue.prototype.$http = window.axios; //window.vali = require('./validation.js');
+//Vue.prototype.$vali = window.vali;
+
+Vue.prototype.$vali = __webpack_require__(/*! ./validation.js */ "./resources/js/validation.js"); //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -56404,6 +56430,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 //import search_icon from './components/search_icon.vue';
 // 3.
 // 4.
+//HTTPリクエストとRouter-Linkを受ける
+//応じた Router-Viewに指定したコンポーネントを描画する
 
 var routes = [{
   path: '/',
@@ -57588,6 +57616,65 @@ var getters = {
 export const plugins = [
   createPersistedState(),
 ]*/
+
+/***/ }),
+
+/***/ "./resources/js/validation.js":
+/*!************************************!*\
+  !*** ./resources/js/validation.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//エラーメッセージ
+//グローバルから呼び出す
+var regexp_email = new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$");
+/* harmony default export */ __webpack_exports__["default"] = ({
+  msg: {
+    required: "入力必須項目です。",
+    //required attr
+    min8: "8文字以上の文字を入力してください。",
+    //minlength attr
+    email: "メール形式で入力してください。",
+    //email attr
+    full_letters: "全角で入力してください。",
+    half_letters: "半角で入力してください。",
+    space: "空白は含めずに入力してください。",
+    f_type: "正しいファイルを選択してください。",
+    f_size: "ファイルサイズがオーバーしています。",
+    //ハッキング対策
+    null_byte: "不正な文字が検出されました。",
+    xss: "不正なスクリプトが検出されました。"
+  },
+  //各ファンクションは、input値とvueオブジェクトを引数にしている。
+  //vueオブジェクトのエラーメッセージdataにエラーメッセージを格納するため。
+  required: function required(value, vue) {
+    //必要ならこれで呼び出す
+    //vue.$vali.default.required(value);
+    if (value == "") {
+      vue.errors.required = vue.$vali["default"].msg.required;
+      return false;
+    } else {
+      delete vue.errors.required;
+      return true;
+    }
+  },
+  min8: function min8(value, vue) {},
+  email: function email(value, vue) {
+    //メール形式判定
+    var result = value.match(regexp_email);
+
+    if (result == null) {
+      vue.errors.eamil = vue.$vali["default"].msg.email;
+      return false;
+    } else {
+      delete vue.errors.eamil;
+      return true;
+    }
+  }
+});
 
 /***/ }),
 

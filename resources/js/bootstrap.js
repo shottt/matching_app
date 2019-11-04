@@ -1,5 +1,7 @@
 window._ = require('lodash');
 
+
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -34,6 +36,12 @@ window.axios.defaults.headers.common = {
   //'Authorization' : AUTH_TOKEN
 }
 Vue.prototype.$http = window.axios
+
+
+//window.vali = require('./validation.js');
+//Vue.prototype.$vali = window.vali;
+Vue.prototype.$vali = require('./validation.js');
+
 
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 /**

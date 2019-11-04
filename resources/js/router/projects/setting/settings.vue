@@ -80,11 +80,11 @@ export default {
     <main class="u-container-y--short">
       <div class="container">
 
-
-        <router-link class="d-block mt-3" to="/my_profile">
-          <div @click="change_Page_Pattern('my_Prof')">プロフィール確認する</div>
-        </router-link>
-
+        <div @click.capture="change_Page_Pattern('my_Prof')">
+          <router-link class="d-block mt-3" to="/my_profile">
+            プロフィール確認する
+          </router-link>
+        </div>
         <div @click="change_Page_Pattern('set_Prof')">
           <router-link class="d-block mt-3" to="/set_Prof">プロフィール編集</router-link>
         </div>

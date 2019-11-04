@@ -66,28 +66,7 @@
 </script>
 
 <style lang="scss" scoped>
-.c-PsnCard__img {
-  border-radius: 10px;
-  overflow: hidden;
-}
-.c-PsnCard__text {
-  vertical-align: middle;
-  position: relative;
-}
-.c-PsnCard__text:after {
-  background:  url('/images/options-icon.png');
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 5px;
-  text-align: right;
-  position: absolute;
-  right: 15px;
-  top: 0;
-  bottom: 0;
-  margin-top: auto;
-  margin-bottom: auto;
-}
+
 .post-Icons {
   text-align: left;
 }
@@ -133,6 +112,9 @@
 }
 .modal-body {
   padding: 0;
+}
+.modal-footer {
+  border: none;
 }
 
 </style>

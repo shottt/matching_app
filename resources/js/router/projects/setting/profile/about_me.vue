@@ -15,6 +15,16 @@
       'user_info/getUser_id',
       ]),
     },
+    
+    mounted: function() {
+     
+        this.$nextTick(function () {
+        // ビュー全体がレンダリングされた後にのみ実行されるコード
+        console.log("about_me : next trick");
+        this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
+      })
+    },
+    
     methods: {
       change_Page_Pattern: function (pattern) {
         console.log("change_Page_Pattern");

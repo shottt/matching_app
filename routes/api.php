@@ -19,15 +19,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'api'], function() {
 
-    //サインイン axios経由
+    // //サインイン axios経由
     // Route::post('/ctrl_sign_in', function (Request $request) {
 
-    //     $email = $request->input('email');
-    //     $pass = $request->input('pass');
+    //      $email = $request->input('email');
+    //      $pass = $request->input('pass');
         
-    //     //サインインのコントローラに投げる
-    //     return response()->json(['email' => $email, 'pass' => $pass]);
+    //      //サインインのコントローラに投げる
+    //      return response()->json(['email' => $email, 'pass' => $pass]);
     // });
+
+
+    // 
     Route::post('/ctrl_sign_in', 'Ajax\UsersController@show');
 
 
@@ -37,7 +40,7 @@ Route::group(['middleware' => 'api'], function() {
     // //     //登録のコントローラに投げる
     // //     //return view('/home/home');
     // // });
-    Route::post('/ctrl_registration','Ajax\UsersController@store');
+    Route::post('/ctrl_registration','Ajax\RegistrationController@store');
 
 
     
@@ -50,11 +53,11 @@ Route::group(['middleware' => 'api'], function() {
 
     
     //settings 
-    // Route::post('/ctrl_set_prof', function (Request $request) {
-    //     //プロフィール編集
-    //     //user_idでひっかけてプロフィールを更新
-    //     $user_id = $request->input('user_id');
-    //     $prof_data = $request->input('prof_data');
+    Route::post('/ctrl_set_prof', function (Request $request) {
+        //プロフィール編集
+        //user_idでひっかけてプロフィールを更新
+        $user_id = $request->input('user_id');
+        $prof_data = $request->input('prof_data');
         
     //     return response()->json(['user_id' => $user_id, 'prof_data' => $prof_data]);
     // });

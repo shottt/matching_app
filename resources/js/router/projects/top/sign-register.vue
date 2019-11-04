@@ -18,10 +18,11 @@
         repass: "",
         regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
         json_data: "",
-        sign_errors: {},
+        //sign_errors: {},
         errors: {}
       }
     },
+
     computed: {
         ...mapGetters([
         'auth_displaying/getDisplay_Vuex',
@@ -39,22 +40,23 @@
           return this.sign_errors;
         },
     },
+    mounted: function () {
+       console.log(this.errors);
+    },
     methods: {
       doSign_in: function () {
-        console.log("button");
-        //validation まだ画面にエラーメッセージだせてない
-        this.null_check_Sign_Mail();
-        this.null_check_Sign_Pass();
+    
+        console.log("ini: ");
+      
+        this.$vali.default.email(this.sign_email, this);
+        this.$vali.default.required(this.sign_pass, this);
 
-        if (Object.keys(this.sign_errors).length === 0) {
+        if (Object.keys(this.errors).length === 0) {
           
           //Post値　準備
           //usr.append('email', this.sign_email);
           //usr.append('pass', this.sign_pass);
-
-          //CSRFトークン送信準備
-          //let token = $('meta[name="csrf-token"]').attr('content');
-          console.log(this.usr);
+         
 
           //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
           this.$http.post('/api/ctrl_sign_in', {
@@ -81,7 +83,7 @@
             });
 
         } else {
-          alert("予期せぬエラーが出ました。画面を更新してください");
+          console.log(this.__ob__);
         }
       },
       doRegisteration: function () {
@@ -99,9 +101,6 @@
           usr.append('email', this.email);
           usr.append('pass', this.pass);*/
 
-          //CSRFトークン送信準備
-          //let token = $('meta[name="csrf-token"]').attr('content');
-          console.log(this.$http);
 
           //登録 jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
           this.$http.post('/api/ctrl_registration', {
@@ -111,11 +110,17 @@
               pass:  this.pass
             })
             .then(res => {
+
+              //成功
               console.log("登録成功");
               this.json_data = res.data;
               this.$router.push({ path: 'home' })
+
+              //失敗 msg=>メールとパスが不一致です。
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+              console.log(err);
+            })
             .finally(() => {
               delete this.sign_errors.sign_email;
               delete this.sign_errors.sign_pass;
@@ -123,7 +128,7 @@
             });
 
         } else {
-          alert("予期せぬエラーが出ました。画面を更新してください");
+          alert();
         }
       },
 
@@ -164,9 +169,8 @@
           <h1>サインイン</h1>
           <img class="img-fluid u-mt-40" src="/images/man-1.png" alt="">
           <form action="" class="sign-Form mt-5">
-            
-            <input v-model="sign_email" class="u-bg-tr" type="email" name="email" id="" placeholder="メールアドレス">
-            <input v-model="sign_pass" class="u-bg-tr mt-2" type="password" name="pass" id="" placeholder="パスワード">
+            <input v-model="sign_email" class="u-bg-tr" type="email" name="email" id="" placeholder="メールアドレス" required>
+            <input v-model="sign_pass" class="u-bg-tr mt-2" type="password" name="pass" id="" placeholder="パスワード" required minlength="8">
 
             <button @click.prevent="doSign_in" type="button" class="btn btn-light w-100 u-text-pink mt-5">はじめる</button>
             
@@ -182,17 +186,17 @@
           <form action="" class="sign-Form mt-5 text-left">
             
             <label class="mt-2" for="name">氏名</label>
-            <input v-model="name" class="u-bg-tr text-left pl-2" type="text" name="name" id="name" placeholder="苗字と名前を入力してください。">
+            <input v-model="name" class="u-bg-tr text-left pl-2" type="text" name="name" id="name" placeholder="苗字と名前を入力してください。" required>
             
             <label class="mt-2" for="location">住所</label>
-            <input v-model="location" class="u-bg-tr text-left pl-2" type="text" name="location" id="location" placeholder="住所を入力してください。">
+            <input v-model="location" class="u-bg-tr text-left pl-2" type="text" name="location" id="location" placeholder="住所を入力してください。" required>
             
             <label class="mt-2" for="email">メールアドレス</label>
-            <input v-model="email" class="u-bg-tr text-left pl-2" type="email" name="email" id="email" placeholder="メールアドレスを入力してください。">      
+            <input v-model="email" class="u-bg-tr text-left pl-2" type="email" name="email" id="email" placeholder="メールアドレスを入力してください。" required>      
             
             <label class="mt-2" for="pass">パスワード</label>
             <input v-model="pass" class="u-bg-tr text-left pl-2" type="password" name="pass" id="pass" placeholder="パスワードを入力してください。">
-            <input v-model="repass" class="u-bg-tr text-left pl-2" type="password" name="repass" id="repass" placeholder="再度パスワードを入力してください。">
+            <input v-model="repass" class="u-bg-tr text-left pl-2" type="password" name="repass" id="repass" placeholder="再度パスワードを入力してください。" required>
       
             
             <button @click.prevent="doRegisteration" class="btn btn-light w-100 u-text-pink mt-5">新規登録</button>
