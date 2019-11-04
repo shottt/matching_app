@@ -9,16 +9,16 @@ use App\User;
 class UsersController extends Controller
 {
     public function show(Request $request){
-        
+        /*
         $email = $request->input('email');
         $pass = $request->input('pass');
         $user = User::where('email', $email)->where('password', $pass)->get()->toArray();
         
         $auth_flg = (!empty($user)) ? true : false;
         $data = response()->json($user);
-        
-        return [$auth_flg, $data];
-        
+        */
+        //return [$auth_flg, $data];
+        return;
     }
 
     public function store(Request $request)
