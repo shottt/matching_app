@@ -31,7 +31,7 @@ import my_frends from './my_frends.vue';
      
         this.$nextTick(function () {
         // ビュー全体がレンダリングされた後にのみ実行されるコード
-        console.log("next trick");
+        console.log("profile : next trick");
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
       })
     },
@@ -50,7 +50,6 @@ import my_frends from './my_frends.vue';
           <dd class="mt-2 mb-4">ほし</dd>
         </dl>
       </div>
-      {{ pattern_data }}
       <div @click="change_Page_Pattern('Prof')">
         <router-link class="w-100 bg-main text-light d-inline-block py-2" to="/set_Prof">プロフィール編集</router-link>
       </div>

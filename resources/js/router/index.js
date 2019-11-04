@@ -39,6 +39,8 @@ import header_settings from './components/header_setting.vue';
 
 
 // 4.
+//HTTPリクエストとRouter-Linkを受ける
+//応じた Router-Viewに指定したコンポーネントを描画する
 const routes = [
     {
         path: '/',

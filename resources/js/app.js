@@ -10,6 +10,22 @@ import router from './router';
 
 require('./bootstrap');
 
+/*
+import VeeValidateJaLocale from 'vee-validate/dist/locale/ja'
+
+
+import { ValidationProvider, extend } from 'vee-validate';
+
+import { required } from 'vee-validate/dist/rules';
+
+extend('required', {
+  ...required,
+  message: 'The {_field_} field is required'
+});
+
+Vue.use(VeeValidate, { locale: 'ja' });
+*/
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -37,5 +53,8 @@ const vue_body = new Vue({
     el: '#vue_body',
     store,
     router,
+    components: {
+        //ValidationProvider
+    },
     
 });//.$mount("#vue_body");

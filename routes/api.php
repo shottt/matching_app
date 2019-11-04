@@ -20,14 +20,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'api'], function() {
 
     //サインイン axios経由
-    // Route::post('/ctrl_sign_in', function (Request $request) {
+    /*
+    Route::post('/ctrl_sign_in', function (Request $request) {
 
-    //     $email = $request->input('email');
-    //     $pass = $request->input('pass');
+         $email = $request->input('email');
+         $pass = $request->input('pass');
         
-    //     //サインインのコントローラに投げる
-    //     return response()->json(['email' => $email, 'pass' => $pass]);
-    // });
+         //サインインのコントローラに投げる
+         return response()->json(['email' => $email, 'pass' => $pass]);
+    });*/
+
+
+    // 
     Route::post('/ctrl_sign_in', 'Ajax\SigninController@show');
 
 
