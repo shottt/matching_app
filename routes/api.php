@@ -30,7 +30,7 @@ Route::group(['middleware' => 'api'], function() {
     // });
 
 
-    // 
+
     Route::post('/ctrl_sign_in', 'Ajax\UsersController@show');
 
 
@@ -40,7 +40,7 @@ Route::group(['middleware' => 'api'], function() {
     // //     //登録のコントローラに投げる
     // //     //return view('/home/home');
     // // });
-    Route::post('/ctrl_registration','Ajax\RegistrationController@store');
+    Route::post('/ctrl_registration','Ajax\UsersController@store');
 
 
     
@@ -60,7 +60,7 @@ Route::group(['middleware' => 'api'], function() {
         $prof_data = $request->input('prof_data');
         
     //     return response()->json(['user_id' => $user_id, 'prof_data' => $prof_data]);
-    // });
+    });
     Route::post('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
 
     // Route::post('/ctrl_change_pass', function (Request $request) {
