@@ -58,16 +58,19 @@ Route::group(['middleware' => 'api'], function() {
         
     //     return response()->json(['user_id' => $user_id, 'prof_data' => $prof_data]);
     // });
-    Route::post('/ctrl_set_prof', 'Ajax\SetprofController@update');
-    Route::post('/ctrl_change_pass', function (Request $request) {
+    Route::post('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
 
-        $user_id = $request->input('user_id');
-        $pass_now = $request->input('pass_now');
-        $pass_new = $request->input('pass_new');
+    // Route::post('/ctrl_change_pass', function (Request $request) {
+
+    //     $user_id = $request->input('user_id');
+    //     $pass_now = $request->input('pass_now');
+    //     $pass_new = $request->input('pass_new');
         
-        return response()->json(['user_id' => $user_id, 'pass_now' => $pass_now, 'pass_new' => $pass_new]);
-        //return view('/home/home');
-    });
+    //     return response()->json(['user_id' => $user_id, 'pass_now' => $pass_now, 'pass_new' => $pass_new]);
+    //     //return view('/home/home');
+    // });
+    Route::post('/ctrl_change_pass', 'Ajax\UsersController@change_pass');
+
     Route::post('/ctrl_sign_out', function (Request $request) {
 
         $email = $request->input('email');

@@ -34,7 +34,7 @@ class UsersController extends Controller
 
         // fillメソッド使用（$fillableで入力するデータを指定）
         // $result = $user->fill($request->all()->save());
-
+        // 上のメソッド使え（解決方法わからん、助けて）
         // 1つ1つ入力
         $user->name = $request->input('name');
         $user->location = $request->input('location');
@@ -46,7 +46,12 @@ class UsersController extends Controller
         return $data;
     }
 
-    public function update(Request $request, $id){
+    public function set_prof(Request $request, $id){
+        // GETパラメータが数字かどうかチェックする
+        if(!ctype_digit($id)){
+            return redirect('home')->with('flash_message', '不正な処理が行われました');
+        }
+
         $user = User::find($id);
 
         $request->validate([
@@ -56,11 +61,18 @@ class UsersController extends Controller
             'pass' => 'nullable|max:255',
         ]);
 
+        // fillメソッド使用
+        // $user->fill($request->all()->save());
+
         $user->name = $request->input('name');
         $user->occupation = $request->input('occupation');
 
         $user->location = $request->input('location');
         $user->email = $request->input('email');
         $result = $user->save();
+    }
+
+    public function change_pass(Request $request, $id){
+        
     }
 }
