@@ -23,11 +23,11 @@ class UsersController extends Controller
         
         //$auth_flg = (!empty($user)) ? true : false;
         // $data = response()->json($user);
-        $result_flg = (!empty($user)) ? true : false;
+        $result_flag = (!empty($user)) ? true : false;
         $user_id = $user->id;
         
         //return [$auth_flg, $data];
-        return response()->json(['result_flg' => $result_flg, 'user_id' => $user_id]);
+        return response()->json(['result_flag' => $result_flag, 'user_id' => $user_id]);
     }
 
     public function registration(Request $request)
@@ -49,10 +49,10 @@ class UsersController extends Controller
         $user->location = $request->input('location');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('pass'));
-        $result_flg = $user->save();
+        $result_flag = $user->save();
         $user_id = $user->id;
 
-        return response()->json(['result_flg' => $result_flg, 'user_id' => $user_id]);
+        return response()->json(['result_flag' => $result_flag, 'user_id' => $user_id]);
     }
 
     public function set_prof(Request $request, $id){
