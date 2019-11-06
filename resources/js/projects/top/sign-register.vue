@@ -69,7 +69,8 @@
             .then(res => {
               console.log("サインイン成功");
               this.json_data = res.data;
-              this.json_data.user_id = 111;
+              console.log("user_id : " + this.json_data.user_id);
+              console.log("result_flag : " + this.json_data.result_flag);
               this.$store.dispatch('page_displaying/user_id', {value: this.json_data.user_id });
 
               //ログイン結果判定

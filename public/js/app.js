@@ -3113,7 +3113,8 @@ var usr = new URLSearchParams();
         }).then(function (res) {
           console.log("サインイン成功");
           _this.json_data = res.data;
-          _this.json_data.user_id = 111;
+          console.log("user_id : " + _this.json_data.user_id);
+          console.log("result_flag : " + _this.json_data.result_flag);
 
           _this.$store.dispatch('page_displaying/user_id', {
             value: _this.json_data.user_id
