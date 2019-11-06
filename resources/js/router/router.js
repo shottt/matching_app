@@ -4,33 +4,34 @@ Vue.use(VueRouter)
 
 
 // 2.
-import top from './projects/top/top.vue';
-import home from './projects/home.vue';
+//import top from '../projects/top/top.vue';
+import top from '../projects/top/top.vue';
+import home from '../projects/home.vue';
 
 
-import search from './projects/search/search.vue';
+import search from '../projects/search/search.vue';
 
 
 
-import prof from './projects/profile/profile.vue'
+import prof from '../projects/profile/profile.vue'
 
-import settings from './projects/setting/settings.vue'
-import change_pass from './projects/setting/change_pass.vue'
-import set_prof from './projects/setting/set_prof.vue'
-import my_prof from './projects/setting/profile/profile.vue'
-import about_me from './projects/setting/profile/about_me.vue'
-import my_frends from './projects/setting/profile/my_frends.vue'
-import frend_reviews from './projects/setting/profile/frend_review.vue';
-import my_posts from './projects/setting/profile/my_posts.vue';
+import settings from '../projects/setting/settings.vue'
+import change_pass from '../projects/setting/change_pass.vue'
+import set_prof from '../projects/setting/set_prof.vue'
+import my_prof from '../projects/setting/profile/profile.vue'
+import about_me from '../projects/setting/profile/about_me.vue'
+import my_frends from '../projects/setting/profile/my_frends.vue'
+import frend_reviews from '../projects/setting/profile/frend_review.vue';
+import my_posts from '../projects/setting/profile/my_posts.vue';
 
-import footer from './components/footer.vue';
-import header from './components/header.vue';
-import header_search from './components/header_search.vue';
-import header_search_result from './components/header_search_result.vue';
-import header_settings from './components/header_setting.vue';
+import footer from '../components/footer.vue';
+import header from '../components/header.vue';
+import header_search from '../components/header_search.vue';
+import header_search_result from '../components/header_search_result.vue';
+import header_settings from '../components/header_setting.vue';
 
-//import person_card from  './components/person_card.vue';
-//import search_icon from './components/search_icon.vue';
+//import person_card from  '../components/person_card.vue';
+//import search_icon from '../components/search_icon.vue';
 
 
 

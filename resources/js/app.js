@@ -6,9 +6,13 @@
 window.Vue = require('vue');
 
 import store from "./store";
-import router from './router';
+import router from './router/router';
+import VueRouter from "vue-router";
 
 require('./bootstrap');
+
+//ui
+
 
 /*
 import VeeValidateJaLocale from 'vee-validate/dist/locale/ja'
@@ -49,12 +53,76 @@ Vue.use(VeeValidate, { locale: 'ja' });
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.mixin({
+  data: function(){ return {
+    vali_error: {
+      
+      required : "入力必須項目です。",//required attr
+      min8: "8文字以上の文字を入力してください。",//minlength attr
+      email: "メール形式で入力してください。",//email attr
+      full_letters: "全角で入力してください。",
+      half_letters: "半角で入力してください。",
+      space: "空白は含めずに入力してください。",
+      f_type: "正しいファイルを選択してください。",
+      f_size: "ファイルサイズがオーバーしています。",
+      //ハッキング対策
+      null_byte: "不正な文字が検出されました。",
+      xss: "不正なスクリプトが検出されました。",
+      regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
+      regexp_half: new RegExp("^[a-zA-Z0-9]+$")
+    }
+  }},
+
+  methods: {
+    vali_required: function (type, value) {
+
+      if (value == "") {
+        this.errors[type] = this.vali_error.required;
+        return false;
+
+      } else {
+        delete this.errors[type];
+        return true;
+      }
+    },
+    vali_email: function(type,value) {
+
+      //メール形式判定
+      var result = value.match(this.vali_error.regexp_email);
+      if (result == null) {
+        this.errors[type] = this.vali_error.email;
+        return false;
+
+      } else {
+        delete this.errors[type];
+        return true;
+      }
+    },
+
+    vali_half: function(type,value) {
+
+      var result = value.match(this.vali_error.regexp_half);
+      if (result == null) {
+        this.errors[type] = this.vali_error.half_letters;
+        return false;
+
+      } else {
+        delete this.errors[type];
+        return true;
+      }
+    },
+
+  }
+});
+
 const vue_body = new Vue({
     el: '#vue_body',
     store,
     router,
+    //mixins: [validation],
+    //extends: validation,
     components: {
-        //ValidationProvider
+      
     },
     
 });//.$mount("#vue_body");
