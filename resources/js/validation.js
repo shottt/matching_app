@@ -1,7 +1,5 @@
 //エラーメッセージ
 //グローバルから呼び出す
-let regexp_email =  new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$");
-
 export default {
 
   msg: {

@@ -26,6 +26,7 @@
     computed: {
         ...mapGetters([
         'auth_displaying/getDisplay_Vuex',
+        'auth_displaying/getUser_Id_Vuex',
         'page_displaying/getPattern_Vuex'
 
         // ...
@@ -40,24 +41,26 @@
           //return this.sign_errors;
         },
     },
-    mounted: function () {
-       console.log(this.errors);
-    },
     methods: {
       doSign_in: function () {
-    
-        console.log("ini: ");
-      
-        this.$vali.default.email(this.sign_email, this);
-        this.$vali.default.required(this.sign_pass, this);
+        
+        this.vali_required("sign_email", this.sign_email);
+        this.vali_required("sign_pass", this.sign_pass);
+
+        if (Object.keys(this.errors).length > 0) {
+          return;
+        }
+
+        //メール形式
+        this.vali_email("sign_email", this.sign_email);
+        //半角判定
+        this.vali_half('sign_pass', this.sign_pass);
+        if (Object.keys(this.errors).length > 0) {
+          return;
+        }
 
         if (Object.keys(this.errors).length === 0) {
-          
-          //Post値　準備
-          //usr.append('email', this.sign_email);
-          //usr.append('pass', this.sign_pass);
-         
-
+                   
           //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
           this.$http.post('/api/ctrl_sign_in', {
               email: this.sign_email,
@@ -66,26 +69,30 @@
             .then(res => {
               console.log("サインイン成功");
               this.json_data = res.data;
+              console.log("user_id : " + this.json_data.user_id);
+              console.log("result_flag : " + this.json_data.result_flag);
+              this.$store.dispatch('page_displaying/user_id', {value: this.json_data.user_id });
 
-              //取ってきたjsonの中身表示
-              console.log("サインデータ表示");
-              console.log(this.json_data);
-              //console.log(this.json_data.email);
-              //console.log(this.json_data.pass);
-              
-              //描画のための画面判定値を更新
-              this.$store.dispatch('page_displaying/pattern_home')
-              this.$router.push({ path: 'home' })
+              //ログイン結果判定
+              if (this.json_data.user_id !== null && this.json_data.result_flag === true) {
+                
+                this.$store.dispatch('auth_displaying/set_user_id', parseInt(this.json_data.user_id));
+                //描画のための画面判定値を更新
+                this.$store.dispatch('page_displaying/pattern_home');
+                this.$router.push({ path: 'home' });
+
+              } else {
+                alert("ログイン失敗です。メールアドレスとパスワードを正しく入力してください。");
+              }
             })
-            .catch(err => console.log(err))
+            .catch((err) => {
+              console.log(err)
+            })
             .finally(() => {
-              //delete this.sign_errors.sign_email;
-              //delete this.sign_errors.sign_pass;
               console.log('finally')
             });
 
         } else {
-          console.log(this.__ob__);
         }
       },
       doRegisteration: function () {
