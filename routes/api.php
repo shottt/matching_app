@@ -23,7 +23,7 @@ Route::group(['middleware' => 'api'], function() {
     from name, pass
     return  user_id, result_flag;
     */
-    Route::post('/ctrl_sign_in', 'Ajax\UsersController@show');
+    Route::post('/ctrl_sign_in', 'Ajax\UsersController@sign_in');
 
     /*
     from
@@ -33,7 +33,7 @@ Route::group(['middleware' => 'api'], function() {
         pass
     return user_id, result_flag
     */
-    Route::post('/ctrl_registration','Ajax\UsersController@store');
+    Route::post('/ctrl_registration','Ajax\UsersController@registration');
 
     //友達検索
     Route::post('/ctrl_search_for_frends', function () {

@@ -22,12 +22,12 @@ class CreateUsersTable extends Migration
             $table->string('occupation')->nullable();
             $table->string('profile_header')->nullable();
             $table->string('profile_detail')->nullable();
-            $table->integer('birthday');
+            $table->integer('birthday')->nullable();
             $table->string('location')->nullable();
             $table->string('picture')->nullable();
             $table->string('review')->nullable();
-            $table->integer('block_user');
-            $table->boolean('delete_flg');
+            $table->integer('block_user')->nullable();
+            $table->boolean('delete_flg')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
