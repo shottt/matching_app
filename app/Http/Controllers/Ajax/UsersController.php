@@ -11,7 +11,7 @@ use Log;
 class UsersController extends Controller
 {
     public function sign_in(Request $request){
-
+        /*
         $email = $request->input('email');
         $pass = $request->input('pass');
         // $user = User::where('email', $email)->get();
@@ -23,11 +23,13 @@ class UsersController extends Controller
         
         //$auth_flg = (!empty($user)) ? true : false;
         // $data = response()->json($user);
-        $result_flg = (!empty($user)) ? true : false;
+        $result_flag = (!empty($user)) ? true : false;
         $user_id = $user->id;
         
         //return [$auth_flg, $data];
-        return response()->json(['result_flg' => $result_flg, 'user_id' => $user_id]);
+        return response()->json(['result_flg' => $result_flag, 'user_id' => $user_id]);
+        */
+        return;
     }
 
     public function registration(Request $request)
