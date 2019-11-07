@@ -63,13 +63,13 @@
                    
           //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
           this.$http.post('/api/ctrl_sign_in', {
-              email: this.sign_email,
+              email: 123,//this.sign_email,
               pass: this.sign_pass
             })
             .then(res => {
               console.log("サインイン成功");
               this.json_data = res.data;
-              
+              console.log(this.json_data);
               console.log("user_id : " + this.json_data.user_id);
               console.log("result_flag : " + this.json_data.result_flag);
 

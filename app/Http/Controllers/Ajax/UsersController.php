@@ -11,25 +11,24 @@ use Log;
 class UsersController extends Controller
 {
     public function sign_in(Request $request){
-        /*
+
         $email = $request->input('email');
         $pass = $request->input('pass');
+        
         // $user = User::where('email', $email)->get();
-        $user = DB::table('users')->whereColumn([
-            ['email', '=', $email],
-            ['password', '=', $pass]
-        ])->get();
+        $user = User::where('email', '=', $email)->where('password', '=', $pass)->get();
         // Log::debug(print_r($user));
         
         //$auth_flg = (!empty($user)) ? true : false;
-        // $data = response()->json($user);
-        $result_flag = (!empty($user)) ? true : false;
-        $user_id = $user->id;
+        //$data = response()->json($user);s
+        //$result_flg = (!empty($user)) ? true : false;
+        //$user_id = $user->id;
         
         //return [$auth_flg, $data];
-        return response()->json(['result_flg' => $result_flag, 'user_id' => $user_id]);
-        */
-        return;
+        //return response()->json(['result_flg' => $result_flg, 'user_id' => $user_id]);
+        
+        //$items = DB::select('select * from users where password = '.$pass.' and email = 123');
+        return $user->toJson();
     }
 
     public function registration(Request $request)
