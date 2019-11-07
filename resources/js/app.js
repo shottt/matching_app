@@ -52,7 +52,7 @@ Vue.use(VeeValidate, { locale: 'ja' });
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+import { mapGetters } from 'vuex';
 Vue.mixin({
   data: function(){ return {
     vali_error: {
@@ -112,6 +112,16 @@ Vue.mixin({
       }
     },
 
+  },
+  
+  computed: {
+    ...mapGetters([
+    'auth_displaying/getDisplay_Vuex',
+    'auth_displaying/getUser_Id_Vuex',
+    'page_displaying/getPattern_Vuex'
+
+    // ...
+    ]),
   }
 });
 

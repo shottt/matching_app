@@ -25,7 +25,7 @@
 
     computed: {
         ...mapGetters([
-        'auth_displaying/getDisplay_Vuex',
+        //'auth_displaying/getDisplay_Vuex',
         'auth_displaying/getUser_Id_Vuex',
         'page_displaying/getPattern_Vuex'
 
@@ -63,18 +63,18 @@
                    
           //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
           this.$http.post('/api/ctrl_sign_in', {
-              email: 123,//this.sign_email,
+              email: this.sign_email,
               pass: this.sign_pass
             })
             .then(res => {
               console.log("サインイン成功");
               this.json_data = res.data;
-              console.log(this.json_data);
+              //console.log(this.json_data);
               console.log("user_id : " + this.json_data.user_id);
               console.log("result_flag : " + this.json_data.result_flag);
 
               //テスト用
-              this.$store.dispatch('auth_displaying/set_user_id', {value: 111 });
+              this.$store.dispatch('auth_displaying/set_user_id', {value: this.json_data.user_id });
 
               //ログイン結果判定
               if (this.json_data.user_id !== null && this.json_data.result_flag === true) {

@@ -3075,7 +3075,8 @@ var usr = new URLSearchParams();
       errors: {}
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['auth_displaying/getDisplay_Vuex', 'auth_displaying/getUser_Id_Vuex', 'page_displaying/getPattern_Vuex' // ...
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])([//'auth_displaying/getDisplay_Vuex',
+  'auth_displaying/getUser_Id_Vuex', 'page_displaying/getPattern_Vuex' // ...
   ]), {
     //サインインか登録の描画判定のフラグです
     display_flg: function display_flg() {
@@ -3108,18 +3109,17 @@ var usr = new URLSearchParams();
       if (Object.keys(this.errors).length === 0) {
         //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
         this.$http.post('/api/ctrl_sign_in', {
-          email: 123,
-          //this.sign_email,
+          email: this.sign_email,
           pass: this.sign_pass
         }).then(function (res) {
           console.log("サインイン成功");
-          _this.json_data = res.data;
-          console.log(_this.json_data);
+          _this.json_data = res.data; //console.log(this.json_data);
+
           console.log("user_id : " + _this.json_data.user_id);
           console.log("result_flag : " + _this.json_data.result_flag); //テスト用
 
           _this.$store.dispatch('auth_displaying/set_user_id', {
-            value: 111
+            value: _this.json_data.user_id
           }); //ログイン結果判定
 
 
@@ -55637,6 +55637,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 /* harmony import */ var _router_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router/router */ "./resources/js/router/router.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -55682,6 +55689,7 @@ Vue.use(VeeValidate, { locale: 'ja' });
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
 
 
 Vue.mixin({
@@ -55740,7 +55748,9 @@ Vue.mixin({
         return true;
       }
     }
-  }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['auth_displaying/getDisplay_Vuex', 'auth_displaying/getUser_Id_Vuex', 'page_displaying/getPattern_Vuex' // ...
+  ]))
 });
 var vue_body = new Vue({
   el: '#vue_body',
