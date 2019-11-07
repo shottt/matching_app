@@ -3114,17 +3114,16 @@ var usr = new URLSearchParams();
           console.log("サインイン成功");
           _this.json_data = res.data;
           console.log("user_id : " + _this.json_data.user_id);
-          console.log("result_flag : " + _this.json_data.result_flag);
+          console.log("result_flag : " + _this.json_data.result_flag); //テスト用
 
-          _this.$store.dispatch('page_displaying/user_id', {
-            value: _this.json_data.user_id
+          _this.$store.dispatch('auth_displaying/set_user_id', {
+            value: 111
           }); //ログイン結果判定
 
 
           if (_this.json_data.user_id !== null && _this.json_data.result_flag === true) {
-            _this.$store.dispatch('auth_displaying/set_user_id', parseInt(_this.json_data.user_id)); //描画のための画面判定値を更新
-
-
+            //this.$store.dispatch('auth_displaying/set_user_id', {value: parseInt(this.json_data.user_id) });
+            //描画のための画面判定値を更新
             _this.$store.dispatch('page_displaying/pattern_home');
 
             _this.$router.push({

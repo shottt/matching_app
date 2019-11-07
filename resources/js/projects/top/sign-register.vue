@@ -69,14 +69,17 @@
             .then(res => {
               console.log("サインイン成功");
               this.json_data = res.data;
+              
               console.log("user_id : " + this.json_data.user_id);
               console.log("result_flag : " + this.json_data.result_flag);
-              this.$store.dispatch('page_displaying/user_id', {value: this.json_data.user_id });
+
+              //テスト用
+              this.$store.dispatch('auth_displaying/set_user_id', {value: 111 });
 
               //ログイン結果判定
               if (this.json_data.user_id !== null && this.json_data.result_flag === true) {
-                
-                this.$store.dispatch('auth_displaying/set_user_id', parseInt(this.json_data.user_id));
+
+                //this.$store.dispatch('auth_displaying/set_user_id', {value: parseInt(this.json_data.user_id) });
                 //描画のための画面判定値を更新
                 this.$store.dispatch('page_displaying/pattern_home');
                 this.$router.push({ path: 'home' });

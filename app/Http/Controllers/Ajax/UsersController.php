@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ajax;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\RegistrationRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\User;
@@ -11,15 +12,18 @@ use Log;
 class UsersController extends Controller
 {
     public function sign_in(Request $request){
-
+        
         $email = $request->input('email');
         $pass = $request->input('pass');
-        // $user = User::where('email', $email)->get();
-        $user = DB::table('users')->whereColumn([
-            ['email', '=', $email],
-            ['password', '=', $pass]
-        ])->get();
-        // Log::debug(print_r($user));
+        // $user = User::where('email', '=', $email)->where('password', '=', $pass)->get();
+        $user = User::where('email', '=', $email)->where('password', '=', $pass)->get();
+        // $user = DB::table('users')->where([
+        //     ['email', '=', $email],
+        //     ['password', '=', $pass]
+        // ])->get();
+        // $user = DB::table('users')->where('email', $email)->where('password', $pass)->get();
+        // $user = DB::selectOne("SELECT * FROM users WHERE email = $email AND password = $pass");
+        Log::debug(print_r($user));
         
         //$auth_flg = (!empty($user)) ? true : false;
         // $data = response()->json($user);
@@ -30,14 +34,8 @@ class UsersController extends Controller
         return response()->json(['result_flag' => $result_flag, 'user_id' => $user_id]);
     }
 
-    public function registration(Request $request)
+    public function registration(RegistrationRequest $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'location' => 'required|max:255',
-            'email' => 'required|max:255',
-            'pass' => 'required|max:255',
-        ]);
 
         $user = new User;
 
