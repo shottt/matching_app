@@ -11,7 +11,7 @@
 |
 */
 
-
+// Auth::logout();
 Auth::routes();
 
 //初期レンダリング

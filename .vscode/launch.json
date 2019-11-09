@@ -2,10 +2,6 @@
   // IntelliSense を使用して利用可能な属性を学べます。
   // 既存の属性の説明をホバーして表示します。
   // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
-<<<<<<< HEAD
-  "version": "0.2.0",
-  "configurations": []
-=======
   "configurations": [
   
 
@@ -25,5 +21,4 @@
     }
   ]
   
->>>>>>> 85babf5e66ce9abc8105d8451c17e7ed636cc216
 }

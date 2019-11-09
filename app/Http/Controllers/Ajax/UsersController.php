@@ -12,29 +12,29 @@ use Log;
 class UsersController extends Controller
 {
     public function sign_in(Request $request){
-        
+        Log::debug($request);
         $email = $request->input('email');
         $pass = $request->input('pass');
-        // $user = User::where('email', '=', $email)->where('password', '=', $pass)->get();
-        $user = User::where('email', '=', $email)->where('password', '=', $pass)->get();
-        // $user = DB::table('users')->where([
-        //     ['email', '=', $email],
-        //     ['password', '=', $pass]
-        // ])->get();
-        // $user = DB::table('users')->where('email', $email)->where('password', $pass)->get();
-        // $user = DB::selectOne("SELECT * FROM users WHERE email = $email AND password = $pass");
-        Log::debug(print_r($user));
+        Log::debug($email);
+        Log::debug($pass);
+        
+        // $user = User::where('email', $email)->get();
+        $user = User::where('email', '=', $email)->where('password', '=', $pass)->first();
+        Log::debug(print_r($user, true));
         
         //$auth_flg = (!empty($user)) ? true : false;
-        // $data = response()->json($user);
-        $result_flag = (!empty($user)) ? true : false;
+        //$data = response()->json($user);
+        $result_flg = (!empty($user)) ? true : false;
         $user_id = $user->id;
         
         //return [$auth_flg, $data];
-        return response()->json(['result_flag' => $result_flag, 'user_id' => $user_id]);
+        return response()->json(['result_flg' => $result_flg, 'user_id' => $user_id]);
+        
+        //$items = DB::select('select * from users where password = '.$pass.' and email = 123');
+        // return $user->toJson();
     }
 
-    public function registration(RegistrationRequest $request)
+    public function registration(Request $request)
     {
 
         $user = new User;

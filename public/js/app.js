@@ -3108,11 +3108,13 @@ var usr = new URLSearchParams();
       if (Object.keys(this.errors).length === 0) {
         //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
         this.$http.post('/api/ctrl_sign_in', {
-          email: this.sign_email,
+          email: 123,
+          //this.sign_email,
           pass: this.sign_pass
         }).then(function (res) {
           console.log("サインイン成功");
           _this.json_data = res.data;
+          console.log(_this.json_data);
           console.log("user_id : " + _this.json_data.user_id);
           console.log("result_flag : " + _this.json_data.result_flag); //テスト用
 
