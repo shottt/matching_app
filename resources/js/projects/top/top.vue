@@ -3,13 +3,7 @@
 //これらのコンポーネントを含めて、Vue Routerを通して描画したい
 import main_content from "./sign-register.vue";
 import button_content from "./button-sign-register.vue";
-
-
-
   export default {
-    props: {
-      pattern: String
-    },
     components: {
       main_content,
       button_content

@@ -1,9 +1,5 @@
 <script>
-  import { mapGetters } from 'vuex';
   export default {
-    props: {
-      pattern: String
-    },
     template: `
     <main class="u-container-y text-center">
       <article>

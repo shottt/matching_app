@@ -1,25 +1,9 @@
 <script>
-  import { mapGetters } from 'vuex';
-  import person_card from '../../../components/person_card.vue';
+  import person_card from '../../../components/card/person_card.vue';
 
   export default {
-    props: {
-      pattern: String
-    },
     components: {
       person_card,
-    },
-    computed: {
-      ...mapGetters([
-      'page_displaying/getPattern_Vuex',
-      'user_info/getUser_id',
-      ]),
-    },
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        console.log("change_Page_Pattern");
-        this.$store.dispatch('page_displaying/pattern_set_' + pattern);
-      },
     },
     template: `
     <table class="table mb-0">

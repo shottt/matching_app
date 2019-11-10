@@ -1,44 +1,19 @@
 <script>
-import { mapGetters } from 'vuex';
-import action_btn from '../../../components/action-btn_follow.vue';
-import about_me from './about_me.vue';
-import my_frends from './my_frends.vue';
 
   export default {
-    props: {
-      pattern: String
-    },
     data: function() {
      return {
        pattern_data: "",
      }
     },
-    components: {
-      action_btn, about_me,
-    },
-    computed: {
-      ...mapGetters([
-      'page_displaying/getPattern_Vuex',
-      'user_info/getUser_id',
-      ]),
-      computed_Pattern: function () {
-        //this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
-        //this.pattern = this.pattern_data;
-        return this.$store.getters['page_displaying/getPattern_Vuex'];
-      }
-    },
+
     mounted: function() {
      
         this.$nextTick(function () {
-        // ビュー全体がレンダリングされた後にのみ実行されるコード
-        console.log("profile : next trick");
+        // 子のコンポがレンダリングされた後にのみ実行されるコード
+        //なにこれ　なんのため？ なんか意味があった気がする
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
       })
-    },
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        this.$store.dispatch('page_displaying/pattern_set_' + pattern);
-      },
     },
     template: `
     <main class="text-center u-bg-w u-pb-180">
@@ -53,7 +28,7 @@ import my_frends from './my_frends.vue';
       <div @click="change_Page_Pattern('Prof')">
         <router-link class="w-100 bg-main text-light d-inline-block py-2" to="/set_Prof">プロフィール編集</router-link>
       </div>
-      
+
       <div class="container-fluid profile-Sticy u-bg-w u-bt-border-grey">
         <ul class="row l-Simple__list">
 
@@ -69,6 +44,7 @@ import my_frends from './my_frends.vue';
               </div>
             </div>
           </div>
+
           <div class="col">
             <div class="u-wrapper">
               <div class="u-wrapper-text">
@@ -79,6 +55,7 @@ import my_frends from './my_frends.vue';
               </div>
             </div>
           </div>
+
           <div class="col">
             <div class="u-wrapper">
               <div class="u-wrapper-text">
@@ -89,6 +66,7 @@ import my_frends from './my_frends.vue';
               </div>
             </div>
           </div>
+          
           <div class="col">
             <div class="u-wrapper">
               <div class="u-wrapper-text">

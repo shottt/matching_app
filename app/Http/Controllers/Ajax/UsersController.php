@@ -48,7 +48,7 @@ class UsersController extends Controller
 
         //異常判定終了
         //正常処理、結果的にHomeへ移動する
-        return response()->json(['result_flag' => true, 'user_id' => $user->id]);
+        return response()->json(['result_flag' => true, 'user_id' => $user->id ]);
 
     
         
@@ -63,14 +63,6 @@ class UsersController extends Controller
        
         //return response()->json(['result_flag' => $result_flag, 'user_id' => $user->id]);
         // $user = User::where('email', $email)->get();
-        
-        //$auth_flg = (!empty($user)) ? true : false;
-        //$data = response()->json($user);
-        
-        //return [$auth_flg, $data];
-        
-        //$items = DB::select('select * from users where password = '.$pass.' and email = 123');
-        // return $user->toJson();
         // Log::debug(print_r($user));
         //$auth_flg = (!empty($user)) ? true : false;
         //$data = response()->json($user);

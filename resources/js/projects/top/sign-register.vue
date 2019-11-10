@@ -1,6 +1,5 @@
 <script>
-  import { mapGetters } from 'vuex';
-  const usr = new URLSearchParams();
+  //const usr = new URLSearchParams();
 
   export default {
     props: {
@@ -24,22 +23,12 @@
     },
 
     computed: {
-        ...mapGetters([
-        'auth_displaying/getDisplay_Vuex',
-        'auth_displaying/getUser_Id_Vuex',
-        'page_displaying/getPattern_Vuex'
-
-        // ...
-        ]),
         //サインインか登録の描画判定のフラグです
         display_flg: function () {
           //後ほどpropsを変化させて、propsでbutton表示判定させたい
           return this.$store.getters['auth_displaying/getDisplay_Vuex'];
         },
 
-        computed_erros: function () {
-          //return this.sign_errors;
-        },
     },
     methods: {
       doSign_in: function () {
@@ -54,6 +43,7 @@
         //メール形式
         this.vali_email("sign_email", this.sign_email);
         //半角判定
+        
         this.vali_half('sign_pass', this.sign_pass);
         if (Object.keys(this.errors).length > 0) {
           return;
@@ -69,19 +59,17 @@
             .then(res => {
               console.log("サインイン成功");
               this.json_data = res.data;
-              
               console.log("user_id : " + this.json_data.user_id);
               console.log("result_flag : " + this.json_data.result_flag);
-
-              //テスト用
-              this.$store.dispatch('auth_displaying/set_user_id', {value: 111 });
 
               //ログイン結果判定
               if (this.json_data.user_id !== null && this.json_data.result_flag === true) {
 
-                //this.$store.dispatch('auth_displaying/set_user_id', {value: parseInt(this.json_data.user_id) });
+                //user_id設定
+                this.$store.dispatch('auth_displaying/set_user_id', this.json_data.user_id );
+
                 //描画のための画面判定値を更新
-                this.$store.dispatch('page_displaying/pattern_home');
+                this.$store.dispatch('page_displaying/set_Vuex__pattern', "home");
                 this.$router.push({ path: 'home' });
 
               } else {

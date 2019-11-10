@@ -1,6 +1,5 @@
 
 <script>
-import { mapGetters } from 'vuex';
 export default {
     props: {
        
@@ -8,26 +7,6 @@ export default {
     data: function() {
         return {
             pattern: "default",
-        }
-    },
-    computed: {
-        ...mapGetters([
-        'auth_displaying/getDisplay_Vuex',
-        'page_displaying/getPattern_Vuex'
-
-        ]),
-    },
-    methods: {
-        /*
-        change_Page_Pattern: function () {
-        console.log("change_Page_Pattern");
-        this.$store.dispatch('page_displaying/pattern_search')
-        }*/
-
-        change_Page_Pattern: function (pattern) {
-            console.log("change_Page_Pattern");
-            this.pattern = this.$store.dispatch('page_displaying/pattern_' + pattern);
-            //console.log(this.$store.getters['page_displaying/getPattern_Vuex']);
         }
     },
     template: `

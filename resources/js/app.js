@@ -9,24 +9,22 @@ import store from "./store";
 import router from './router/router';
 import VueRouter from "vue-router";
 
+
+
+
 require('./bootstrap');
 
 //ui
 
 
-/*
+/*よくわからんから、バリデーションは自作した
 import VeeValidateJaLocale from 'vee-validate/dist/locale/ja'
-
-
 import { ValidationProvider, extend } from 'vee-validate';
-
 import { required } from 'vee-validate/dist/rules';
-
 extend('required', {
   ...required,
   message: 'The {_field_} field is required'
 });
-
 Vue.use(VeeValidate, { locale: 'ja' });
 */
 
@@ -37,22 +35,18 @@ Vue.use(VeeValidate, { locale: 'ja' });
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-
-
-
-//Vue.component('sign-register', require('./components/sign-register.vue').default);
-//Vue.component('button-sign-register', require('./components/button-sign-register.vue').default);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+import { mapGetters } from 'vuex';
+import action_btn from './components/ui/button/action-button.vue';
+import search_icon from './components/ui/icon/search_icon.vue';
 Vue.mixin({
   data: function(){ return {
     vali_error: {
@@ -98,7 +92,6 @@ Vue.mixin({
         return true;
       }
     },
-
     vali_half: function(type,value) {
 
       var result = value.match(this.vali_error.regexp_half);
@@ -112,7 +105,25 @@ Vue.mixin({
       }
     },
 
-  }
+    change_Page_Pattern: function (pattern) {
+      this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
+    }
+  },
+  
+  computed: {
+    ...mapGetters([
+    'auth_displaying/getDisplay_Vuex',
+    'auth_displaying/getUser_Id_Vuex',
+    'page_displaying/getPattern_Vuex'
+
+    // ...
+    ]),
+  },
+  components: {
+    action_btn,search_icon
+  },
+  
+
 });
 
 const vue_body = new Vue({
@@ -121,8 +132,6 @@ const vue_body = new Vue({
     router,
     //mixins: [validation],
     //extends: validation,
-    components: {
-      
-    },
+
     
 });//.$mount("#vue_body");

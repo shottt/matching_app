@@ -1,7 +1,5 @@
 <script>
-
-import { mapGetters } from 'vuex';
-const usr = new URLSearchParams();
+//const usr = new URLSearchParams();
 
 export default {
   
@@ -14,21 +12,6 @@ export default {
     }
   },
   methods: {
-    push_About_me: function () {
-      this.$router.push({ path: '/my_profile' })
-    },
-    change_Page_Pattern: function (pattern) {
-
-      //settings
-      console.log("setting:change_Page_Pattern");
-      this.$store.dispatch('page_displaying/pattern_' + pattern);
-
-
-      //console.log("1 :" + this.pattern);
-      //console.log("2 :" + this.$store.getters['page_displaying/getPattern_Vuex']);
-    
-      //console.log(this.$store.getters['page_displaying/getPattern_Vuex']);
-    },
     doSign_out: function () {
 
       //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
@@ -39,7 +22,7 @@ export default {
           console.log("サインアウト");
           
           //描画のための画面判定値を更新
-          this.$store.dispatch('page_displaying/pattern_top')
+          this.$store.dispatch('page_displaying/set_Vuex__pattern', "top")
           this.$router.push({ path: '/' })
         })
         .catch(err => console.log(err))
@@ -59,7 +42,7 @@ export default {
           console.log("サインアウト");
           
           //描画のための画面判定値を更新
-          this.$store.dispatch('page_displaying/pattern_top')
+          this.$store.dispatch('page_displaying/set_Vuex__pattern', "top");
           this.$router.push({ path: '/' })
         })
         .catch(err => console.log(err))
@@ -70,12 +53,6 @@ export default {
     },
 
   },
-  computed: {
-    ...mapGetters([
-    'page_displaying/getPattern_Vuex',
-    'user_info/getUser_id',
-    ]),
-  },
   template: `
     <main class="u-container-y--short">
       <div class="container">
@@ -85,13 +62,13 @@ export default {
             プロフィール確認する
           </router-link>
         </div>
-        <div @click="change_Page_Pattern('set_Prof')">
+        <div @click.capture="change_Page_Pattern('set_Prof')">
           <router-link class="d-block mt-3" to="/set_Prof">プロフィール編集</router-link>
         </div>
 
-        <div @click="change_Page_Pattern('set_Pass')">
+        <div @click.capture="change_Page_Pattern('set_Pass')">
           <router-link class="d-block my-3" to="/set_Pass" >パスワード変更</router-link>
-        </div>
+        </div> 
 
         <p class="d-block my-3" data-toggle="modal" data-target="#sign_out">
           サインアウト
@@ -100,9 +77,6 @@ export default {
         <p class="d-block my-3" data-toggle="modal" data-target="#unSub">
           退会処理
         </p>
-
-
-
 
         <!-- モーダルの設定 -->
         <div class="modal fade" id="sign_out" tabindex="-1" role="dialog" aria-labelledby="sign_outLabel">

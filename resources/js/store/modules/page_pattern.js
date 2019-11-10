@@ -7,46 +7,17 @@ const state = () => ({
 })
 
 const actions = {
-  pattern_top: function (context) {
-      context.commit('change', "top");
-  },
-  pattern_home: function (context) {
 
-      context.commit('change', "home")
+  set_Vuex__pattern: function (context, value) {
+    context.commit('change', value);
   },
-  pattern_search: function (context) {
-      context.commit('change', "search")
-  },
-  pattern_search_result: function (context) {
-    context.commit('change', "search_result")
-  },
-  pattern_settings: function (context) {
-    context.commit('change', "settings")
-  },
-
-  //settings page
-  pattern_my_Prof: function (context) {
-    context.commit('change', "my_Prof")
-  },
-  pattern_set_Prof: function (context) {
-    context.commit('change', "set_Prof")
-  },
-  pattern_set_Pass: function (context) {
-    context.commit('change', "set_Pass")
-  },
-  pattern_set_Sign_out: function (context) {
-    context.commit('change', "set_Sign_out")
-  },
-  pattern_set_Unsub: function (context) {
-    context.commit('change', "set_Unsub")
-  },
-
 }
 
 const mutations = {
   change: function (state, pattern_name) {
-
-      state.pattern = pattern_name;
+    console.log("sate: " );
+    console.log(state);
+    state.pattern = pattern_name;
   },   
 }
 
