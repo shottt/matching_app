@@ -29,14 +29,14 @@ import frend_reviews from '../projects/setting/profile/frend_review.vue';
 import my_posts from '../projects/setting/profile/my_posts.vue';
 
 //コンポーネント系
-import footer from '../components/footer.vue';
-import header from '../components/header.vue';
-import header_search from '../components/header_search.vue';
-import header_search_result from '../components/header_search_result.vue';
-import header_settings from '../components/header_setting.vue';
+import footer from '../components/ui/footer.vue';
+import header from '../components/header/header.vue';
+import header_search from '../components/header/header_search.vue';
+import header_search_result from '../components/header/header_search_result.vue';
+import header_settings from '../components/header/header_setting.vue';
 
 //import person_card from  '../components/person_card.vue';
-//import search_icon from '../components/search_icon.vue';
+
 
 // 3.
 

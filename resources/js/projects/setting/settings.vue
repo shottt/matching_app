@@ -12,11 +12,6 @@ export default {
     }
   },
   methods: {
-    change_Page_Pattern: function (pattern) {
-      console.log(window.event);
-      //settings
-      this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
-    },
     doSign_out: function () {
 
       //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる

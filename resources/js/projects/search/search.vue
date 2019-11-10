@@ -1,19 +1,10 @@
 <script>
-const usr = new URLSearchParams();
-//import action_btn from '../../components/action-button.vue';
-
 export default {
-  props: {
-    pattern: String,
-    //search_query: String
-  },
+
   data: function () {
     return {
       search_query: ""
     }
-  },
-  components: {
-    //action_btn
   },
   template: `
   <main class="u-container-y">
@@ -23,7 +14,7 @@ export default {
         <label class="my-5 u-txt-b" for="search-key">キーワードを入力してください</label>
         <input v-model="search_query" class="u-bt-border-grey w-100 text-dark" type="text" id="search-key" name="search-key">
         {{ search_query }}
-        <action_btn btn_text="検索する" pattern="search_result" v-bind:search_query="search_query" ></action_btn>
+        <action_btn btn_text="検索する" v-bind:search_query="search_query" ></action_btn>
       </form>
 
     </div>

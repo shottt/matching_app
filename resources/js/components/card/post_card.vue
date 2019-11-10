@@ -1,16 +1,5 @@
 <script>
   export default {
-    props: {
-      pattern: String
-    },
-    components: {
-      
-    },
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
-      },
-    },
     template: `
     <div class="u-bt-border-grey px-4 pt-5 pb-3">
       <dt class="d-inline-block w-auto">

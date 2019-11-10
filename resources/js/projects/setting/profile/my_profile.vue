@@ -1,36 +1,21 @@
 <script>
 
   export default {
-    props: {
-      pattern: String
-    },
-    
     mounted: function() {
      
         this.$nextTick(function () {
         // ビュー全体がレンダリングされた後にのみ実行されるコード
+        //なにこれ　なんのため？なんか意味があった気がする
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
       })
     },
     
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
-      },
-
-      test_vuex: function () {
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', "test");
-      }
-    },
     template: `
     <section class="container profile-Detail text-left">
       <h1 class="profile-Detail__head u-txt-b pt-4">aaa</h1>
       <p class="profile-Detail__text pt-3">
       text text text texttext text text texttext text text texttext text text texttext text text text
       </p>
-
-      <button v-on:click="test_vuex">aaaa</button>
     </section>
     `
   }

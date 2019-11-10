@@ -11,12 +11,8 @@ export default {
     page_pattern: this.$store.getters['page_displaying/getPattern_Vuex'],
   }},
   methods: {
-    change_Page_Pattern: function (pattern) {
-      this.$store.dispatch('page_displaying/set_Vuex__pattern', "settings");
-    },
-
     //検索
-    search_for: function () {
+    search_for11: function () {
       
       this.$http.post('/api/ctrl_search_for_frends', {
           search_query: this.search_query,
@@ -28,12 +24,12 @@ export default {
           return;
         }
 
-        this.change_Page_Pattern();
+        this.change_Page_Pattern('settings');
         console.log("検索成功");
 
         //検索キーワード(search_query)と検索結果が欲しい
         this.json_data = res.data;
-        this.$router.push({ name: 'search_result', params: { query: button_obj.search_query }})
+        this.$router.push({ name: 'search_result', params: { query: this.search_query }})
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -56,7 +52,7 @@ export default {
           return;
         }
         console.log("プロフィール更新成功");
-        this.change_Page_Pattern();
+        this.change_Page_Pattern('settings');
         this.json_data = res.data;
         console.log(this.json_data);
         this.$router.push('/settings');
@@ -86,7 +82,7 @@ export default {
 
         console.log("PASS変更成功");
         this.json_data = res.data;
-        this.change_Page_Pattern();
+        this.change_Page_Pattern('settings');
         this.$router.push('/settings');
       })
       .catch(err => console.log(err))
@@ -105,9 +101,8 @@ export default {
   <div>
 
       <!--検索-->
-
       <div v-if="page_pattern==='search'">
-        <button @click.capture="search_for" type="button" class="btn w-100 bg-main u-mt-200 position-relative text-light">
+        <button @click.capture="search_for" type="button" class="btn w-100 bg-main u-mt-100 position-relative text-light">
           <img class="pr-1" src="/images/search-icon-white.png" style="display: inline-block; vertical-align: sub;" alt="">
           {{ btn_text }}
         </button>
@@ -121,8 +116,8 @@ export default {
         </button>
       </div>
 
-      <div v-else-if="page_pattern==='set_Pass'">
-        <!--パスワード変更-->
+      <!--パスワード変更-->
+      <div v-else-if="page_pattern==='set_Pass'"> 
         <button @click.capture="change_Pass" type="button" class="btn w-100 bg-main mt-5 position-relative text-light">
           <img class="pr-1" src="/images/search-icon-white.png" style="display: inline-block; vertical-align: sub;" alt="">
           {{ btn_text }}

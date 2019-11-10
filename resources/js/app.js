@@ -8,7 +8,7 @@ window.Vue = require('vue');
 import store from "./store";
 import router from './router/router';
 import VueRouter from "vue-router";
-import action_btn from './components/ui/button/action-button.vue';
+
 
 
 
@@ -45,6 +45,8 @@ Vue.use(VeeValidate, { locale: 'ja' });
 
 
 import { mapGetters } from 'vuex';
+import action_btn from './components/ui/button/action-button.vue';
+import search_icon from './components/ui/icon/search_icon.vue';
 Vue.mixin({
   data: function(){ return {
     vali_error: {
@@ -102,6 +104,10 @@ Vue.mixin({
         return true;
       }
     },
+
+    change_Page_Pattern: function (pattern) {
+      this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
+    }
   },
   
   computed: {
@@ -114,8 +120,9 @@ Vue.mixin({
     ]),
   },
   components: {
-    action_btn,
+    action_btn,search_icon
   },
+  
 
 });
 

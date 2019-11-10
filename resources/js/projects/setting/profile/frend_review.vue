@@ -1,16 +1,5 @@
 <script>
   export default {
-    props: {
-      pattern: String
-    },
-    components: {
-    },
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
-      },
-    },
     template: `
     <section class="container profile-Detail text-left">
       <h1 class="profile-Detail__head u-txt-b pt-4">aaa</h1>

@@ -1,11 +1,6 @@
 <script>
-const usr = new URLSearchParams();
 
 export default {
-  props: {
-    pattern: String,
-    //search_query: String
-  },
   data: function () {
     return {
       button_obj: {

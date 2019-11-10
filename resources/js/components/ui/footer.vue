@@ -9,14 +9,6 @@ export default {
             pattern: "default",
         }
     },
-    methods: {
-
-        change_Page_Pattern: function (pattern) {
-            
-            this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
-            //console.log(this.$store.getters['page_displaying/getPattern_Vuex']);
-        }
-    },
     template: `
     <footer class="c-Footer container">
         <ul class="nav">

@@ -1,17 +1,5 @@
 <script>
   export default {
-    props: {
-      pattern: String
-    },
-    components: {
-      
-    },
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
-      },
-    },
     template: `
     <tr class="container c-PsnCard u-bt-border-grey">
       <th class="u-w-30">

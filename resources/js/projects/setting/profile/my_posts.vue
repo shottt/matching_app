@@ -1,18 +1,9 @@
 <script>
-import post_card from '../../../components/post_card.vue';
+import post_card from '../../../components/card/post_card.vue';
 
   export default {
-    props: {
-      pattern: String
-    },
     components: {
       post_card,
-    },
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
-      },
     },
     template: `
     <dl>

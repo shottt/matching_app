@@ -1,36 +1,19 @@
 <script>
-import my_profile from './my_profile.vue';
-import my_frends from './my_frends.vue';
 
   export default {
-    props: {
-      pattern: String
-    },
     data: function() {
      return {
        pattern_data: "",
      }
     },
-    components: {
-      my_profile,
-    },
-    computed: {
-      computed_Pattern: function () {
 
-        return this.$store.getters['page_displaying/getPattern_Vuex'];
-      }
-    },
     mounted: function() {
      
         this.$nextTick(function () {
         // 子のコンポがレンダリングされた後にのみ実行されるコード
+        //なにこれ　なんのため？ なんか意味があった気がする
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
       })
-    },
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
-      },
     },
     template: `
     <main class="text-center u-bg-w u-pb-180">

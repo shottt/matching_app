@@ -1,18 +1,9 @@
 <script>
-  import person_card from '../../../components/person_card.vue';
+  import person_card from '../../../components/card/person_card.vue';
 
   export default {
-    props: {
-      pattern: String
-    },
     components: {
       person_card,
-    },
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
-      },
     },
     template: `
     <table class="table mb-0">

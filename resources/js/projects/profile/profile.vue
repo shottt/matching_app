@@ -1,10 +1,5 @@
 <script>
   export default {
-    props: {
-      pattern: String
-    },
-    components: {
-    },
     template: `
     <main class="text-center u-bg-w u-pb-180">
       <div class="c-Card-Hero">
