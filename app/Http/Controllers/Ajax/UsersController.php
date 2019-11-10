@@ -15,7 +15,7 @@ class UsersController extends Controller
 
         //POST値取得
         $email = $request->input('email');
-        $pass = $request->input('pass');
+        $pass = $request->input('password');
        
         //XSS対策
 
@@ -70,7 +70,7 @@ class UsersController extends Controller
             'name' => 'required|max:255',
             'location' => 'required|max:255',
             'email' => 'required|max:255',
-            'pass' => 'required|max:255',
+            'password' => 'required|max:255',
         ]);
 
         $user = new User;
@@ -82,7 +82,7 @@ class UsersController extends Controller
         $user->name = $request->input('name');
         $user->location = $request->input('location');
         $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('pass'));
+        $user->password = bcrypt($request->input('password'));
         $result_flg = $user->save();
         
         //これで登録直後のこのレコードのid取れますか？
@@ -94,8 +94,10 @@ class UsersController extends Controller
         return response()->json(['result_flg' => $result_flg, 'user_id' => $user_id]);
     }
 
-    public function set_prof(Request $request, $id){
+    public function set_prof(Request $request){
+        
         // GETパラメータが数字かどうかチェックする
+        $id = $request->input('user_id');
         if(!ctype_digit($id)){
             return redirect('home')->with('flash_message', '不正な処理が行われました');
         }
@@ -106,7 +108,7 @@ class UsersController extends Controller
             'name' => 'nullable|max:255',
             'location' => 'nullable|max:255',
             'email' => 'nullable|max:255',
-            'pass' => 'nullable|max:255',
+            'password' => 'nullable|max:255',
         ]);
 
         // fillメソッド使用

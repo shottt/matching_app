@@ -14,6 +14,10 @@
 
 Auth::routes();
 
+Route::get('/', function(){
+    return view('index');
+});
+
 //初期レンダリング
 //あとは api.phpに記述
 //ログインのセッションかクッキーを判定して、
@@ -23,6 +27,19 @@ Route::get('/{any}', function (Request $request) {
 
     return view('/index');
 })->where('any', '.*');
+
+
+// laravelのみの処理
+Route::group(['middleware' => ['auth']], function(){
+    Route::resource('posts', 'PostsController');
+    Route::resource('schedules', 'SchedulesController');
+    Route::resource('chats', 'ChatsController');
+    Route::resource('messages', 'MessagesController');
+    Route::resource('friends', 'FriendsController');
+});
+
+
+
 
 
 /*
@@ -72,16 +89,4 @@ Route::get('/', function () {
     return view('/index');
 });*/
 
-// laravelのみの処理
-Route::group(['middleware' => ['auth']], function(){
-    Route::resource('posts', 'PostsController');
-    Route::resource('schedules', 'SchedulesController');
-    Route::resource('chats', 'ChatsController');
-    Route::resource('messages', 'MessagesController');
-    Route::resource('friends', 'FriendsController');
-});
-
-Route::get('/', function(){
-    return view('welcome');
-});
 

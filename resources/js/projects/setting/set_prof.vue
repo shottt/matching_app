@@ -37,7 +37,7 @@ export default {
         <label class="u-txt-b mt-2" for="image">お写真</label>
         <input v-model="prof_data.image" class="u-bt-border-grey w-100 text-dark" type="text" id="image">
 
-        <action_btn btn_text="プロフィールを更新する" v-bind:prof_data="prof_data"></action_btn>
+        <action_btn btn_text="プロフィールを更新する" v-bind:button_obj="prof_data"></action_btn>
       </form>
 
     </div>

@@ -32,7 +32,7 @@
     },
     methods: {
       doSign_in: function () {
-        
+        /*
         this.vali_required("sign_email", this.sign_email);
         this.vali_required("sign_pass", this.sign_pass);
 
@@ -48,13 +48,14 @@
         if (Object.keys(this.errors).length > 0) {
           return;
         }
-
+        */
         if (Object.keys(this.errors).length === 0) {
                    
           //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-          this.$http.post('/api/ctrl_sign_in', {
+          //this.$http.post('/api/ctrl_sign_in', {
+          this.$http.post('/login', {
               email: this.sign_email,
-              pass: this.sign_pass
+              password: this.sign_pass
             })
             .then(res => {
               console.log("サインイン成功");
@@ -169,7 +170,7 @@
 
           <h1>サインイン</h1>
           <img class="img-fluid u-mt-40" src="/images/man-1.png" alt="">
-          <form action="" class="sign-Form mt-5">
+          <form class="sign-Form mt-5" >
             <input v-model="sign_email" class="u-bg-tr" type="email" name="email" id="" placeholder="メールアドレス" required>
             <input v-model="sign_pass" class="u-bg-tr mt-2" type="password" name="pass" id="" placeholder="パスワード" required minlength="8">
 

@@ -18,9 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'api'], function() {
-
+    //Auth::routes();
     /*
-    from name, pass
+    from name, password
     return  user_id, result_flag;
     */
     Route::post('/ctrl_sign_in', 'Ajax\UsersController@sign_in');
@@ -30,7 +30,7 @@ Route::group(['middleware' => 'api'], function() {
         name,
         location,
         email,
-        pass
+        password
     return user_id, result_flag
     */
     Route::post('/ctrl_registration','Ajax\UsersController@registration');
@@ -55,7 +55,11 @@ Route::group(['middleware' => 'api'], function() {
     return result_flag
     */
     Route::post('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
-
+    /*
+Route::group(['middleware' => ['auth']], function () {
+        // この中はログインされている場合のみルーティングされる
+        Route::get('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
+  });*/
     /*
     from user_id,pass_now,pass_new
     return result_flag
