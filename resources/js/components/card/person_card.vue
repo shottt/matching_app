@@ -1,26 +1,5 @@
 <script>
-  import { mapGetters } from 'vuex';
-  //import action_btn from '/components/action-btn_follow.vue';
-
   export default {
-    props: {
-      pattern: String
-    },
-    components: {
-      
-    },
-    computed: {
-      ...mapGetters([
-      'page_displaying/getPattern_Vuex',
-      'user_info/getUser_id',
-      ]),
-    },
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        console.log("change_Page_Pattern");
-        this.$store.dispatch('page_displaying/pattern_set_' + pattern);
-      },
-    },
     template: `
     <tr class="container c-PsnCard u-bt-border-grey">
       <th class="u-w-30">

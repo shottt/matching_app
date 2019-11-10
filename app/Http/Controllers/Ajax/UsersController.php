@@ -11,27 +11,64 @@ use Log;
 
 class UsersController extends Controller
 {
+
     public function sign_in(Request $request){
+
         Log::debug($request);
+        //POST値取得
         $email = $request->input('email');
         $pass = $request->input('pass');
         Log::debug($email);
         Log::debug($pass);
-        
-        // $user = User::where('email', $email)->get();
-        $user = User::where('email', '=', $email)->where('password', '=', $pass)->first();
+        //XSS対策
+
+        //Nullバイト攻撃対策
+
+        //クエリ発行
+        // $user = User::where('email', '=', $email)->where('password', '=', $pass)->first();
+        // $user = User::where('email', '=', $email)->first();
+        //$user = DB::select('select * from users where email = '.$email); @~.comが文法エラー
+        //getはレコードの配列でくるから、配列操作必要。emailはそもそもユニークなのでfirst一択
+        // $user = DB::table('users')->where('email', '=', $email)->where('password', '=', $pass)->first();
+        $user = DB::table('users')->where('email', '=', $email)->first();
         Log::debug(print_r($user, true));
+
+        //異常判定開始
+        if (empty($user)) {
+            //異常検出したらさっさと返す
+            return response()->json(['result_flag' => false,]);
+        }
+
+        //取ってきたパスを逆ハッシュして比較
+        $pass_check = password_verify($pass, $user->password);
+
+        if ($pass_check === false) {
+            return response()->json(['result_flag' => false,]);
+        }
+
+        //異常判定終了
+        //正常処理、結果的にHomeへ移動する
+        return response()->json(['result_flag' => true, 'user_id' => $user->id ]);
+
+    
         
+        //レスポンス準備
+        //e判定できてない
+        //$result_flag = (!empty($user)) ? true : false;
+
+        //リターン
+        //return json_encode(['result_flag' => true, 'user_id' => $pass]);
+        //これは通る
+        //return response()->json(['result_flag' => $result_flag, ]);
+       
+        //return response()->json(['result_flag' => $result_flag, 'user_id' => $user->id]);
+        // $user = User::where('email', $email)->get();
+        // Log::debug(print_r($user));
         //$auth_flg = (!empty($user)) ? true : false;
         //$data = response()->json($user);
-        $result_flg = (!empty($user)) ? true : false;
-        $user_id = $user->id;
-        
         //return [$auth_flg, $data];
-        return response()->json(['result_flg' => $result_flg, 'user_id' => $user_id]);
-        
         //$items = DB::select('select * from users where password = '.$pass.' and email = 123');
-        // return $user->toJson();
+        //return $user->toJson();
     }
 
     public function registration(Request $request)
@@ -48,7 +85,12 @@ class UsersController extends Controller
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('pass'));
         $result_flag = $user->save();
+        
+        //これで登録直後のこのレコードのid取れますか？
         $user_id = $user->id;
+        
+        //下記のように検索いりませんか？
+        //$user_id = DB::table('users')->where('email', '=', $user->email)->first()->id;
 
         return response()->json(['result_flag' => $result_flag, 'user_id' => $user_id]);
     }

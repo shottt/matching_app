@@ -5,35 +5,37 @@ Vue.use(VueRouter)
 
 // 2.
 //import top from '../projects/top/top.vue';
+
+//トップページ
 import top from '../projects/top/top.vue';
+
+//ログイン直後のホームページ
 import home from '../projects/home.vue';
 
-
+//検索ページ
 import search from '../projects/search/search.vue';
 
-
-
+//セッティング系
 import prof from '../projects/profile/profile.vue'
-
 import settings from '../projects/setting/settings.vue'
 import change_pass from '../projects/setting/change_pass.vue'
 import set_prof from '../projects/setting/set_prof.vue'
+
+//自分のプロフィール系
 import my_prof from '../projects/setting/profile/profile.vue'
-import about_me from '../projects/setting/profile/about_me.vue'
+import my_profile from '../projects/setting/profile/my_profile.vue'
 import my_frends from '../projects/setting/profile/my_frends.vue'
 import frend_reviews from '../projects/setting/profile/frend_review.vue';
 import my_posts from '../projects/setting/profile/my_posts.vue';
 
-import footer from '../components/footer.vue';
-import header from '../components/header.vue';
-import header_search from '../components/header_search.vue';
-import header_search_result from '../components/header_search_result.vue';
-import header_settings from '../components/header_setting.vue';
+//コンポーネント系
+import footer from '../components/ui/footer.vue';
+import header from '../components/header/header.vue';
+import header_search from '../components/header/header_search.vue';
+import header_search_result from '../components/header/header_search_result.vue';
+import header_settings from '../components/header/header_setting.vue';
 
 //import person_card from  '../components/person_card.vue';
-//import search_icon from '../components/search_icon.vue';
-
-
 
 
 // 3.
@@ -64,7 +66,7 @@ const routes = [
         }
     },
     {
-        path: '/search',
+        path: '/search', 
         components: {
             c_header: header_search, 
             c_main: search, 
@@ -121,7 +123,7 @@ const routes = [
         children: [
             {
              path: "",  components: {
-                my_profile: about_me
+                my_profile: my_profile
              } 
             }
         ]

@@ -1,10 +1,5 @@
 <script>
-    import { mapGetters } from 'vuex';
-
     export default {
-      props: {
-        pattern: String
-      },
       methods: {
         changeDisplay_Sign: function () {
           this.$store.dispatch('auth_displaying/sign')
@@ -16,10 +11,6 @@
       },
 
       computed: {
-        ...mapGetters([
-        'auth_displaying/getDisplay_Vuex',
-        // ...
-        ]),
         //サインインか登録の描画判定のフラグです
         display_flg: function () {
           //後ほどpropsを変化させて、propsでbutton表示判定させたい

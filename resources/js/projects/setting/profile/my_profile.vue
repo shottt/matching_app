@@ -1,36 +1,15 @@
 <script>
-  import { mapGetters } from 'vuex';
-  import action_btn from '../../../components/action-btn_follow.vue';
 
   export default {
-    props: {
-      pattern: String
-    },
-    components: {
-      action_btn,
-    },
-    computed: {
-      ...mapGetters([
-      'page_displaying/getPattern_Vuex',
-      'user_info/getUser_id',
-      ]),
-    },
-    
     mounted: function() {
      
         this.$nextTick(function () {
         // ビュー全体がレンダリングされた後にのみ実行されるコード
-        console.log("about_me : next trick");
+        //なにこれ　なんのため？なんか意味があった気がする
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
       })
     },
     
-    methods: {
-      change_Page_Pattern: function (pattern) {
-        console.log("change_Page_Pattern");
-        this.$store.dispatch('page_displaying/pattern_set_' + pattern);
-      },
-    },
     template: `
     <section class="container profile-Detail text-left">
       <h1 class="profile-Detail__head u-txt-b pt-4">aaa</h1>
