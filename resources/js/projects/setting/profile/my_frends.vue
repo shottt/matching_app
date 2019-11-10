@@ -1,5 +1,4 @@
 <script>
-  import { mapGetters } from 'vuex';
   import person_card from '../../../components/person_card.vue';
 
   export default {
@@ -9,16 +8,10 @@
     components: {
       person_card,
     },
-    computed: {
-      ...mapGetters([
-      'page_displaying/getPattern_Vuex',
-      'user_info/getUser_id',
-      ]),
-    },
     methods: {
       change_Page_Pattern: function (pattern) {
-        console.log("change_Page_Pattern");
-        this.$store.dispatch('page_displaying/pattern_set_' + pattern);
+        
+        this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
       },
     },
     template: `

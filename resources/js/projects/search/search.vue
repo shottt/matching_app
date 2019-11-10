@@ -1,7 +1,6 @@
 <script>
-import { mapGetters } from 'vuex';
 const usr = new URLSearchParams();
-import action_btn from '../../components/action-btn.vue';
+//import action_btn from '../../components/action-button.vue';
 
 export default {
   props: {
@@ -13,15 +12,8 @@ export default {
       search_query: ""
     }
   },
-  computed: {
-    ...mapGetters([
-    'auth_displaying/getDisplay_Vuex',
-    'page_displaying/getPattern_Vuex'
-
-    ]),
-  },
   components: {
-    action_btn
+    //action_btn
   },
   template: `
   <main class="u-container-y">

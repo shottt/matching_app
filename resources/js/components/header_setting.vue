@@ -1,7 +1,5 @@
 
 <script>
-  import { mapGetters } from 'vuex';
-  import VueRouter from 'vue-router'
   import search_icon from './search_icon.vue';
   const usr = new URLSearchParams();
   
@@ -21,14 +19,11 @@
     },
     methods: {
       change_Page_Pattern: function () {
-        console.log("change_Page_Pattern");
-        this.$store.dispatch('page_displaying/pattern_search')
+        
+        this.$store.dispatch('page_displaying/set_Vuex__pattern', "search")
       }
     },
     computed: {
-      ...mapGetters([
-      'page_displaying/getPattern_Vuex'
-      ]),
       //サインインか登録の描画判定のフラグです
       page_pattern: function () {
         

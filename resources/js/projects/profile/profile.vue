@@ -1,12 +1,9 @@
 <script>
-  import { mapGetters } from 'vuex';
-  import action_btn from '../../components/action-btn_follow.vue';
   export default {
     props: {
       pattern: String
     },
     components: {
-      action_btn,
     },
     template: `
     <main class="text-center u-bg-w u-pb-180">

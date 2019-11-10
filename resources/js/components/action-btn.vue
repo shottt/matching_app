@@ -1,20 +1,9 @@
 <script>
-import { mapGetters } from 'vuex';
-const usr = new URLSearchParams();
-
 export default {
   props: {
     pattern: String,
     btn_text: String,
     search_query: String
-  },
-  computed: {
-    ...mapGetters([
-    'auth_displaying/getDisplay_Vuex',
-    'page_displaying/getPattern_Vuex'
-
-    // ...
-    ]),
   },
   methods: {
     change_Page_Pattern: function () {

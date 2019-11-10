@@ -1,35 +1,27 @@
 <script>
-  import { mapGetters } from 'vuex';
-  import action_btn from '../../../components/action-btn_follow.vue';
 
   export default {
     props: {
       pattern: String
-    },
-    components: {
-      action_btn,
-    },
-    computed: {
-      ...mapGetters([
-      'page_displaying/getPattern_Vuex',
-      'user_info/getUser_id',
-      ]),
     },
     
     mounted: function() {
      
         this.$nextTick(function () {
         // ビュー全体がレンダリングされた後にのみ実行されるコード
-        console.log("about_me : next trick");
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
       })
     },
     
     methods: {
       change_Page_Pattern: function (pattern) {
-        console.log("change_Page_Pattern");
-        this.$store.dispatch('page_displaying/pattern_set_' + pattern);
+        
+        this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
       },
+
+      test_vuex: function () {
+        this.$store.dispatch('page_displaying/set_Vuex__pattern', "test");
+      }
     },
     template: `
     <section class="container profile-Detail text-left">
@@ -37,6 +29,8 @@
       <p class="profile-Detail__text pt-3">
       text text text texttext text text texttext text text texttext text text texttext text text text
       </p>
+
+      <button v-on:click="test_vuex">aaaa</button>
     </section>
     `
   }

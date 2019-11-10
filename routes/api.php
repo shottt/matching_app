@@ -44,7 +44,14 @@ Route::group(['middleware' => 'api'], function() {
 
     //settings フォルダ
     /*
-    from user_id, object: prof_data
+    from user_id, 
+         prof_data
+            name,
+            occupation,
+            birthday,
+            prof_header,
+            prof_paragraph,
+            image,
     return result_flag
     */
     Route::post('/ctrl_set_prof', 'Ajax\UsersController@set_prof');

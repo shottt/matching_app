@@ -8,6 +8,7 @@
       <img src="/images/search-icon.png" alt="">
     </router-link>
     `,
+    /*
     beforeCreate: function () {
       console.log("beforeCreate icon: ");
     },
@@ -38,7 +39,7 @@
     destroyed: function () {
       console.log("destroyed icon: ");
     },
-
+    */
     
   }
 </script>

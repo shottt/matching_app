@@ -41,7 +41,7 @@ class UsersController extends Controller
 
         //異常判定終了
         //正常処理、結果的にHomeへ移動する
-        return response()->json(['result_flag' => true, 'user_id' => $user->id]);
+        return response()->json(['result_flag' => true, 'user_id' => $user->id ]);
 
     
         

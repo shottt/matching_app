@@ -8,25 +8,23 @@ window.Vue = require('vue');
 import store from "./store";
 import router from './router/router';
 import VueRouter from "vue-router";
+import action_btn from './components/ui/button/action-button.vue';
+
+
 
 require('./bootstrap');
 
 //ui
 
 
-/*
+/*よくわからんから、バリデーションは自作した
 import VeeValidateJaLocale from 'vee-validate/dist/locale/ja'
-
-
 import { ValidationProvider, extend } from 'vee-validate';
-
 import { required } from 'vee-validate/dist/rules';
-
 extend('required', {
   ...required,
   message: 'The {_field_} field is required'
 });
-
 Vue.use(VeeValidate, { locale: 'ja' });
 */
 
@@ -37,21 +35,15 @@ Vue.use(VeeValidate, { locale: 'ja' });
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-
-
-
-//Vue.component('sign-register', require('./components/sign-register.vue').default);
-//Vue.component('button-sign-register', require('./components/button-sign-register.vue').default);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+
 import { mapGetters } from 'vuex';
 Vue.mixin({
   data: function(){ return {
@@ -98,7 +90,6 @@ Vue.mixin({
         return true;
       }
     },
-
     vali_half: function(type,value) {
 
       var result = value.match(this.vali_error.regexp_half);
@@ -111,7 +102,6 @@ Vue.mixin({
         return true;
       }
     },
-
   },
   
   computed: {
@@ -122,7 +112,11 @@ Vue.mixin({
 
     // ...
     ]),
-  }
+  },
+  components: {
+    action_btn,
+  },
+
 });
 
 const vue_body = new Vue({
@@ -131,8 +125,6 @@ const vue_body = new Vue({
     router,
     //mixins: [validation],
     //extends: validation,
-    components: {
-      
-    },
+
     
 });//.$mount("#vue_body");
