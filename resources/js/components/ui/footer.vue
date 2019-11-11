@@ -20,9 +20,9 @@ export default {
             </li>
 
             <li class="nav-item col">
-                  <router-link class="nav-link" to="/">
+                  <a class="nav-link" href="/">
                       <img src="/images/footer/frends-icon.png" alt="" class="img-fluid">
-                  </router-link>
+                  </a>
             </li>
 
             <li class="nav-item col" @click="change_Page_Pattern('settings')">

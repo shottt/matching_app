@@ -12,7 +12,7 @@ export default {
   }},
   methods: {
     //検索
-    search_for11: function () {
+    search_for: function () {
       
       this.$http.post('/api/ctrl_search_for_frends', {
           search_query: this.search_query,

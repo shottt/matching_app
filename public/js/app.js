@@ -1949,7 +1949,7 @@ var usr = new URLSearchParams();
   },
   methods: {
     //検索
-    search_for11: function search_for11() {
+    search_for: function search_for() {
       var _this = this;
 
       this.$http.post('/api/ctrl_search_for_frends', {
@@ -2058,7 +2058,7 @@ __webpack_require__.r(__webpack_exports__);
       pattern: "default"
     };
   },
-  template: "\n    <footer class=\"c-Footer container\">\n        <ul class=\"nav\">\n\n            <li class=\"nav-item col\" @click=\"change_Page_Pattern('home')\">\n                <router-link class=\"nav-link active\" to='/home'>\n                    <img src=\"/images/footer/home-icon--active.png\" alt=\"\" class=\"img-fluid\">\n                </router-link><br>\n            </li>\n\n            <li class=\"nav-item col\">\n                  <router-link class=\"nav-link\" to=\"/\">\n                      <img src=\"/images/footer/frends-icon.png\" alt=\"\" class=\"img-fluid\">\n                  </router-link>\n            </li>\n\n            <li class=\"nav-item col\" @click=\"change_Page_Pattern('settings')\">\n                <router-link class=\"nav-link\" to=\"/settings\">\n                    <img src=\"/images/footer/settings-icon.png\" alt=\"\" class=\"img-fluid\">\n                </router-link>\n            </li>\n        </ul>\n    </footer>\n    "
+  template: "\n    <footer class=\"c-Footer container\">\n        <ul class=\"nav\">\n\n            <li class=\"nav-item col\" @click=\"change_Page_Pattern('home')\">\n                <router-link class=\"nav-link active\" to='/home'>\n                    <img src=\"/images/footer/home-icon--active.png\" alt=\"\" class=\"img-fluid\">\n                </router-link><br>\n            </li>\n\n            <li class=\"nav-item col\">\n                  <a class=\"nav-link\" href=\"/\">\n                      <img src=\"/images/footer/frends-icon.png\" alt=\"\" class=\"img-fluid\">\n                  </a>\n            </li>\n\n            <li class=\"nav-item col\" @click=\"change_Page_Pattern('settings')\">\n                <router-link class=\"nav-link\" to=\"/settings\">\n                    <img src=\"/images/footer/settings-icon.png\" alt=\"\" class=\"img-fluid\">\n                </router-link>\n            </li>\n        </ul>\n    </footer>\n    "
 });
 
 /***/ }),
@@ -2316,7 +2316,7 @@ var usr = new URLSearchParams();
       }
     };
   },
-  template: "\n  <main class=\"u-container-y container text-center\">\n      \n      <form class=\"search-Form text-left mt-5\">\n\n        <label class=\"u-txt-b\" for=\"name\">\u304A\u540D\u524D</label>\n        <input v-model=\"prof_data.name\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"name\">\n\n        <label class=\"u-txt-b mt-2\" for=\"occupation\">\u3054\u8077\u696D</label>\n        <input v-model=\"prof_data.occupation\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"occupation\">\n               \n        <label class=\"u-txt-b mt-2\" for=\"birthday\">\u304A\u8A95\u751F\u65E5</label>\n        <input v-model=\"prof_data.birthday\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"birthday\">\n\n        <label class=\"u-txt-b mt-2\" for=\"prof_header\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u306E\u30BF\u30A4\u30C8\u30EB</label>\n        <input v-model=\"prof_data.prof_header\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"prof_header\">\n         \n        <label class=\"u-txt-b mt-2\" for=\"prof_paragraph\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u306E\u8AAC\u660E</label>\n        <textarea v-model=\"prof_data.prof_paragraph\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"prof_paragraph\"></textarea>\n\n        <label class=\"u-txt-b mt-2\" for=\"image\">\u304A\u5199\u771F</label>\n        <input v-model=\"prof_data.image\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"image\">\n\n        <action_btn btn_text=\"\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u3092\u66F4\u65B0\u3059\u308B\" v-bind:prof_data=\"prof_data\"></action_btn>\n      </form>\n\n    </div>\n  </main>"
+  template: "\n  <main class=\"u-container-y container text-center\">\n      \n      <form class=\"search-Form text-left mt-5\">\n\n        <label class=\"u-txt-b\" for=\"name\">\u304A\u540D\u524D</label>\n        <input v-model=\"prof_data.name\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"name\">\n\n        <label class=\"u-txt-b mt-2\" for=\"occupation\">\u3054\u8077\u696D</label>\n        <input v-model=\"prof_data.occupation\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"occupation\">\n               \n        <label class=\"u-txt-b mt-2\" for=\"birthday\">\u304A\u8A95\u751F\u65E5</label>\n        <input v-model=\"prof_data.birthday\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"birthday\">\n\n        <label class=\"u-txt-b mt-2\" for=\"prof_header\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u306E\u30BF\u30A4\u30C8\u30EB</label>\n        <input v-model=\"prof_data.prof_header\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"prof_header\">\n         \n        <label class=\"u-txt-b mt-2\" for=\"prof_paragraph\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u306E\u8AAC\u660E</label>\n        <textarea v-model=\"prof_data.prof_paragraph\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"prof_paragraph\"></textarea>\n\n        <label class=\"u-txt-b mt-2\" for=\"image\">\u304A\u5199\u771F</label>\n        <input v-model=\"prof_data.image\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"image\">\n\n        <action_btn btn_text=\"\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u3092\u66F4\u65B0\u3059\u308B\" v-bind:button_obj=\"prof_data\"></action_btn>\n      </form>\n\n    </div>\n  </main>"
 });
 
 /***/ }),
@@ -2454,27 +2454,27 @@ __webpack_require__.r(__webpack_exports__);
     doSign_in: function doSign_in() {
       var _this = this;
 
+      /*
       this.vali_required("sign_email", this.sign_email);
       this.vali_required("sign_pass", this.sign_pass);
-
-      if (Object.keys(this.errors).length > 0) {
+       if (Object.keys(this.errors).length > 0) {
         return;
-      } //メール形式
-
-
-      this.vali_email("sign_email", this.sign_email); //半角判定
-
+      }
+       //メール形式
+      this.vali_email("sign_email", this.sign_email);
+      //半角判定
+      
       this.vali_half('sign_pass', this.sign_pass);
-
       if (Object.keys(this.errors).length > 0) {
         return;
       }
-
+      */
       if (Object.keys(this.errors).length === 0) {
         //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-        this.$http.post('/api/ctrl_sign_in', {
+        //this.$http.post('/api/ctrl_sign_in', {
+        this.$http.post('/login', {
           email: this.sign_email,
-          pass: this.sign_pass
+          password: this.sign_pass
         }).then(function (res) {
           console.log("サインイン成功");
           _this.json_data = res.data;
@@ -2563,7 +2563,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  template: "\n    <article>\n      <section v-if=\"display_flg === 1\">\n\n        <h1>\u30B5\u30A4\u30F3\u30A4\u30F3</h1>\n        <img class=\"img-fluid u-mt-40\" src=\"/images/man-1.png\" alt=\"\">\n        <form action=\"\" class=\"sign-Form mt-5\">\n          <input v-model=\"sign_email\" class=\"u-bg-tr\" type=\"email\" name=\"email\" id=\"\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\" required>\n          <input v-model=\"sign_pass\" class=\"u-bg-tr mt-2\" type=\"password\" name=\"pass\" id=\"\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\" required minlength=\"8\">\n\n          <button @click.prevent=\"doSign_in\" type=\"button\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u306F\u3058\u3081\u308B</button>\n          \n        \n        </form>\n        <p class=\"text-white\">{{ $store.state.dispaly }}</p>\n        <a class=\"mt-3 u-txt-w3 d-inline-block w-100 text-center\">\u30D1\u30B9\u30EF\u30FC\u30C9\u5FD8\u308C\u307E\u3057\u305F\u304B\uFF1F</a>\n      </section>\n\n      <section v-else-if=\"display_flg === 2\">\n\n        <h1>\u65B0\u898F\u767B\u9332</h1>\n        <form action=\"\" class=\"sign-Form mt-5 text-left\">\n          \n          <label class=\"mt-2\" for=\"name\">\u6C0F\u540D</label>\n          <input v-model=\"name\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"name\" id=\"name\" placeholder=\"\u82D7\u5B57\u3068\u540D\u524D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n          \n          <label class=\"mt-2\" for=\"location\">\u4F4F\u6240</label>\n          <input v-model=\"location\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"location\" id=\"location\" placeholder=\"\u4F4F\u6240\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n          \n          <label class=\"mt-2\" for=\"email\">\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9</label>\n          <input v-model=\"email\" class=\"u-bg-tr text-left pl-2\" type=\"email\" name=\"email\" id=\"email\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>      \n          \n          <label class=\"mt-2\" for=\"pass\">\u30D1\u30B9\u30EF\u30FC\u30C9</label>\n          <input v-model=\"pass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"pass\" id=\"pass\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          <input v-model=\"repass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"repass\" id=\"repass\" placeholder=\"\u518D\u5EA6\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n    \n          \n          <button @click.prevent=\"doRegisteration\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u65B0\u898F\u767B\u9332</button>\n        </form>\n\n\n      </section>\n      \n    </article>\n  "
+  template: "\n    <article>\n      <section v-if=\"display_flg === 1\">\n\n        <h1>\u30B5\u30A4\u30F3\u30A4\u30F3</h1>\n        <img class=\"img-fluid u-mt-40\" src=\"/images/man-1.png\" alt=\"\">\n        <form class=\"sign-Form mt-5\" >\n          <input v-model=\"sign_email\" class=\"u-bg-tr\" type=\"email\" name=\"email\" id=\"\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\" required>\n          <input v-model=\"sign_pass\" class=\"u-bg-tr mt-2\" type=\"password\" name=\"pass\" id=\"\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\" required minlength=\"8\">\n\n          <button @click.prevent=\"doSign_in\" type=\"button\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u306F\u3058\u3081\u308B</button>\n          \n        \n        </form>\n        <p class=\"text-white\">{{ $store.state.dispaly }}</p>\n        <a class=\"mt-3 u-txt-w3 d-inline-block w-100 text-center\">\u30D1\u30B9\u30EF\u30FC\u30C9\u5FD8\u308C\u307E\u3057\u305F\u304B\uFF1F</a>\n      </section>\n\n      <section v-else-if=\"display_flg === 2\">\n\n        <h1>\u65B0\u898F\u767B\u9332</h1>\n        <form action=\"\" class=\"sign-Form mt-5 text-left\">\n          \n          <label class=\"mt-2\" for=\"name\">\u6C0F\u540D</label>\n          <input v-model=\"name\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"name\" id=\"name\" placeholder=\"\u82D7\u5B57\u3068\u540D\u524D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n          \n          <label class=\"mt-2\" for=\"location\">\u4F4F\u6240</label>\n          <input v-model=\"location\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"location\" id=\"location\" placeholder=\"\u4F4F\u6240\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n          \n          <label class=\"mt-2\" for=\"email\">\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9</label>\n          <input v-model=\"email\" class=\"u-bg-tr text-left pl-2\" type=\"email\" name=\"email\" id=\"email\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>      \n          \n          <label class=\"mt-2\" for=\"pass\">\u30D1\u30B9\u30EF\u30FC\u30C9</label>\n          <input v-model=\"pass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"pass\" id=\"pass\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          <input v-model=\"repass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"repass\" id=\"repass\" placeholder=\"\u518D\u5EA6\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n    \n          \n          <button @click.prevent=\"doRegisteration\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u65B0\u898F\u767B\u9332</button>\n        </form>\n\n\n      </section>\n      \n    </article>\n  "
 });
 
 /***/ }),

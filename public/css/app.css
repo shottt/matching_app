@@ -13567,6 +13567,17 @@ img {
   width: 100%;
 }
 
+.c-logout {
+  position: absolute;
+  z-index: 100;
+  display: inline-block;
+}
+
+.c-logout button {
+  border: 0;
+  margin: auto;
+}
+
 .c-Header,
 .c-Header--short {
   height: 130px;

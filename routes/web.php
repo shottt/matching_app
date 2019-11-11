@@ -12,7 +12,13 @@
 */
 
 // Auth::logout();
+Route::get('/', function(){
+    return view('welcome');
+});
+
 Auth::routes();
+
+
 
 //初期レンダリング
 //あとは api.phpに記述
@@ -23,6 +29,19 @@ Route::get('/{any}', function (Request $request) {
 
     return view('/index');
 })->where('any', '.*');
+
+
+// laravelのみの処理
+Route::group(['middleware' => ['auth']], function(){
+    Route::resource('posts', 'PostsController');
+    Route::resource('schedules', 'SchedulesController');
+    Route::resource('chats', 'ChatsController');
+    Route::resource('messages', 'MessagesController');
+    Route::resource('friends', 'FriendsController');
+});
+
+
+
 
 
 /*

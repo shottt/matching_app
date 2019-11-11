@@ -43,5 +43,8 @@
             </div>
         </div>
     </div>
+
+    <a href="{{ route('login') }}" class="mt-5 text-center d-block">サインインしますか？</a>
+    <a href="{{ route('register') }}" class="mt-3 text-center d-block">新規登録しますか？</a>
 </div>
 @endsection
