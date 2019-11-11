@@ -12,10 +12,12 @@
     </head>
     
     <body id="sign" class="bg-main">
+      @auth
       <form id="logout-form" class="c-logout" action="{{ route('logout') }}" method="POST">
         @csrf
         <button type="submit" class="u-text-pink">logout</button>
       </form>
+      @endauth
       <div id="vue_body">
 
         <router-view name="c_header"></router-view>
