@@ -89,6 +89,15 @@
 .cp_link:hover::after {
 	width: 100%;
 }
-
+.c-logout {
+  position: absolute;
+  z-index: 100;
+  display: inline-block;
+  
+  button {
+    border: 0;
+    margin: auto;
+  }
+}
 @import "header";
 @import "footer";

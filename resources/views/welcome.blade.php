@@ -64,6 +64,10 @@
         </style>
     </head>
     <body>
+        <form id="logout-form"  action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="pl-5">logout</button>
+        </form>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -95,5 +99,7 @@
                 </div>
             </div>
         </div>
+
+
     </body>
 </html>

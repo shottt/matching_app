@@ -11,12 +11,13 @@
 |
 */
 
+Route::get('/', function(){
+    return view('welcome');
+});
 
 Auth::routes();
 
-Route::get('/', function(){
-    return view('index');
-});
+
 
 //初期レンダリング
 //あとは api.phpに記述

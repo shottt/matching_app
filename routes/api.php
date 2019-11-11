@@ -71,11 +71,7 @@ Route::group(['middleware' => ['auth']], function () {
     return result_flag
     */
     Route::post('/ctrl_sign_out', function (Request $request) {
-
-        $email = $request->input('email');
-        $pass = $request->input('pass');
-  
-        return response()->json(['email' => $email, 'pass' => $pass]);
+        Auth::logout();
     });
 
     /*
