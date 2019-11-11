@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('friends', 'FriendsController');
 });
 
-Route::get('/', function(){
-    return view('welcome');
-});
+// Route::get('/', function(){
+//     return view('welcome');
+// });
 
