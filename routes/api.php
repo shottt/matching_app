@@ -83,5 +83,16 @@ Route::group(['middleware' => ['auth']], function () {
    
         //return view('/home/home');
     });
+
     
+    /* 自分自身以外のユーザー情報を全てげっと
+    from user_id,
+    return result_flag, 
+           frends:
+             id,
+             picture,
+             name,
+             occupation
+    */
+    Route::post('/ctrl_all_frends', 'ctrl@action');
 });
