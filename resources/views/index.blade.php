@@ -9,9 +9,15 @@
       </script>
       <title>Document</title>
       <link rel='stylesheet' href='/css/app.css'>
+
     </head>
     
     <body id="sign" class="bg-main">
+      @guest 
+        <script>
+          window.location = "/";
+        </script>
+      @endguest
       @auth
       <form id="logout-form" class="c-logout" action="{{ route('logout') }}" method="POST">
         @csrf
