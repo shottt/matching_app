@@ -22,6 +22,7 @@ class CreateMessagesTable extends Migration
             $table->string('detail');
             $table->string('attachment');
             $table->dateTime('send_date');
+            $table->boolean('delete_flag')->default(0);
             $table->timestamps();
         });
     }

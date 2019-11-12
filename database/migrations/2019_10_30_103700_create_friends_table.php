@@ -17,6 +17,7 @@ class CreateFriendsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('friend_id');
+            $table->boolean('delete_flag')->default(0);
             $table->timestamps();
         });
     }

@@ -17,14 +17,9 @@ class UsersController extends Controller
         Log::debug($request);
         //POST値取得
         $email = $request->input('email');
-<<<<<<< HEAD
         $pass = $request->input('pass');
         Log::debug($email);
         Log::debug($pass);
-=======
-        $pass = $request->input('password');
-       
->>>>>>> 3d0e33c1f32cec41f57249873dcdb6c881976b59
         //XSS対策
 
         //Nullバイト攻撃対策
@@ -78,15 +73,12 @@ class UsersController extends Controller
 
     public function registration(Request $request)
     {
-<<<<<<< HEAD
-=======
         $request->validate([
             'name' => 'required|max:255',
             'location' => 'required|max:255',
             'email' => 'required|max:255',
             'password' => 'required|max:255',
         ]);
->>>>>>> 3d0e33c1f32cec41f57249873dcdb6c881976b59
 
         $user = new User;
 
@@ -97,13 +89,8 @@ class UsersController extends Controller
         $user->name = $request->input('name');
         $user->location = $request->input('location');
         $user->email = $request->input('email');
-<<<<<<< HEAD
         $user->password = bcrypt($request->input('pass'));
         $result_flag = $user->save();
-=======
-        $user->password = bcrypt($request->input('password'));
-        $result_flg = $user->save();
->>>>>>> 3d0e33c1f32cec41f57249873dcdb6c881976b59
         
         //これで登録直後のこのレコードのid取れますか？
         $user_id = $user->id;
