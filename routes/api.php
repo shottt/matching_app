@@ -94,5 +94,10 @@ Route::group(['middleware' => ['auth']], function () {
              name,
              occupation
     */
-    Route::post('/ctrl_all_frends', 'ctrl@action');
+
+    Route::post('/ctrl_all_frends', function () {
+
+        //検索のコントローラに投げる
+        //return view('/home/home');
+    });
 });

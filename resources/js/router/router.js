@@ -14,6 +14,7 @@ import home from '../projects/home.vue';
 
 //検索ページ
 import search from '../projects/search/search.vue';
+import search_result from '../projects/search/search_result.vue';
 
 //セッティング系
 import prof from '../projects/profile/profile.vue'
@@ -78,7 +79,7 @@ const routes = [
         path: '/search_result/:query', name: "search_result", 
         components: {
             c_header: header_search_result, 
-            //c_main: search, 
+            c_main: search_result, 
             c_footer: footer
         },
 

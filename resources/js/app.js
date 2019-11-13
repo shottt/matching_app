@@ -114,7 +114,8 @@ Vue.mixin({
     ...mapGetters([
     'auth_displaying/getDisplay_Vuex',
     'auth_displaying/getUser_Id_Vuex',
-    'page_displaying/getPattern_Vuex'
+    'page_displaying/getPattern_Vuex',
+    'user_info/getFrends_Vuex',
 
     // ...
     ]),
