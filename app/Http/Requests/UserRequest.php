@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegistrationRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,8 @@ class RegistrationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        // trueに変更し、フォームリクエストの利用を許可
+        return true;　
     }
 
     /**
@@ -24,10 +25,7 @@ class RegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'location' => 'required|max:255',
-            'email' => 'required|max:255',
-            'pass' => 'required|max:255',
+            'picture' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 }

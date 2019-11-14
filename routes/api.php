@@ -1,7 +1,5 @@
 <?php
-
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,76 +10,26 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 Route::group(['middleware' => 'api'], function() {
-    //Auth::routes();
-    /*
-    from name, password
-    return  user_id, result_flag;
-    */
-    Route::post('/ctrl_sign_in', 'Ajax\UsersController@sign_in');
-
-    /*
-    from
-        name,
-        location,
-        email,
-        password
-    return user_id, result_flag
-    */
-    Route::post('/ctrl_registration','Ajax\UsersController@registration');
-
-    //友達検索
-    Route::post('/ctrl_search_for_frends', function () {
-
-        //検索のコントローラに投げる
-        //return view('/home/home');
-    });
-
-    //settings フォルダ
-    /*
-    from user_id, 
-         prof_data
-            name,
-            occupation,
-            birthday,
-            prof_header,
-            prof_paragraph,
-            image,
-    return result_flag
-    */
-    Route::post('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
-    /*
-Route::group(['middleware' => ['auth']], function () {
-        // この中はログインされている場合のみルーティングされる
-        Route::get('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
-  });*/
-    /*
-    from user_id,pass_now,pass_new
-    return result_flag
-    */
-    Route::post('/ctrl_change_pass', 'Ajax\UsersController@change_pass');
-
-    /*
-    from user_id,
-    return result_flag
-    */
-    Route::post('/ctrl_sign_out', function (Request $request) {
-        Auth::logout();
-    });
-
-    /*
-    from user_id,
-    return result_flag
-    */
-    Route::post('/ctrl_unsubscription', function (Request $request) {
-        //user_idを受け取って、コントローラ通してレコード論理削除
-   
-        //return view('/home/home');
-    });
     
+    /* 友達検索（自分自身以外のユーザー情報を全てげっと）
+   from user_id,
+   return result_flag,
+          frends:
+            id,
+            picture,
+            name,
+            occupation
+   */
+    Route::post('/ctrl_all_frends', 'Api\UsersController@friend_search');
+    // 簡易確認用にgetのルーティングを配置
+    Route::get('/ctrl_all_frends', 'Api\UsersController@friend_search');
+   
+    // 画像アップロード用のルーティング（テスト用に配置）
+    Route::get('/picture', 'Api\UsersController@index');
+    Route::post('/picture', 'Api\UsersController@store');
 });
+

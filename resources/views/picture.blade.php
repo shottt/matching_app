@@ -1,0 +1,18 @@
+<html>
+  <body>
+  @if ($errors->any())
+  <div class="alert alert-danger">
+      <ul>
+      @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+      @endforeach
+      </ul>
+  </div>
+  @endif
+  <form method="POST" action="/picture" enctype="multipart/form-data" >
+    {{ csrf_field() }}
+    <input type="file" name="picture">
+    <input type="submit">
+  </form>
+  </body>
+</html>
