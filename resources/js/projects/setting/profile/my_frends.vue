@@ -6,9 +6,9 @@
       person_card,
     },
     template: `
-    <table class="table mb-0">
+    <ul class="table mb-0">
         <person_card></person_card>
-    </table>
+    </ul>
     `
   }
 

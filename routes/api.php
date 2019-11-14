@@ -28,8 +28,9 @@ Route::group(['middleware' => 'api'], function() {
     // 簡易確認用にgetのルーティングを配置
     Route::get('/ctrl_all_frends', 'Api\UsersController@friend_search');
    
+        //return view('/home/home');
     // 画像アップロード用のルーティング（テスト用に配置）
     Route::get('/picture', 'Api\UsersController@index');
     Route::post('/picture', 'Api\UsersController@store');
-});
 
+});

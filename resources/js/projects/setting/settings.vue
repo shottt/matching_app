@@ -16,14 +16,15 @@ export default {
 
       //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
       this.$http.post('/api/ctrl_sign_out', {
-        user_id: this.$store.getters['user_info/getUser_id']
+        user_id: this.$store.getters['auth_displaying/getUser_Id_Vuex'],
+        //user_id: this.$store.getters['user_info/getUser_id']
         })
         .then(res => {
           console.log("サインアウト");
           
           //描画のための画面判定値を更新
-          this.$store.dispatch('page_displaying/set_Vuex__pattern', "top")
-          this.$router.push({ path: '/' })
+          this.$store.dispatch('page_displaying/set_Vuex__pattern', "top");
+          this.$router.push({ path: '/' });
         })
         .catch(err => console.log(err))
         .finally(() => {

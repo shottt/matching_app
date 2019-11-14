@@ -1839,7 +1839,16 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  template: "\n  <tr class=\"container c-PsnCard u-bt-border-grey\">\n    <th class=\"u-w-30\">\n      <figure class=\"c-PsnCard__img my-3 mx-2\">\n        <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n      </figure>\n    </th>\n    <td class=\"text-left u-txt-b c-PsnCard__text\">\n        \u5317\u6597\u306E\u62F3\n    </td>\n  </tr>\n  "
+  data: {
+    frends: undefined.$store.getters['user_info/getFrends_Vuex']
+    /*↑に↓がvuex経由できます。この中身をv-forを使って気合いで表示してください！
+    　それができたら、画像は置いといて、実際にテーブルに登録したユーザー情報を表示してください。
+    "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
+    "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
+    */
+
+  },
+  template: "\n  <li class=\"container bg-white\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        \u5317\u6597\u306E\u62F3<br><span class=\"u-txt-grey\">\u8077\u696D</span>\n\n          <i class=\"u-icon__detail\"></i>\n\n      </dd>\n    </dl>\n  </li>\n  "
 });
 
 /***/ }),
@@ -1944,7 +1953,8 @@ var usr = new URLSearchParams();
   },
   data: function data() {
     return {
-      page_pattern: this.$store.getters['page_displaying/getPattern_Vuex']
+      page_pattern: this.$store.getters['page_displaying/getPattern_Vuex'],
+      frends: {}
     };
   },
   methods: {
@@ -1952,19 +1962,39 @@ var usr = new URLSearchParams();
     search_for: function search_for() {
       var _this = this;
 
-      this.$http.post('/api/ctrl_search_for_frends', {
-        search_query: this.search_query
+      //一旦　全検索
+      //this.$http.post('/api/ctrl_search_for_frends', {
+      this.$http.post('/api/ctrl_all_frends', {
+        //search_query: this.search_query,
+        user_id: this.$store.getters['auth_displaying/getUser_Id_Vuex']
       }).then(function (res) {
         if (res.data.result_flag === false) {
           alert("通信成功しましたが、該当データ見当たらないです。");
           return;
         }
 
-        _this.change_Page_Pattern('settings');
+        _this.change_Page_Pattern('settings_result');
 
         console.log("検索成功"); //検索キーワード(search_query)と検索結果が欲しい
+        //this.json_data = res.data;
+        //仮の値を準備
 
-        _this.json_data = res.data;
+        res.data = {
+          "frend1": {
+            id: 1,
+            picture: 11,
+            name: 12,
+            occupation: 13
+          },
+          "frend2": {
+            id: 2,
+            picture: 21,
+            name: 22,
+            occupation: 23
+          }
+        }; //vuexにフレンド情報を保存　
+
+        _this.$store.dispatch('user_info/frends', res.data);
 
         _this.$router.push({
           name: 'search_result',
@@ -2162,6 +2192,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/search/search_result.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/projects/search/search_result.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/card/person_card.vue */ "./resources/js/components/card/person_card.vue");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      search_query: ""
+    };
+  },
+  components: {
+    person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  template: "\n  <main class=\"u-container-y\">\n    <div class=\"container-fluid\">\n      <ul class=\"table mb-0\">\n          <person_card></person_card>\n      </ul>\n    </div>\n  </main>"
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/setting/change_pass.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/projects/setting/change_pass.vue?vue&type=script&lang=js& ***!
@@ -2219,7 +2274,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <table class=\"table mb-0\">\n      <person_card></person_card>\n  </table>\n  "
+  template: "\n  <ul class=\"table mb-0\">\n      <person_card></person_card>\n  </ul>\n  "
 });
 
 /***/ }),
@@ -2344,7 +2399,8 @@ __webpack_require__.r(__webpack_exports__);
 
       //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
       this.$http.post('/api/ctrl_sign_out', {
-        user_id: this.$store.getters['user_info/getUser_id']
+        user_id: this.$store.getters['auth_displaying/getUser_Id_Vuex'] //user_id: this.$store.getters['user_info/getUser_id']
+
       }).then(function (res) {
         console.log("サインアウト"); //描画のための画面判定値を更新
 
@@ -7049,7 +7105,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".c-PsnCard__img[data-v-625b23f4] {\n  border-radius: 10px;\n  overflow: hidden;\n}\n.c-PsnCard__text[data-v-625b23f4] {\n  vertical-align: middle;\n  position: relative;\n}\n.c-PsnCard__text[data-v-625b23f4]:after {\n  background: url(\"/images/options-icon.png\");\n  content: \"\";\n  display: inline-block;\n  width: 20px;\n  height: 5px;\n  text-align: right;\n  position: absolute;\n  right: 15px;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n}", ""]);
+exports.push([module.i, ".c-PsnCard__img[data-v-625b23f4] {\n  border-radius: 10px;\n  overflow: hidden;\n}\n.c-PsnCard__text[data-v-625b23f4] {\n  position: relative;\n  margin-bottom: 0;\n}\n.u-icon__detail[data-v-625b23f4]:after {\n  background: url(\"/images/options-icon.png\") no-repeat;\n  content: \"\";\n  display: inline-block;\n  width: 20px;\n  height: 5px;\n  text-align: right;\n  position: absolute;\n  right: 15px;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n}", ""]);
 
 // exports
 
@@ -55106,7 +55162,7 @@ Vue.mixin({
       this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['auth_displaying/getDisplay_Vuex', 'auth_displaying/getUser_Id_Vuex', 'page_displaying/getPattern_Vuex' // ...
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['auth_displaying/getDisplay_Vuex', 'auth_displaying/getUser_Id_Vuex', 'page_displaying/getPattern_Vuex', 'user_info/getFrends_Vuex' // ...
   ])),
   components: {
     action_btn: _components_ui_button_action_button_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -55837,6 +55893,56 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/projects/search/search_result.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/projects/search/search_result.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _search_result_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./search_result.vue?vue&type=script&lang=js& */ "./resources/js/projects/search/search_result.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _search_result_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/projects/search/search_result.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/projects/search/search_result.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/projects/search/search_result.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_search_result_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./search_result.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/search/search_result.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_search_result_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/projects/setting/change_pass.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/projects/setting/change_pass.vue ***!
@@ -56510,20 +56616,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projects_top_top_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../projects/top/top.vue */ "./resources/js/projects/top/top.vue");
 /* harmony import */ var _projects_home_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../projects/home.vue */ "./resources/js/projects/home.vue");
 /* harmony import */ var _projects_search_search_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../projects/search/search.vue */ "./resources/js/projects/search/search.vue");
-/* harmony import */ var _projects_profile_profile_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../projects/profile/profile.vue */ "./resources/js/projects/profile/profile.vue");
-/* harmony import */ var _projects_setting_settings_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../projects/setting/settings.vue */ "./resources/js/projects/setting/settings.vue");
-/* harmony import */ var _projects_setting_change_pass_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../projects/setting/change_pass.vue */ "./resources/js/projects/setting/change_pass.vue");
-/* harmony import */ var _projects_setting_set_prof_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../projects/setting/set_prof.vue */ "./resources/js/projects/setting/set_prof.vue");
-/* harmony import */ var _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../projects/setting/profile/profile.vue */ "./resources/js/projects/setting/profile/profile.vue");
-/* harmony import */ var _projects_setting_profile_my_profile_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../projects/setting/profile/my_profile.vue */ "./resources/js/projects/setting/profile/my_profile.vue");
-/* harmony import */ var _projects_setting_profile_my_frends_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../projects/setting/profile/my_frends.vue */ "./resources/js/projects/setting/profile/my_frends.vue");
-/* harmony import */ var _projects_setting_profile_frend_review_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../projects/setting/profile/frend_review.vue */ "./resources/js/projects/setting/profile/frend_review.vue");
-/* harmony import */ var _projects_setting_profile_my_posts_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../projects/setting/profile/my_posts.vue */ "./resources/js/projects/setting/profile/my_posts.vue");
-/* harmony import */ var _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/ui/footer.vue */ "./resources/js/components/ui/footer.vue");
-/* harmony import */ var _components_header_header_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/header/header.vue */ "./resources/js/components/header/header.vue");
-/* harmony import */ var _components_header_header_search_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/header/header_search.vue */ "./resources/js/components/header/header_search.vue");
-/* harmony import */ var _components_header_header_search_result_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/header/header_search_result.vue */ "./resources/js/components/header/header_search_result.vue");
-/* harmony import */ var _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/header/header_setting.vue */ "./resources/js/components/header/header_setting.vue");
+/* harmony import */ var _projects_search_search_result_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../projects/search/search_result.vue */ "./resources/js/projects/search/search_result.vue");
+/* harmony import */ var _projects_profile_profile_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../projects/profile/profile.vue */ "./resources/js/projects/profile/profile.vue");
+/* harmony import */ var _projects_setting_settings_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../projects/setting/settings.vue */ "./resources/js/projects/setting/settings.vue");
+/* harmony import */ var _projects_setting_change_pass_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../projects/setting/change_pass.vue */ "./resources/js/projects/setting/change_pass.vue");
+/* harmony import */ var _projects_setting_set_prof_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../projects/setting/set_prof.vue */ "./resources/js/projects/setting/set_prof.vue");
+/* harmony import */ var _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../projects/setting/profile/profile.vue */ "./resources/js/projects/setting/profile/profile.vue");
+/* harmony import */ var _projects_setting_profile_my_profile_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../projects/setting/profile/my_profile.vue */ "./resources/js/projects/setting/profile/my_profile.vue");
+/* harmony import */ var _projects_setting_profile_my_frends_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../projects/setting/profile/my_frends.vue */ "./resources/js/projects/setting/profile/my_frends.vue");
+/* harmony import */ var _projects_setting_profile_frend_review_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../projects/setting/profile/frend_review.vue */ "./resources/js/projects/setting/profile/frend_review.vue");
+/* harmony import */ var _projects_setting_profile_my_posts_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../projects/setting/profile/my_posts.vue */ "./resources/js/projects/setting/profile/my_posts.vue");
+/* harmony import */ var _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/ui/footer.vue */ "./resources/js/components/ui/footer.vue");
+/* harmony import */ var _components_header_header_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/header/header.vue */ "./resources/js/components/header/header.vue");
+/* harmony import */ var _components_header_header_search_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/header/header_search.vue */ "./resources/js/components/header/header_search.vue");
+/* harmony import */ var _components_header_header_search_result_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/header/header_search_result.vue */ "./resources/js/components/header/header_search_result.vue");
+/* harmony import */ var _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../components/header/header_setting.vue */ "./resources/js/components/header/header_setting.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // 2.
@@ -56533,6 +56640,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
  //ログイン直後のホームページ
 
  //検索ページ
+
 
  //セッティング系
 
@@ -56570,73 +56678,73 @@ var routes = [{
 }, {
   path: '/home',
   components: {
-    c_header: _components_header_header_vue__WEBPACK_IMPORTED_MODULE_15__["default"],
+    c_header: _components_header_header_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
     c_main: _projects_home_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 }, {
   path: '/search',
   components: {
-    c_header: _components_header_header_search_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
+    c_header: _components_header_header_search_vue__WEBPACK_IMPORTED_MODULE_17__["default"],
     c_main: _projects_search_search_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 }, {
   path: '/search_result/:query',
   name: "search_result",
   components: {
-    c_header: _components_header_header_search_result_vue__WEBPACK_IMPORTED_MODULE_17__["default"],
-    //c_main: search, 
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_header: _components_header_header_search_result_vue__WEBPACK_IMPORTED_MODULE_18__["default"],
+    c_main: _projects_search_search_result_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 }, {
   path: '/profile',
   components: {
     //c_header: header, 
-    c_main: _projects_profile_profile_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_main: _projects_profile_profile_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 }, {
   path: '/profile_followers',
   components: {
     //c_header: header, 
-    c_main: _projects_profile_profile_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_main: _projects_profile_profile_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 }, {
   path: '/settings',
   name: "settings",
   components: {
-    c_header: _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_18__["default"],
-    c_main: _projects_setting_settings_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_header: _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_19__["default"],
+    c_main: _projects_setting_settings_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 }, //my〜はログインしてるユーザー用
 {
   path: '/my_profile',
   components: {
     //c_header: header, 
-    c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   },
   children: [{
     path: "",
     components: {
-      my_profile: _projects_setting_profile_my_profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+      my_profile: _projects_setting_profile_my_profile_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
     }
   }]
 }, {
   path: '/my_frends',
   components: {
     //c_header: header, 
-    c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+    c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
     //main_inner: my_frends,
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   },
   children: [{
     path: "",
     components: {
-      my_frends: _projects_setting_profile_my_frends_vue__WEBPACK_IMPORTED_MODULE_11__["default"] //frend_card :person_card　さらにネスとしてる
+      my_frends: _projects_setting_profile_my_frends_vue__WEBPACK_IMPORTED_MODULE_12__["default"] //frend_card :person_card　さらにネスとしてる
 
     }
   }]
@@ -56644,41 +56752,41 @@ var routes = [{
   path: '/my_reviews',
   components: {
     //c_header: header, 
-    c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   },
   children: [{
     path: "",
     components: {
-      frend_reviews: _projects_setting_profile_frend_review_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+      frend_reviews: _projects_setting_profile_frend_review_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
     }
   }]
 }, {
   path: '/my_posts',
   components: {
     //c_header: header, 
-    c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   },
   children: [{
     path: "",
     components: {
-      my_posts: _projects_setting_profile_my_posts_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+      my_posts: _projects_setting_profile_my_posts_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
     }
   }]
 }, {
   path: '/set_Prof',
   components: {
-    c_header: _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_18__["default"],
-    c_main: _projects_setting_set_prof_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_header: _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_19__["default"],
+    c_main: _projects_setting_set_prof_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 }, {
   path: '/set_Pass',
   components: {
-    c_header: _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_18__["default"],
-    c_main: _projects_setting_change_pass_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_header: _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_19__["default"],
+    c_main: _projects_setting_change_pass_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 },
 /*
@@ -56694,9 +56802,9 @@ var routes = [{
   path: '/change_pass',
   name: 'change_pass',
   components: {
-    c_header: _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_18__["default"],
-    c_main: _projects_setting_settings_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+    c_header: _components_header_header_setting_vue__WEBPACK_IMPORTED_MODULE_19__["default"],
+    c_main: _projects_setting_settings_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
   }
 }]; // 5.
 
@@ -56865,7 +56973,8 @@ __webpack_require__.r(__webpack_exports__);
 //import createPersistedState from "vuex-persistedstate";
 var state = function state() {
   return {
-    user_id: 0
+    user_id: 0,
+    frends: {}
   };
 };
 
@@ -56878,16 +56987,25 @@ var actions = {
   },
   repass: function repass(context) {
     context.commit('change', 3);
+  },
+  frends: function frends(context, frend_objs) {
+    context.commit('frends', frend_objs);
   }
 };
 var mutations = {
   change: function change(state, id) {
     state.user_id = id;
+  },
+  frends: function frends(state, frend_objs) {
+    state.frends = frend_objs;
   }
 };
 var getters = {
-  getUser_id: function getUser_id(state) {
-    return state.user_id;
+  /*getUser_id:  state => {
+      return state.user_id;
+  },*/
+  getFrends_Vuex: function getFrends_Vuex(state) {
+    return state.frends;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
