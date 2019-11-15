@@ -1839,14 +1839,16 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: {
-    frends: undefined.$store.getters['user_info/getFrends_Vuex']
-    /*↑に↓がvuex経由できます。この中身をv-forを使って気合いで表示してください！
-    　それができたら、画像は置いといて、実際にテーブルに登録したユーザー情報を表示してください。
-    "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
-    "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
-    */
+  data: function data() {
+    return {
+      frends: this.$store.getters['user_info/getFrends_Vuex']
+      /*↑に↓がvuex経由できます。この中身をv-forを使って気合いで表示してください！
+      　それができたら、画像は置いといて、実際にテーブルに登録したユーザー情報を表示してください。
+      "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
+      "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
+      */
 
+    };
   },
   template: "\n  <li class=\"container bg-white\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        \u5317\u6597\u306E\u62F3<br><span class=\"u-txt-grey\">\u8077\u696D</span>\n\n          <i class=\"u-icon__detail\"></i>\n\n      </dd>\n    </dl>\n  </li>\n  "
 });
@@ -55162,8 +55164,7 @@ Vue.mixin({
       this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['auth_displaying/getDisplay_Vuex', 'auth_displaying/getUser_Id_Vuex', 'page_displaying/getPattern_Vuex', 'user_info/getFrends_Vuex' // ...
-  ])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['auth_displaying/getDisplay_Vuex', 'auth_displaying/getUser_Id_Vuex', 'page_displaying/getPattern_Vuex', 'user_info/getFrends_Vuex'])),
   components: {
     action_btn: _components_ui_button_action_button_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     search_icon: _components_ui_icon_search_icon_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -56973,37 +56974,21 @@ __webpack_require__.r(__webpack_exports__);
 //import createPersistedState from "vuex-persistedstate";
 var state = function state() {
   return {
-    user_id: 0,
     frends: {}
   };
 };
 
 var actions = {
-  sign: function sign(context) {
-    context.commit('change', 1);
-  },
-  register: function register(context) {
-    context.commit('change', 2);
-  },
-  repass: function repass(context) {
-    context.commit('change', 3);
-  },
   frends: function frends(context, frend_objs) {
     context.commit('frends', frend_objs);
   }
 };
 var mutations = {
-  change: function change(state, id) {
-    state.user_id = id;
-  },
   frends: function frends(state, frend_objs) {
     state.frends = frend_objs;
   }
 };
 var getters = {
-  /*getUser_id:  state => {
-      return state.user_id;
-  },*/
   getFrends_Vuex: function getFrends_Vuex(state) {
     return state.frends;
   }

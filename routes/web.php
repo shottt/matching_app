@@ -17,18 +17,14 @@ Route::get('/', function(){
 
 Auth::routes();
 
-
-
 //初期レンダリング
 //あとは api.phpに記述
 //ログインのセッションかクッキーを判定して、
 //trueなら、Homeを描画できるようにする
 
 Route::get('/{any}', function (Request $request) {
-
     return view('/index');
 })->where('any', '.*');
-
 
 // laravelのみの処理
 Route::group(['middleware' => ['auth']], function(){
@@ -38,7 +34,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('messages', 'MessagesController');
     Route::resource('friends', 'FriendsController');
 });
-
 
 
 
