@@ -64,3 +64,4 @@ Route::get('/home', function () {
 //     return view('/sign_in/register');
 // });
 
+*/

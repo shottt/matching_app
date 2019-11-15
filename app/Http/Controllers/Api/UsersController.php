@@ -17,10 +17,12 @@ class UsersController extends Controller
         // 自分のユーザーIDを取得
         $auth_id = Auth::id();
         Log::debug($auth_id);
+
         // 必要なカラムだけ取ってくる、自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
-        // セキュリティ対策も必要（ヌルバイト、SQLインジェクション、ディレクトリトラバーサルは？）
         // $user = User::whereNotIn('id', $auth_id)->get(); → この書き方だとエラー
-        $user = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation']);
+        // pictureはまだ保存していないため、取ってきていない
+        // 複数のオブジェクトをgetで取れるが、jsonで複数オブジェクト取得の書き方がわかっていないから、firstを使用している
+        $user = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->first(['id', 'name', 'occupation']);
 
         Log::debug(print_r($user, true));
 
@@ -29,21 +31,18 @@ class UsersController extends Controller
             // ユーザーデータが空の場合はfalseを返す
             return response()->json(['result_flag' => false]);
         }
-        // $id = $user->id;
-        // // $picture = $user->picture;
-        // $name = $user->name;
-        // $occupation = $user->occupation;
 
+        // pictureは仮で'test'をリターン（複数のオブジェクトの場合ができていない）
         return response()->json(['result_flag' => true, 'id' => $user->id, 'name' => $user->name, 'picture'=> 'test','occupation' => $user->occupation]);
 
     }
 
 
-    public function index(){
-        return view('picture');
-    }
+    // public function index(){
+    //     return view('picture');
+    // }
 
-    public function store(UserRequest $request){
+    // public function store(UserRequest $request){
 
-    }
+    // }
 }
