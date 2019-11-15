@@ -1,6 +1,7 @@
 <script>
   export default {
-    data:{
+    data: function () { return {
+    
       frends: this.$store.getters['user_info/getFrends_Vuex'],
 
       /*↑に↓がvuex経由できます。この中身をv-forを使って気合いで表示してください！
@@ -8,6 +9,7 @@
       "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
       "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
       */
+    }
     },
     template: `
     <li class="container bg-white">

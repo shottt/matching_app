@@ -116,8 +116,6 @@ Vue.mixin({
     'auth_displaying/getUser_Id_Vuex',
     'page_displaying/getPattern_Vuex',
     'user_info/getFrends_Vuex',
-
-    // ...
     ]),
   },
   components: {

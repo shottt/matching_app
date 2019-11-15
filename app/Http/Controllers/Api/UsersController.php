@@ -34,7 +34,7 @@ class UsersController extends Controller
         // $name = $user->name;
         // $occupation = $user->occupation;
 
-        return response()->json(['result_flag' => true, 'id' => $user->id, 'name' => $user->name, 'occupation' => $user->occupation]);
+        return response()->json(['result_flag' => true, 'id' => $user->id, 'name' => $user->name, 'picture'=> 'test','occupation' => $user->occupation]);
 
     }
 
