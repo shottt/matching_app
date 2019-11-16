@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('picture')->nullable();
             $table->string('review')->nullable();
             $table->integer('block_user')->nullable();
-            $table->boolean('delete_flg')->default(0);
+            $table->boolean('delete_flag')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

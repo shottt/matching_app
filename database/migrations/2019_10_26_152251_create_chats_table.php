@@ -17,6 +17,7 @@ class CreateChatsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('to_user');
             $table->integer('from_user');
+            $table->boolean('delete_flag')->default(0);
             $table->timestamps();
         });
     }

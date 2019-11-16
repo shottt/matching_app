@@ -1,7 +1,5 @@
 <?php
-
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,11 +10,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 Route::group(['middleware' => 'api'], function() {
     //Auth::routes();
     //
@@ -87,11 +83,18 @@ Route::group(['middleware' => 'api'], function() {
     //          occupation
     
 
-    Route::post('/ctrl_all_frends', function () {
+    // Route::post('/ctrl_all_frends', function () {
 
-        //検索のコントローラに投げる
-        //return view('/home/home');
-    });
+    //     //検索のコントローラに投げる
+    //     //return view('/home/home');
+    // });
+    Route::post('/ctrl_all_frends', 'Api\UsersController@friend_search');
+    // 簡易確認用にgetのルーティングを配置
+    Route::get('/ctrl_all_frends', 'Api\UsersController@friend_search');
+   
+    // 画像アップロード用のルーティング（テスト用に配置）
+    Route::get('/picture', 'Api\UsersController@index');
+    Route::post('/picture', 'Api\UsersController@store');
 
     
 });

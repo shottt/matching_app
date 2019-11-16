@@ -19,6 +19,7 @@ class CreateSchedulesTable extends Migration
             $table->integer('time1');
             $table->integer('time2');
             $table->integer('time3');
+            $table->boolean('delete_flag')->default(0);
             $table->timestamps();
         });
     }

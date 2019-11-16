@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->integer('user_id');
             $table->string('detail');
             $table->dateTime('send_date');
+            $table->boolean('delete_flag')->default(0);
             $table->timestamps();
         });
     }
