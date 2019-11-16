@@ -23,9 +23,6 @@
           北斗の拳<br><span class="u-txt-grey">職業</span>
 
             <i class="u-icon__detail"></i>
-            <li v-for="friend in friends">
-              {{friend.name}}
-            </li>
 
         </dd>
       </dl>
