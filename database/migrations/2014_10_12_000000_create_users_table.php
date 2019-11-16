@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('occupation')->nullable();
             $table->string('profile_header')->nullable();
             $table->string('profile_detail')->nullable();
-            $table->integer('birthday')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('location')->nullable();
             $table->string('picture')->nullable();
             $table->string('review')->nullable();

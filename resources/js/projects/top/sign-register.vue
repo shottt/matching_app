@@ -49,15 +49,11 @@
           return;
         }
         */
+       
         if (Object.keys(this.errors).length === 0) {
                    
           //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-<<<<<<< HEAD
-          this.$http.post('login', {
-=======
-          //this.$http.post('/api/ctrl_sign_in', {
           this.$http.post('/login', {
->>>>>>> 3d0e33c1f32cec41f57249873dcdb6c881976b59
               email: this.sign_email,
               password: this.sign_pass
             })

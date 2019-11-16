@@ -1850,7 +1850,7 @@ __webpack_require__.r(__webpack_exports__);
 
     };
   },
-  template: "\n  <li class=\"container bg-white\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        \u5317\u6597\u306E\u62F3<br><span class=\"u-txt-grey\">\u8077\u696D</span>\n\n          <i class=\"u-icon__detail\"></i>\n\n      </dd>\n    </dl>\n  </li>\n  "
+  template: "\n  <li class=\"container bg-white\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        \u5317\u6597\u306E\u62F3<br><span class=\"u-txt-grey\">\u8077\u696D</span>\n\n          <i class=\"u-icon__detail\"></i>\n          <li v-for=\"friend in friends\">\n            {{friend.name}}\n          </li>\n\n      </dd>\n    </dl>\n  </li>\n  "
 });
 
 /***/ }),
@@ -2529,7 +2529,6 @@ __webpack_require__.r(__webpack_exports__);
       */
       if (Object.keys(this.errors).length === 0) {
         //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-        //this.$http.post('/api/ctrl_sign_in', {
         this.$http.post('/login', {
           email: this.sign_email,
           password: this.sign_pass
