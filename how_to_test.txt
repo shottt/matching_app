@@ -31,3 +31,4 @@ php artisan db:seed --database=testing
 //ランダムにテストする場合は、Factory
 php artisan make:factory UserFactory
 
+//ファクトリーの情報を制御するのがstate。stateの呼び出し方がVuexと似てる
