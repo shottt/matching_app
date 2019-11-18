@@ -9,7 +9,7 @@
       "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
       "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
       */
-    }
+      }
     },
     template: `
     <li class="container bg-white" v-for="frend in frends">

@@ -14,9 +14,9 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {   
-        //$this->get('/')->assertStatus(200);
+        $this->get('/')->assertStatus(200);
         //$this->get('/index')->assertStatus(200);
-        $this->post('/api/ctrl_sign_in')->assertStatus(200);
+        //$this->post('/api/ctrl_sign_in')->assertStatus(200);
         
 
         

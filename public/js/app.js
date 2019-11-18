@@ -2529,7 +2529,6 @@ __webpack_require__.r(__webpack_exports__);
       */
       if (Object.keys(this.errors).length === 0) {
         //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-        //this.$http.post('/api/ctrl_sign_in', {
         this.$http.post('/login', {
           email: this.sign_email,
           password: this.sign_pass

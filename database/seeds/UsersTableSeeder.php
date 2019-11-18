@@ -14,28 +14,31 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $param1 =[
-            'name' => 'test taro',
+        $param =[
+            'id' => 1,
+            'name' => 'testtaro',
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
             'occupation' => 'エンジニア',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
-        DB::table('users')->insert($param1);
+        DB::table('users')->insert($param);
 
-        $param2 =[
-            'name' => 'a taro',
+        $param =[
+            'id' => 2,
+            'name' => 'ataro',
             'email' => 'a@a.com',
             'password' => bcrypt('password'),
             'occupation' => 'エンジニア',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
-        DB::table('users')->insert($param2);
+        DB::table('users')->insert($param);
 
-        $param3 =[
-            'name' => 'b taro',
+        $param =[
+            'id' => 3,
+            'name' => 'btaro',
             'email' => 'b@b.com',
             'password' => bcrypt('password'),
             'occupation' => 'エンジニア',
@@ -43,6 +46,6 @@ class UsersTableSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
-        DB::table('users')->insert($param3);
+        DB::table('users')->insert($param);
     }
 }
