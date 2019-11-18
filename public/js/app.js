@@ -1850,7 +1850,7 @@ __webpack_require__.r(__webpack_exports__);
 
     };
   },
-  template: "\n  <li class=\"container bg-white\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        \u5317\u6597\u306E\u62F3<br><span class=\"u-txt-grey\">\u8077\u696D</span>\n\n          <i class=\"u-icon__detail\"></i>\n\n      </dd>\n    </dl>\n  </li>\n  "
+  template: "\n  <li class=\"container bg-white\" v-for=\"frend in frends\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        {{ frend.id }}<br>\n        {{ frend.picture }}<br>\n        {{ frend.name }}<br><span class=\"u-txt-grey\">{{ frend.occupation }}</span>\n\n          <i class=\"u-icon__detail\"></i>\n\n      </dd>\n    </dl>\n  </li>\n  "
 });
 
 /***/ }),
@@ -2476,10 +2476,153 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/projects/top/sign-register.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Applications/MAMP/htdocs/matching_app/resources/js/projects/top/sign-register.vue: Unexpected token (55:0)\n\n\u001b[0m \u001b[90m 53 | \u001b[39m                   \u001b[0m\n\u001b[0m \u001b[90m 54 | \u001b[39m          \u001b[90m//サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 55 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 56 | \u001b[39m          \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m$http\u001b[33m.\u001b[39mpost(\u001b[32m'login'\u001b[39m\u001b[33m,\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 57 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 58 | \u001b[39m          \u001b[90m//this.$http.post('/api/ctrl_sign_in', {\u001b[39m\u001b[0m\n    at Parser.raise (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:6420:17)\n    at Parser.unexpected (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:7773:16)\n    at Parser.parseExprAtom (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8996:20)\n    at Parser.parseExprSubscripts (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8556:23)\n    at Parser.parseMaybeUnary (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8536:21)\n    at Parser.parseExprOps (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8402:23)\n    at Parser.parseMaybeConditional (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8375:23)\n    at Parser.parseMaybeAssign (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8325:21)\n    at Parser.parseExpression (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8275:23)\n    at Parser.parseStatementContent (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10138:23)\n    at Parser.parseStatement (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10009:17)\n    at Parser.parseBlockOrModuleBlockBody (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10585:25)\n    at Parser.parseBlockBody (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10572:10)\n    at Parser.parseBlock (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10556:10)\n    at Parser.parseStatementContent (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10085:21)\n    at Parser.parseStatement (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10009:17)\n    at Parser.parseIfStatement (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10363:28)\n    at Parser.parseStatementContent (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10054:21)\n    at Parser.parseStatement (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10009:17)\n    at Parser.parseBlockOrModuleBlockBody (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10585:25)\n    at Parser.parseBlockBody (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10572:10)\n    at Parser.parseBlock (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10556:10)\n    at Parser.parseFunctionBody (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:9584:24)\n    at Parser.parseFunctionBodyAndFinish (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:9554:10)\n    at /Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10717:12\n    at Parser.withTopicForbiddingContext (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:9884:14)\n    at Parser.parseFunction (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:10716:10)\n    at Parser.parseFunctionExpression (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:9032:17)\n    at Parser.parseExprAtom (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8945:21)\n    at Parser.parseExprSubscripts (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8556:23)\n    at Parser.parseMaybeUnary (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8536:21)\n    at Parser.parseExprOps (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8402:23)\n    at Parser.parseMaybeConditional (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8375:23)\n    at Parser.parseMaybeAssign (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:8325:21)\n    at Parser.parseObjectProperty (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:9441:101)\n    at Parser.parseObjPropValue (/Applications/MAMP/htdocs/matching_app/node_modules/@babel/parser/lib/index.js:9466:101)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//const usr = new URLSearchParams();
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    test: String
+  },
+  data: function data() {
+    return {
+      sign_email: "",
+      sign_pass: "",
+      name: "",
+      location: "",
+      email: "",
+      pass: "",
+      repass: "",
+      regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
+      json_data: "",
+      //sign_errors: {},
+      errors: {}
+    };
+  },
+  computed: {
+    //サインインか登録の描画判定のフラグです
+    display_flg: function display_flg() {
+      //後ほどpropsを変化させて、propsでbutton表示判定させたい
+      return this.$store.getters['auth_displaying/getDisplay_Vuex'];
+    }
+  },
+  methods: {
+    doSign_in: function doSign_in() {
+      var _this = this;
+
+      /*
+      this.vali_required("sign_email", this.sign_email);
+      this.vali_required("sign_pass", this.sign_pass);
+       if (Object.keys(this.errors).length > 0) {
+        return;
+      }
+       //メール形式
+      this.vali_email("sign_email", this.sign_email);
+      //半角判定
+      
+      this.vali_half('sign_pass', this.sign_pass);
+      if (Object.keys(this.errors).length > 0) {
+        return;
+      }
+      */
+      if (Object.keys(this.errors).length === 0) {
+        //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
+        //this.$http.post('/api/ctrl_sign_in', {
+        this.$http.post('/login', {
+          email: this.sign_email,
+          password: this.sign_pass
+        }).then(function (res) {
+          console.log("サインイン成功");
+          _this.json_data = res.data;
+          console.log("user_id : " + _this.json_data.user_id);
+          console.log("result_flag : " + _this.json_data.result_flag); //ログイン結果判定
+
+          if (_this.json_data.user_id !== null && _this.json_data.result_flag === true) {
+            //user_id設定
+            _this.$store.dispatch('auth_displaying/set_user_id', _this.json_data.user_id); //描画のための画面判定値を更新
+
+
+            _this.$store.dispatch('page_displaying/set_Vuex__pattern', "home");
+
+            _this.$router.push({
+              path: 'home'
+            });
+          } else {
+            alert("ログイン失敗です。メールアドレスとパスワードを正しく入力してください。");
+          }
+        })["catch"](function (err) {
+          console.log(err);
+        })["finally"](function () {
+          console.log('finally');
+        });
+      } else {}
+    },
+    doRegisteration: function doRegisteration() {
+      var _this2 = this;
+
+      console.log("登録開始"); //validation あとでやる
+      //まだ画面にエラーメッセージもまだ
+
+      if (Object.keys(this.errors).length === 0) {
+        //Post値　準備
+
+        /*
+        usr.append('name', this.name);
+        usr.append('location', this.location);
+        usr.append('email', this.email);
+        usr.append('pass', this.pass);*/
+        //登録 jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
+        this.$http.post('/api/ctrl_registration', {
+          name: this.name,
+          location: this.location,
+          email: this.email,
+          pass: this.pass
+        }).then(function (res) {
+          //成功
+          console.log("登録成功");
+          _this2.json_data = res.data;
+          console.log(_this2.json_data);
+
+          _this2.$router.push({
+            path: 'home'
+          }); //失敗 msg=>メールとパスが不一致です。
+
+        })["catch"](function (err) {
+          console.log(err);
+        })["finally"](function () {
+          //delete this.sign_errors.sign_email;
+          //delete this.sign_errors.sign_pass;
+          console.log('finally');
+        });
+      } else {
+        alert(1111);
+      }
+    },
+    null_check_Sign_Mail: function null_check_Sign_Mail() {
+      //メール形式判定
+      var result = this.sign_email.match(this.regexp_email);
+
+      if (result == null) {//this.sign_errors.sign_email = 'メール形式で入力してください。';
+      } else {//delete this.sign_errors.sign_email;
+        }
+    },
+    null_check_Sign_Pass: function null_check_Sign_Pass() {
+      if (this.sign_pass === "") {//this.sign_errors.sign_pass = 'パスワードを入力してください。';
+      } else {//delete this.sign_errors.sign_pass;
+        }
+    },
+    error_Pass: function error_Pass() {
+      if (this.pass === this.repass) {}
+
+      if (this.errors['pass']) {
+        this.pass === this.repass ? "" : this.errors['pass'] = "一致してません";
+      }
+    }
+  },
+  template: "\n    <article>\n      <section v-if=\"display_flg === 1\">\n\n        <h1>\u30B5\u30A4\u30F3\u30A4\u30F3</h1>\n        <img class=\"img-fluid u-mt-40\" src=\"/images/man-1.png\" alt=\"\">\n        <form class=\"sign-Form mt-5\" >\n          <input v-model=\"sign_email\" class=\"u-bg-tr\" type=\"email\" name=\"email\" id=\"\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\" required>\n          <input v-model=\"sign_pass\" class=\"u-bg-tr mt-2\" type=\"password\" name=\"pass\" id=\"\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\" required minlength=\"8\">\n\n          <button @click.prevent=\"doSign_in\" type=\"button\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u306F\u3058\u3081\u308B</button>\n          \n        \n        </form>\n        <p class=\"text-white\">{{ $store.state.dispaly }}</p>\n        <a class=\"mt-3 u-txt-w3 d-inline-block w-100 text-center\">\u30D1\u30B9\u30EF\u30FC\u30C9\u5FD8\u308C\u307E\u3057\u305F\u304B\uFF1F</a>\n      </section>\n\n      <section v-else-if=\"display_flg === 2\">\n\n        <h1>\u65B0\u898F\u767B\u9332</h1>\n        <form action=\"\" class=\"sign-Form mt-5 text-left\">\n          \n          <label class=\"mt-2\" for=\"name\">\u6C0F\u540D</label>\n          <input v-model=\"name\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"name\" id=\"name\" placeholder=\"\u82D7\u5B57\u3068\u540D\u524D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n          \n          <label class=\"mt-2\" for=\"location\">\u4F4F\u6240</label>\n          <input v-model=\"location\" class=\"u-bg-tr text-left pl-2\" type=\"text\" name=\"location\" id=\"location\" placeholder=\"\u4F4F\u6240\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n          \n          <label class=\"mt-2\" for=\"email\">\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9</label>\n          <input v-model=\"email\" class=\"u-bg-tr text-left pl-2\" type=\"email\" name=\"email\" id=\"email\" placeholder=\"\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>      \n          \n          <label class=\"mt-2\" for=\"pass\">\u30D1\u30B9\u30EF\u30FC\u30C9</label>\n          <input v-model=\"pass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"pass\" id=\"pass\" placeholder=\"\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\">\n          <input v-model=\"repass\" class=\"u-bg-tr text-left pl-2\" type=\"password\" name=\"repass\" id=\"repass\" placeholder=\"\u518D\u5EA6\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\" required>\n    \n          \n          <button @click.prevent=\"doRegisteration\" class=\"btn btn-light w-100 u-text-pink mt-5\">\u65B0\u898F\u767B\u9332</button>\n        </form>\n\n\n      </section>\n      \n    </article>\n  "
+});
 
 /***/ }),
 
@@ -56363,14 +56506,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/projects/top/sign-register.vue ***!
   \*****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sign-register.vue?vue&type=script&lang=js& */ "./resources/js/projects/top/sign-register.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
 
@@ -56400,15 +56542,13 @@ component.options.__file = "resources/js/projects/top/sign-register.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/projects/top/sign-register.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./sign-register.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/top/sign-register.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sign_register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
