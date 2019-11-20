@@ -12,6 +12,7 @@
       }
     },
     template: `
+    <div>
     <li class="container bg-white" v-for="frend in frends">
       <dl class="row align-items-center c-PsnCard u-bt-border-grey mb-0">
         <dt class="col-4 d-inline-block">

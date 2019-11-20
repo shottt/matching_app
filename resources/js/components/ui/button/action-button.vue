@@ -35,10 +35,10 @@ export default {
         //this.json_data = res.data;
 
         //仮の値を準備
-        res.data = {
-              "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
-              "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
-              };
+        // res.data = {
+        //       "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
+        //       "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
+        //       };
         //vuexにフレンド情報を保存　
         this.$store.dispatch('user_info/frends', res.data);
 
