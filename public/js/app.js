@@ -2400,7 +2400,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
-      this.$http.post('/api/ctrl_sign_out', {
+      this.$http.post('/api/logout', {
         user_id: this.$store.getters['auth_displaying/getUser_Id_Vuex'] //user_id: this.$store.getters['user_info/getUser_id']
 
       }).then(function (res) {

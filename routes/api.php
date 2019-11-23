@@ -19,6 +19,8 @@ Route::group(['middleware' => 'api'], function() {
     //from name, password
     //return  user_id, result_flag;
     //
+    
+    Auth::routes();
     Route::post('/ctrl_sign_in', 'Ajax\UsersController@sign_in');
 
     //
