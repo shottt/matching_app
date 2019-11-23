@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
             'occupation' => 'エンジニア',
+            'picture' => '写真',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
@@ -31,6 +32,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'a@a.com',
             'password' => bcrypt('password'),
             'occupation' => 'エンジニア',
+            'picture' => '写真',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
@@ -42,7 +44,21 @@ class UsersTableSeeder extends Seeder
             'email' => 'b@b.com',
             'password' => bcrypt('password'),
             'occupation' => 'エンジニア',
+            'picture' => '写真',
             'delete_flag' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ];
+        DB::table('users')->insert($param);
+
+        $param =[
+            'id' => 4,
+            'name' => 'ctaro',
+            'email' => 'c@c.com',
+            'password' => bcrypt('password'),
+            'occupation' => 'エンジニア',
+            'picture' => '写真',
+            'delete_flag' => 0,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

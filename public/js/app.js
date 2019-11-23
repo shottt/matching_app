@@ -1850,7 +1850,7 @@ __webpack_require__.r(__webpack_exports__);
 
     };
   },
-  template: "\n  <li class=\"container bg-white\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        \u5317\u6597\u306E\u62F3<br><span class=\"u-txt-grey\">\u8077\u696D</span>\n\n          <i class=\"u-icon__detail\"></i>\n          <li v-for=\"friend in friends\">\n            {{friend.name}}\n          </li>\n\n      </dd>\n    </dl>\n  </li>\n  "
+  template: "\n  <div>\n  <li class=\"container bg-white\" v-for=\"frend in frends\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        {{ frend.id }}<br>\n        {{ frend.picture }}<br>\n        {{ frend.name }}<br><span class=\"u-txt-grey\">{{ frend.occupation }}</span>\n\n          <i class=\"u-icon__detail\"></i>\n\n      </dd>\n    </dl>\n  </li>\n  "
 });
 
 /***/ }),
@@ -1980,21 +1980,11 @@ var usr = new URLSearchParams();
         console.log("検索成功"); //検索キーワード(search_query)と検索結果が欲しい
         //this.json_data = res.data;
         //仮の値を準備
-
-        res.data = {
-          "frend1": {
-            id: 1,
-            picture: 11,
-            name: 12,
-            occupation: 13
-          },
-          "frend2": {
-            id: 2,
-            picture: 21,
-            name: 22,
-            occupation: 23
-          }
-        }; //vuexにフレンド情報を保存　
+        // res.data = {
+        //       "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
+        //       "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
+        //       };
+        //vuexにフレンド情報を保存　
 
         _this.$store.dispatch('user_info/frends', res.data);
 
@@ -57082,8 +57072,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/matching/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/matching/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/matching_app/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/matching_app/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

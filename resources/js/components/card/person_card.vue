@@ -12,7 +12,8 @@
       }
     },
     template: `
-    <li class="container bg-white">
+    <div>
+    <li class="container bg-white" v-for="frend in frends">
       <dl class="row align-items-center c-PsnCard u-bt-border-grey mb-0">
         <dt class="col-4 d-inline-block">
           <figure class="c-PsnCard__img my-3 mx-2">
@@ -20,12 +21,11 @@
           </figure>
         </dt>
         <dd class="col-8 pl-0 text-left u-txt-b c-PsnCard__text">
-          北斗の拳<br><span class="u-txt-grey">職業</span>
+          {{ frend.id }}<br>
+          {{ frend.picture }}<br>
+          {{ frend.name }}<br><span class="u-txt-grey">{{ frend.occupation }}</span>
 
             <i class="u-icon__detail"></i>
-            <li v-for="friend in friends">
-              {{friend.name}}
-            </li>
 
         </dd>
       </dl>

@@ -4,7 +4,7 @@ export default {
 
   data: function () {
     return {
-      search_query: ""
+      search_query: "",
     }
   },
   components: {
