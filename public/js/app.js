@@ -1850,7 +1850,7 @@ __webpack_require__.r(__webpack_exports__);
 
     };
   },
-  template: "\n  <div>\n  <li class=\"container bg-white\" v-for=\"frend in frends\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        {{ frend.id }}<br>\n        {{ frend.picture }}<br>\n        {{ frend.name }}<br><span class=\"u-txt-grey\">{{ frend.occupation }}</span>\n\n          <i class=\"u-icon__detail\"></i>\n\n      </dd>\n    </dl>\n  </li>\n  "
+  template: "\n  <li class=\"container bg-white\">\n    <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\" v-for=\"frend in frends\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        {{ frend.id }}<br>\n        {{ frend.picture }}<br>\n        {{ frend.name }}<br><span class=\"u-txt-grey\">{{ frend.occupation }}</span>\n\n          <i class=\"u-icon__detail\"></i>\n\n      </dd>\n    </dl>\n  </li>\n  "
 });
 
 /***/ }),

@@ -12,9 +12,8 @@
       }
     },
     template: `
-    <div>
-    <li class="container bg-white" v-for="frend in frends">
-      <dl class="row align-items-center c-PsnCard u-bt-border-grey mb-0">
+    <li class="container bg-white">
+      <dl class="row align-items-center c-PsnCard u-bt-border-grey mb-0" v-for="frend in frends">
         <dt class="col-4 d-inline-block">
           <figure class="c-PsnCard__img my-3 mx-2">
             <img src="/images/avator2.png" class="img-fluid" alt="">

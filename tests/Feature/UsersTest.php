@@ -6,6 +6,9 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Facades\Session;
+use Hash;
+use Illuminate\Support\Facades\Auth;
 
 use App\User;
 use App\Facades\Route;
@@ -46,17 +49,21 @@ class UsersTest extends TestCase
      */
     public function testLogin(): void
     {   
-
+        Session::start();
         //選択したユーザ一人が存在するかチェック
         $data = $this->user->toArray();
+        // var_dump($data);
         $this->assertDatabaseHas('users', $data);
 
+        // var_dump(csrf_token());
         //ログイン
         $response = $this->post('/login', [
             'email' => $this->user->email,
-            'password' => 'password'
-        ])->assertStatus(200);
+            'password' => Hash::make('password'),
+            '_token' => csrf_token(),
+        ])->assertStatus(302);
 
+        // var_dump(Auth::user());
         /*もしかして、login画面からpostが必要？
         fromメソッドの意味はまだわかっていない
         $response = $this->from('/login')->post('/login', [

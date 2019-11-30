@@ -32,6 +32,7 @@ class UsersController extends Controller
             return response()->json(['result_flag' => false]);
         }
 
+        // keyをフレンドにする
         // foreach($users as $key => $user){
         //     $userlist_key[] = "frend${key}";
         //     $userlist_val[] = $user;
