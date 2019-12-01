@@ -51,10 +51,10 @@
     template: `
     <main class="text-center u-bg-w u-pb-180">
       <div class="c-Card-Hero">
-        <img class="w-100" src="/images/avator1.png" alt="">
+        <img class="w-100" src="/images/avator2.png" alt="">
         <dl class="c-Card-Hero__detail text-center">
-          <dt class="">鈴木 花子</dt>
-          <dd style="opacity: 0.5;">写真家,大阪</dd>
+          <dt class="">ほしの　あき</dt>
+          <dd style="opacity: 0.5;">グラビアアイドル,地下街</dd>
           <dd class="mt-2 mb-4">ほし</dd>
         </dl>
       </div>
