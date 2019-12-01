@@ -9,8 +9,15 @@ export default {
             pattern: "default",
         }
     },
+
+    mounted: function () {
+        console.log("set my data");
+        this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+        this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
+    },
+    
     template: `
-    <footer class="c-Footer container">
+    <footer class="c-Footer u-top-border-grey container">
         <ul class="nav">
 
             <li class="nav-item col" @click="change_Page_Pattern('home')">

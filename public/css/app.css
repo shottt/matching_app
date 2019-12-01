@@ -12382,11 +12382,31 @@ a.text-dark:focus {
       レイアウト組
 =======================*/
 
-.u-align {
+.u-align-center {
   text-align: center;
 }
 
-.u-align > * {
+.u-align-center > * {
+  display: inline-block;
+}
+
+.u-align-left {
+  text-align: left;
+}
+
+.u-align-left > * {
+  display: inline-block;
+}
+
+.u-align-right {
+  text-align: right;
+}
+
+.u-align-right > * {
+  display: inline-block;
+}
+
+.u-child-ib > * {
   display: inline-block;
 }
 
@@ -13050,11 +13070,13 @@ a.text-dark:focus {
   color: #FFFFFF4D !important;
 }
 
-.u-txt-p {
+.u-txt-p,
+.u-isActive--pink > * {
   color: #F271A8 !important;
 }
 
-.u-txt-grey {
+.u-txt-grey,
+.u-isNoActive > * {
   color: #BCC5D3 !important;
 }
 
@@ -13085,12 +13107,17 @@ a.text-dark:focus {
   width: 20px;
 }
 
-.u-bt-border--pink {
+.u-bt-border--pink,
+.u-isActive--pink {
   border-bottom: solid 2px #F271A8;
 }
 
 .u-bt-border-grey {
   border-bottom: solid 2px #E2E8ED;
+}
+
+.u-top-border-grey {
+  border-top: solid 2px #E2E8ED;
 }
 
 .c-Card-Hero {

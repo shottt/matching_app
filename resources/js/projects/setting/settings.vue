@@ -16,7 +16,7 @@ export default {
 
       //サインイン jsonで投げる ※bootsrap.jsで$httpにaxiosを代入してる
       this.$http.post('/api/logout', {
-        user_id: this.$store.getters['auth_displaying/getUser_Id_Vuex'],
+        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
         //user_id: this.$store.getters['user_info/getUser_id']
         })
         .then(res => {

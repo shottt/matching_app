@@ -45,7 +45,9 @@
 </script>
 
 <style lang="scss" scoped>
-
+/*
+data-target="#myModal"とid="myModal"紐ついてる
+*/
 .post-Icons {
   text-align: left;
 }

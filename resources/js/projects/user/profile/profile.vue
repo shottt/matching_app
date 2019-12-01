@@ -1,9 +1,12 @@
 <script>
-
+  //自分以外のユーザープロファイル
+  //vuexからユーザーデータをとってくる
   export default {
+
     data: function() {
      return {
        pattern_data: "",
+       user: this.$store.getters['user_info/getUser_Vuex'],
      }
     },
 
@@ -58,7 +61,9 @@
 
       <div class="u-Sticky">
         <div @click="change_Page_Pattern('Prof')">
-          <router-link class="w-100 bg-main text-light d-inline-block py-2" to="/set_Prof">プロフィール編集</router-link>
+          <router-link class="w-100 bg-main text-light d-inline-block py-2" to="/chat">
+          メッセージを送る
+          </router-link>
         </div>
 
         <div class="container-fluid u-bg-w u-bt-border-grey">

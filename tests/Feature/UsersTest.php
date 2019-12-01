@@ -12,9 +12,14 @@ use App\User;
 use App\Facades\Route;
 use DatabaseSeeder;
 
+
+/*
+まず,testLoginし、ログイン中の各種テストを行う。
+そして、最後にtestLogout
+*/
 class UsersTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
     protected $user; //User
 
     //複数作成してランダムで一人選ぶ
@@ -66,13 +71,78 @@ class UsersTest extends TestCase
 
         $this->assertAuthenticatedAs($this->user);
         
-
     }
+
+
+    /**
+     * 自分以外のユーザー全検索する
+     * 
+    */ 
+    public function testSelect_All_Users(): void
+    {
+        $this->testLogin();
+        $response = $this->actingAs($this->user);
+
+        //API
+        $result = $response->json('POST', '/api/ctrl_all_users',['_token' => csrf_token(),]);
+        $result->assertStatus(200);
+    }
+
+    /**
+     * 条件付きでユーザー検索する
+     * 名前　職業
+    */ 
+    public function testSelect_Users(): void
+    {
+        $this->testLogin();
+        $response = $this->actingAs($this->user);
+
+        //API
+        $result = $response->json('POST', '/api/ctrl_search_users',
+        ['name' => $this->user->name],
+        ['occupation' => $this->user->occupation],
+        ['_token' => csrf_token(),]);
+
+        $result->assertStatus(200);
+    }
+
+
+    /**
+     * 自分以外のユーザー全検索する
+     * 
+    */ 
+    public function testSelect_All_Friends(): void
+    {
+        $this->testLogin();
+        $response = $this->actingAs($this->user);
+
+        //API
+        $result = $response->json('POST', '/api/ctrl_all_friends',['_token' => csrf_token(),]);
+        $result->assertStatus(200);
+    }
+
+    /**
+     * プロフィールを閲覧する。
+     * 条件：名前　職業
+    */ 
+    public function testCheck_User(): void
+    {
+        $this->testLogin();
+        $response = $this->actingAs($this->user);
+
+        //API
+        $result = $response->json('POST', '/api/ctrl_user_profile',
+        ['_token' => csrf_token(),]);
+        
+        $result->assertStatus(200);
+    }
+
+
 
     public function testLogout(): void
     {
         $this->testLogin();
-
+        
         $response = $this->actingAs($this->user);
 
         $response = $this->post(route('logout'), [

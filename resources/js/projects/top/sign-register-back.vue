@@ -68,6 +68,7 @@
 
                 //user_id設定
                 //this.$store.dispatch('auth_displaying/set_user_id', this.json_data.user_id );
+                
 
                 //描画のための画面判定値を更新
                 this.$store.dispatch('page_displaying/set_Vuex__pattern', "home");

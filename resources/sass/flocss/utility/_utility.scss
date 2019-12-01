@@ -229,9 +229,31 @@ display: none;
 /*=====================
       レイアウト組
 =======================*/
-.u-align {
+.u-align-center {
   text-align: center;
 
+  > * {
+    display: inline-block;
+  }
+}
+
+.u-align-left {
+  text-align: left;
+
+  > * {
+    display: inline-block;
+  }
+}
+
+.u-align-right {
+  text-align: right;
+
+  > * {
+    display: inline-block;
+  }
+}
+
+.u-child-ib {
   > * {
     display: inline-block;
   }
@@ -428,7 +450,8 @@ display: none;
   ページごとのフォント
 =======================*/
 @import "./_area";
-@import "./_text.scss";
+@import "./_text";
 @import "./icon";
 @import "./border";
 @import "./card";
+@import "./_active-flg";

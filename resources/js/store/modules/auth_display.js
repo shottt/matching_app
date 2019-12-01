@@ -4,7 +4,8 @@
 
 const state = () => ({
     disiplay: 1,
-    user_id: 0
+    //user_id: 0,
+    my_data: {}
 })
 
 const actions = {
@@ -18,10 +19,14 @@ const actions = {
     repass: function (context) {
         context.commit('change', 3);
     },
-
+/*
     set_user_id: function (context, value) {
-        console.log(value);
+       
         context.commit('set_user_id', value);
+    },
+*/
+    set_my_data: function (context, my_data) {
+        context.commit('set_my_data', my_data);
     }
 }
 
@@ -32,9 +37,14 @@ const mutations = {
 
         state.disiplay = flg;
     },
-
+/*
     set_user_id: function (state, value) {
         state.user_id = value;
+    },
+*/
+
+    set_my_data: function (state, my_data) {
+        state.my_data = my_data;
     }
     
 }
@@ -43,10 +53,15 @@ const getters = {
     getDisplay_Vuex:  state => {
         return state.disiplay;
     },
-
+/*
     getUser_Id_Vuex:  state => {
         return state.user_id;
-    },    
+    },
+*/
+    getMy_Data_Vuex:  state => {
+        return state.my_data;
+    },
+
 }
 
 export default {

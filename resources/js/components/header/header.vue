@@ -3,7 +3,7 @@
 
   export default {
     template: `
-      <header class="c-Header">
+      <header class="c-Header u-bt-border-grey">
         <h1 class="u-text-pink text-center">{{ $store.state.page_displaying.pattern }}
           <div @click.capture="change_Page_Pattern('search')">
             <search_icon>

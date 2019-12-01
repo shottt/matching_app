@@ -29,13 +29,24 @@ import my_frends from '../projects/setting/profile/my_frends.vue'
 import frend_reviews from '../projects/setting/profile/frend_review.vue';
 import my_posts from '../projects/setting/profile/my_posts.vue';
 
+//他ユーザーのプロフィール系
+import user_prof from '../projects/user/profile/profile.vue'
+import user_profile from '../projects/user/profile/user_profile.vue'
+import user_frends from '../projects/user/profile/user_frends.vue'
+import user_frend_reviews from '../projects/user/profile/user_frend_review.vue';
+import user_posts from '../projects/user/profile/user_posts.vue';
+
+//チャット
+import chat from '../projects/chat/chat.vue';
+import chat_comment_form from '../projects/chat/comment_form.vue';
+
 //コンポーネント系
-import footer from '../components/ui/footer.vue';
 import header from '../components/header/header.vue';
 import header_search from '../components/header/header_search.vue';
+import header_search_post from '../components/header/header_search_post.vue';
 import header_search_result from '../components/header/header_search_result.vue';
-import header_settings from '../components/header/header_setting.vue';
-
+import header_simple from '../components/header/header_simple.vue';
+import footer from '../components/ui/footer.vue';
 //import person_card from  '../components/person_card.vue';
 
 
@@ -76,6 +87,15 @@ const routes = [
 
     },
     {
+        path: '/search_post', 
+        components: {
+            c_header: header_search_post, 
+            c_main: search, 
+            c_footer: footer
+        },
+
+    },
+    {
         path: '/search_result/:query', name: "search_result", 
         components: {
             c_header: header_search_result, 
@@ -105,7 +125,7 @@ const routes = [
     {
         path: '/settings', name: "settings",
         components: {
-            c_header: header_settings, 
+            c_header: header_simple, 
             c_main: settings, 
             c_footer: footer
         },
@@ -183,7 +203,7 @@ const routes = [
     {
         path: '/set_Prof',
         components: {
-            c_header: header_settings, 
+            c_header: header_simple, 
             c_main: set_prof, 
             c_footer: footer
         },
@@ -192,7 +212,7 @@ const routes = [
     {
         path: '/set_Pass',
         components: {
-            c_header: header_settings, 
+            c_header: header_simple, 
             c_main: change_pass, 
             c_footer: footer
         },
@@ -202,7 +222,7 @@ const routes = [
     {
         path: '/set_Prof', name: 'set_Prof',
         components: {
-            c_header: header_settings, 
+            c_header: header_simple, 
             c_main: settings, 
             c_footer: footer
         },
@@ -212,13 +232,41 @@ const routes = [
     {
         path: '/change_pass', name: 'change_pass',
         components: {
-            c_header: header_settings, 
+            c_header: header_simple, 
             c_main: settings, 
             c_footer: footer
         },
 
     },
 
+    //自分以外のユーザー
+    {
+        path: '/user_profile',
+        
+        components: {
+            //c_header: header, 
+            c_main: user_prof,
+            c_footer: footer
+        },
+        children: [
+            {
+             path: "",  components: {
+                my_profile: user_profile
+             } 
+            }
+        ]
+    },
+
+    //チャット
+    {
+        path: '/chat', name: "search_result", 
+        components: {
+            c_header: header_simple, 
+            c_main: chat, 
+            c_footer: chat_comment_form
+        },
+
+    },
 ];
 
 // 5.

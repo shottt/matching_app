@@ -5,21 +5,29 @@ export default {
   props: {
     btn_text: String,
     button_obj: Object,
-    search_query: String,
+    search_query: "",
   },
-  data: function () {return {
+  data: function () { return {
     page_pattern: this.$store.getters['page_displaying/getPattern_Vuex'],
     frends: {},
   }},
+
+  computed: {
+    //DBに渡すための値
+    array_query: function () {
+      return this.search_query.split(" ");
+    }
+  },
+  
   methods: {
     //検索
     search_for: function () {
       //一旦　全検索
 
       //this.$http.post('/api/ctrl_search_for_frends', {
-      this.$http.post('/api/ctrl_all_frends', {
-        //search_query: this.search_query,
-        user_id: this.$store.getters['auth_displaying/getUser_Id_Vuex']
+      this.$http.post('/api/ctrl_all_users', {
+        //search_query: this.array_query,
+        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
       })
       .then(res => {
 
@@ -57,7 +65,7 @@ export default {
       
       this.$http.post('/api/ctrl_set_prof', {
         prof_data: this.button_obj.prof_data,
-        user_id: this.$store.getters['auth_displaying/getUser_Id_Vuex']
+        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
       })
       .then(res => {
 
@@ -84,7 +92,7 @@ export default {
       this.$http.post('/api/ctrl_change_pass', {
         pass_now: this.button_obj.pass_now,
         pass_new: this.button_obj.pass_new,
-        user_id: this.$store.getters['auth_displaying/getUser_Id_Vuex'],
+        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
       })
       .then(res => {
         console.log('通信成功');
