@@ -41,6 +41,7 @@ class UsersTest extends TestCase
     {
         parent::tearDown();
         Mockery::close();
+    
     }
     /**
      * A basic feature test example.
@@ -49,7 +50,9 @@ class UsersTest extends TestCase
      */
     public function testLogin(): void
     {   
+
         Session::start();
+
         //選択したユーザ一人が存在するかチェック
         $data = $this->user->toArray();
         // var_dump($data);
@@ -57,13 +60,40 @@ class UsersTest extends TestCase
 
         // var_dump(csrf_token());
         //ログイン
-        $response = $this->post('/login', [
-            'email' => $this->user->email,
-            'password' => Hash::make('password'),
-            '_token' => csrf_token(),
-        ])->assertStatus(302);
+        $response = $this->post('/login', 
+            [
+                'email' => $this->user->email,
+                'password' => Hash::make('password'),
+                '_token' => csrf_token(), 
+            ]
+            )->assertStatus(302);
 
-        // var_dump(Auth::user());
+        $this->assertAuthenticatedAs($this->user);
+        
+
+    }
+
+    public function testLogout(): void
+    {
+        $this->testLogin();
+
+        $response = $this->actingAs($this->user);
+
+        $response = $this->post(route('logout'), [
+            '_token' => csrf_token(),
+        ]);
+        
+        $response->assertStatus(302);
+
+        $this->assertGuest();
+        $this->tearDown();
+        
+    }
+
+
+
+
+        //
         /*もしかして、login画面からpostが必要？
         fromメソッドの意味はまだわかっていない
         $response = $this->from('/login')->post('/login', [
@@ -94,9 +124,5 @@ class UsersTest extends TestCase
         
         //$response->assertStatus(200);
         //退会処理する
-        $this->tearDown();
-    }
-
-           
 
 }

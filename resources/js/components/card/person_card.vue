@@ -1,7 +1,7 @@
 <script>
   export default {
     data: function () { return {
-    
+      
       frends: this.$store.getters['user_info/getFrends_Vuex'],
 
       /*↑に↓がvuex経由できます。この中身をv-forを使って気合いで表示してください！
