@@ -149,15 +149,23 @@ Route::group(['middleware' => 'api'], function() {
      * メッセージ機能
     ***********************************/
 
-    /* どのユーザーの詳細もとってこれるようにする
-    * ただし、ログインユーザーか他のユーザーかの識別は必要
-    * from from_user_id, to_user_id
+    /* チャットコメントを取得する
+    * 
+    * from my_id, user_id
     * return result_flag;
-    *        frends:
+    *        comments:
     *               id,
-    *               picture,
-    *               name,
-    *               occupation
+    *               detail,
+    *               user_id,
+    *               attachment
+    *               updated_at,
     */
-    //Route::post('/ctrl_user_profile', '');
+    //Route::post('/ctrl_get_chat', '');
+
+    /* チャットコメントを追加する
+    * 
+    * from my_id, user_id, comment
+    * return result_flag;
+    */
+    //Route::post('/ctrl_add_chat_comment', '');
 });

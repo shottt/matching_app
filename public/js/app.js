@@ -2208,22 +2208,59 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/card/person_card.vue */ "./resources/js/components/card/person_card.vue");
+/* harmony import */ var _comment_form_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./comment_form.vue */ "./resources/js/projects/chat/comment_form.vue");
 //実装のポイント
-//自分と相手のIDをどうってくるか？
+//⑴自分と相手のIDをどうってくるか？
 //
-//相手が自分かの判定
-// 相手なら <li class="Chat__friend">
+//⑵相手が自分かの判定
+//相手なら <li class="Chat__friend">
 //自分なら<li class="Chat__me">
 //という風にCSSクラスを切り替える
+//⑶スクロールに表示コメント数を合わせたい
+//最新20件だけとってくる
+//⑷コメントはcreated_atの順で。
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      search_query: ""
+      comments: {}
     };
   },
-  template: "\n  <main class=\"u-container-y--short\">\n    <div class=\"container\">\n\n      <ul class=\"table mb-0 py-5 Chat\">\n\n        <li class=\"Chat__me\">\n          <p class=\"text-left p-2 u-txt-b\">\n            me me me me me me me me me me me me\n          </p>\n        </li>\n\n        <li class=\"Chat__friend\">\n          <i class=\"fas fa-male\"></i>\n          <p class=\"text-left p-2 u-txt-b\">\n            friend friend friend friend friend friend friend friend friend friend \n          </p> \n        </li>\n        \n\n\n        <li class=\"Chat__me\">\n          <p class=\"text-left p-2 u-txt-b\">\n            me me me me me me me me me me me me\n          </p>\n        </li>\n\n        <li class=\"Chat__friend\">\n          <i class=\"fas fa-male\"></i>\n          <p class=\"text-left p-2 u-txt-b\">\n            friend friend friend friend friend friend friend friend friend friend \n          </p> \n        </li>\n\n        <li class=\"Chat__friend\">\n          <i class=\"fas fa-male\"></i>\n          <p class=\"text-left p-2 u-txt-b\">\n            friend friend friend friend friend friend friend friend friend friend \n          </p> \n        </li>\n\n        <li class=\"Chat__me\">\n          <p class=\"text-left p-2 u-txt-b\">\n            me me me me me me me me me me me me\n          </p>\n        </li>       \n        \n        <li class=\"Chat__me\">\n          <p class=\"text-left p-2 u-txt-b\">\n            me me me me me me me me me me me me\n          </p>\n        </li>\n\n      </ul>\n    </div>\n  </main>"
+  beforeMount: function beforeMount() {
+    comments = this.get_Comment(true);
+  },
+  //子のcomment_form.vueから「コメントが増えた」と信号を受け取る。
+  methods: {
+    get_Comment: function get_Comment(get_flag) {
+      var _this = this;
+
+      if (get_flag !== true) {
+        return;
+      }
+
+      this.$http.post('/api/ctrl_get_chat', {
+        my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
+        user_id: this.$store.getters['user_info/getUser_Vuex'].id
+      }).then(function (res) {
+        if (res.data.result_flag === false) {
+          alert("コメント取得に失敗しました");
+          return;
+        }
+
+        _this.change_Page_Pattern('chat');
+
+        console.log("成功");
+      })["catch"](function (err) {
+        return console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
+    }
+  },
+  components: {
+    comments: _comment_form_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  template: "\n  <div>\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n\n        <ul class=\"table mb-0 py-5 Chat\">\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n             <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p>\n            <time>2019 11 02</time>\n          </li>\n          \n\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>       \n          \n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n        </ul>\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_Comment\"/>\n  </div>"
 });
 
 /***/ }),
@@ -2238,7 +2275,43 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  template: "\n  <form action=\"\" class=\"u-top-border-grey Chat-Form container-fluid\">\n\n    <fieldset class=\"u-f-l u-child-ib py-3\">\n\n      <label for=\"file\" class=\"u-w-15 Chat-Form__file\">\n        <i class=\"fas fa-paperclip\"></i>\n        <input type=\"file\" name=\"file\" id=\"file\" class=\"u-none\">\n      </label>\n\n      <textarea name=\"comment\" class=\"u-w-70 Chat-Form__comment\" placeholder=\"Write your message\u2026\"></textarea>\n      <div class=\"u-w-15 Chat-Form__btn\">\n        <button type=\"button\">\n        <i class=\"far fa-comment\"></i>\n        </button>\n      </div>\n      \n\n    </fieldset>\n  </form>"
+  data: function data() {
+    return {
+      comment: ""
+    };
+  },
+  methods: {
+    comment: function comment() {
+      var _this = this;
+
+      //user_idとcommentをなげる
+      this.$http.post('/api/ctrl_add_chat_comment', {
+        //search_query: this.array_query,
+        my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
+        user_id: this.$store.getters['user_info/getUser_Vuex'].id,
+        comment: this.comment
+      }).then(function (res) {
+        _this.json_data = res.data;
+
+        if (res.data.result_flag === false) {
+          alert("コメントに失敗しました。");
+          return;
+        } //親chat.vueにコメント追加を連絡する
+
+
+        _this.$emit('emit-add-comment', true);
+
+        _this.change_Page_Pattern('chat');
+
+        console.log("成功");
+      })["catch"](function (err) {
+        return console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
+    }
+  },
+  template: "\n  <form action=\"\" class=\"u-top-border-grey Chat-Form container-fluid\">\n\n    <fieldset class=\"u-f-l u-child-ib py-3\">\n\n      <label for=\"file\" class=\"u-w-15 Chat-Form__file\">\n        <i class=\"fas fa-paperclip\"></i>\n        <input type=\"file\" name=\"file\" id=\"file\" class=\"u-none\">\n      </label>\n\n      <textarea v-model=\"comment\" name=\"comment\" class=\"u-w-70 Chat-Form__comment\" placeholder=\"Write your message\u2026\"></textarea>\n      <div class=\"u-w-15 Chat-Form__btn\">\n        <button type=\"button\" v-on:click=\"comment\">\n        <i class=\"far fa-comment\"></i>\n        </button>\n      </div>\n      \n\n    </fieldset>\n  </form>"
 });
 
 /***/ }),
@@ -7405,7 +7478,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "li[data-v-50f2eb50] {\n  position: relative;\n  display: block;\n  margin-bottom: 32px;\n}\nli > p[data-v-50f2eb50] {\n  background: #fff;\n  border-radius: 10px;\n  min-height: 60px;\n}\n.Chat__me[data-v-50f2eb50]:before {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  right: -10px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n}\n.Chat__friend[data-v-50f2eb50] {\n  padding-left: 40px !important;\n}\n.Chat__friend[data-v-50f2eb50]:after {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  left: 30px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(225deg);\n          transform: rotate(225deg);\n}\n.Chat__friend i[data-v-50f2eb50] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 30px;\n  overflow: hidden;\n}\n.Chat__friend i[data-v-50f2eb50]:before {\n  font-size: 60px;\n}\n.Chat-Form__file i[data-v-50f2eb50]:before {\n  font-size: 24px;\n}", ""]);
+exports.push([module.i, "li[data-v-50f2eb50] {\n  position: relative;\n  display: block;\n  margin-bottom: 32px;\n}\nli > p[data-v-50f2eb50] {\n  background: #fff;\n  border-radius: 10px;\n  min-height: 60px;\n}\nli time[data-v-50f2eb50] {\n  display: block;\n}\n.Chat__me[data-v-50f2eb50]:before {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  right: -10px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n}\n.Chat__me time[data-v-50f2eb50] {\n  text-align: right;\n}\n.Chat__friend[data-v-50f2eb50] {\n  padding-left: 40px !important;\n}\n.Chat__friend[data-v-50f2eb50]:after {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  left: 30px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(225deg);\n          transform: rotate(225deg);\n}\n.Chat__friend time[data-v-50f2eb50] {\n  text-align: left;\n}\n.Chat__friend i[data-v-50f2eb50] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 30px;\n  overflow: hidden;\n}\n.Chat__friend i[data-v-50f2eb50]:before {\n  font-size: 60px;\n}\n.Chat-Form__file i[data-v-50f2eb50]:before {\n  font-size: 24px;\n}", ""]);
 
 // exports
 
@@ -57848,8 +57921,8 @@ var routes = [{
   name: "search_result",
   components: {
     c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_26__["default"],
-    c_main: _projects_chat_chat_vue__WEBPACK_IMPORTED_MODULE_20__["default"],
-    c_footer: _projects_chat_comment_form_vue__WEBPACK_IMPORTED_MODULE_21__["default"]
+    c_main: _projects_chat_chat_vue__WEBPACK_IMPORTED_MODULE_20__["default"] //c_footer: chat_comment_form
+
   }
 }]; // 5.
 

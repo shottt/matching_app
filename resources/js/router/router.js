@@ -263,7 +263,7 @@ const routes = [
         components: {
             c_header: header_simple, 
             c_main: chat, 
-            c_footer: chat_comment_form
+            //c_footer: chat_comment_form
         },
 
     },
