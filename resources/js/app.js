@@ -67,6 +67,8 @@ Vue.mixin({
     }
   }},
 
+
+
   methods: {
     vali_required: function (type, value) {
 
@@ -113,7 +115,8 @@ Vue.mixin({
   computed: {
     ...mapGetters([
     'auth_displaying/getDisplay_Vuex',
-    'auth_displaying/getUser_Id_Vuex',
+    //'auth_displaying/getUser_Id_Vuex',
+    'auth_displaying/getMy_Data_Vuex',
     'page_displaying/getPattern_Vuex',
     'user_info/getFrends_Vuex',
     ]),
@@ -133,4 +136,4 @@ const vue_body = new Vue({
     //extends: validation,
 
     
-});//.$mount("#vue_body");
+}).$mount("#vue_body");

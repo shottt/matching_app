@@ -1,0 +1,14 @@
+.u-isActive--pink {
+  
+  @extend .u-bt-border--pink;
+  > * {
+    @extend .u-txt-p;
+  }
+}
+
+.u-isNoActive {
+
+  > * {
+    @extend .u-txt-grey;
+  }
+}

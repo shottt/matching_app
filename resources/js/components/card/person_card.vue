@@ -1,30 +1,61 @@
 <script>
   export default {
     data: function () { return {
-      
       frends: this.$store.getters['user_info/getFrends_Vuex'],
+      }
+    },
+    methods: {
+      showProfile: function (user_id) {
+        //IDをフックさせてプロフィールを表示する ctrl_profile
+/* DB連携まだ
+        this.$http.post('/ctrl_user_profile', {
+            user_id: user_id,
+        })
+        .then(res => {
+          console.log("サインイン成功");
+          this.json_data = res.data;
+          console.log("user: " + this.json_data.user);
+          console.log("result_flag : " + this.json_data.result_flag);
 
-      /*↑に↓がvuex経由できます。この中身をv-forを使って気合いで表示してください！
-      　それができたら、画像は置いといて、実際にテーブルに登録したユーザー情報を表示してください。
-      "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
-      "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
-      */
+          //結果判定
+          if (this.json_data.result_flag === true) {
+
+            //ユーザー情報
+            this.$store.dispatch('user_info/user', this.json_data.user);
+
+            //描画のための画面判定値を更新
+            this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
+            this.$router.push({ path: '/user_profile' });
+
+          } else {
+            alert("ログイン失敗です。");
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          console.log('finally')
+        });
+*/
+        this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
+        this.$router.push({ path: '/user_profile' });
       }
     },
     template: `
     <li class="container bg-white">
-      <dl class="row align-items-center c-PsnCard u-bt-border-grey mb-0" v-for="frend in frends">
+      <dl v-for="frend in frends" class="row align-items-center c-PsnCard u-bt-border-grey mb-0">
         <dt class="col-4 d-inline-block">
           <figure class="c-PsnCard__img my-3 mx-2">
             <img src="/images/avator2.png" class="img-fluid" alt="">
           </figure>
         </dt>
         <dd class="col-8 pl-0 text-left u-txt-b c-PsnCard__text">
-          {{ frend.id }}<br>
           {{ frend.picture }}<br>
           {{ frend.name }}<br><span class="u-txt-grey">{{ frend.occupation }}</span>
 
-            <i class="u-icon__detail"></i>
+            <i v-on:click="showProfile(frend.id)" class="u-icon__detail"></i></router-link>
+            
 
         </dd>
       </dl>

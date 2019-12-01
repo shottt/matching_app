@@ -6,11 +6,13 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+
 use Illuminate\Support\Facades\Session;
-use Hash;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use App\User;
+use App\Chat;
+
 use App\Facades\Route;
 use DatabaseSeeder;
 
@@ -19,12 +21,13 @@ use DatabaseSeeder;
 まず,testLoginし、ログイン中の各種テストを行う。
 そして、最後にtestLogout
 */
-class UsersTest extends TestCase
+class ChatTest extends TestCase
 {
     //use RefreshDatabase;
-    protected $user; //User
+    protected $me; //User
+    protected $friend; //User
 
-    //複数作成してランダムで一人選ぶ
+    //複数作成してランダムで二人選ぶ
     public function setUp(): void
     {
         parent::setUp();
@@ -39,7 +42,10 @@ class UsersTest extends TestCase
         //選択
         shuffle($list);
         $randum_id = array_shift($list);
-        $this->user = User::find($randum_id);
+        $this->me = User::find($randum_id);
+
+        $randum_id = array_shift($list);
+        $this->friend = User::find($randum_id);
     }
 
     public function tearDown(): void
@@ -60,15 +66,13 @@ class UsersTest extends TestCase
 
         //選択したユーザ一人が存在するかチェック
         $data = $this->user->toArray();
-        // var_dump($data);
         $this->assertDatabaseHas('users', $data);
 
-        // var_dump(csrf_token());
         //ログイン
         $response = $this->post('/login', 
             [
                 'email' => $this->user->email,
-                'password' => Hash::make('password'),
+                'password' => 'password',
                 '_token' => csrf_token(), 
             ]
             )->assertStatus(302);
@@ -79,67 +83,59 @@ class UsersTest extends TestCase
 
 
     /**
-     * 自分以外のユーザー全検索する
+     * チャットコメントを取得する
      * 
     */ 
-    public function testSelect_All_Users(): void
+    public function testGet_Chat_Comments(): void
     {
         $this->testLogin();
         $response = $this->actingAs($this->user);
-
-        //API
-        $result = $response->json('POST', '/api/ctrl_all_users',['_token' => csrf_token(),]);
-        $result->assertStatus(200);
-    }
-
-    /**
-     * 条件付きでユーザー検索する
-     * 名前　職業
-    */ 
-    public function testSelect_Users(): void
-    {
-        $this->testLogin();
-        $response = $this->actingAs($this->user);
-
-        //API
-        $result = $response->json('POST', '/api/ctrl_search_users',
-        ['name' => $this->user->name],
-        ['occupation' => $this->user->occupation],
-        ['_token' => csrf_token(),]);
-
-        $result->assertStatus(200);
-    }
-
-
-    /**
-     * 自分以外のユーザー全検索する
-     * 
-    */ 
-    public function testSelect_All_Friends(): void
-    {
-        $this->testLogin();
-        $response = $this->actingAs($this->user);
-
-        //API
-        $result = $response->json('POST', '/api/ctrl_all_friends',['_token' => csrf_token(),]);
-        $result->assertStatus(200);
-    }
-
-    /**
-     * プロフィールを閲覧する。
-     * 条件：名前　職業
-    */ 
-    public function testCheck_User(): void
-    {
-        $this->testLogin();
-        $response = $this->actingAs($this->user);
-
-        //API
-        $result = $response->json('POST', '/api/ctrl_user_profile',
-        ['_token' => csrf_token(),]);
         
+        //
+        $result = $response->json('POST', '/api/ctrl_get_chat',[
+            '_token' => csrf_token(),
+            'my_id' => $this->me->id, 
+            'user_id' => $this->friend->id
+        ]);
         $result->assertStatus(200);
+
     }
+
+
+    /**
+     * チャットコメントを追加する
+     * 
+    */ 
+    public function testAdd_Chat_Comments(): void
+    {
+        $this->testLogin();
+        $response = $this->actingAs($this->user);
+        
+        $test_comment =  Str::random(10);
+
+        //コメント追加
+        $result = $response->json('POST', '/api/ctrl_add_chat_comment',[
+            '_token' => csrf_token(),
+            'my_id' => $this->me->id, 
+            'user_id' => $this->friend->id,
+            'comment' => $test_comment,
+        ]);
+        $result->assertStatus(200);
+
+        ///最新のコメントの内容が$test_commentとなっているか確認
+        //あってるかわからない
+        $result = $response->json('POST', '/api/ctrl_get_chat',[
+            '_token' => csrf_token(),
+            'my_id' => $this->me->id, 
+            'user_id' => $this->friend->id
+        ]);
+        $comment = array_shift($result->toArray());
+
+        $this->assertEquals($comment['comment'], $test_comment);
+
+    }
+
+
 
 
 

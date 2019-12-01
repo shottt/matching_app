@@ -32,13 +32,6 @@ Route::group(['middleware' => 'api'], function() {
     // return user_id, result_flag
     Route::post('/ctrl_registration','Ajax\UsersController@registration');
 
-    //友達検索
-    Route::post('/ctrl_search_for_frends', function () {
-
-        //検索のコントローラに投げる
-        //return view('/home/home');
-    });
-
     //settings フォルダ
     // from user_id, 
     //      prof_data
@@ -90,13 +83,89 @@ Route::group(['middleware' => 'api'], function() {
     //     //検索のコントローラに投げる
     //     //return view('/home/home');
     // });
-    Route::post('/ctrl_all_frends', 'Api\UsersController@friend_search');
-    // 簡易確認用にgetのルーティングを配置
-    Route::get('/ctrl_all_frends', 'Api\UsersController@friend_search');
+
    
     // 画像アップロード用のルーティング（テスト用に配置）
     Route::get('/picture', 'Api\UsersController@index');
     Route::post('/picture', 'Api\UsersController@store');
 
+    /***********************************
+     * 登録ユーザー検索
+    ***********************************/
+
+    /**自分以外の全ユーザー検索
+     * from user_id,
+     * return frends: [
+     * [id,picture,name, occupation]
+     * [id,picture,name, occupation]
+     * [id,picture,name, occupation]
+     * ],
+     * result_flag;
+     */
+    Route::post('/ctrl_all_users', 'Api\UsersController@user_search');
+    // 簡易確認用にgetのルーティングを配置
+    Route::get('/ctrl_all_users', 'Api\UsersController@user_search');
+
+
+    /**自分以外の全ユーザーを条件付きで検索
+     * from user_id, search_query=>[String, String ...String]
+     * return frends: [
+     * [id,picture,name, occupation]
+     * [id,picture,name, occupation]
+     * [id,picture,name, occupation]
+     * ],
+     * result_flag;
+     */
+    //Route::post('/ctrl_search_users', '');
+
+    /**自分の友達一覧表示
+     * from user_id,
+     * return frends: [
+     * [id,picture,name, occupation]
+     * [id,picture,name, occupation]
+     * [id,picture,name, occupation]
+     * ],
+     * result_flag;  
+     */
+    Route::post('/ctrl_all_friends', 'Api\UsersController@friend_search');
     
+
+    /***********************************
+     * 登録ユーザー詳細機能
+    ***********************************/
+    /* どのユーザーの詳細もとってこれるようにする
+    * ただし、ログインユーザーか他のユーザーかの識別は必要
+    * from user_id, 
+    * return result_flag;
+    *        frends:
+    *               id,
+    *               picture,
+    *               name,
+    *               occupation
+    */
+    //Route::post('/ctrl_user_profile', '');
+
+    /***********************************
+     * メッセージ機能
+    ***********************************/
+
+    /* チャットコメントを取得する
+    * 
+    * from my_id, user_id
+    * return result_flag;
+    *        comments:
+    *               id,
+    *               detail,
+    *               user_id,
+    *               attachment
+    *               updated_at,
+    */
+    //Route::post('/ctrl_get_chat', '');
+
+    /* チャットコメントを追加する
+    * 
+    * from my_id, user_id, comment
+    * return result_flag;
+    */
+    //Route::post('/ctrl_add_chat_comment', '');
 });

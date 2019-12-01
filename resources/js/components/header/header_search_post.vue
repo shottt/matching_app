@@ -1,15 +1,21 @@
 
-<script>  
+<script>
   export default {
+    data: function () { return {      
+    
+    }},
+
     template: `
     <header class="c-Header">
       <h1 class="u-text-pink text-center">検索<a class="c-right-icon" href="/search"><img src="/images/close-icon.png" alt=""></a></h1>
       <a class="u-down-arrow u-txt-b d-block text-center mt-3" href="./filter.html">フィルター</a>
       <div class="c-Header__tabs row">
-        <div class="col text-center u-isActive--pink">
+
+        <div class="col text-center u-isNoActive">
           <router-link to="/search">友達</router-link>
         </div>
-        <div class="col text-center u-isNoActive">
+
+        <div class="col text-center u-isActive--pink">
           <router-link to="/search_post">投稿</router-link>
         </div>
       </div>
@@ -18,6 +24,7 @@
   }
 
 </script>
+
 
 <!--
 <header class="c-Header">

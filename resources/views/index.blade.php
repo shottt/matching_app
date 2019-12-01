@@ -5,11 +5,22 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <script>
-        window.Laravel = { csrfToken: '{{ csrf_token() }}' }
+        '{{ $user = Auth::user()}}'
+        window.Laravel = { 
+          csrfToken: '{{ csrf_token() }}',
+          my_data: { 
+            'id': '{{ $user->id }}',
+            'name': '{{ $user->name }}',
+            'occupation': '{{ $user->occupation }}',
+            'location': '{{ $user->location }}',
+            'picture': '{{ $user->picture }}',
+          },
+          id : '{{ $user->id }}',
+        }
       </script>
       <title>Document</title>
       <link rel='stylesheet' href='/css/app.css'>
-
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     </head>
     
     <body id="sign" class="bg-main">
@@ -25,7 +36,6 @@
       </form>
       @endauth
       <div id="vue_body">
-
         <router-view name="c_header"></router-view>
         
         <router-view name="c_main"></router-view>

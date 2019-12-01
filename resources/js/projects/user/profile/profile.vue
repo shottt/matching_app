@@ -1,9 +1,12 @@
 <script>
-
+  //自分以外のユーザープロファイル
+  //vuexからユーザーデータをとってくる
   export default {
+
     data: function() {
      return {
        pattern_data: "",
+       user: this.$store.getters['user_info/getUser_Vuex'],
      }
     },
 
@@ -48,17 +51,19 @@
     template: `
     <main class="text-center u-bg-w u-pb-180">
       <div class="c-Card-Hero">
-        <img class="w-100" src="/images/avator1.png" alt="">
+        <img class="w-100" src="/images/avator2.png" alt="">
         <dl class="c-Card-Hero__detail text-center">
-          <dt class="">鈴木 花子</dt>
-          <dd style="opacity: 0.5;">写真家,大阪</dd>
+          <dt class="">ほしの　あき</dt>
+          <dd style="opacity: 0.5;">グラビアアイドル,地下街</dd>
           <dd class="mt-2 mb-4">ほし</dd>
         </dl>
       </div>
 
       <div class="u-Sticky">
         <div @click="change_Page_Pattern('Prof')">
-          <router-link class="w-100 bg-main text-light d-inline-block py-2" to="/set_Prof">プロフィール編集</router-link>
+          <router-link class="w-100 bg-main text-light d-inline-block py-2" to="/chat">
+          メッセージを送る
+          </router-link>
         </div>
 
         <div class="container-fluid u-bg-w u-bt-border-grey">

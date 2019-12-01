@@ -5,7 +5,11 @@
     template: `
     <header class="c-Header--short">
       <div class="c-Header--short__inner">
-        <h1 class="u-text-pink text-center"> {{ $store.state.page_displaying.pattern }} </h1>
+        
+        <h1 class="u-text-pink text-center">
+          <a class="c-left-icon" href="/home"><img src="/images/arrow-left-icon.png" alt=""></a> 
+          {{ $store.state.page_displaying.pattern }} 
+        </h1>
       </div>
     </header>
     `
