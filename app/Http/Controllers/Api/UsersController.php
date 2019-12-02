@@ -77,11 +77,14 @@ class UsersController extends Controller
         return response()->json($users);
 
     }
-    // public function index(){
-    //     return view('picture');
-    // }
 
-    // public function store(UserRequest $request){
+    // ユーザー情報詳細（自分以外）を取得する
+    public function user_profile($id){
+        // 自分のユーザーIDを取得
+        $auth_id = Auth::id();
+        $user = DB::table('users')->where('id', '!=', $auth_id)->where('id', '=', $id)->where('delete_flag', 0)->first(['id', 'name', 'occupation', 'picture']);
 
-    // }
+        return response()->json($user);
+
+    }
 }

@@ -143,7 +143,7 @@ Route::group(['middleware' => 'api'], function() {
     *               name,
     *               occupation
     */
-    //Route::post('/ctrl_user_profile', '');
+    Route::get('/ctrl_user_profile/{id}', 'Api\UsersController@user_profile');
 
     /***********************************
      * メッセージ機能
@@ -160,12 +160,12 @@ Route::group(['middleware' => 'api'], function() {
     *               attachment
     *               updated_at,
     */
-    //Route::post('/ctrl_get_chat', '');
+    Route::post('/ctrl_get_chat', 'Api\ChatsController@get_chat');
 
     /* チャットコメントを追加する
     * 
     * from my_id, user_id, comment
     * return result_flag;
     */
-    //Route::post('/ctrl_add_chat_comment', '');
+    Route::post('/ctrl_add_chat_comment', 'Api\ChatsController@add_chat_comment');
 });

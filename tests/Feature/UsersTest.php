@@ -68,15 +68,16 @@ class UsersTest extends TestCase
         $response = $this->post('/login', 
             [
                 'email' => $this->user->email,
-                'password' => Hash::make('password'),
+                // 'password' => Hash::make('password'),
+                'password' => 'password',
                 '_token' => csrf_token(), 
             ]
             )->assertStatus(302);
 
         $this->assertAuthenticatedAs($this->user);
-        
+        // var_dump(Auth::user());
     }
-
+    
 
     /**
      * 自分以外のユーザー全検索する
@@ -96,19 +97,19 @@ class UsersTest extends TestCase
      * 条件付きでユーザー検索する
      * 名前　職業
     */ 
-    public function testSelect_Users(): void
-    {
-        $this->testLogin();
-        $response = $this->actingAs($this->user);
+    // public function testSelect_Users(): void
+    // {
+    //     $this->testLogin();
+    //     $response = $this->actingAs($this->user);
 
-        //API
-        $result = $response->json('POST', '/api/ctrl_search_users',
-        ['name' => $this->user->name],
-        ['occupation' => $this->user->occupation],
-        ['_token' => csrf_token(),]);
+    //     //API
+    //     $result = $response->json('POST', '/api/ctrl_search_users',
+    //     ['name' => $this->user->name],
+    //     ['occupation' => $this->user->occupation],
+    //     ['_token' => csrf_token(),]);
 
-        $result->assertStatus(200);
-    }
+    //     $result->assertStatus(200);
+    // }
 
 
     /**
@@ -125,21 +126,21 @@ class UsersTest extends TestCase
         $result->assertStatus(200);
     }
 
-    /**
-     * プロフィールを閲覧する。
-     * 条件：名前　職業
-    */ 
-    public function testCheck_User(): void
-    {
-        $this->testLogin();
-        $response = $this->actingAs($this->user);
+    // /**
+    //  * プロフィールを閲覧する。
+    //  * 条件：名前　職業
+    // */ 
+    // public function testCheck_User(): void
+    // {
+    //     $this->testLogin();
+    //     $response = $this->actingAs($this->user);
 
-        //API
-        $result = $response->json('POST', '/api/ctrl_user_profile',
-        ['_token' => csrf_token(),]);
+    //     //API
+    //     $result = $response->json('POST', '/api/ctrl_user_profile',
+    //     ['_token' => csrf_token(),]);
         
-        $result->assertStatus(200);
-    }
+    //     $result->assertStatus(200);
+    // }
 
 
 
