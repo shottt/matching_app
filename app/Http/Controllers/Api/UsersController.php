@@ -17,14 +17,15 @@ class UsersController extends Controller
         
         // 自分のユーザーIDを取得
         $auth_id = Auth::id();
-        Log::debug($auth_id);
+        // Log::debug($auth_id);
+        $result_flag = true;
 
         // 必要なカラムだけ取ってくる、自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
         // $user = User::whereNotIn('id', $auth_id)->get(); → この書き方だとエラー
         // $users = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         $users = DB::table('users')->where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
 
-        Log::debug(print_r($users, true));
+        // Log::debug(print_r($users, true));
 
         // 異常判定
         if(empty($users)){
@@ -51,14 +52,14 @@ class UsersController extends Controller
         
         // 自分のユーザーIDを取得
         $auth_id = Auth::id();
-        Log::debug($auth_id);
+        // Log::debug($auth_id);
 
         // 必要なカラムだけ取ってくる、自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
         // $user = User::whereNotIn('id', $auth_id)->get(); → この書き方だとエラー
         // $users = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         $users = DB::table('users')->where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
 
-        Log::debug(print_r($users, true));
+        // Log::debug(print_r($users, true));
 
         // 異常判定
         if(empty($users)){
@@ -79,12 +80,26 @@ class UsersController extends Controller
     }
 
     // ユーザー情報詳細（自分以外）を取得する
-    public function user_profile($id){
+    public function user_profile(Request $request){
         // 自分のユーザーIDを取得
         $auth_id = Auth::id();
-        $user = DB::table('users')->where('id', '!=', $auth_id)->where('id', '=', $id)->where('delete_flag', 0)->first(['id', 'name', 'occupation', 'picture']);
+        
+        $id = $request->user_id;
+        $result_flag = true;
+        if(empty($id)){
+            $result_flag = false;
+            return response()->json(['result_flag' => false]);
+        }
+        // Log::debug(print_r($request->all()));
+        $user = DB::table('users')->where('id', '!=', $auth_id)->where('id', '=', $id)->where('delete_flag', 0)->first();
 
-        return response()->json($user);
+        // 異常判定
+        if(empty($user)){
+            return response()->json(['result_flag' => false]);
+        }
+
+        return response()->json(['result_flag' => true, 'frend' => $user]);
+        
 
     }
 }

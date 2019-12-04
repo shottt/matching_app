@@ -7,14 +7,14 @@
     methods: {
       showProfile: function (user_id) {
         //IDをフックさせてプロフィールを表示する ctrl_profile
-/* DB連携まだ
-        this.$http.post('/ctrl_user_profile', {
+//  DB連携まだ
+        this.$http.post('/api/ctrl_user_profile', {
             user_id: user_id,
         })
         .then(res => {
           console.log("サインイン成功");
           this.json_data = res.data;
-          console.log("user: " + this.json_data.user);
+          console.log("user: " + this.json_data.frend);
           console.log("result_flag : " + this.json_data.result_flag);
 
           //結果判定
@@ -25,7 +25,7 @@
 
             //描画のための画面判定値を更新
             this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-            this.$router.push({ path: '/user_profile' });
+            // this.$router.push({ path: '/user_profile' });
 
           } else {
             alert("ログイン失敗です。");
@@ -37,7 +37,7 @@
         .finally(() => {
           console.log('finally')
         });
-*/
+
         this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
         this.$router.push({ path: '/user_profile' });
       }

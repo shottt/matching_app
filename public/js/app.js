@@ -1846,39 +1846,33 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     showProfile: function showProfile(user_id) {
-      //IDをフックさせてプロフィールを表示する ctrl_profile
+      var _this = this;
 
-      /* DB連携まだ
-              this.$http.post('/ctrl_user_profile', {
-                  user_id: user_id,
-              })
-              .then(res => {
-                console.log("サインイン成功");
-                this.json_data = res.data;
-                console.log("user: " + this.json_data.user);
-                console.log("result_flag : " + this.json_data.result_flag);
-      
-                //結果判定
-                if (this.json_data.result_flag === true) {
-      
-                  //ユーザー情報
-                  this.$store.dispatch('user_info/user', this.json_data.user);
-      
-                  //描画のための画面判定値を更新
-                  this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-                  this.$router.push({ path: '/user_profile' });
-      
-                } else {
-                  alert("ログイン失敗です。");
-                }
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-              .finally(() => {
-                console.log('finally')
-              });
-      */
+      //IDをフックさせてプロフィールを表示する ctrl_profile
+      //  DB連携まだ
+      this.$http.post('/api/ctrl_user_profile', {
+        user_id: user_id
+      }).then(function (res) {
+        console.log("サインイン成功");
+        _this.json_data = res.data;
+        console.log("user: " + _this.json_data.frend);
+        console.log("result_flag : " + _this.json_data.result_flag); //結果判定
+
+        if (_this.json_data.result_flag === true) {
+          //ユーザー情報
+          _this.$store.dispatch('user_info/user', _this.json_data.user); //描画のための画面判定値を更新
+
+
+          _this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile"); // this.$router.push({ path: '/user_profile' });
+
+        } else {
+          alert("ログイン失敗です。");
+        }
+      })["catch"](function (err) {
+        console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
       this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
       this.$router.push({
         path: '/user_profile'

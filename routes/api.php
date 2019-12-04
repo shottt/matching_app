@@ -143,7 +143,11 @@ Route::group(['middleware' => 'api'], function() {
     *               name,
     *               occupation
     */
-    Route::get('/ctrl_user_profile/{id}', 'Api\UsersController@user_profile');
+    Route::post('/ctrl_user_profile', 'Api\UsersController@user_profile');
+    // Route::post('/ctrl_user_profile', function(Request $request){
+    //     return response()->json(['result_flag' => true ]);
+    // });
+
 
     /***********************************
      * メッセージ機能
