@@ -1849,21 +1849,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       //IDをフックさせてプロフィールを表示する ctrl_profile
-<<<<<<< HEAD
       //  DB連携まだ
       this.$http.post('/api/ctrl_user_profile', {
-=======
-      this.$http.post('/ctrl_user_profile', {
->>>>>>> 44161d1c1904d3533a44c43aca44a0ee31c0f131
         user_id: user_id
       }).then(function (res) {
         console.log("サインイン成功");
         _this.json_data = res.data;
-<<<<<<< HEAD
         console.log("user: " + _this.json_data.frend);
-=======
-        console.log("user: " + _this.json_data.user);
->>>>>>> 44161d1c1904d3533a44c43aca44a0ee31c0f131
         console.log("result_flag : " + _this.json_data.result_flag); //結果判定
 
         if (_this.json_data.result_flag === true) {
@@ -1871,16 +1863,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.$store.dispatch('user_info/user', _this.json_data.user); //描画のための画面判定値を更新
 
 
-<<<<<<< HEAD
           _this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile"); // this.$router.push({ path: '/user_profile' });
 
-=======
-          _this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-
-          _this.$router.push({
-            path: '/user_profile'
-          });
->>>>>>> 44161d1c1904d3533a44c43aca44a0ee31c0f131
         } else {
           alert("ログイン失敗です。");
         }
@@ -1895,7 +1879,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  template: "\n  <li class=\"container bg-white\">\n    <dl v-for=\"friend in friends\" class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        {{ friend.picture }}<br>\n        {{ friend.name }}<br><span class=\"u-txt-grey\">{{ friend.occupation }}</span>\n\n          <i v-on:click=\"showProfile(friend.id)\" class=\"u-icon__detail\"></i></router-link>\n          \n\n      </dd>\n    </dl>\n  </li>\n  "
+  template: "\n    <li class=\"container bg-white\">\n      <dl v-for=\"friend in friends\" class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n        <dt class=\"col-4 d-inline-block\">\n          <figure class=\"c-PsnCard__img my-3 mx-2\">\n            <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n          </figure>\n        </dt>\n        <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n          {{ friend.picture }}<br>\n          {{ friend.name }}<br><span class=\"u-txt-grey\">{{ friend.occupation }}</span>\n\n            <i v-on:click=\"showProfile(friend.id)\" class=\"u-icon__detail\"></i></router-link>\n            \n\n        </dd>\n      </dl>\n    </li>\n    "
 });
 
 /***/ }),
@@ -58237,25 +58221,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _projects_setting_set_prof_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../projects/setting/set_prof.vue */ "./resources/js/projects/setting/set_prof.vue");
 /* harmony import */ var _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../projects/setting/profile/profile.vue */ "./resources/js/projects/setting/profile/profile.vue");
 /* harmony import */ var _projects_setting_profile_my_profile_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../projects/setting/profile/my_profile.vue */ "./resources/js/projects/setting/profile/my_profile.vue");
-/* harmony import */ var _projects_setting_profile_my_friends_vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../projects/setting/profile/my_friends.vue */ "./resources/js/projects/setting/profile/my_friends.vue");
-/* harmony import */ var _projects_setting_profile_friend_review_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../projects/setting/profile/friend_review.vue */ "./resources/js/projects/setting/profile/friend_review.vue");
-/* harmony import */ var _projects_setting_profile_my_posts_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../projects/setting/profile/my_posts.vue */ "./resources/js/projects/setting/profile/my_posts.vue");
-/* harmony import */ var _projects_user_profile_profile_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../projects/user/profile/profile.vue */ "./resources/js/projects/user/profile/profile.vue");
-/* harmony import */ var _projects_user_profile_user_profile_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../projects/user/profile/user_profile.vue */ "./resources/js/projects/user/profile/user_profile.vue");
-/* harmony import */ var _projects_user_profile_user_friends_vue__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../projects/user/profile/user_friends.vue */ "./resources/js/projects/user/profile/user_friends.vue");
-/* harmony import */ var _projects_user_profile_user_friend_review_vue__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../projects/user/profile/user_friend_review.vue */ "./resources/js/projects/user/profile/user_friend_review.vue");
-/* harmony import */ var _projects_user_profile_user_posts_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../projects/user/profile/user_posts.vue */ "./resources/js/projects/user/profile/user_posts.vue");
-/* harmony import */ var _projects_chat_chat_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../projects/chat/chat.vue */ "./resources/js/projects/chat/chat.vue");
-/* harmony import */ var _projects_chat_comment_form_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../projects/chat/comment_form.vue */ "./resources/js/projects/chat/comment_form.vue");
-/* harmony import */ var _projects_post_post_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../projects/post/post.vue */ "./resources/js/projects/post/post.vue");
-/* harmony import */ var _projects_friend_friends_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../projects/friend/friends.vue */ "./resources/js/projects/friend/friends.vue");
-/* harmony import */ var _components_header_header_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../components/header/header.vue */ "./resources/js/components/header/header.vue");
-/* harmony import */ var _components_header_header_search_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../components/header/header_search.vue */ "./resources/js/components/header/header_search.vue");
-/* harmony import */ var _components_header_header_search_post_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../components/header/header_search_post.vue */ "./resources/js/components/header/header_search_post.vue");
-/* harmony import */ var _components_header_header_search_result_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../components/header/header_search_result.vue */ "./resources/js/components/header/header_search_result.vue");
-/* harmony import */ var _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../components/header/header_simple.vue */ "./resources/js/components/header/header_simple.vue");
-/* harmony import */ var _components_header_header_friend_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../components/header/header_friend.vue */ "./resources/js/components/header/header_friend.vue");
-/* harmony import */ var _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../components/ui/footer.vue */ "./resources/js/components/ui/footer.vue");
+/* harmony import */ var _projects_setting_profile_my_friends_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../projects/setting/profile/my_friends.vue */ "./resources/js/projects/setting/profile/my_friends.vue");
+/* harmony import */ var _projects_setting_profile_friend_review_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../projects/setting/profile/friend_review.vue */ "./resources/js/projects/setting/profile/friend_review.vue");
+/* harmony import */ var _projects_setting_profile_my_posts_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../projects/setting/profile/my_posts.vue */ "./resources/js/projects/setting/profile/my_posts.vue");
+/* harmony import */ var _projects_user_profile_profile_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../projects/user/profile/profile.vue */ "./resources/js/projects/user/profile/profile.vue");
+/* harmony import */ var _projects_user_profile_user_profile_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../projects/user/profile/user_profile.vue */ "./resources/js/projects/user/profile/user_profile.vue");
+/* harmony import */ var _projects_user_profile_user_friends_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../projects/user/profile/user_friends.vue */ "./resources/js/projects/user/profile/user_friends.vue");
+/* harmony import */ var _projects_user_profile_user_friend_review_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../projects/user/profile/user_friend_review.vue */ "./resources/js/projects/user/profile/user_friend_review.vue");
+/* harmony import */ var _projects_user_profile_user_posts_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../projects/user/profile/user_posts.vue */ "./resources/js/projects/user/profile/user_posts.vue");
+/* harmony import */ var _projects_chat_chat_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../projects/chat/chat.vue */ "./resources/js/projects/chat/chat.vue");
+/* harmony import */ var _projects_chat_comment_form_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../projects/chat/comment_form.vue */ "./resources/js/projects/chat/comment_form.vue");
+/* harmony import */ var _projects_post_post_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../projects/post/post.vue */ "./resources/js/projects/post/post.vue");
+/* harmony import */ var _projects_friend_friends_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../projects/friend/friends.vue */ "./resources/js/projects/friend/friends.vue");
+/* harmony import */ var _components_header_header_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../components/header/header.vue */ "./resources/js/components/header/header.vue");
+/* harmony import */ var _components_header_header_search_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../components/header/header_search.vue */ "./resources/js/components/header/header_search.vue");
+/* harmony import */ var _components_header_header_search_post_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../components/header/header_search_post.vue */ "./resources/js/components/header/header_search_post.vue");
+/* harmony import */ var _components_header_header_search_result_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../components/header/header_search_result.vue */ "./resources/js/components/header/header_search_result.vue");
+/* harmony import */ var _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../components/header/header_simple.vue */ "./resources/js/components/header/header_simple.vue");
+/* harmony import */ var _components_header_header_friend_vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../components/header/header_friend.vue */ "./resources/js/components/header/header_friend.vue");
+/* harmony import */ var _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../components/ui/footer.vue */ "./resources/js/components/ui/footer.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // 2.
@@ -58319,53 +58303,53 @@ var routes = [{
 }, {
   path: '/home',
   components: {
-    c_header: _components_header_header_vue__WEBPACK_IMPORTED_MODULE_21__["default"],
+    c_header: _components_header_header_vue__WEBPACK_IMPORTED_MODULE_24__["default"],
     c_main: _projects_home_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, {
   path: '/search',
   components: {
-    c_header: _components_header_header_search_vue__WEBPACK_IMPORTED_MODULE_22__["default"],
+    c_header: _components_header_header_search_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
     c_main: _projects_search_search_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, {
   path: '/search_post',
   components: {
-    c_header: _components_header_header_search_post_vue__WEBPACK_IMPORTED_MODULE_23__["default"],
+    c_header: _components_header_header_search_post_vue__WEBPACK_IMPORTED_MODULE_26__["default"],
     c_main: _projects_search_search_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, {
   path: '/search_result/:query',
   name: "search_result",
   components: {
-    c_header: _components_header_header_search_result_vue__WEBPACK_IMPORTED_MODULE_24__["default"],
+    c_header: _components_header_header_search_result_vue__WEBPACK_IMPORTED_MODULE_27__["default"],
     c_main: _projects_search_search_result_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, {
   path: '/profile',
   components: {
     //c_header: header, 
     c_main: _projects_profile_profile_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, {
   path: '/profile_followers',
   components: {
     //c_header: header, 
     c_main: _projects_profile_profile_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, {
   path: '/settings',
   name: "settings",
   components: {
-    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
+    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_28__["default"],
     c_main: _projects_setting_settings_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, //my〜はログインしてるユーザー用
 {
@@ -58373,7 +58357,7 @@ var routes = [{
   components: {
     //c_header: header, 
     c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   },
   children: [{
     path: "",
@@ -58387,12 +58371,12 @@ var routes = [{
     //c_header: header, 
     c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
     //main_inner: my_friends,
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   },
   children: [{
     path: "",
     components: {
-      my_friends: _projects_setting_profile_my_friends_vue__WEBPACK_IMPORTED_MODULE_29__["default"] //friend_card :person_card　さらにネスとしてる
+      my_friends: _projects_setting_profile_my_friends_vue__WEBPACK_IMPORTED_MODULE_12__["default"] //friend_card :person_card　さらにネスとしてる
 
     }
   }]
@@ -58401,12 +58385,12 @@ var routes = [{
   components: {
     //c_header: header, 
     c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   },
   children: [{
     path: "",
     components: {
-      friend_reviews: _projects_setting_profile_friend_review_vue__WEBPACK_IMPORTED_MODULE_28__["default"]
+      friend_reviews: _projects_setting_profile_friend_review_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
     }
   }]
 }, {
@@ -58414,27 +58398,27 @@ var routes = [{
   components: {
     //c_header: header, 
     c_main: _projects_setting_profile_profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   },
   children: [{
     path: "",
     components: {
-      my_posts: _projects_setting_profile_my_posts_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+      my_posts: _projects_setting_profile_my_posts_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
     }
   }]
 }, {
   path: '/set_Prof',
   components: {
-    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
+    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_28__["default"],
     c_main: _projects_setting_set_prof_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, {
   path: '/set_Pass',
   components: {
-    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
+    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_28__["default"],
     c_main: _projects_setting_change_pass_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 },
 /*
@@ -58450,22 +58434,22 @@ var routes = [{
   path: '/change_pass',
   name: 'change_pass',
   components: {
-    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
+    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_28__["default"],
     c_main: _projects_setting_settings_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, //自分以外のユーザー
 {
   path: '/user_profile',
   components: {
     //c_header: header, 
-    c_main: _projects_user_profile_profile_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_main: _projects_user_profile_profile_vue__WEBPACK_IMPORTED_MODULE_15__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   },
   children: [{
     path: "",
     components: {
-      my_profile: _projects_user_profile_user_profile_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
+      my_profile: _projects_user_profile_user_profile_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
     }
   }]
 }, //チャット
@@ -58473,33 +58457,33 @@ var routes = [{
   path: '/chat',
   name: "search_result",
   components: {
-    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
-    c_main: _projects_chat_chat_vue__WEBPACK_IMPORTED_MODULE_17__["default"] //c_footer: chat_comment_form
+    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_28__["default"],
+    c_main: _projects_chat_chat_vue__WEBPACK_IMPORTED_MODULE_20__["default"] //c_footer: chat_comment_form
 
   }
 }, {
   path: '/friends',
   name: "friends",
   components: {
-    c_header: _components_header_header_friend_vue__WEBPACK_IMPORTED_MODULE_26__["default"],
-    c_main: _projects_friend_friends_vue__WEBPACK_IMPORTED_MODULE_20__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_header: _components_header_header_friend_vue__WEBPACK_IMPORTED_MODULE_29__["default"],
+    c_main: _projects_friend_friends_vue__WEBPACK_IMPORTED_MODULE_23__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, {
   path: '/appo_friends',
   name: "appo_friends",
   components: {
-    c_header: _components_header_header_friend_vue__WEBPACK_IMPORTED_MODULE_26__["default"],
-    c_main: _projects_friend_friends_vue__WEBPACK_IMPORTED_MODULE_20__["default"],
-    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+    c_header: _components_header_header_friend_vue__WEBPACK_IMPORTED_MODULE_29__["default"],
+    c_main: _projects_friend_friends_vue__WEBPACK_IMPORTED_MODULE_23__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }, //投稿
 {
   path: '/post',
   name: "post",
   components: {
-    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
-    c_main: _projects_post_post_vue__WEBPACK_IMPORTED_MODULE_19__["default"] //c_footer: chat_comment_form
+    c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_28__["default"],
+    c_main: _projects_post_post_vue__WEBPACK_IMPORTED_MODULE_22__["default"] //c_footer: chat_comment_form
 
   }
 }]; // 5.
