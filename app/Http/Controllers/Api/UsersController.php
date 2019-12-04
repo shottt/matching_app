@@ -24,7 +24,6 @@ class UsersController extends Controller
         // $users = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         $users = DB::table('users')->where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
 
-        Log::debug(print_r($users, true));
 
         // 異常判定
         if(empty($users)){
@@ -33,7 +32,7 @@ class UsersController extends Controller
         }
 
         // foreach($users as $key => $user){
-        //     $userlist_key[] = "frend${key}";
+        //     $userlist_key[] = "friend${key}";
         //     $userlist_val[] = $user;
 
         //     $userlist = array_combine($userlist_key, $userlist_val);
@@ -66,7 +65,7 @@ class UsersController extends Controller
         }
 
         // foreach($users as $key => $user){
-        //     $userlist_key[] = "frend${key}";
+        //     $userlist_key[] = "friend${key}";
         //     $userlist_val[] = $user;
 
         //     $userlist = array_combine($userlist_key, $userlist_val);

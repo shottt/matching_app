@@ -1,0 +1,20 @@
+<li class="nav-item col" @click.capture="change_Page_Pattern('home')">
+  <router-link class="nav-link active" to='/home'>
+    <img v-if="pattern ==='home'" src="/images/footer/home-icon--active.png" alt="アイコン：ホーム" class="img-fluid">
+    <img v-if="pattern !=='home'" src="/images/footer/home-icon.png" alt="アイコン：ホーム" class="img-fluid">
+  </router-link><br>
+</li>
+
+<li class="nav-item col" @click.capture="change_Page_Pattern('friend')">
+  <router-link class="nav-link" to="/friend">
+    <img v-if="pattern ==='friend'" src="/images/footer/friends-icon.png" alt="アイコン：友達" class="img-fluid">
+    <img v-if="pattern !=='friend'" src="/images/footer/friends-icon--active.png" alt="アイコン：友達" class="img-fluid">
+  </router-link>
+</li>
+
+<li class="nav-item col" @click.capture="change_Page_Pattern('settings')">
+  <router-link class="nav-link" to="/settings">
+    <img v-if="pattern ==='settings'" src="/images/footer/settings-icon.png" alt="アイコン：設定" class="img-fluid">
+    <img v-if="pattern !=='settings'" src="/images/footer/settings-icon.png" alt="アイコン：設定" class="img-fluid">
+  </router-link>
+</li>

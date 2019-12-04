@@ -9,7 +9,7 @@ export default {
   },
   data: function () { return {
     page_pattern: this.$store.getters['page_displaying/getPattern_Vuex'],
-    frends: {},
+    friends: {},
   }},
 
   computed: {
@@ -24,7 +24,7 @@ export default {
     search_for: function () {
       //一旦　全検索
 
-      //this.$http.post('/api/ctrl_search_for_frends', {
+      //this.$http.post('/api/ctrl_search_for_friends', {
       this.$http.post('/api/ctrl_all_users', {
         //search_query: this.array_query,
         user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
@@ -44,11 +44,11 @@ export default {
 
         //仮の値を準備
         // res.data = {
-        //       "frend1": { id: 1, picture: 11, name: 12,occupation: 13},
-        //       "frend2": { id: 2, picture: 21, name: 22,occupation: 23},
+        //       "friend1": { id: 1, picture: 11, name: 12,occupation: 13},
+        //       "friend2": { id: 2, picture: 21, name: 22,occupation: 23},
         //       };
         //vuexにフレンド情報を保存　
-        this.$store.dispatch('user_info/frends', res.data);
+        this.$store.dispatch('user_info/friends', res.data);
 
 
         this.$router.push({ name: 'search_result', params: { query: this.search_query }})

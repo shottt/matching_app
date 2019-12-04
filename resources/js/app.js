@@ -107,6 +107,7 @@ Vue.mixin({
       }
     },
 
+    //ページごとの判定をするために、ページのパターンを設定する
     change_Page_Pattern: function (pattern) {
       this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
     }
@@ -118,14 +119,13 @@ Vue.mixin({
     //'auth_displaying/getUser_Id_Vuex',
     'auth_displaying/getMy_Data_Vuex',
     'page_displaying/getPattern_Vuex',
-    'user_info/getFrends_Vuex',
+    'user_info/getFriends_Vuex',
     ]),
   },
   components: {
     action_btn,search_icon
   },
   
-
 });
 
 const vue_body = new Vue({

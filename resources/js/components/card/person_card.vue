@@ -1,13 +1,13 @@
 <script>
   export default {
     data: function () { return {
-      frends: this.$store.getters['user_info/getFrends_Vuex'],
+      friends: this.$store.getters['user_info/getFriends_Vuex'],
       }
     },
     methods: {
       showProfile: function (user_id) {
+        
         //IDをフックさせてプロフィールを表示する ctrl_profile
-/* DB連携まだ
         this.$http.post('/ctrl_user_profile', {
             user_id: user_id,
         })
@@ -37,24 +37,24 @@
         .finally(() => {
           console.log('finally')
         });
-*/
+
         this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
         this.$router.push({ path: '/user_profile' });
       }
     },
     template: `
     <li class="container bg-white">
-      <dl v-for="frend in frends" class="row align-items-center c-PsnCard u-bt-border-grey mb-0">
+      <dl v-for="friend in friends" class="row align-items-center c-PsnCard u-bt-border-grey mb-0">
         <dt class="col-4 d-inline-block">
           <figure class="c-PsnCard__img my-3 mx-2">
             <img src="/images/avator2.png" class="img-fluid" alt="">
           </figure>
         </dt>
         <dd class="col-8 pl-0 text-left u-txt-b c-PsnCard__text">
-          {{ frend.picture }}<br>
-          {{ frend.name }}<br><span class="u-txt-grey">{{ frend.occupation }}</span>
+          {{ friend.picture }}<br>
+          {{ friend.name }}<br><span class="u-txt-grey">{{ friend.occupation }}</span>
 
-            <i v-on:click="showProfile(frend.id)" class="u-icon__detail"></i></router-link>
+            <i v-on:click="showProfile(friend.id)" class="u-icon__detail"></i></router-link>
             
 
         </dd>
@@ -75,6 +75,7 @@
   //vertical-align: middle;
   position: relative;
   margin-bottom: 0;
+  max-width: 200px;
 }
 .u-icon__detail:after {
   background:  url('/images/options-icon.png') no-repeat;
@@ -84,7 +85,7 @@
   height: 5px;
   text-align: right;
   position: absolute;
-  right: 15px;
+  right: -40px;
   top: 0;
   bottom: 0;
   margin-top: auto;

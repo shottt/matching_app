@@ -30,7 +30,7 @@ Route::group(['middleware' => 'api'], function() {
     */
     Route::post('/ctrl_registration','Ajax\UsersController@registration');
     //友達検索
-    Route::post('/ctrl_search_for_frends', function () {
+    Route::post('/ctrl_search_for_friends', function () {
         //検索のコントローラに投げる
         //return view('/home/home');
     });

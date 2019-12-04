@@ -3,14 +3,16 @@
 
 
 const state = () => ({
-  frends: {},
+  //ユーザー一覧
+  friends: {},
+  //ユーザー詳細
   user: {}
 })
 
 const actions = {
 
-  frends: function (context, frend_objs) {
-    context.commit('frends', frend_objs)
+  friends: function (context, friend_objs) {
+    context.commit('friends', friend_objs)
   },
 
   user: function (context, user_obj) {
@@ -21,8 +23,8 @@ const actions = {
 
 const mutations = {
 
-  frends: function (state, frend_objs) {
-    state.frends = frend_objs;
+  friends: function (state, friend_objs) {
+    state.friends = friend_objs;
   },
   user: function (state, user_obj) {
     state.user = user_obj;
@@ -31,8 +33,8 @@ const mutations = {
 
 const getters = {
 
-  getFrends_Vuex:  state => {
-    return state.frends;
+  getFriends_Vuex:  state => {
+    return state.friends;
   },
 
   getUser_Vuex:  state => {
