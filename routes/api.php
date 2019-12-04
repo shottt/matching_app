@@ -71,14 +71,14 @@ Route::group(['middleware' => 'api'], function() {
     // 自分自身以外のユーザー情報を全てげっと
     // from user_id,
     // return result_flag, 
-    //        frends:
+    //        friends:
     //          id,
     //          picture,
     //          name,
     //          occupation
     
 
-    // Route::post('/ctrl_all_frends', function () {
+    // Route::post('/ctrl_all_friends', function () {
 
     //     //検索のコントローラに投げる
     //     //return view('/home/home');
@@ -95,7 +95,7 @@ Route::group(['middleware' => 'api'], function() {
 
     /**自分以外の全ユーザー検索
      * from user_id,
-     * return frends: [
+     * return friends: [
      * [id,picture,name, occupation]
      * [id,picture,name, occupation]
      * [id,picture,name, occupation]
@@ -109,7 +109,7 @@ Route::group(['middleware' => 'api'], function() {
 
     /**自分以外の全ユーザーを条件付きで検索
      * from user_id, search_query=>[String, String ...String]
-     * return frends: [
+     * return friends: [
      * [id,picture,name, occupation]
      * [id,picture,name, occupation]
      * [id,picture,name, occupation]
@@ -120,7 +120,7 @@ Route::group(['middleware' => 'api'], function() {
 
     /**自分の友達一覧表示
      * from user_id,
-     * return frends: [
+     * return friends: [
      * [id,picture,name, occupation]
      * [id,picture,name, occupation]
      * [id,picture,name, occupation]
@@ -137,7 +137,7 @@ Route::group(['middleware' => 'api'], function() {
     * ただし、ログインユーザーか他のユーザーかの識別は必要
     * from user_id, 
     * return result_flag;
-    *        frends:
+    *        friends:
     *               id,
     *               picture,
     *               name,

@@ -19,10 +19,10 @@
       })
     },
     methods: {
-      show_My_Frends: function () {
+      show_My_Friends: function () {
 
       //友達リストを作ってvueのstateをmutate
-      //this.$http.post('/api/ctrl_all_frends', {
+      //this.$http.post('/api/ctrl_all_friends', {
       this.$http.post('/api/ctrl_all_friends', {
         user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
       })
@@ -36,8 +36,8 @@
         this.change_Page_Pattern('settings_result');
         console.log("検索成功");
 
-        this.$store.dispatch('user_info/frends', res.data);
-        this.$router.push('/my_frends');
+        this.$store.dispatch('user_info/friends', res.data);
+        this.$router.push('/my_friends');
 
       })
       .catch(err => console.log(err))
@@ -85,7 +85,7 @@
             <div class="col">
               <div class="u-wrapper">
                 <div class="u-wrapper-text">
-                  <div @click="show_My_Frends">
+                  <div @click="show_My_Friends">
                     <p>友達</p>
                   </div>
                 </div>
@@ -116,8 +116,8 @@
       </div>
 
     　<router-view name="my_profile"></router-view>
-      <router-view name="my_frends"></router-view>
-      <router-view name="frend_reviews"></router-view>
+      <router-view name="my_friends"></router-view>
+      <router-view name="friend_reviews"></router-view>
       <router-view name="my_posts"></router-view>
 
     </main>
