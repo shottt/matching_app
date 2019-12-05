@@ -89,16 +89,17 @@ class UsersController extends Controller
             $result_flag = false;
             return response()->json(['result_flag' => false]);
         }
-        // Log::debug(print_r($request->all()));
+        
         $user = DB::table('users')->where('id', '!=', $auth_id)->where('id', '=', $id)->where('delete_flag', 0)->first();
+        // Log::debug(print_r($user, true));
 
         // 異常判定
         if(empty($user)){
             return response()->json(['result_flag' => false]);
         }
 
-        return response()->json(['result_flag' => true, 'frend' => $user]);
-        
+        // Log::debug(response()->json(['result_flag' => true, 'friend' => $user]));
+        return response()->json(['result_flag' => true, 'friend' => $user]);
 
     }
 }

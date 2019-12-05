@@ -137,7 +137,7 @@ Route::group(['middleware' => 'api'], function() {
     * ただし、ログインユーザーか他のユーザーかの識別は必要
     * from user_id, 
     * return result_flag;
-    *        friends:
+    *        friend:
     *               id,
     *               picture,
     *               name,

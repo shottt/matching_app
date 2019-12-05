@@ -15,21 +15,22 @@
         .then(res => {
           console.log("サインイン成功");
           this.json_data = res.data;
-          console.log("user: " + this.json_data.frend);
+          // console.log("user: " + this.json_data.friend);の書き方だと、2層のjsonの値がobject Objectになるので書き換えました。
+          console.log("user: " + JSON.stringify(this.json_data.friend));
           console.log("result_flag : " + this.json_data.result_flag);
 
           //結果判定
           if (this.json_data.result_flag === true) {
 
             //ユーザー情報
-            this.$store.dispatch('user_info/user', this.json_data.user);
+            this.$store.dispatch('user_info/user', this.json_data.friend);
 
             //描画のための画面判定値を更新
             this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
             // this.$router.push({ path: '/user_profile' });
 
           } else {
-            alert("ログイン失敗です。");
+            alert("サインイン失敗です。");
           }
         })
         .catch((err) => {
@@ -39,7 +40,7 @@
           console.log('finally')
         });
 
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
+        // this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
         this.$router.push({ path: '/user_profile' });
       }
     },
