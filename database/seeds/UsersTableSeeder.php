@@ -58,7 +58,6 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('password'),
             'occupation' => 'エンジニア',
             'picture' => '写真',
-            'delete_flag' => 0,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

@@ -18,12 +18,12 @@ class UsersController extends Controller
         // 自分のユーザーIDを取得
         $auth_id = Auth::id();
         // Log::debug($auth_id);
-        $result_flag = true;
 
         // 必要なカラムだけ取ってくる、自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
         // $user = User::whereNotIn('id', $auth_id)->get(); → この書き方だとエラー
         // $users = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         $users = DB::table('users')->where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
+        // Log::debug(print_r($users, true));
 
         // 異常判定
         if(empty($users)){
@@ -38,9 +38,9 @@ class UsersController extends Controller
 
         //     $userlist = array_combine($userlist_key, $userlist_val);
         // }
-        // Log::debug(print_r($userlist, true));
-
-        return response()->json($users);
+        
+        // Log::debug(response()->json(['result_flag' => true, 'friends' => $users]));
+        return response()->json(['result_flag' => true, 'friends' => $users]);
 
         }
 
@@ -74,7 +74,7 @@ class UsersController extends Controller
         // }
         // Log::debug(print_r($userlist, true));
 
-        return response()->json($users);
+        return response()->json(['result_flag' => true, 'friends' => $users]);
 
     }
 
@@ -83,14 +83,13 @@ class UsersController extends Controller
         // 自分のユーザーIDを取得
         $auth_id = Auth::id();
         
-        $id = $request->user_id;
-        $result_flag = true;
-        if(empty($id)){
-            $result_flag = false;
+        $user_id = $request->user_id;
+        
+        if(empty($user_id)){
             return response()->json(['result_flag' => false]);
         }
         
-        $user = DB::table('users')->where('id', '!=', $auth_id)->where('id', '=', $id)->where('delete_flag', 0)->first();
+        $user = DB::table('users')->where('id', '!=', $auth_id)->where('id', '=', $user_id)->where('delete_flag', 0)->first();
         // Log::debug(print_r($user, true));
 
         // 異常判定

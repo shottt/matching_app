@@ -2048,7 +2048,10 @@ var usr = new URLSearchParams();
 
         _this.change_Page_Pattern('settings_result');
 
-        console.log("検索成功"); //検索キーワード(search_query)と検索結果が欲しい
+        console.log("検索成功");
+        _this.json_data = res.data;
+        console.log("users: " + JSON.stringify(_this.json_data.friends));
+        console.log("result_flag : " + _this.json_data.result_flag); //検索キーワード(search_query)と検索結果が欲しい
         //this.json_data = res.data;
         //仮の値を準備
         // res.data = {
@@ -2057,7 +2060,7 @@ var usr = new URLSearchParams();
         //       };
         //vuexにフレンド情報を保存　
 
-        _this.$store.dispatch('user_info/friends', res.data);
+        _this.$store.dispatch('user_info/friends', _this.json_data.friends);
 
         _this.$router.push({
           name: 'search_result',

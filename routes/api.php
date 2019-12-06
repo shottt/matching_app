@@ -104,7 +104,7 @@ Route::group(['middleware' => 'api'], function() {
      */
     Route::post('/ctrl_all_users', 'Api\UsersController@user_search');
     // 簡易確認用にgetのルーティングを配置
-    Route::get('/ctrl_all_users', 'Api\UsersController@user_search');
+    // Route::get('/ctrl_all_users', 'Api\UsersController@user_search');
 
 
     /**自分以外の全ユーザーを条件付きで検索
@@ -144,9 +144,6 @@ Route::group(['middleware' => 'api'], function() {
     *               occupation
     */
     Route::post('/ctrl_user_profile', 'Api\UsersController@user_profile');
-    // Route::post('/ctrl_user_profile', function(Request $request){
-    //     return response()->json(['result_flag' => true ]);
-    // });
 
 
     /***********************************

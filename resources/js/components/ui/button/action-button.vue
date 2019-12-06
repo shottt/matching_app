@@ -38,6 +38,9 @@ export default {
 
         this.change_Page_Pattern('settings_result');
         console.log("検索成功");
+        this.json_data = res.data;
+        console.log("users: " + JSON.stringify(this.json_data.friends));
+        console.log("result_flag : " + this.json_data.result_flag);
 
         //検索キーワード(search_query)と検索結果が欲しい
         //this.json_data = res.data;
@@ -48,7 +51,7 @@ export default {
         //       "friend2": { id: 2, picture: 21, name: 22,occupation: 23},
         //       };
         //vuexにフレンド情報を保存　
-        this.$store.dispatch('user_info/friends', res.data);
+        this.$store.dispatch('user_info/friends', this.json_data.friends);
 
 
         this.$router.push({ name: 'search_result', params: { query: this.search_query }})
