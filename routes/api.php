@@ -104,7 +104,7 @@ Route::group(['middleware' => 'api'], function() {
      */
     Route::post('/ctrl_all_users', 'Api\UsersController@user_search');
     // 簡易確認用にgetのルーティングを配置
-    Route::get('/ctrl_all_users', 'Api\UsersController@user_search');
+    // Route::get('/ctrl_all_users', 'Api\UsersController@user_search');
 
 
     /**自分以外の全ユーザーを条件付きで検索
@@ -137,13 +137,14 @@ Route::group(['middleware' => 'api'], function() {
     * ただし、ログインユーザーか他のユーザーかの識別は必要
     * from user_id, 
     * return result_flag;
-    *        friends:
+    *        friend:
     *               id,
     *               picture,
     *               name,
     *               occupation
     */
-    //Route::post('/ctrl_user_profile', '');
+    Route::post('/ctrl_user_profile', 'Api\UsersController@user_profile');
+
 
     /***********************************
      * メッセージ機能
@@ -160,12 +161,12 @@ Route::group(['middleware' => 'api'], function() {
     *               attachment
     *               updated_at,
     */
-    //Route::post('/ctrl_get_chat', '');
+    Route::post('/ctrl_get_chat', 'Api\ChatsController@get_chat');
 
     /* チャットコメントを追加する
     * 
     * from my_id, user_id, comment
     * return result_flag;
     */
-    //Route::post('/ctrl_add_chat_comment', '');
+    Route::post('/ctrl_add_chat_comment', 'Api\ChatsController@add_chat_comment');
 });

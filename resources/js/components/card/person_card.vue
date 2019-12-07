@@ -20,14 +20,14 @@
           if (this.json_data.result_flag === true) {
 
             //ユーザー情報
-            this.$store.dispatch('user_info/user', this.json_data.user);
+            this.$store.dispatch('user_info/user', this.json_data.friend);
 
             //描画のための画面判定値を更新
             this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-            this.$router.push({ path: '/user_profile' });
+            // this.$router.push({ path: '/user_profile' });
 
           } else {
-            alert("ログイン失敗です。");
+            alert("サインイン失敗です。");
           }
         })
         .catch((err) => {
@@ -37,7 +37,7 @@
           console.log('finally')
         });
 
-        this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
+        // this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
         this.$router.push({ path: '/user_profile' });
       }
     },

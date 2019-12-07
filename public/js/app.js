@@ -1859,23 +1859,20 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this.json_data.result_flag === true) {
           //ユーザー情報
-          _this.$store.dispatch('user_info/user', _this.json_data.user); //描画のための画面判定値を更新
+          _this.$store.dispatch('user_info/user', _this.json_data.friend); //描画のための画面判定値を更新
 
 
-          _this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
+          _this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile"); // this.$router.push({ path: '/user_profile' });
 
-          _this.$router.push({
-            path: '/user_profile'
-          });
         } else {
-          alert("ログイン失敗です。");
+          alert("サインイン失敗です。");
         }
       })["catch"](function (err) {
         console.log(err);
       })["finally"](function () {
         console.log('finally');
-      });
-      this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
+      }); // this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
+
       this.$router.push({
         path: '/user_profile'
       });
@@ -2049,7 +2046,10 @@ var usr = new URLSearchParams();
 
         _this.change_Page_Pattern('settings_result');
 
-        console.log("検索成功"); //検索キーワード(search_query)と検索結果が欲しい
+        console.log("検索成功");
+        _this.json_data = res.data;
+        console.log("users: " + JSON.stringify(_this.json_data.friends));
+        console.log("result_flag : " + _this.json_data.result_flag); //検索キーワード(search_query)と検索結果が欲しい
         //this.json_data = res.data;
         //仮の値を準備
         // res.data = {
@@ -2058,7 +2058,7 @@ var usr = new URLSearchParams();
         //       };
         //vuexにフレンド情報を保存　
 
-        _this.$store.dispatch('user_info/friends', res.data);
+        _this.$store.dispatch('user_info/friends', _this.json_data.friends);
 
         _this.$router.push({
           name: 'search_result',
@@ -3096,7 +3096,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  template: "\n  <main class=\"text-center u-bg-w u-pb-180\">\n    <div class=\"c-Card-Hero\">\n      <img class=\"w-100\" src=\"/images/avator2.png\" alt=\"\">\n      <dl class=\"c-Card-Hero__detail text-center\">\n        <dt class=\"\">\u307B\u3057\u306E\u3000\u3042\u304D</dt>\n        <dd style=\"opacity: 0.5;\">\u30B0\u30E9\u30D3\u30A2\u30A2\u30A4\u30C9\u30EB,\u5730\u4E0B\u8857</dd>\n        <dd class=\"mt-2 mb-4\">\u307B\u3057</dd>\n      </dl>\n    </div>\n\n    <div class=\"u-Sticky\">\n      <div @click=\"change_Page_Pattern('Prof')\">\n        <router-link class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/chat\">\n        \u30E1\u30C3\u30BB\u30FC\u30B8\u3092\u9001\u308B\n        </router-link>\n      </div>\n\n      <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n                <div @click=\"show_My_Friends\">\n                  <p>\u53CB\u9054</p>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n              <router-link to=\"/my_reviews\">\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          \n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n                <router-link to=\"/my_posts\">\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n\n  \u3000<router-view name=\"my_profile\"></router-view>\n    <router-view name=\"my_friends\"></router-view>\n    <router-view name=\"friend_reviews\"></router-view>\n    <router-view name=\"my_posts\"></router-view>\n\n  </main>\n  "
+  template: "\n  <main class=\"text-center u-bg-w u-pb-180\">\n    <div class=\"c-Card-Hero\">\n      <img class=\"w-100\" src=\"/images/avator2.png\" alt=\"\">\n      <dl class=\"c-Card-Hero__detail text-center\">\n        <dt class=\"\">{{ user.name }}</dt>\n        <dd style=\"opacity: 0.5;\">{{ user.occupation }}</dd>\n        <dd class=\"mt-2 mb-4\">\u307B\u3057</dd>\n      </dl>\n    </div>\n\n    <div class=\"u-Sticky\">\n      <div @click=\"change_Page_Pattern('Prof')\">\n        <router-link class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/chat\">\n        \u30E1\u30C3\u30BB\u30FC\u30B8\u3092\u9001\u308B\n        </router-link>\n      </div>\n\n      <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n                <div @click=\"show_My_Friends\">\n                  <p>\u53CB\u9054</p>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n              <router-link to=\"/my_reviews\">\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          \n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n                <router-link to=\"/my_posts\">\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n\n  \u3000<router-view name=\"my_profile\"></router-view>\n    <router-view name=\"my_friends\"></router-view>\n    <router-view name=\"friend_reviews\"></router-view>\n    <router-view name=\"my_posts\"></router-view>\n\n  </main>\n  "
 });
 
 /***/ }),

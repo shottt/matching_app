@@ -53,8 +53,8 @@
       <div class="c-Card-Hero">
         <img class="w-100" src="/images/avator2.png" alt="">
         <dl class="c-Card-Hero__detail text-center">
-          <dt class="">ほしの　あき</dt>
-          <dd style="opacity: 0.5;">グラビアアイドル,地下街</dd>
+          <dt class="">{{ user.name }}</dt>
+          <dd style="opacity: 0.5;">{{ user.occupation }}</dd>
           <dd class="mt-2 mb-4">ほし</dd>
         </dl>
       </div>
