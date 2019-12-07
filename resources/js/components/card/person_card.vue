@@ -6,15 +6,14 @@
     },
     methods: {
       showProfile: function (user_id) {
-        
         //IDをフックさせてプロフィールを表示する ctrl_profile
-        this.$http.post('/ctrl_user_profile', {
+        this.$http.post('/api/ctrl_user_profile', {
             user_id: user_id,
         })
         .then(res => {
           console.log("サインイン成功");
           this.json_data = res.data;
-          console.log("user: " + this.json_data.user);
+          console.log("user: " + this.json_data.friend);
           console.log("result_flag : " + this.json_data.result_flag);
 
           //結果判定

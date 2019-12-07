@@ -304,7 +304,6 @@ const routes = [
             c_main: post, 
             //c_footer: chat_comment_form
         },
-
     },
 ];
 
