@@ -51,31 +51,32 @@
     methods: {
       show_My_Friends: function () {
 
-      //仮のコード
-      //友達リストを作ってvueのstateをmutate
-      this.$http.post('/api/ctrl_all_friends', {
-        user_id: this.user.id
-      })
-      .then(res => {
-        this.json_data = res.data;
+        //仮のコード
+        //友達リストを作ってvueのstateをmutate
+        this.$http.post('/api/ctrl_all_friends', {
+          user_id: this.user.id
+        })
+        .then(res => {
+          this.json_data = res.data;
 
-        if (this.json_data.result_flag === false) {
-          alert("通信成功しましたが、該当データ見当たらないです。");
-          return;
-        }
-        console.log("検索成功");
-        this.change_Page_Pattern('user_friends');
-      
-        this.$store.dispatch('user_info/friends', this.json_data.friends);
-        this.$router.push('/user_friends');
-
-      })
-      .catch(err => console.log(err))
-      .finally(() => {
-        console.log('finally')
-      });
-
+          if (this.json_data.result_flag === false) {
+            alert("通信成功しましたが、該当データ見当たらないです。");
+            return;
+          }
+          console.log("検索成功");
+          this.change_Page_Pattern('user_friends');
         
+          this.$store.dispatch('user_info/friends', this.json_data.friends);
+          this.$router.push('/user_friends');
+
+        })
+        .catch(err => console.log(err))
+        .finally(() => {
+          console.log('finally')
+        });
+      },
+      start_chat: function () {
+        this.$router.push('/chat/');
       },
     },
       
@@ -91,10 +92,10 @@
       </div>
 
       <div class="u-Sticky">
-        <div @click="change_Page_Pattern('Prof')">
-          <router-link class="w-100 bg-main text-light d-inline-block py-2" to="/chat">
+        <div @click="start_chat()">
+          <p class="w-100 bg-main text-light d-inline-block py-2" to="/chat">
           メッセージを送る
-          </router-link>
+          </p>
         </div>
 
         <div class="container-fluid u-bg-w u-bt-border-grey">

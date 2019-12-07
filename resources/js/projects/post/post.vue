@@ -26,8 +26,7 @@ export default {
       if (get_flag !== true) {
         return;
       }
-
-      this.$http.post('/api/ctrl_get_chat', {
+        this.$http.post('/api/ctrl_get_chat', {
         my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
         user_id: this.$store.getters['user_info/getUser_Vuex'].id,
       })
@@ -37,7 +36,6 @@ export default {
           alert("コメント取得に失敗しました");
           return;
         }
-
         this.change_Page_Pattern('chat');
         console.log("成功");
 

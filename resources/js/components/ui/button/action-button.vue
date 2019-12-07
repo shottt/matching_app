@@ -62,10 +62,9 @@ export default {
     //プロフィール編集
     set_prof: function () {
       this.upload();
-      alert(1);
+      
       this.$http.post('/api/ctrl_set_prof', this.formData, this.axios_config)
       .then(res => {
-
         if (res.data.result_flag === false) {
           alert("通信成功しましたが、該当データ見当たらないです。");
           return;
