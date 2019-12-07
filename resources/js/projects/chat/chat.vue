@@ -27,7 +27,6 @@ export default {
       if (get_flag !== true) {
         return;
       }
-      alert(11);
       this.$http.post('/api/ctrl_get_chat', {
         my_id: this.my_id,
         user_id: this.user_id
@@ -40,6 +39,7 @@ export default {
         }
 
         this.change_Page_Pattern('chat');
+        this.chat_comments = res.data.comments; 
         console.log("成功");
 
       })

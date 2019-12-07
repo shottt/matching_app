@@ -2302,7 +2302,6 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      alert(11);
       this.$http.post('/api/ctrl_get_chat', {
         my_id: this.my_id,
         user_id: this.user_id
@@ -2314,6 +2313,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.change_Page_Pattern('chat');
 
+        _this.chat_comments = res.data.comments;
         console.log("成功");
       })["catch"](function (err) {
         return console.log(err);
