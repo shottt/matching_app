@@ -13540,6 +13540,11 @@ a.text-dark:focus {
   border-top: solid 2px #E2E8ED;
 }
 
+.u-y-border-grey {
+  border-top: solid 2px #E2E8ED;
+  border-bottom: solid 2px #E2E8ED;
+}
+
 .c-Card-Hero {
   position: relative;
 }

@@ -32,17 +32,19 @@ Route::group(['middleware' => 'api'], function() {
     // return user_id, result_flag
     Route::post('/ctrl_registration','Ajax\UsersController@registration');
 
+    //1209 カラム名が変わっていたのでその変更に合わせてコメントを修正
     //settings フォルダ
     // from user_id, 
-    //      prof_data
+    //      prof_data:
     //         name,
     //         occupation,
     //         birthday,
-    //         prof_header,
-    //         prof_paragraph,
-    //         image,
-    // return result_flag
-    Route::post('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
+    //         profile_header,
+    //         profile_detail,
+    //         picture,
+    // return result_flag, 
+    //        my_data {}
+    Route::post('/ctrl_set_prof', 'Api\UsersController@set_prof');
     
     // Route::group(['middleware' => ['auth']], function () {
     //         // この中はログインされている場合のみルーティングされる

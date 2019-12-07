@@ -1,6 +1,4 @@
 <script>
-const usr = new URLSearchParams();
-
 export default {
   data: function () {
     return {
@@ -8,43 +6,87 @@ export default {
         name: "",
         occupation: "",
         birthday: "",
-        prof_header: "",
-        prof_paragraph: "",
-        image: "",
-      }
+        profile_header: "",
+        profile_detail: "",
+        picture: '',
+        picture_name: '',
+      },
+
+    }
+  },
+
+  methods: {
+    selectedFile: function(e) {
+        // 選択された File の情報を保存しておく
+        e.preventDefault();
+        let files = e.target.files;
+        this.prof_data.picture = files[0];
+        this.prof_data.picture_name = files[0].name;
+    },
+
+    upload: function() {
+        // FormData を利用して File を POST する
+        let formData = new FormData();
+        formData.append('yourFileKey', this.uploadFile);
+        let config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios
+            .post('yourUploadUrl', formData, config)
+            .then(function(response) {
+                // response 処理
+            })
+            .catch(function(error) {
+                // error 処理
+            })
     }
   },
   template: `
   <main class="u-container-y container text-center">
-      
-      <form class="search-Form text-left mt-5">
+      <form class="text-left mt-3 Prof-Set">
 
-        <label class="u-txt-b" for="name">お名前</label>
+        <label for="name">お名前</label>
         <input v-model="prof_data.name" class="u-bt-border-grey w-100 text-dark" type="text" id="name">
 
-        <label class="u-txt-b mt-2" for="occupation">ご職業</label>
+        <label class="mt-2" for="occupation">ご職業</label>
         <input v-model="prof_data.occupation" class="u-bt-border-grey w-100 text-dark" type="text" id="occupation">
                
-        <label class="u-txt-b mt-2" for="birthday">お誕生日</label>
+        <label class="mt-2" for="birthday">お誕生日</label>
         <input v-model="prof_data.birthday" class="u-bt-border-grey w-100 text-dark" type="text" id="birthday">
 
-        <label class="u-txt-b mt-2" for="prof_header">プロフィールのタイトル</label>
-        <input v-model="prof_data.prof_header" class="u-bt-border-grey w-100 text-dark" type="text" id="prof_header">
+        <label class="mt-2" for="profile_header">プロフィールのタイトル</label>
+        <input v-model="prof_data.profile_header" class="u-bt-border-grey w-100 text-dark" type="text" id="profile_header">
          
-        <label class="u-txt-b mt-2" for="prof_paragraph">プロフィールの説明</label>
-        <textarea v-model="prof_data.prof_paragraph" class="u-bt-border-grey w-100 text-dark" type="text" id="prof_paragraph"></textarea>
+        <label class="mt-2" for="profile_detail">プロフィールの説明</label>
+        <textarea v-model="prof_data.profile_detail" class="u-bt-border-grey w-100 text-dark" type="text" id="profile_detail"></textarea>
 
-        <label class="u-txt-b mt-2" for="image">お写真</label>
-        <input v-model="prof_data.image" class="u-bt-border-grey w-100 text-dark" type="text" id="image">
-
+        <p class="mt-2">プロフィール写真</p>
+        <label class="Prof-Set__image u-text-pink p-2" for="image">
+          写真を選択してください
+          <input @change="selectedFile" mulitple="multiple" class="text-dark" type="file" id="image">
+        </label>
         <action_btn btn_text="プロフィールを更新する" v-bind:button_obj="prof_data"></action_btn>
       </form>
 
-    </div>
   </main>`
 }
 </script>
 
 <style lang="scss" scoped>
-
+.Prof-Set {
+  > p, > label {
+  }
+}
+.Prof-Set__image {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  box-shadow:  0 2px 6px rgba(146, 146, 146, 0.8);
+  cursor: pointer;
+  input {
+    //display: none;
+  }
+}
 </style>

@@ -23,8 +23,8 @@
             this.$store.dispatch('user_info/user', this.json_data.friend);
 
             //描画のための画面判定値を更新
-            this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-            // this.$router.push({ path: '/user_profile' });
+            this.change_Page_Pattern('page_displaying/set_Vuex__pattern', "user_profile");
+            this.$router.push({ path: '/user_profile' });
 
           } else {
             alert("サインイン失敗です。");
@@ -38,7 +38,7 @@
         });
 
         // this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-        this.$router.push({ path: '/user_profile' });
+        //this.$router.push({ path: '/user_profile' });
       }
     },
     template: `
@@ -50,12 +50,8 @@
           </figure>
         </dt>
         <dd class="col-8 pl-0 text-left u-txt-b c-PsnCard__text">
-          {{ friend.picture }}<br>
           {{ friend.name }}<br><span class="u-txt-grey">{{ friend.occupation }}</span>
-
-            <i v-on:click="showProfile(friend.id)" class="u-icon__detail"></i></router-link>
-            
-
+          <i v-on:click="showProfile(friend.id)" class="u-icon__detail"></i></router-link>
         </dd>
       </dl>
     </li>

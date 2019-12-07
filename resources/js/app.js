@@ -11,7 +11,6 @@ import VueRouter from "vue-router";
 
 
 
-
 require('./bootstrap');
 
 //ui
@@ -47,6 +46,9 @@ Vue.use(VeeValidate, { locale: 'ja' });
 import { mapGetters } from 'vuex';
 import action_btn from './components/ui/button/action-button.vue';
 import search_icon from './components/ui/icon/search_icon.vue';
+const VueUploadComponent = require('vue-upload-component');
+Vue.component('file-upload', VueUploadComponent);
+
 Vue.mixin({
   data: function(){ return {
     vali_error: {
@@ -64,10 +66,9 @@ Vue.mixin({
       xss: "不正なスクリプトが検出されました。",
       regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
       regexp_half: new RegExp("^[a-zA-Z0-9]+$")
-    }
+    },
+    pattern: "",
   }},
-
-
 
   methods: {
     vali_required: function (type, value) {
@@ -120,10 +121,11 @@ Vue.mixin({
     'auth_displaying/getMy_Data_Vuex',
     'page_displaying/getPattern_Vuex',
     'user_info/getFriends_Vuex',
+    'user_info/getUser_Vuex',
     ]),
   },
   components: {
-    action_btn,search_icon
+    action_btn,search_icon,
   },
   
 });

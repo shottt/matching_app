@@ -54,13 +54,13 @@ export default {
   template: `
   <div>
     <main class="u-pt-100 u-pb-80">
-      <div class="">
 
-        <ul class="table mb-0">
+      <div class="u-py-30">
+        <ul class="table mb-0 ">
 
 
 
-          <li class="Post py-3 u-pl-100 u-pr-60">
+          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
             <i class="fas fa-user-injured"></i>
             <div class="Post__header">
               <p class="u-txt-b mr-3">ほしのあき</p>
@@ -68,15 +68,62 @@ export default {
             </div>
             
 
-            <p class="text-left py-2 pr-2 u-txt-b">
+            <p class="text-left my-2 u-txt-b">
               friend friend friend friend friend friend friend friend friend friend 
             </p>
-            <figure class="Post__img">
+            <figure class="Post__img m-0">
+              <img src="/images/avator2.png" class="img-fluid" alt="">
+            </figure>
+          </li>
+
+          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
+            <i class="fas fa-user-injured"></i>
+            <div class="Post__header">
+              <p class="u-txt-b mr-3">ほしのあき</p>
+              <time class="u-txt-b text-right">2019 11 02</time>
+            </div>
+            
+
+            <p class="text-left my-2 u-txt-b">
+              friend friend friend friend friend friend friend friend friend friend 
+            </p>
+            <figure class="Post__img m-0">
               <img src="/images/avator2.png" class="img-fluid" alt="">
             </figure>
           </li>
           
 
+          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
+            <i class="fas fa-user-injured"></i>
+            <div class="Post__header">
+              <p class="u-txt-b mr-3">ほしのあき</p>
+              <time class="u-txt-b text-right">2019 11 02</time>
+            </div>
+            
+
+            <p class="text-left my-2 u-txt-b">
+              friend friend friend friend friend friend friend friend friend friend 
+            </p>
+            <figure class="Post__img m-0">
+              <img src="/images/avator2.png" class="img-fluid" alt="">
+            </figure>
+          </li>
+
+          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
+            <i class="fas fa-user-injured"></i>
+            <div class="Post__header">
+              <p class="u-txt-b mr-3">ほしのあき</p>
+              <time class="u-txt-b text-right">2019 11 02</time>
+            </div>
+            
+
+            <p class="text-left my-2 u-txt-b">
+              friend friend friend friend friend friend friend friend friend friend 
+            </p>
+            <figure class="Post__img m-0">
+              <img src="/images/avator2.png" class="img-fluid" alt="">
+            </figure>
+          </li>
 
         </ul>
       </div>
@@ -91,9 +138,14 @@ export default {
 li {
   position: relative;
   display: block;
-  margin-bottom: 32px;
   min-height: 100px;
   background: #fff;
+  width: calc(100% - 30px);
+  margin-left: 15px;
+  margin-right: 15px;
+  &:last-child {
+    border-bottom: solid 2px #E2E8ED;
+  }
   > p {
     
     min-height: 60px;
@@ -107,7 +159,7 @@ li {
 
   i {
     position: absolute;
-    top: 10px;
+    top: 18px;
     bottom: 0;
     left: 20px;
     width: 55px;
@@ -130,8 +182,10 @@ li {
 }
 .Post__img {
   text-align: right;
+  max-height: 200px;
   img {
     display: inline-block;
+
     border-radius: 10px;
     width: 40%;
   }

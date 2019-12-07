@@ -10,6 +10,8 @@ export default {
   data: function () { return {
     page_pattern: this.$store.getters['page_displaying/getPattern_Vuex'],
     friends: {},
+    formData: new FormData(),
+    axios_config: {},
   }},
 
   computed: {
@@ -44,12 +46,6 @@ export default {
 
         //検索キーワード(search_query)と検索結果が欲しい
         //this.json_data = res.data;
-
-        //仮の値を準備
-        // res.data = {
-        //       "friend1": { id: 1, picture: 11, name: 12,occupation: 13},
-        //       "friend2": { id: 2, picture: 21, name: 22,occupation: 23},
-        //       };
         //vuexにフレンド情報を保存　
         this.$store.dispatch('user_info/friends', this.json_data.friends);
 
@@ -65,11 +61,9 @@ export default {
 
     //プロフィール編集
     set_prof: function () {
-      
-      this.$http.post('/api/ctrl_set_prof', {
-        prof_data: this.button_obj.prof_data,
-        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
-      })
+      this.upload();
+      alert(1);
+      this.$http.post('/api/ctrl_set_prof', this.formData, this.axios_config)
       .then(res => {
 
         if (res.data.result_flag === false) {
@@ -80,6 +74,11 @@ export default {
         this.change_Page_Pattern('settings');
         this.json_data = res.data;
         console.log(this.json_data);
+
+        //vuexとwindow ユーザー情報を更新
+        this.$store.dispatch('auth_displaying/set_my_data', this.json_data.my_data);
+        window.Laravel.my_data = this.json_data.my_data;
+
         this.$router.push('/settings');
       })
       .catch(err => console.log(err))
@@ -89,6 +88,17 @@ export default {
 
     },
 
+    upload: function() {
+      // FormData を利用して File を POST する
+      this.formData.append('user_id', this.$store.getters['auth_displaying/getMy_Data_Vuex'].id);
+      this.formData.append('prof_data', this.button_obj);
+
+      this.axios_config = {
+          headers: {
+              'content-type': 'multipart/form-data'
+          }
+      };
+    },
     //パスワード変更
     change_Pass: function () {
       
