@@ -23,7 +23,7 @@ class UsersController extends Controller
         // $user = User::whereNotIn('id', $auth_id)->get(); → この書き方だとエラー
         // $users = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         $users = DB::table('users')->where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
-        // Log::debug(print_r($users, true));
+        Log::debug(print_r($users, true));
 
         // 異常判定
         if(empty($users)){

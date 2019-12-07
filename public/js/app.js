@@ -1864,8 +1864,11 @@ __webpack_require__.r(__webpack_exports__);
           _this.$store.dispatch('user_info/user', _this.json_data.friend); //描画のための画面判定値を更新
 
 
-          _this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile"); // this.$router.push({ path: '/user_profile' });
+          _this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
 
+          _this.$router.push({
+            path: '/user_profile'
+          });
         } else {
           alert("サインイン失敗です。");
         }
@@ -1874,10 +1877,7 @@ __webpack_require__.r(__webpack_exports__);
       })["finally"](function () {
         console.log('finally');
       }); // this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-
-      this.$router.push({
-        path: '/user_profile'
-      });
+      // this.$router.push({ path: '/user_profile' });
     }
   },
   template: "\n    <li class=\"container bg-white\">\n      <dl v-for=\"friend in friends\" class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n        <dt class=\"col-4 d-inline-block\">\n          <figure class=\"c-PsnCard__img my-3 mx-2\">\n            <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n          </figure>\n        </dt>\n        <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n          {{ friend.picture }}<br>\n          {{ friend.name }}<br><span class=\"u-txt-grey\">{{ friend.occupation }}</span>\n\n            <i v-on:click=\"showProfile(friend.id)\" class=\"u-icon__detail\"></i></router-link>\n            \n\n        </dd>\n      </dl>\n    </li>\n    "

@@ -27,7 +27,7 @@
 
             //描画のための画面判定値を更新
             this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-            // this.$router.push({ path: '/user_profile' });
+            this.$router.push({ path: '/user_profile' });
 
           } else {
             alert("サインイン失敗です。");
@@ -41,7 +41,7 @@
         });
 
         // this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-        this.$router.push({ path: '/user_profile' });
+        // this.$router.push({ path: '/user_profile' });
       }
     },
     template: `
