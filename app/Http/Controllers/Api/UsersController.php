@@ -23,7 +23,7 @@ class UsersController extends Controller
         // $user = User::whereNotIn('id', $auth_id)->get(); → この書き方だとエラー
         // $users = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         $users = DB::table('users')->where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
-        Log::debug(print_r($users, true));
+        Log::debug('ユーザー情報一覧：' .print_r($users, true));
 
         // 異常判定
         if(empty($users)){
@@ -39,7 +39,7 @@ class UsersController extends Controller
         //     $userlist = array_combine($userlist_key, $userlist_val);
         // }
         
-        // Log::debug(response()->json(['result_flag' => true, 'friends' => $users]));
+        // Log::debug('jsonレスポンス内容：' .response()->json(['result_flag' => true, 'friends' => $users]));
         return response()->json(['result_flag' => true, 'friends' => $users]);
 
         }
@@ -90,14 +90,14 @@ class UsersController extends Controller
         }
         
         $user = DB::table('users')->where('id', '!=', $auth_id)->where('id', '=', $user_id)->where('delete_flag', 0)->first();
-        // Log::debug(print_r($user, true));
+        // Log::debug('自分のユーザー情報：' .print_r($user, true));
 
         // 異常判定
         if(empty($user)){
             return response()->json(['result_flag' => false]);
         }
 
-        // Log::debug(response()->json(['result_flag' => true, 'friend' => $user]));
+        // Log::debug('jsonレスポンス内容：' .response()->json(['result_flag' => true, 'friend' => $user]));
         return response()->json(['result_flag' => true, 'friend' => $user]);
 
     }

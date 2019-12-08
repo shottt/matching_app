@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             ChatsTableseeder::class,
-            MassagesTableseeder::class,
+            MessagesTableseeder::class,
         ]);
     }
 }
