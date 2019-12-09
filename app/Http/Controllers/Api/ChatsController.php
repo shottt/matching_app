@@ -28,10 +28,23 @@ class ChatsController extends Controller
             return response()->json(['result_flag' => false]);
         }
 
+        // 自分のユーザーIDと相手のユーザーIDにマッチするチャット情報を取得する
         $chat_id = DB::table('chats')->where('from_user', $auth_id)->where('to_user', $user_id)->first(['id'])->id;
         Log::debug('チャットID：' .print_r($chat_id, true));
-        $comments = DB::table('messages')->where('chat_id', $chat_id)->get();
+
+        // 異常判定
+        if(empty($chat_id)){
+            return response()->json(['result_flag' => false]);
+        }
+
+        // コメントを降順で10件取得する
+        $comments = DB::table('messages')->where('chat_id', $chat_id)->orderBy('send_date', 'desc')->take(10)->get();
         Log::debug('コメント情報一覧：' .print_r($comments, true));
+
+        // 異常判定
+        if(empty($comments)){
+            return response()->json(['result_flag' => false]);
+        }
 
         Log::debug(response()->json(['result_flag' => true, 'commnets' => $comments]));
         return response()->json(['result_flag' => true, 'comments' => $comments]);
