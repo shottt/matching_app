@@ -14,22 +14,22 @@
 import comments from './comment_form.vue';
 export default {
   data: function () { return {
-    comments: {},
+    chat_comments: {},
+    my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
+    user_id: this.$store.getters['user_info/getUser_Vuex'].id,
   }},
-  beforeMount: function () {
-    comments = this.get_Comment(true);
+  created: function () {
+    this.chat_comments = this.get_Comment(true);
   },
   //子のcomment_form.vueから「コメントが増えた」と信号を受け取る。
   methods: {
     get_Comment: function (get_flag) {
-
       if (get_flag !== true) {
         return;
       }
-
       this.$http.post('/api/ctrl_get_chat', {
-        my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
-        user_id: this.$store.getters['user_info/getUser_Vuex'].id,
+        my_id: this.my_id,
+        user_id: this.user_id
       })
       .then(res => {
 
@@ -39,6 +39,7 @@ export default {
         }
 
         this.change_Page_Pattern('chat');
+        this.chat_comments = res.data.comments; 
         console.log("成功");
 
       })

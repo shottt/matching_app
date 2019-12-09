@@ -6,16 +6,13 @@
     },
     methods: {
       showProfile: function (user_id) {
-        
         //IDをフックさせてプロフィールを表示する ctrl_profile
-//  DB連携まだ
         this.$http.post('/api/ctrl_user_profile', {
             user_id: user_id,
         })
         .then(res => {
           console.log("サインイン成功");
           this.json_data = res.data;
-          // console.log("user: " + this.json_data.friend);の書き方だと、2層のjsonの値がobject Objectになるので書き換えました。
           console.log("user: " + JSON.stringify(this.json_data.friend));
           console.log("result_flag : " + this.json_data.result_flag);
 
@@ -26,7 +23,7 @@
             this.$store.dispatch('user_info/user', this.json_data.friend);
 
             //描画のための画面判定値を更新
-            this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
+            this.change_Page_Pattern('page_displaying/set_Vuex__pattern', "user_profile");
             this.$router.push({ path: '/user_profile' });
 
           } else {
@@ -41,7 +38,7 @@
         });
 
         // this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
-        // this.$router.push({ path: '/user_profile' });
+        //this.$router.push({ path: '/user_profile' });
       }
     },
     template: `
@@ -53,12 +50,8 @@
           </figure>
         </dt>
         <dd class="col-8 pl-0 text-left u-txt-b c-PsnCard__text">
-          {{ friend.picture }}<br>
           {{ friend.name }}<br><span class="u-txt-grey">{{ friend.occupation }}</span>
-
-            <i v-on:click="showProfile(friend.id)" class="u-icon__detail"></i></router-link>
-            
-
+          <i v-on:click="showProfile(friend.id)" class="u-icon__detail"></i></router-link>
         </dd>
       </dl>
     </li>

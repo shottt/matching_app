@@ -19,8 +19,8 @@ class ChatsController extends Controller
         Log::debug('自分のユーザーID：' .$auth_id);
 
         // 相手のユーザーIDを取得
-        // $user_id = $request->user_id;
-        $user_id = 2;
+        $user_id = $request->user_id;
+        // $user_id = 2;
         Log::debug('相手のユーザーID：' .$user_id);
         
         // 異常判定

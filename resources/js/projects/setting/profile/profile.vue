@@ -19,21 +19,20 @@
       show_My_Friends: function () {
 
       //友達リストを作ってvueのstateをmutate
-      //this.$http.post('/api/ctrl_all_friends', {
       this.$http.post('/api/ctrl_all_friends', {
         user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
       })
       .then(res => {
+        this.json_data = res.data;
 
-        if (res.data.result_flag === false) {
+        if (this.json_data.result_flag === false) {
           alert("通信成功しましたが、該当データ見当たらないです。");
           return;
         }
-
-        this.change_Page_Pattern('settings_result');
         console.log("検索成功");
-
-        this.$store.dispatch('user_info/friends', res.data);
+        this.change_Page_Pattern('my_friends');
+      
+        this.$store.dispatch('user_info/friends', this.json_data.friends);
         this.$router.push('/my_friends');
 
       })

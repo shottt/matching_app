@@ -6,7 +6,7 @@ export default {
   }},
 
   methods: {
-    comment: function () {
+    commentting: function () {
 
       //user_idとcommentをなげる
 
@@ -49,7 +49,7 @@ export default {
 
       <textarea v-model="comment" name="comment" class="u-w-70 Chat-Form__comment" placeholder="Write your message…"></textarea>
       <div class="u-w-15 Chat-Form__btn">
-        <button type="button" v-on:click="comment">
+        <button type="button" v-on:click="commentting">
         <i class="far fa-comment"></i>
         </button>
       </div>

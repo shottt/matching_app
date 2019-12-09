@@ -10,4 +10,7 @@ class Chat extends Model
     {
         return $this->hasMany('App\Message');
     }
+    protected $fillable = [
+        'to_user', 'from_user', 
+    ];
 }

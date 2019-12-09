@@ -20,7 +20,9 @@ import search_result from '../projects/search/search_result.vue';
 import prof from '../projects/profile/profile.vue'
 import settings from '../projects/setting/settings.vue'
 import change_pass from '../projects/setting/change_pass.vue'
+//import set_prof from '../projects/setting/set_prof-test.vue'
 import set_prof from '../projects/setting/set_prof.vue'
+
 
 //自分のプロフィール系
 import my_prof from '../projects/setting/profile/profile.vue'
@@ -260,15 +262,64 @@ const routes = [
         children: [
             {
              path: "",  components: {
-                my_profile: user_profile
+                user_profile: user_profile
              } 
             }
         ]
     },
-    
+    {
+        path: '/user_friends',
+        
+        components: {
+            //c_header: header, 
+            c_main: user_prof,
+            c_footer: footer
+        },
+        children: [
+            {
+             path: "",  components: {
+                user_friends: user_friends
+             } 
+            }
+        ]
+    },
+    {
+        path: '/user_friend_reviews',
+        
+        components: {
+            //c_header: header, 
+            c_main: user_prof,
+            c_footer: footer
+        },
+        children: [
+            {
+             path: "",  components: {
+                user_friend_reviews: user_friend_reviews
+             } 
+            }
+        ]
+    },
+
+    {
+        path: '/user_posts',
+        
+        components: {
+            //c_header: header, 
+            c_main: user_prof,
+            c_footer: footer
+        },
+        children: [
+            {
+             path: "",  components: {
+                user_posts: user_posts
+             } 
+            }
+        ]
+    },
+
     //チャット
     {
-        path: '/chat', name: "search_result", 
+        path: '/chat', name: "chat", 
         components: {
             c_header: header_simple, 
             c_main: chat, 
@@ -304,7 +355,6 @@ const routes = [
             c_main: post, 
             //c_footer: chat_comment_form
         },
-
     },
 ];
 

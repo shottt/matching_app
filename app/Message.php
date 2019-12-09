@@ -10,4 +10,9 @@ class Message extends Model
     {
         return $this->belongsTo('App\Chat');
     }
+    protected $fillable = [
+        'chat_id', 'to_user', 'from_user', 'attachment',
+    ];
+
+    //send_dateはcreated_atと同じじゃないですか？
 }

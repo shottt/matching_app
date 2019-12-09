@@ -26,8 +26,7 @@ export default {
       if (get_flag !== true) {
         return;
       }
-
-      this.$http.post('/api/ctrl_get_chat', {
+        this.$http.post('/api/ctrl_get_chat', {
         my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
         user_id: this.$store.getters['user_info/getUser_Vuex'].id,
       })
@@ -37,7 +36,6 @@ export default {
           alert("コメント取得に失敗しました");
           return;
         }
-
         this.change_Page_Pattern('chat');
         console.log("成功");
 
@@ -53,63 +51,76 @@ export default {
   },
   template: `
   <div>
-    <main class="u-container-y--short">
-      <div class="container">
+    <main class="u-pt-100 u-pb-80">
 
-        <ul class="table mb-0 py-5 Chat">
+      <div class="u-py-30">
+        <ul class="table mb-0 ">
 
-          <li class="Chat__me">
-            <p class="text-left p-2 u-txt-b">
-              me me me me me me me me me me me me
-            </p>
-             <time>2019 11 02</time>
-          </li>
 
-          <li class="Chat__friend">
-            <i class="fas fa-male"></i>
-            <p class="text-left p-2 u-txt-b">
+
+          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
+            <i class="fas fa-user-injured"></i>
+            <div class="Post__header">
+              <p class="u-txt-b mr-3">ほしのあき</p>
+              <time class="u-txt-b text-right">2019 11 02</time>
+            </div>
+            
+
+            <p class="text-left my-2 u-txt-b">
               friend friend friend friend friend friend friend friend friend friend 
             </p>
-            <time>2019 11 02</time>
+            <figure class="Post__img m-0">
+              <img src="/images/avator2.png" class="img-fluid" alt="">
+            </figure>
+          </li>
+
+          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
+            <i class="fas fa-user-injured"></i>
+            <div class="Post__header">
+              <p class="u-txt-b mr-3">ほしのあき</p>
+              <time class="u-txt-b text-right">2019 11 02</time>
+            </div>
+            
+
+            <p class="text-left my-2 u-txt-b">
+              friend friend friend friend friend friend friend friend friend friend 
+            </p>
+            <figure class="Post__img m-0">
+              <img src="/images/avator2.png" class="img-fluid" alt="">
+            </figure>
           </li>
           
 
+          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
+            <i class="fas fa-user-injured"></i>
+            <div class="Post__header">
+              <p class="u-txt-b mr-3">ほしのあき</p>
+              <time class="u-txt-b text-right">2019 11 02</time>
+            </div>
+            
 
-          <li class="Chat__me">
-            <p class="text-left p-2 u-txt-b">
-              me me me me me me me me me me me me
-            </p>
-            <time>2019 11 02</time>
-          </li>
-
-          <li class="Chat__friend">
-            <i class="fas fa-male"></i>
-            <p class="text-left p-2 u-txt-b">
+            <p class="text-left my-2 u-txt-b">
               friend friend friend friend friend friend friend friend friend friend 
-            </p> 
-            <time>2019 11 02</time>
+            </p>
+            <figure class="Post__img m-0">
+              <img src="/images/avator2.png" class="img-fluid" alt="">
+            </figure>
           </li>
 
-          <li class="Chat__friend">
-            <i class="fas fa-male"></i>
-            <p class="text-left p-2 u-txt-b">
+          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
+            <i class="fas fa-user-injured"></i>
+            <div class="Post__header">
+              <p class="u-txt-b mr-3">ほしのあき</p>
+              <time class="u-txt-b text-right">2019 11 02</time>
+            </div>
+            
+
+            <p class="text-left my-2 u-txt-b">
               friend friend friend friend friend friend friend friend friend friend 
-            </p> 
-            <time>2019 11 02</time>
-          </li>
-
-          <li class="Chat__me">
-            <p class="text-left p-2 u-txt-b">
-              me me me me me me me me me me me me
             </p>
-            <time>2019 11 02</time>
-          </li>       
-          
-          <li class="Chat__me">
-            <p class="text-left p-2 u-txt-b">
-              me me me me me me me me me me me me
-            </p>
-            <time>2019 11 02</time>
+            <figure class="Post__img m-0">
+              <img src="/images/avator2.png" class="img-fluid" alt="">
+            </figure>
           </li>
 
         </ul>
@@ -125,10 +136,16 @@ export default {
 li {
   position: relative;
   display: block;
-  margin-bottom: 32px;
+  min-height: 100px;
+  background: #fff;
+  width: calc(100% - 30px);
+  margin-left: 15px;
+  margin-right: 15px;
+  &:last-child {
+    border-bottom: solid 2px #E2E8ED;
+  }
   > p {
-    background: #fff;
-    border-radius: 10px;
+    
     min-height: 60px;
   }
   time {
@@ -136,63 +153,41 @@ li {
   }
 }
 
-.Chat__me {
-
-  &:before {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 0;
-  height: 0;
-  right: -10px;
-  top: 2px;
-  border-left: 20px solid #fff;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  transform: rotate(-45deg);
-  }
-
-  time {
-    text-align: right;
-  }
-}
-
-.Chat__friend {
-  padding-left: 40px!important;
-
-  &:after {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 0;
-    left: 30px;
-    top: 2px;
-    border-left: 20px solid #fff;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    transform: rotate(225deg);
-  }
-
-
-  time {
-    text-align: left;
-  }
+.Post {
 
   i {
     position: absolute;
-    top: 0;
+    top: 18px;
     bottom: 0;
-    left: 0;
-    width: 30px;
+    left: 20px;
+    width: 55px;
     overflow: hidden;
     &:before {
       font-size: 60px;
+      color: blue;
+      z-index: 2;
     }
   }
 
 }
+.Post__header {
+  p {
+    display: inline-block;
+  }
+  time {
+    display: inline-block;
+  }
+}
+.Post__img {
+  text-align: right;
+  max-height: 200px;
+  img {
+    display: inline-block;
 
+    border-radius: 10px;
+    width: 40%;
+  }
+}
 .Chat-Form {
 @at-root {
   .Chat-Form__file {

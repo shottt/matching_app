@@ -134,6 +134,7 @@ display: none;
   padding-top: 100px;
   padding-bottom: 80px;
 }
+
 /*=====================
    領域系
 =======================*/
@@ -202,6 +203,15 @@ display: none;
     padding-right: #{$i * 10 + "px"};
   }
 
+  .u-px-#{$i * 10} {
+    padding-right: #{$i * 10 + "px"};
+    padding-left: #{$i * 10 + "px"};
+  }
+  
+  .u-py-#{$i * 10} {
+    padding-top: #{$i * 10 + "px"};
+    padding-bottom: #{$i * 10 + "px"};
+  }
 
   .u-mt-#{$i * 10} {
     margin-top: #{$i * 10 + "px"};
@@ -215,6 +225,16 @@ display: none;
   }
   .u-mr-#{$i * 10} {
     margin-right: #{$i * 10 + "px"};
+  }
+
+  .u-mx-#{$i * 10} {
+    margin-right: #{$i * 10 + "px"};
+    margin-left: #{$i * 10 + "px"};
+  }
+  
+  .u-my-#{$i * 10} {
+    margin-top: #{$i * 10 + "px"};
+    margin-bottom: #{$i * 10 + "px"};
   }
 }
 .u-mx-a {
