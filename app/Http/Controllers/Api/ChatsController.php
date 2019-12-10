@@ -22,7 +22,7 @@ class ChatsController extends Controller
         $user_id = $request->user_id;
         // $user_id = 2;
         Log::debug('相手のユーザーID：' .$user_id);
-        
+
         // 異常判定
         if(empty($user_id)){
             return response()->json(['result_flag' => false]);
