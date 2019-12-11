@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Chat;
-use App\Message;
+use App\Comment;
 use Log;
 
 class ChatsController extends Controller
@@ -38,7 +38,7 @@ class ChatsController extends Controller
         }
 
         // コメントを降順で10件取得する
-        $comments = DB::table('messages')->where('chat_id', $chat_id)->orderBy('created_at', 'desc')->take(10)->get();
+        $comments = DB::table('comments')->where('chat_id', $chat_id)->orderBy('created_at', 'desc')->take(10)->get();
         Log::debug('コメント情報一覧：' .print_r($comments, true));
 
         // 異常判定
@@ -52,6 +52,9 @@ class ChatsController extends Controller
     }
 
     public function add_chat_comment(){
+        // バリデーション
+
+        // モデル作成
         
     }
 }

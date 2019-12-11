@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class MessagesTableSeeder extends Seeder
+class CommentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,7 +22,7 @@ class MessagesTableSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
-        DB::table('messages')->insert($param);
+        DB::table('comments')->insert($param);
         
         // $param = [
         //     'chat_id' => 1,
@@ -34,7 +34,7 @@ class MessagesTableSeeder extends Seeder
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now(),
         // ];
-        // DB::table('messages')->insert($param);
+        // DB::table('comments')->insert($param);
 
         // $param = [
         //     'chat_id'=> 1,
@@ -46,7 +46,7 @@ class MessagesTableSeeder extends Seeder
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now(),
         // ];
-        // DB::table('messages')->insert($param);
+        // DB::table('comments')->insert($param);
 
         // $param = [
         //     'chat_id' => 1,
@@ -58,7 +58,7 @@ class MessagesTableSeeder extends Seeder
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now(),
         // ];
-        // DB::table('messages')->insert($param);
+        // DB::table('comments')->insert($param);
 
         // $param = [
         //     'chat_id' => 1,
@@ -70,7 +70,7 @@ class MessagesTableSeeder extends Seeder
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now(),
         // ];
-        // DB::table('messages')->insert($param);
+        // DB::table('comments')->insert($param);
 
         // $param = [
         //     'chat_id' => 1,
@@ -82,7 +82,7 @@ class MessagesTableSeeder extends Seeder
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now(),
         // ];
-        // DB::table('messages')->insert($param);
+        // DB::table('comments')->insert($param);
 
         // $param = [
         //     'chat_id' => 1,
@@ -94,7 +94,7 @@ class MessagesTableSeeder extends Seeder
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now(),
         // ];
-        // DB::table('messages')->insert($param);
+        // DB::table('comments')->insert($param);
 
         // $param = [
         //     'chat_id' => 1,
@@ -106,7 +106,7 @@ class MessagesTableSeeder extends Seeder
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now(),
         // ];
-        // DB::table('messages')->insert($param);
+        // DB::table('comments')->insert($param);
 
         // $param = [
         //     'chat_id' => 1,
@@ -118,7 +118,7 @@ class MessagesTableSeeder extends Seeder
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now(),
         // ];
-        // DB::table('messages')->insert($param);
+        // DB::table('comments')->insert($param);
 
         // $param = [
         //     'chat_id' => 1,
@@ -130,7 +130,7 @@ class MessagesTableSeeder extends Seeder
         //     'created_at' => Carbon::now(),
         //     'updated_at' => Carbon::now(),
         // ];
-        // DB::table('messages')->insert($param);
+        // DB::table('comments')->insert($param);
 
     }
 }
