@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Chat extends Model
 {
-    public function messages()
-    {
-        return $this->hasMany('App\Message');
-    }
     protected $fillable = [
         'to_user', 'from_user', 
     ];

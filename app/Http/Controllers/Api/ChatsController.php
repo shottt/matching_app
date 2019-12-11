@@ -38,7 +38,7 @@ class ChatsController extends Controller
         }
 
         // コメントを降順で10件取得する
-        $comments = DB::table('messages')->where('chat_id', $chat_id)->orderBy('send_date', 'desc')->take(10)->get();
+        $comments = DB::table('messages')->where('chat_id', $chat_id)->orderBy('created_at', 'desc')->take(10)->get();
         Log::debug('コメント情報一覧：' .print_r($comments, true));
 
         // 異常判定
@@ -52,6 +52,6 @@ class ChatsController extends Controller
     }
 
     public function add_chat_comment(){
-
+        
     }
 }

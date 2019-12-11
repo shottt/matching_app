@@ -2085,13 +2085,10 @@ var usr = new URLSearchParams();
         _this2.change_Page_Pattern('settings');
 
         _this2.json_data = res.data;
-        console.log(_this2.json_data); //vuexとwindow ユーザー情報を更新
-
-        _this2.$store.dispatch('auth_displaying/set_my_data', _this2.json_data.my_data);
-
-        window.Laravel.my_data = _this2.json_data.my_data;
-
-        _this2.$router.push('/settings');
+        console.log(_this2.json_data); //vuexとwindow ユーザー情報を更新/
+        // this.$store.dispatch('auth_displaying/set_my_data', this.json_data.my_data);
+        // window.Laravel.my_data = this.json_data.my_data;
+        // this.$router.push('/settings');
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
