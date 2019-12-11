@@ -74,11 +74,11 @@ export default {
         this.json_data = res.data;
         console.log(this.json_data);
 
-        //vuexとwindow ユーザー情報を更新
-        this.$store.dispatch('auth_displaying/set_my_data', this.json_data.my_data);
-        window.Laravel.my_data = this.json_data.my_data;
+        //vuexとwindow ユーザー情報を更新/
+        // this.$store.dispatch('auth_displaying/set_my_data', this.json_data.my_data);
+        // window.Laravel.my_data = this.json_data.my_data;
 
-        this.$router.push('/settings');
+        // this.$router.push('/settings');
       })
       .catch(err => console.log(err))
       .finally(() => {

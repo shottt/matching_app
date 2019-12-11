@@ -19,7 +19,6 @@ class MessagesTableSeeder extends Seeder
             'from_user' => 1,
             'detail' => 'aaaaaaaaaaaaa',
             'attachment' => 'bbbbbbb',
-            'send_date' => Carbon::now(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

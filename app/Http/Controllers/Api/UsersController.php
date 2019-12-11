@@ -107,29 +107,29 @@ class UsersController extends Controller
     public function set_prof(Request $request){
     
         // 自分のユーザーとPOST値のUser_idを比較
-        var_dump($request);
+
         Log::debug($request);
 
-        $auth_id = Auth::id();
-        $user_id = $request->user_id;
+        // $auth_id = Auth::id();
+        // $user_id = $request->user_id;
         
-        if(empty($user_id)){
-            return response()->json(['result_flag' => false]);
-        }
+        // if(empty($user_id)){
+        //     return response()->json(['result_flag' => false]);
+        // }
         
-        //update 
+        // //update 
 
-        //select * from users where user_id = user_id;
-        $user = DB::table('users')->where('id', '=', $user_id)->where('delete_flag', 0)->first();
-        // Log::debug(print_r($user, true));
+        // //select * from users where user_id = user_id;
+        // $user = DB::table('users')->where('id', '=', $user_id)->where('delete_flag', 0)->first();
+        // // Log::debug(print_r($user, true));
 
-        // 異常判定
-        if(empty($user)){
-            return response()->json(['result_flag' => false]);
-        }
+        // // 異常判定
+        // if(empty($user)){
+        //     return response()->json(['result_flag' => false]);
+        // }
 
-        // Log::debug(response()->json(['result_flag' => true, 'friend' => $user]));
-        return response()->json(['result_flag' => true, 'my_data' => $user]);
+        // // Log::debug(response()->json(['result_flag' => true, 'friend' => $user]));
+        return response()->json(['result_flag' => true]);
 
     }
 }
