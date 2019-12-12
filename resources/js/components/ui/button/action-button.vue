@@ -61,35 +61,36 @@ export default {
 
     //プロフィール編集
     set_prof: function () {
-      this.upload();
       
+      this.upload();
       this.$http.post('/api/ctrl_set_prof', this.formData, this.axios_config)
       .then(res => {
         if (res.data.result_flag === false) {
           alert("通信成功しましたが、該当データ見当たらないです。");
           return;
         }
+        
         console.log("プロフィール更新成功");
         this.change_Page_Pattern('settings');
         this.json_data = res.data;
         console.log(this.json_data);
 
         //vuexとwindow ユーザー情報を更新
+        /*
         this.$store.dispatch('auth_displaying/set_my_data', this.json_data.my_data);
         window.Laravel.my_data = this.json_data.my_data;
 
-        this.$router.push('/settings');
+        this.$router.push('/settings');*/
       })
       .catch(err => console.log(err))
       .finally(() => {
         console.log('finally')
       });
-
     },
 
     upload: function() {
       // FormData を利用して File を POST する
-      this.formData.append('user_id', this.$store.getters['auth_displaying/getMy_Data_Vuex'].id);
+      //this.formData.append('user_id', this.$store.getters['auth_displaying/getMy_Data_Vuex'].id);
       this.formData.append('prof_data', this.button_obj);
 
       this.axios_config = {

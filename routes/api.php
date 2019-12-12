@@ -34,14 +34,15 @@ Route::group(['middleware' => 'api'], function() {
 
     //1209 カラム名が変わっていたのでその変更に合わせてコメントを修正
     //settings フォルダ
-    // from user_id, 
-    //      prof_data:
+    // from  user_id, 
+    //       
     //         name,
     //         occupation,
     //         birthday,
     //         profile_header,
     //         profile_detail,
     //         picture,
+
     // return result_flag, 
     //        my_data {}
     Route::post('/ctrl_set_prof', 'Api\UsersController@set_prof');

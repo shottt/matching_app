@@ -2087,11 +2087,10 @@ var usr = new URLSearchParams();
         _this2.json_data = res.data;
         console.log(_this2.json_data); //vuexとwindow ユーザー情報を更新
 
-        _this2.$store.dispatch('auth_displaying/set_my_data', _this2.json_data.my_data);
-
-        window.Laravel.my_data = _this2.json_data.my_data;
-
-        _this2.$router.push('/settings');
+        /*
+        this.$store.dispatch('auth_displaying/set_my_data', this.json_data.my_data);
+        window.Laravel.my_data = this.json_data.my_data;
+         this.$router.push('/settings');*/
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
@@ -2100,7 +2099,7 @@ var usr = new URLSearchParams();
     },
     upload: function upload() {
       // FormData を利用して File を POST する
-      this.formData.append('user_id', this.$store.getters['auth_displaying/getMy_Data_Vuex'].id);
+      //this.formData.append('user_id', this.$store.getters['auth_displaying/getMy_Data_Vuex'].id);
       this.formData.append('prof_data', this.button_obj);
       this.axios_config = {
         headers: {
@@ -2788,19 +2787,6 @@ __webpack_require__.r(__webpack_exports__);
       var files = e.target.files;
       this.prof_data.picture = files[0];
       this.prof_data.picture_name = files[0].name;
-    },
-    upload: function upload() {
-      // FormData を利用して File を POST する
-      var formData = new FormData();
-      formData.append('yourFileKey', this.uploadFile);
-      var config = {
-        headers: {
-          'content-type': 'multipart/form-data'
-        }
-      };
-      axios.post('yourUploadUrl', formData, config).then(function (response) {// response 処理
-      })["catch"](function (error) {// error 処理
-      });
     }
   },
   template: "\n  <main class=\"u-container-y container text-center\">\n      <form class=\"text-left mt-3 Prof-Set\">\n\n        <label for=\"name\">\u304A\u540D\u524D</label>\n        <input v-model=\"prof_data.name\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"name\">\n\n        <label class=\"mt-2\" for=\"occupation\">\u3054\u8077\u696D</label>\n        <input v-model=\"prof_data.occupation\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"occupation\">\n               \n        <label class=\"mt-2\" for=\"birthday\">\u304A\u8A95\u751F\u65E5</label>\n        <input v-model=\"prof_data.birthday\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"birthday\">\n\n        <label class=\"mt-2\" for=\"profile_header\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u306E\u30BF\u30A4\u30C8\u30EB</label>\n        <input v-model=\"prof_data.profile_header\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"profile_header\">\n         \n        <label class=\"mt-2\" for=\"profile_detail\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u306E\u8AAC\u660E</label>\n        <textarea v-model=\"prof_data.profile_detail\" class=\"u-bt-border-grey w-100 text-dark\" type=\"text\" id=\"profile_detail\"></textarea>\n\n        <p class=\"mt-2\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u5199\u771F</p>\n        <label class=\"Prof-Set__image u-text-pink p-2\" for=\"image\">\n          \u5199\u771F\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044\n          <input @change=\"selectedFile\" mulitple=\"multiple\" class=\"text-dark\" type=\"file\" id=\"image\">\n        </label>\n        <action_btn btn_text=\"\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u3092\u66F4\u65B0\u3059\u308B\" v-bind:button_obj=\"prof_data\"></action_btn>\n      </form>\n\n  </main>"
