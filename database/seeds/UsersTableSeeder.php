@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
+use App\User;
 
 
 class UsersTableSeeder extends Seeder
@@ -14,53 +13,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $param =[
-            'id' => 1,
-            'name' => 'testtaro',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-            'occupation' => 'エンジニア',
-            'picture' => '写真',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ];
-        DB::table('users')->insert($param);
-
-        $param =[
-            'id' => 2,
-            'name' => 'ataro',
-            'email' => 'a@a.com',
-            'password' => bcrypt('password'),
-            'occupation' => 'エンジニア',
-            'picture' => '写真',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ];
-        DB::table('users')->insert($param);
-
-        $param =[
-            'id' => 3,
-            'name' => 'btaro',
-            'email' => 'b@b.com',
-            'password' => bcrypt('password'),
-            'occupation' => 'エンジニア',
-            'picture' => '写真',
-            'delete_flag' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ];
-        DB::table('users')->insert($param);
-
-        $param =[
-            'id' => 4,
-            'name' => 'ctaro',
-            'email' => 'c@c.com',
-            'password' => bcrypt('password'),
-            'occupation' => 'エンジニア',
-            'picture' => '写真',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ];
-        DB::table('users')->insert($param);
+        factory(User::class, 10)->create();
     }
 }

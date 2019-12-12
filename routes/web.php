@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('posts', 'PostsController');
     Route::resource('schedules', 'SchedulesController');
     Route::resource('chats', 'ChatsController');
-    Route::resource('messages', 'MessagesController');
+    Route::resource('comments', 'CommentsController');
     Route::resource('friends', 'FriendsController');
 });
 

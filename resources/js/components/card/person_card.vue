@@ -13,7 +13,7 @@
         .then(res => {
           console.log("サインイン成功");
           this.json_data = res.data;
-          console.log("user: " + this.json_data.friend);
+          console.log("user: " + JSON.stringify(this.json_data.friend));
           console.log("result_flag : " + this.json_data.result_flag);
 
           //結果判定

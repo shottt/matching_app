@@ -1854,7 +1854,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         console.log("サインイン成功");
         _this.json_data = res.data;
-        console.log("user: " + _this.json_data.friend);
+        console.log("user: " + JSON.stringify(_this.json_data.friend));
         console.log("result_flag : " + _this.json_data.result_flag); //結果判定
 
         if (_this.json_data.result_flag === true) {

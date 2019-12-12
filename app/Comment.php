@@ -4,11 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Comment extends Model
 {
     protected $fillable = [
         'chat_id', 'to_user', 'from_user', 'attachment',
     ];
-
-    //send_dateはcreated_atと同じじゃないですか？
 }
