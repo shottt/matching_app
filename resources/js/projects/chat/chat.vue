@@ -59,7 +59,7 @@ export default {
 
         <ul class="table mb-0 py-5 Chat">
 
-          <li class="Chat__me">
+          <li class="Chat__me" v-for="">
             <p class="text-left p-2 u-txt-b">
               me me me me me me me me me me me me
             </p>
