@@ -119,28 +119,116 @@ Vue.mixin({
       switch (text) {
         case "name":
           if (obj.name_flg === false ) {
-            obj.name_flg= true;
+            obj.name_flg = true;
           } else {
-            obj.name_flg= false;
+            obj.name_flg = false;
           }
           break;
         case "occupation":
           if (obj.occupation_flg === false ) {
-            obj.occupation_flg= true;
+            obj.occupation_flg = true;
           } else {
-            obj.occupation_flg= false;
+            obj.occupation_flg = false;
           }
           break;
         case "location":
           if (obj.location_flg === false ) {
-            obj.location_flg= true;
+            obj.location_flg = true;
           } else {
-            obj.location_flg= false;
+            obj.location_flg = false;
           }
           break;
+        case "profile_header":
+          if (obj.profile_header_flg === false ) {
+            obj.profile_header_flg = true;
+          } else {
+            obj.profile_header_flg = false;
+          }
+          break;
+        case "profile_detail":
+          if (obj.profile_detail_flg === false ) {
+            obj.profile_detail_flg = true;
+          } else {
+            obj.profile_detail_flg = false;
+          }  
+          break;
+        case "picture":
+          if (obj.picture_flg === false ) {
+            obj.picture_flg = true;
+          } else {
+            obj.picture_flg = false;
+          }  
+          break;
+        default:
+          break;
+      };
+    },
+
+    get_Post_Value_Type: function (obj, text) {
+      let my_data = {};
+      switch (text) {
+        case "name":
+          my_data['name'] = obj.name;
+          return my_data;
+        case "occupation":
+          my_data['occupation'] = obj.occupation;
+          return my_data;
+        case "location":
+          my_data['location'] = obj.location;
+          return my_data;
+        case "profile_header":
+          my_data['profile_header'] = obj.profile_header;
+          return my_data;
+        case "profile_detail":
+          my_data['profile_detail'] = obj.profile_detail;
+          return my_data;
+        case "picture":
+          my_data['picture'] = obj.picture;
+          return my_data;
         default:
       };
-    }
+
+    },
+    update_Prof: function (obj, text) {
+      let my_data = this.get_Post_Value_Type(obj, text);
+      console.log(my_data);
+      if (my_data === null ) {
+        alert("編集に失敗しました。");
+        return;
+      }
+      obj.$http.post('/api/ctrl_set_prof', {
+        "my_data": my_data,
+      })
+      .then(res => {
+        if (res.data.result_flag === false) {
+          alert("通信成功しましたが、該当データ見当たらないです。");
+          return;
+        }
+        console.log("プロフィール更新成功");
+        obj.json_data = res.data;
+        console.log(obj.json_data);
+        
+        //window.laravel 更新
+        window.Laravel.my_data['id'] = obj.json_data.my_data['id'];
+        window.Laravel.my_data['name'] = obj.json_data.my_data['name'];
+        window.Laravel.my_data['email'] = obj.json_data.my_data['email'];
+        window.Laravel.my_data['occupation'] = obj.json_data.my_data['occupation'];
+        window.Laravel.my_data['location'] = obj.json_data.my_data['location'];
+        window.Laravel.my_data['profile_header'] = obj.json_data.my_data['profile_header'];
+        window.Laravel.my_data['profile_detail'] = obj.json_data.my_data['profile_detail'];
+        window.Laravel.my_data['birthday'] = obj.json_data.my_data['birthday'];
+        window.Laravel.my_data['picture'] = obj.json_data.my_data['picture'];
+
+        //vuex 更新
+        obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+
+        return obj.json_data;
+      }).catch(err => console.log(err)
+      
+      ).finally(() => {
+          console.log('finally');
+      });
+    },
   },
   
   computed: {

@@ -13451,6 +13451,10 @@ a.text-dark:focus {
   display: inline-block !important;
 }
 
+.u-hide {
+  overflow: hidden;
+}
+
 /*=====================
   位置系
 =======================*/
