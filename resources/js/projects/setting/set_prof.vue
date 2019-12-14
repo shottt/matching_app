@@ -24,24 +24,6 @@ export default {
         this.prof_data.picture_name = files[0].name;
     },
 
-    upload: function() {
-        // FormData を利用して File を POST する
-        let formData = new FormData();
-        formData.append('yourFileKey', this.uploadFile);
-        let config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        axios
-            .post('yourUploadUrl', formData, config)
-            .then(function(response) {
-                // response 処理
-            })
-            .catch(function(error) {
-                // error 処理
-            })
-    }
   },
   template: `
   <main class="u-container-y container text-center">

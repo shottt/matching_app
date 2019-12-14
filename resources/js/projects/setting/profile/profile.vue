@@ -3,7 +3,10 @@
   export default {
     data: function() {
      return {
-       pattern_data: "",
+      pattern_data: "",
+      name__displayed: "",
+      occupation__displayed: "",
+      location__displayed: "",
      }
     },
 
@@ -13,6 +16,9 @@
         // 子のコンポがレンダリングされた後にのみ実行されるコード
         //なにこれ　なんのため？ なんか意味があった気がする
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
+        this.name__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].name;
+        this.occupation__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].occupation;
+        this.location__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].location;
       })
     },
     methods: {
@@ -49,9 +55,8 @@
       <div class="c-Card-Hero">
         <img class="w-100" src="/images/avator1.png" alt="">
         <dl class="c-Card-Hero__detail text-center">
-          <dt class="">鈴木 花子</dt>
-          <dd style="opacity: 0.5;">写真家,大阪</dd>
-          <dd class="mt-2 mb-4">ほし</dd>
+          <dt class="">{{ name__displayed }}</dt>
+          <dd style="opacity: 0.5;">{{ occupation__displayed }},{{ location__displayed }}</dd>
         </dl>
       </div>
 
@@ -76,10 +81,10 @@
               </div>
             </div>
 
-            <div class="col">
+            <div @click="show_My_Friends" class="col">
               <div class="u-wrapper">
-                <div class="u-wrapper-text">
-                  <div @click="show_My_Friends">
+                <div class="u-wrapper-text u-border">
+                  <div>
                     <p>友達</p>
                   </div>
                 </div>
@@ -88,7 +93,7 @@
 
             <div class="col">
               <div class="u-wrapper">
-                <div class="u-wrapper-text">
+                <div class="u-wrapper-text u-border">
                 <router-link to="/my_reviews">
                   <p>友達の声</p>
                 </router-link>
@@ -98,7 +103,7 @@
             
             <div class="col">
               <div class="u-wrapper">
-                <div class="u-wrapper-text">
+                <div class="u-wrapper-text u-border">
                   <router-link to="/my_posts">
                     <p>投稿</p>
                   </router-link>
@@ -122,10 +127,6 @@
 
 <style lang="scss" scoped>
 
-.top_Hero {
-  background: url("/images/avator1.png") center no-repeat;
-}
-
 .u-Sticky {
   position: -webkit-sticky; /* safari用 */
   position: sticky;
@@ -136,7 +137,7 @@
 .u-wrapper:hover {
   cursor: pointer;
 }
-.u-wrapper:hover > .u-wrapper-text {
+.col:hover > .u-wrapper > .u-wrapper-text.u-border {
   border-bottom: solid 2px #F271A8;
   transition: border-bottom 1s;
 }
@@ -149,10 +150,6 @@
 
 .u-wrapper-text p {
   color: #343a40;
-}
-
-.js-border {
-  border-bottom: solid 2px #F271A8;
 }
 
 .profile-Thumb {
