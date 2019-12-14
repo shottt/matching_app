@@ -13504,6 +13504,10 @@ a.text-dark:focus {
   color: #BCC5D3 !important;
 }
 
+.u-opa-5 {
+  opacity: 0.5;
+}
+
 .u-down-arrow:after {
   content: "";
   background: url(/images/down-arrow.png) no-repeat center;

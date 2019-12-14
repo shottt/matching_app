@@ -78,7 +78,7 @@
     template: `
     <section class="container profile-Detail text-left">
       <h1 class="profile-Detail__head u-txt-b pt-4 u-rel">{{ profile_header__displayed }}
-      <i @click="display_Input('profile_header')" class="fas fa-pencil-alt u-text-orange u-abs-rb lead" data-toggle="modal" data-target="#modal_txt""></i>
+      <i @click="display_Input('profile_header')" class="fas fa-pencil-alt u-text-orange u-abs-rb lead"></i>
       </h1>
       
       <div v-if="profile_header_flg===true" class="input-group mt-2 mb-3">
@@ -91,7 +91,7 @@
 
       <p class="profile-Detail__text pt-3 u-rel">
       {{ profile_detail__displayed }}
-      <i @click="display_Input('profile_detail')" class="fas fa-pencil-alt u-text-orange u-abs-rb lead" data-toggle="modal" data-target="#modal_txt""></i>
+      <i @click="display_Input('profile_detail')" class="fas fa-pencil-alt u-text-orange u-abs-rb lead"></i>
       </p>
       <div v-if="profile_detail_flg===true" class="input-group mt-2">
         <textarea class="form-control w-100" aria-label="テキストエリア付き" aria-describedby="basic-textarea"></textarea>

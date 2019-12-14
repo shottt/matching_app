@@ -113,6 +113,33 @@ Vue.mixin({
     //ページごとの判定をするために、ページのパターンを設定する
     change_Page_Pattern: function (pattern) {
       this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
+    },
+
+    get_Prof_Type: function (obj, text) {
+      switch (text) {
+        case "name":
+          if (obj.name_flg === false ) {
+            obj.name_flg= true;
+          } else {
+            obj.name_flg= false;
+          }
+          break;
+        case "occupation":
+          if (obj.occupation_flg === false ) {
+            obj.occupation_flg= true;
+          } else {
+            obj.occupation_flg= false;
+          }
+          break;
+        case "location":
+          if (obj.location_flg === false ) {
+            obj.location_flg= true;
+          } else {
+            obj.location_flg= false;
+          }
+          break;
+        default:
+      };
     }
   },
   

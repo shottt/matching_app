@@ -3,11 +3,17 @@
   export default {
     data: function() {
      return {
-      pattern_data: "",
-      name__displayed: "",
-      occupation__displayed: "",
-      location__displayed: "",
-     }
+        pattern_data: "",
+        name: "",
+        occupation: "",
+        location: "",
+        name__displayed: "",
+        occupation__displayed: "",
+        location__displayed: "",
+        name_flg: false,
+        occupation_flg: false,
+        location_flg: false,
+      }
     },
 
     mounted: function() {
@@ -16,38 +22,86 @@
         // 子のコンポがレンダリングされた後にのみ実行されるコード
         //なにこれ　なんのため？ なんか意味があった気がする
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
+        
         this.name__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].name;
+        if (this.name__displayed === "") {
+          this.name__displayed = "お名前を教えてください。";
+        }
         this.occupation__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].occupation;
+        if (this.occupation__displayed === "") {
+          this.occupation__displayed = "ご職業を教えてください。";
+        }
         this.location__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].location;
+        if (this.location__displayed === "") {
+          this.location__displayed = "お住まいを教えてください。";
+        }
       })
     },
+
     methods: {
       show_My_Friends: function () {
 
-      //友達リストを作ってvueのstateをmutate
-      this.$http.post('/api/ctrl_all_friends', {
-        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
-      })
-      .then(res => {
-        this.json_data = res.data;
+        //友達リストを作ってvueのstateをmutate
+        this.$http.post('/api/ctrl_all_friends', {
+          user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
+        })
+        .then(res => {
+          this.json_data = res.data;
 
-        if (this.json_data.result_flag === false) {
+          if (this.json_data.result_flag === false) {
+            alert("通信成功しましたが、該当データ見当たらないです。");
+            return;
+          }
+          console.log("検索成功");
+          this.change_Page_Pattern('my_friends');
+        
+          this.$store.dispatch('user_info/friends', this.json_data.friends);
+          this.$router.push('/my_friends');
+
+        })
+        .catch(err => console.log(err))
+        .finally(() => {
+          console.log('finally')
+        });
+
+        
+      },
+      set_Input: function (text) {
+        let my_data = {};
+
+        if (text ==="profile_header" ) {
+          this.my_data['profile_header'] = this.profile_header;
+        } else if (text === "profile_detail") {
+          this.my_data['profile_detail'] = this.profile_detail;
+        }
+
+        
+        this.$http.post('/api/ctrl_set_prof', {
+          "my_data": this.my_data,
+        })
+        .then(res => {
+          if (res.data.result_flag === false) {
           alert("通信成功しましたが、該当データ見当たらないです。");
           return;
         }
-        console.log("検索成功");
-        this.change_Page_Pattern('my_friends');
+          
+          console.log("プロフィール更新成功");
+          this.json_data = res.data;
+          console.log(this.json_data);
+          })
+          .catch(err => console.log(err))
+          .finally(() => {
+            console.log('finally');
+        });
       
-        this.$store.dispatch('user_info/friends', this.json_data.friends);
-        this.$router.push('/my_friends');
+      },
+      display_Input: function (text) {
+        //どのinputかふるい分け
+        //inputが非表示なら表示させる
+        //ポインター使えたら、もっと簡単にできる。。。 JSでも*pみたいな感じで間接参照できたらいいのに
 
-      })
-      .catch(err => console.log(err))
-      .finally(() => {
-        console.log('finally')
-      });
+        this.get_Prof_Type(this, text);
 
-        
       },
     },
     template: `
@@ -55,8 +109,37 @@
       <div class="c-Card-Hero">
         <img class="w-100" src="/images/avator1.png" alt="">
         <dl class="c-Card-Hero__detail text-center">
-          <dt class="">{{ name__displayed }}</dt>
-          <dd style="opacity: 0.5;">{{ occupation__displayed }},{{ location__displayed }}</dd>
+          <dt>
+          {{ name__displayed }}
+          <i @click="display_Input('name')" class="pl-2 fas fa-pencil-alt u-text-orange lead"></i>
+          </dt>
+          <dd v-if="name_flg===true" class="input-group mt-2 mb-3">
+            <input type="text" class="form-control" placeholder="お名前" aria-label="..." aria-describedby="button-addon4">
+            <div class="input-group-append" id="button-addon4">
+              <button @click="display_Input('name')" type="button" class="btn btn-outline-secondary">変更中止</button>
+              <button @click="set_Input('name')" type="button" class="btn btn-outline-secondary">変更する</button>
+            </div>
+          </dd>
+          <dd>
+          <span class="u-opa-5">{{ occupation__displayed }}</span>,<i @click="display_Input('occupation')" class="pl-2 fas fa-pencil-alt u-text-orange lead"></i>
+          <span class="u-opa-5">{{ location__displayed }}</span><i @click="display_Input('location')" class="pl-2 fas fa-pencil-alt u-text-orange lead"></i>
+          </dd>
+
+          <dd v-if="occupation_flg===true" class="input-group mt-2 mb-3">
+            <input type="text" class="form-control" placeholder="ご職業" aria-label="..." aria-describedby="button-addon4">
+            <div class="input-group-append" id="button-addon4">
+              <button @click="display_Input('occupation')" type="button" class="btn btn-outline-secondary">変更中止</button>
+              <button @click="set_Input('occupation')" type="button" class="btn btn-outline-secondary">変更する</button>
+            </div>
+          </dd>
+
+          <dd v-if="location_flg===true" class="input-group mt-2 mb-3">
+            <input type="text" class="form-control" placeholder="お住まい" aria-label="..." aria-describedby="button-addon4">
+            <div class="input-group-append" id="button-addon4">
+              <button @click="display_Input('location')" type="button" class="btn btn-outline-secondary">変更中止</button>
+              <button @click="set_Input('location')" type="button" class="btn btn-outline-secondary">変更する</button>
+            </div>
+          </dd>
         </dl>
       </div>
 
@@ -173,5 +256,14 @@
 }
 .profile-Detail__text {
   color: #343a40;
+}
+.input-group {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+}
+i:hover {
+  cursor: pointer;
 }
 </style>

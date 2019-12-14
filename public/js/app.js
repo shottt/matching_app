@@ -2355,7 +2355,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     comments: _comment_form_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <div>\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n\n        <ul class=\"table mb-0 py-5 Chat\">\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n             <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p>\n            <time>2019 11 02</time>\n          </li>\n          \n\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>       \n          \n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n        </ul>\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_Comment\"/>\n  </div>"
+  template: "\n  <div>\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n\n        <ul class=\"table mb-0 py-5 Chat\">\n\n          <li class=\"Chat__me\" v-for=\"\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n             <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p>\n            <time>2019 11 02</time>\n          </li>\n          \n\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>       \n          \n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n        </ul>\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_Comment\"/>\n  </div>"
 });
 
 /***/ }),
@@ -2790,7 +2790,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  template: "\n  <section class=\"container profile-Detail text-left\">\n    <h1 class=\"profile-Detail__head u-txt-b pt-4 u-rel\">{{ profile_header__displayed }}\n    <i @click=\"display_Input('profile_header')\" class=\"fas fa-pencil-alt u-text-orange u-abs-rb lead\" data-toggle=\"modal\" data-target=\"#modal_txt\"\"></i>\n    </h1>\n    \n    <div v-if=\"profile_header_flg===true\" class=\"input-group mt-2 mb-3\">\n      <input v-model=\"profile_header\" type=\"text\" class=\"form-control w-100\" placeholder=\"...\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n      <div class=\"input-group-append mt-2\" id=\"button-addon4\">\n        <button @click=\"display_Input('profile_header')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n        <button @click=\"set_Input('profile_header')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n      </div>\n    </div>\n\n    <p class=\"profile-Detail__text pt-3 u-rel\">\n    {{ profile_detail__displayed }}\n    <i @click=\"display_Input('profile_detail')\" class=\"fas fa-pencil-alt u-text-orange u-abs-rb lead\" data-toggle=\"modal\" data-target=\"#modal_txt\"\"></i>\n    </p>\n    <div v-if=\"profile_detail_flg===true\" class=\"input-group mt-2\">\n      <textarea class=\"form-control w-100\" aria-label=\"\u30C6\u30AD\u30B9\u30C8\u30A8\u30EA\u30A2\u4ED8\u304D\" aria-describedby=\"basic-textarea\"></textarea>\n      <div class=\"input-group-prepend mt-2\">\n        <button @click=\"display_Input('profile_detail')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n        <button @click=\"set_Input('profile_detail')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n      </div>\n    </div>\n\n\n\n  </section>\n\n\n\n  "
+  template: "\n  <section class=\"container profile-Detail text-left\">\n    <h1 class=\"profile-Detail__head u-txt-b pt-4 u-rel\">{{ profile_header__displayed }}\n    <i @click=\"display_Input('profile_header')\" class=\"fas fa-pencil-alt u-text-orange u-abs-rb lead\"></i>\n    </h1>\n    \n    <div v-if=\"profile_header_flg===true\" class=\"input-group mt-2 mb-3\">\n      <input v-model=\"profile_header\" type=\"text\" class=\"form-control w-100\" placeholder=\"...\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n      <div class=\"input-group-append mt-2\" id=\"button-addon4\">\n        <button @click=\"display_Input('profile_header')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n        <button @click=\"set_Input('profile_header')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n      </div>\n    </div>\n\n    <p class=\"profile-Detail__text pt-3 u-rel\">\n    {{ profile_detail__displayed }}\n    <i @click=\"display_Input('profile_detail')\" class=\"fas fa-pencil-alt u-text-orange u-abs-rb lead\"></i>\n    </p>\n    <div v-if=\"profile_detail_flg===true\" class=\"input-group mt-2\">\n      <textarea class=\"form-control w-100\" aria-label=\"\u30C6\u30AD\u30B9\u30C8\u30A8\u30EA\u30A2\u4ED8\u304D\" aria-describedby=\"basic-textarea\"></textarea>\n      <div class=\"input-group-prepend mt-2\">\n        <button @click=\"display_Input('profile_detail')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n        <button @click=\"set_Input('profile_detail')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n      </div>\n    </div>\n\n\n\n  </section>\n\n\n\n  "
 });
 
 /***/ }),
@@ -2808,9 +2808,15 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       pattern_data: "",
+      name: "",
+      occupation: "",
+      location: "",
       name__displayed: "",
       occupation__displayed: "",
-      location__displayed: ""
+      location__displayed: "",
+      name_flg: false,
+      occupation_flg: false,
+      location_flg: false
     };
   },
   mounted: function mounted() {
@@ -2819,8 +2825,22 @@ __webpack_require__.r(__webpack_exports__);
       //なにこれ　なんのため？ なんか意味があった気がする
       this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
       this.name__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].name;
+
+      if (this.name__displayed === "") {
+        this.name__displayed = "お名前を教えてください。";
+      }
+
       this.occupation__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].occupation;
+
+      if (this.occupation__displayed === "") {
+        this.occupation__displayed = "ご職業を教えてください。";
+      }
+
       this.location__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].location;
+
+      if (this.location__displayed === "") {
+        this.location__displayed = "お住まいを教えてください。";
+      }
     });
   },
   methods: {
@@ -2850,9 +2870,43 @@ __webpack_require__.r(__webpack_exports__);
       })["finally"](function () {
         console.log('finally');
       });
+    },
+    set_Input: function set_Input(text) {
+      var _this2 = this;
+
+      var my_data = {};
+
+      if (text === "profile_header") {
+        this.my_data['profile_header'] = this.profile_header;
+      } else if (text === "profile_detail") {
+        this.my_data['profile_detail'] = this.profile_detail;
+      }
+
+      this.$http.post('/api/ctrl_set_prof', {
+        "my_data": this.my_data
+      }).then(function (res) {
+        if (res.data.result_flag === false) {
+          alert("通信成功しましたが、該当データ見当たらないです。");
+          return;
+        }
+
+        console.log("プロフィール更新成功");
+        _this2.json_data = res.data;
+        console.log(_this2.json_data);
+      })["catch"](function (err) {
+        return console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
+    },
+    display_Input: function display_Input(text) {
+      //どのinputかふるい分け
+      //inputが非表示なら表示させる
+      //ポインター使えたら、もっと簡単にできる。。。 JSでも*pみたいな感じで間接参照できたらいいのに
+      this.get_Prof_Type(this, text);
     }
   },
-  template: "\n  <main class=\"text-center u-bg-w u-pb-180\">\n    <div class=\"c-Card-Hero\">\n      <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n      <dl class=\"c-Card-Hero__detail text-center\">\n        <dt class=\"\">{{ name__displayed }}</dt>\n        <dd style=\"opacity: 0.5;\">{{ occupation__displayed }},{{ location__displayed }}</dd>\n      </dl>\n    </div>\n\n    <div class=\"u-Sticky\">\n      <div @click=\"change_Page_Pattern('Prof')\">\n        <router-link class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/set_Prof\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6</router-link>\n      </div>\n\n      <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n\n          <div @click=\"show_My_Friends\" class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <div>\n                  <p>\u53CB\u9054</p>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n              <router-link to=\"/my_reviews\">\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          \n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <router-link to=\"/my_posts\">\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n\n  \u3000<router-view name=\"my_profile\"></router-view>\n    <router-view name=\"my_friends\"></router-view>\n    <router-view name=\"friend_reviews\"></router-view>\n    <router-view name=\"my_posts\"></router-view>\n\n  </main>\n  "
+  template: "\n  <main class=\"text-center u-bg-w u-pb-180\">\n    <div class=\"c-Card-Hero\">\n      <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n      <dl class=\"c-Card-Hero__detail text-center\">\n        <dt>\n        {{ name__displayed }}\n        <i @click=\"display_Input('name')\" class=\"pl-2 fas fa-pencil-alt u-text-orange lead\"></i>\n        </dt>\n        <dd v-if=\"name_flg===true\" class=\"input-group mt-2 mb-3\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"\u304A\u540D\u524D\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n          <div class=\"input-group-append\" id=\"button-addon4\">\n            <button @click=\"display_Input('name')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n            <button @click=\"set_Input('name')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n          </div>\n        </dd>\n        <dd>\n        <span class=\"u-opa-5\">{{ occupation__displayed }}</span>,<i @click=\"display_Input('occupation')\" class=\"pl-2 fas fa-pencil-alt u-text-orange lead\"></i>\n        <span class=\"u-opa-5\">{{ location__displayed }}</span><i @click=\"display_Input('location')\" class=\"pl-2 fas fa-pencil-alt u-text-orange lead\"></i>\n        </dd>\n\n        <dd v-if=\"occupation_flg===true\" class=\"input-group mt-2 mb-3\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"\u3054\u8077\u696D\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n          <div class=\"input-group-append\" id=\"button-addon4\">\n            <button @click=\"display_Input('occupation')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n            <button @click=\"set_Input('occupation')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n          </div>\n        </dd>\n\n        <dd v-if=\"location_flg===true\" class=\"input-group mt-2 mb-3\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"\u304A\u4F4F\u307E\u3044\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n          <div class=\"input-group-append\" id=\"button-addon4\">\n            <button @click=\"display_Input('location')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n            <button @click=\"set_Input('location')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n          </div>\n        </dd>\n      </dl>\n    </div>\n\n    <div class=\"u-Sticky\">\n      <div @click=\"change_Page_Pattern('Prof')\">\n        <router-link class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/set_Prof\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6</router-link>\n      </div>\n\n      <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n\n          <div @click=\"show_My_Friends\" class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <div>\n                  <p>\u53CB\u9054</p>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n              <router-link to=\"/my_reviews\">\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          \n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <router-link to=\"/my_posts\">\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n\n  \u3000<router-view name=\"my_profile\"></router-view>\n    <router-view name=\"my_friends\"></router-view>\n    <router-view name=\"friend_reviews\"></router-view>\n    <router-view name=\"my_posts\"></router-view>\n\n  </main>\n  "
 });
 
 /***/ }),
@@ -8001,7 +8055,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.col:hover > .u-wrapper > .u-wrapper-text.u-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.col:hover > .u-wrapper > .u-wrapper-text.u-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}\n.input-group[data-v-4356c026] {\n  width: 50%;\n  margin-left: auto;\n  margin-right: auto;\n  background: #fff;\n}\ni[data-v-4356c026]:hover {\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -58400,6 +58454,40 @@ Vue.mixin({
     //ページごとの判定をするために、ページのパターンを設定する
     change_Page_Pattern: function change_Page_Pattern(pattern) {
       this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
+    },
+    get_Prof_Type: function get_Prof_Type(obj, text) {
+      switch (text) {
+        case "name":
+          if (obj.name_flg === false) {
+            obj.name_flg = true;
+          } else {
+            obj.name_flg = false;
+          }
+
+          break;
+
+        case "occupation":
+          if (obj.occupation_flg === false) {
+            obj.occupation_flg = true;
+          } else {
+            obj.occupation_flg = false;
+          }
+
+          break;
+
+        case "location":
+          if (obj.location_flg === false) {
+            obj.location_flg = true;
+          } else {
+            obj.location_flg = false;
+          }
+
+          break;
+
+        default:
+      }
+
+      ;
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['auth_displaying/getDisplay_Vuex', //'auth_displaying/getUser_Id_Vuex',
@@ -58456,9 +58544,11 @@ https://qiita.com/acro5piano/items/f33381fc60408abe9865
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
   'X-Requested-With': 'XMLHttpRequest',
-  "Content-Type": "application/json" //'Authorization' : AUTH_TOKEN
+  "Content-Type": "application/json",
+  "aut_id": window.Laravel.id //'Authorization' : AUTH_TOKEN
 
 };
+console.log(window.axios.defaults.headers.common);
 Vue.prototype.$http = window.axios; //window.vali = require('./validation.js');
 //Vue.prototype.$vali = window.vali;
 
