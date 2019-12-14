@@ -18,8 +18,8 @@ class CreateCommentsTable extends Migration
             $table->integer('chat_id');
             $table->integer('to_user');
             $table->integer('from_user');
-            $table->string('detail');
-            $table->string('attachment');
+            $table->string('detail')->nullable();
+            $table->string('attachment')->nullable();
             $table->boolean('delete_flag')->default(0);
             $table->timestamps();
         });
