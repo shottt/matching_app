@@ -5,12 +5,14 @@
       //profile_detail: String,
     },
     data: function () {return{
-      profile_header__displayed: "",
-      profile_detail__displayed: "",
       profile_header: "",
       profile_detail: "",
       profile_header_flg: false,
       profile_detail_flg: false,
+      json_data: {},
+      //プロフィールが更新されると更新内容が即反映されるようにしてます
+      profile_header__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].profile_header,
+      profile_detail__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].profile_detail,
 
     }},
     mounted: function() {
@@ -20,66 +22,36 @@
         //なにこれ　なんのため？なんか意味があった気がする
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
         this.profile_header__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].profile_header;
+        if (this.profile_header__displayed === "") {
+          this.profile_header__displayed = "あなたを一言で表すと？";
+        }
         this.profile_detail__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].profile_detail;
+        if (this.profile_detail__displayed === "") {
+          this.profile_detail__displayed = "自己紹介をお願いします。";
+        }
           
       })
     },
+    computed: {
+
+    },
     methods: {
+      //インプットの表示非表示
       display_Input: function (text) {
-        //どのinputかふるい分け
-        //inputが非表示なら表示させる
-        //ポインター使えたら、もっと簡単にできる。。。 JSでも*pみたいな感じで間接参照できたらいいのに
-
-        if (text ==="profile_header" ) {
-
-          if (this.profile_header_flg === false ) {
-            this.profile_header_flg　= true;
-          } else {
-             this.profile_header_flg　= false;
-          }
-          
-        } else if (text == "profile_detail" ) {
-            if (this.profile_detail_flg === false) {
-              this.profile_detail_flg = true;
-          } else {
-             this.profile_detail_flg = false;
-          }
-        }
+        this.get_Prof_Type(this, text);
       },
 
       set_Input: function (text) {
-        let my_data = {};
-        if (text ==="profile_header" ) {
-          this.my_data['profile_header'] = this.profile_header;
-        } else if (text === "profile_detail") {
-          this.my_data['profile_detail'] = this.profile_detail;
-        }
-        
-        this.$http.post('/api/ctrl_set_prof', {
-          "my_data": this.my_data,
-        })
-        .then(res => {
-          if (res.data.result_flag === false) {
-          alert("通信成功しましたが、該当データ見当たらないです。");
-          return;
-        }
-          
-          console.log("プロフィール更新成功");
-          this.json_data = res.data;
-          console.log(this.json_data);
-          })
-          .catch(err => console.log(err))
-          .finally(() => {
-            console.log('finally');
-        });
-      
+        //app.jsに記載
+        //jsonを投げてる
+        this.json_data = this.update_Prof(this, text);
       },
     },
     template: `
     <section class="container profile-Detail text-left">
-      <h1 class="profile-Detail__head u-txt-b pt-4 u-rel">{{ profile_header__displayed }}
-      <i @click="display_Input('profile_header')" class="fas fa-pencil-alt u-text-orange u-abs-rb lead" data-toggle="modal" data-target="#modal_txt""></i>
-      </h1>
+      <p class="profile-Detail__head u-txt-b pt-4 u-rel">{{ profile_header__displayed }}
+      <i @click="display_Input('profile_header')" class="fas fa-pencil-alt u-text-orange u-abs-rb lead"></i>
+      </p>
       
       <div v-if="profile_header_flg===true" class="input-group mt-2 mb-3">
         <input v-model="profile_header" type="text" class="form-control w-100" placeholder="..." aria-label="..." aria-describedby="button-addon4">
@@ -91,7 +63,7 @@
 
       <p class="profile-Detail__text pt-3 u-rel">
       {{ profile_detail__displayed }}
-      <i @click="display_Input('profile_detail')" class="fas fa-pencil-alt u-text-orange u-abs-rb lead" data-toggle="modal" data-target="#modal_txt""></i>
+      <i @click="display_Input('profile_detail')" class="fas fa-pencil-alt u-text-orange u-abs-rb lead"></i>
       </p>
       <div v-if="profile_detail_flg===true" class="input-group mt-2">
         <textarea class="form-control w-100" aria-label="テキストエリア付き" aria-describedby="basic-textarea"></textarea>
@@ -153,6 +125,7 @@
 }
 .profile-Detail__head {
   color: #343a40;
+  font-size: 24px;
 }
 .profile-Detail__text {
   color: #343a40;

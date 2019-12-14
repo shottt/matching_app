@@ -13451,6 +13451,10 @@ a.text-dark:focus {
   display: inline-block !important;
 }
 
+.u-hide {
+  overflow: hidden;
+}
+
 /*=====================
   位置系
 =======================*/
@@ -13502,6 +13506,10 @@ a.text-dark:focus {
 .u-txt-grey,
 .u-isNoActive > * {
   color: #BCC5D3 !important;
+}
+
+.u-opa-5 {
+  opacity: 0.5;
 }
 
 .u-down-arrow:after {

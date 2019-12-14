@@ -33,8 +33,10 @@ window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
   'X-Requested-With': 'XMLHttpRequest',
   "Content-Type": "application/json",
+  "aut_id": window.Laravel.id,
   //'Authorization' : AUTH_TOKEN
 }
+console.log(window.axios.defaults.headers.common);
 Vue.prototype.$http = window.axios
 
 
