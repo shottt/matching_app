@@ -110,21 +110,21 @@ class UsersController extends Controller
 
         Log::debug($request);
 
-        // バリデーション
-        // $this->validate($request, User::$rules);
+        // // バリデーション
+        // // $this->validate($request, User::$rules);
 
-        $id = $request->id;
+        // $id = $request->id;
 
-        // idが数字かどうかをチェックする
-        if(!ctype_digit($id)){
-            return response()->json(['result_flag' => false]);
-        }
+        // // idが数字かどうかをチェックする
+        // if(!ctype_digit($id)){
+        //     return response()->json(['result_flag' => false]);
+        // }
 
-        // 編集するユーザー情報を取得する
-        $user = User::find($id);
-        $form = $request->all();
-        // fillメソッドで一括保存
-        $user->fill($form)->save();
+        // // 編集するユーザー情報を取得する
+        // $user = User::find($id);
+        // $form = $request->all();
+        // // fillメソッドで一括保存
+        // $user->fill($form)->save();
 
         // $auth_id = Auth::id();
         // $user_id = $request->user_id;
