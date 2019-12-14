@@ -21,16 +21,6 @@ Route::group(['middleware' => 'api'], function() {
     //
     
     Auth::routes();
-    Route::post('/ctrl_sign_in', 'Ajax\UsersController@sign_in');
-
-    //
-    // from
-    //     name,
-    //     location,
-    //     email,
-    //     password
-    // return user_id, result_flag
-    Route::post('/ctrl_registration','Ajax\UsersController@registration');
 
     //1209 カラム名が変わっていたのでその変更に合わせてコメントを修正
     //settings フォルダ
