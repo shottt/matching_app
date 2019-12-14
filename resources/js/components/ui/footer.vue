@@ -2,7 +2,9 @@
 <script>
 export default {
     props: {
-       
+    
+      profile_header: String,
+      profile_detail: String,
     },
     data: function() {
         return {
@@ -12,6 +14,16 @@ export default {
 
     mounted: function () {
         this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+        
+    },
+
+    methods: {
+        edit_Prof__txt: function () {
+
+        },
+        edit_Prof__mage: function () {
+
+        },
         
     },
 

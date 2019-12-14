@@ -1,0 +1,54 @@
+.u-rel {
+  position: relative;
+}
+
+.u-abs {
+  position: absolute;
+}
+
+.u-abs-l {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.u-abs-lt {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.u-abs-lb {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+.u-abs-r {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.u-abs-rt {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.u-abs-rb {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}

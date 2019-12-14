@@ -46,6 +46,8 @@ Vue.use(VeeValidate, { locale: 'ja' });
 import { mapGetters } from 'vuex';
 import action_btn from './components/ui/button/action-button.vue';
 import search_icon from './components/ui/icon/search_icon.vue';
+import edit_icon from './components/ui/icon/edit_icon.vue';
+
 const VueUploadComponent = require('vue-upload-component');
 Vue.component('file-upload', VueUploadComponent);
 
@@ -125,7 +127,7 @@ Vue.mixin({
     ]),
   },
   components: {
-    action_btn,search_icon,
+    action_btn,search_icon,edit_icon,
   },
   
 });

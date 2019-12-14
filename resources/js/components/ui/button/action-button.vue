@@ -143,13 +143,6 @@ export default {
         </button>
       </div>
 
-      <!--プロフィール編集-->
-      <div v-else-if="page_pattern==='set_Prof'">
-        <button　@click.capture="set_prof" type="button" class="btn w-100 bg-main mt-5 position-relative text-light">
-            <img class="pr-1" src="/images/search-icon-white.png" style="display: inline-block; vertical-align: sub;" alt="">
-            {{ btn_text }}   
-        </button>
-      </div>
 
       <!--パスワード変更-->
       <div v-else-if="page_pattern==='set_Pass'"> 
@@ -162,3 +155,11 @@ export default {
   `
 }
 </script>
+
+<!--
+<div v-else-if="page_pattern==='set_Prof'">
+  <button　@click.capture="set_prof" type="button" class="btn w-100 bg-main mt-5 position-relative text-light">
+    <img class="pr-1" src="/images/search-icon-white.png" style="display: inline-block; vertical-align: sub;" alt="">
+    {{ btn_text }}   
+</button>
+</div>-->

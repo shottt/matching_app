@@ -11,9 +11,14 @@
           my_data: { 
             'id': '{{ $user->id }}',
             'name': '{{ $user->name }}',
+            'email': '{{ $user->email }}',
             'occupation': '{{ $user->occupation }}',
+            'profile_header': '{{ $user->profile_header }}',
+            'profile_detail': '{{ $user->profile_detail }}',
+            'birthday': '{{ $user->birthday }}',
             'location': '{{ $user->location }}',
             'picture': '{{ $user->picture }}',
+            //'review': '{{ $user->review }}',
           },
           id : '{{ $user->id }}',
         }

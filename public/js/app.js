@@ -2138,7 +2138,7 @@ var usr = new URLSearchParams();
     //退会処理
 
   },
-  template: "\n\n  <div>\n\n      <!--\u691C\u7D22-->\n      <div v-if=\"page_pattern==='search'\">\n        <button @click.capture=\"search_for\" type=\"button\" class=\"btn w-100 bg-main u-mt-100 position-relative text-light\">\n          <img class=\"pr-1\" src=\"/images/search-icon-white.png\" style=\"display: inline-block; vertical-align: sub;\" alt=\"\">\n          {{ btn_text }}\n        </button>\n      </div>\n\n      <!--\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6-->\n      <div v-else-if=\"page_pattern==='set_Prof'\">\n        <button\u3000@click.capture=\"set_prof\" type=\"button\" class=\"btn w-100 bg-main mt-5 position-relative text-light\">\n            <img class=\"pr-1\" src=\"/images/search-icon-white.png\" style=\"display: inline-block; vertical-align: sub;\" alt=\"\">\n            {{ btn_text }}   \n        </button>\n      </div>\n\n      <!--\u30D1\u30B9\u30EF\u30FC\u30C9\u5909\u66F4-->\n      <div v-else-if=\"page_pattern==='set_Pass'\"> \n        <button @click.capture=\"change_Pass\" type=\"button\" class=\"btn w-100 bg-main mt-5 position-relative text-light\">\n          <img class=\"pr-1\" src=\"/images/search-icon-white.png\" style=\"display: inline-block; vertical-align: sub;\" alt=\"\">\n          {{ btn_text }}\n        </button>\n      </div>\n  </div>\n  "
+  template: "\n\n  <div>\n\n      <!--\u691C\u7D22-->\n      <div v-if=\"page_pattern==='search'\">\n        <button @click.capture=\"search_for\" type=\"button\" class=\"btn w-100 bg-main u-mt-100 position-relative text-light\">\n          <img class=\"pr-1\" src=\"/images/search-icon-white.png\" style=\"display: inline-block; vertical-align: sub;\" alt=\"\">\n          {{ btn_text }}\n        </button>\n      </div>\n\n\n      <!--\u30D1\u30B9\u30EF\u30FC\u30C9\u5909\u66F4-->\n      <div v-else-if=\"page_pattern==='set_Pass'\"> \n        <button @click.capture=\"change_Pass\" type=\"button\" class=\"btn w-100 bg-main mt-5 position-relative text-light\">\n          <img class=\"pr-1\" src=\"/images/search-icon-white.png\" style=\"display: inline-block; vertical-align: sub;\" alt=\"\">\n          {{ btn_text }}\n        </button>\n      </div>\n  </div>\n  "
 });
 
 /***/ }),
@@ -2152,9 +2152,16 @@ var usr = new URLSearchParams();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _props$data$mounted$m;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {},
+/* harmony default export */ __webpack_exports__["default"] = (_props$data$mounted$m = {
+  props: {
+    profile_header: String,
+    profile_detail: String
+  },
   data: function data() {
     return {
       pattern: "default"
@@ -2163,50 +2170,74 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
   },
+  methods: {
+    edit_Prof__txt: function edit_Prof__txt() {},
+    edit_Prof__mage: function edit_Prof__mage() {}
+  },
   computed: {
     com_pattern: function com_pattern() {
       this.pattern = this.$store.getters['page_displaying/getPattern_Vuex'];
       return this.pattern;
     }
+  }
+}, _defineProperty(_props$data$mounted$m, "methods", {
+  //友達一覧取得
+  show_Friends: function show_Friends() {
+    var _this = this;
+
+    //一旦　全検索
+    //this.$http.post('/api/ctrl_search_for_friends', {
+    this.$http.post('/api/ctrl_all_users', {
+      //search_query: this.array_query,
+      user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
+    }).then(function (res) {
+      if (res.data.result_flag === false) {
+        alert("通信成功しましたが、該当データ見当たらないです。");
+        return;
+      }
+
+      _this.change_Page_Pattern('friends');
+
+      console.log("成功"); //検索キーワード(search_query)と検索結果が欲しい
+      //this.json_data = res.data;
+      //仮の値を準備
+      // res.data = {
+      //       "friend1": { id: 1, picture: 11, name: 12,occupation: 13},
+      //       "friend2": { id: 2, picture: 21, name: 22,occupation: 23},
+      //       };
+      //vuexにフレンド情報を保存　
+
+      _this.$store.dispatch('user_info/friends', res.data);
+
+      _this.$router.push('/friends');
+    })["catch"](function (err) {
+      return console.log(err);
+    })["finally"](function () {
+      console.log('finally');
+    });
+  }
+}), _defineProperty(_props$data$mounted$m, "template", "\n    <footer class=\"c-Footer u-top-border-grey container\">\n        <ul class=\"nav\">\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('home')\">\n            <router-link class=\"nav-link active\" to='/home'>\n                <img v-if=\"com_pattern ==='home'\" src=\"/images/footer/home-icon--active.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u30DB\u30FC\u30E0\" class=\"img-fluid\">\n                <img v-if=\"com_pattern !=='home'\" src=\"/images/footer/home-icon.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u30DB\u30FC\u30E0\" class=\"img-fluid\">\n            </router-link><br>\n            </li>\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('friends')\">\n            <p v-on:click.capture=\"show_Friends\" class=\"nav-link\">\n                <img v-if=\"com_pattern ==='friend'\" src=\"/images/footer/friends-icon--active.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u53CB\u9054\" class=\"img-fluid\">\n                <img v-if=\"com_pattern !=='friend'\" src=\"/images/footer/friends-icon.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u53CB\u9054\" class=\"img-fluid\">\n            </p>\n            </li>\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('settings')\">\n            <router-link class=\"nav-link\" to=\"/settings\">\n                <img v-if=\"com_pattern ==='settings'\" src=\"/images/footer/settings-icon--active.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u8A2D\u5B9A\" class=\"img-fluid\">\n                <img v-if=\"com_pattern !=='settings'\" src=\"/images/footer/settings-icon.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u8A2D\u5B9A\" class=\"img-fluid\">\n            </router-link>\n            </li>\n        </ul>\n    </footer>\n    "), _props$data$mounted$m);
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/icon/edit_icon.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ui/icon/edit_icon.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    txt_data: String
   },
   methods: {
-    //友達一覧取得
-    show_Friends: function show_Friends() {
-      var _this = this;
-
-      //一旦　全検索
-      //this.$http.post('/api/ctrl_search_for_friends', {
-      this.$http.post('/api/ctrl_all_users', {
-        //search_query: this.array_query,
-        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
-      }).then(function (res) {
-        if (res.data.result_flag === false) {
-          alert("通信成功しましたが、該当データ見当たらないです。");
-          return;
-        }
-
-        _this.change_Page_Pattern('friends');
-
-        console.log("成功"); //検索キーワード(search_query)と検索結果が欲しい
-        //this.json_data = res.data;
-        //仮の値を準備
-        // res.data = {
-        //       "friend1": { id: 1, picture: 11, name: 12,occupation: 13},
-        //       "friend2": { id: 2, picture: 21, name: 22,occupation: 23},
-        //       };
-        //vuexにフレンド情報を保存　
-
-        _this.$store.dispatch('user_info/friends', res.data);
-
-        _this.$router.push('/friends');
-      })["catch"](function (err) {
-        return console.log(err);
-      })["finally"](function () {
-        console.log('finally');
-      });
-    }
+    set_Prog__txt: function set_Prog__txt() {},
+    set_Prog__img: function set_Prog__img() {}
   },
-  template: "\n    <footer class=\"c-Footer u-top-border-grey container\">\n        <ul class=\"nav\">\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('home')\">\n            <router-link class=\"nav-link active\" to='/home'>\n                <img v-if=\"com_pattern ==='home'\" src=\"/images/footer/home-icon--active.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u30DB\u30FC\u30E0\" class=\"img-fluid\">\n                <img v-if=\"com_pattern !=='home'\" src=\"/images/footer/home-icon.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u30DB\u30FC\u30E0\" class=\"img-fluid\">\n            </router-link><br>\n            </li>\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('friends')\">\n            <p v-on:click.capture=\"show_Friends\" class=\"nav-link\">\n                <img v-if=\"com_pattern ==='friend'\" src=\"/images/footer/friends-icon--active.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u53CB\u9054\" class=\"img-fluid\">\n                <img v-if=\"com_pattern !=='friend'\" src=\"/images/footer/friends-icon.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u53CB\u9054\" class=\"img-fluid\">\n            </p>\n            </li>\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('settings')\">\n            <router-link class=\"nav-link\" to=\"/settings\">\n                <img v-if=\"com_pattern ==='settings'\" src=\"/images/footer/settings-icon--active.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u8A2D\u5B9A\" class=\"img-fluid\">\n                <img v-if=\"com_pattern !=='settings'\" src=\"/images/footer/settings-icon.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u8A2D\u5B9A\" class=\"img-fluid\">\n            </router-link>\n            </li>\n        </ul>\n    </footer>\n    "
+  template: "\n \n "
 });
 
 /***/ }),
@@ -2689,14 +2720,77 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {//profile_header: String,
+    //profile_detail: String,
+  },
+  data: function data() {
+    return {
+      profile_header__displayed: "",
+      profile_detail__displayed: "",
+      profile_header: "",
+      profile_detail: "",
+      profile_header_flg: false,
+      profile_detail_flg: false
+    };
+  },
   mounted: function mounted() {
     this.$nextTick(function () {
       // ビュー全体がレンダリングされた後にのみ実行されるコード
       //なにこれ　なんのため？なんか意味があった気がする
       this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
+      this.profile_header__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].profile_header;
+      this.profile_detail__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].profile_detail;
     });
   },
-  template: "\n  <section class=\"container profile-Detail text-left\">\n    <h1 class=\"profile-Detail__head u-txt-b pt-4\">aaa</h1>\n    <p class=\"profile-Detail__text pt-3\">\n    text text text texttext text text texttext text text texttext text text texttext text text text\n    </p>\n  </section>\n  "
+  methods: {
+    display_Input: function display_Input(text) {
+      //どのinputかふるい分け
+      //inputが非表示なら表示させる
+      //ポインター使えたら、もっと簡単にできる。。。 JSでも*pみたいな感じで間接参照できたらいいのに
+      if (text === "profile_header") {
+        if (this.profile_header_flg === false) {
+          this.profile_header_flg = true;
+        } else {
+          this.profile_header_flg = false;
+        }
+      } else if (text == "profile_detail") {
+        if (this.profile_detail_flg === false) {
+          this.profile_detail_flg = true;
+        } else {
+          this.profile_detail_flg = false;
+        }
+      }
+    },
+    set_Input: function set_Input(text) {
+      var _this = this;
+
+      var my_data = {};
+
+      if (text === "profile_header") {
+        this.my_data['profile_header'] = this.profile_header;
+      } else if (text === "profile_detail") {
+        this.my_data['profile_detail'] = this.profile_detail;
+      }
+
+      this.$http.post('/api/ctrl_set_prof', {
+        "my_data": this.my_data
+      }).then(function (res) {
+        if (res.data.result_flag === false) {
+          alert("通信成功しましたが、該当データ見当たらないです。");
+          return;
+        }
+
+        console.log("プロフィール更新成功");
+        _this.json_data = res.data;
+        console.log(_this.json_data);
+      })["catch"](function (err) {
+        return console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
+    }
+  },
+  template: "\n  <section class=\"container profile-Detail text-left\">\n    <h1 class=\"profile-Detail__head u-txt-b pt-4 u-rel\">{{ profile_header__displayed }}\n    <i @click=\"display_Input('profile_header')\" class=\"fas fa-pencil-alt u-text-orange u-abs-rb lead\" data-toggle=\"modal\" data-target=\"#modal_txt\"\"></i>\n    </h1>\n    \n    <div v-if=\"profile_header_flg===true\" class=\"input-group mt-2 mb-3\">\n      <input v-model=\"profile_header\" type=\"text\" class=\"form-control w-100\" placeholder=\"...\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n      <div class=\"input-group-append mt-2\" id=\"button-addon4\">\n        <button @click=\"display_Input('profile_header')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n        <button @click=\"set_Input('profile_header')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n      </div>\n    </div>\n\n    <p class=\"profile-Detail__text pt-3 u-rel\">\n    {{ profile_detail__displayed }}\n    <i @click=\"display_Input('profile_detail')\" class=\"fas fa-pencil-alt u-text-orange u-abs-rb lead\" data-toggle=\"modal\" data-target=\"#modal_txt\"\"></i>\n    </p>\n    <div v-if=\"profile_detail_flg===true\" class=\"input-group mt-2\">\n      <textarea class=\"form-control w-100\" aria-label=\"\u30C6\u30AD\u30B9\u30C8\u30A8\u30EA\u30A2\u4ED8\u304D\" aria-describedby=\"basic-textarea\"></textarea>\n      <div class=\"input-group-prepend mt-2\">\n        <button @click=\"display_Input('profile_detail')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n        <button @click=\"set_Input('profile_detail')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n      </div>\n    </div>\n\n\n\n  </section>\n\n\n\n  "
 });
 
 /***/ }),
@@ -2713,7 +2807,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      pattern_data: ""
+      pattern_data: "",
+      name__displayed: "",
+      occupation__displayed: "",
+      location__displayed: ""
     };
   },
   mounted: function mounted() {
@@ -2721,6 +2818,9 @@ __webpack_require__.r(__webpack_exports__);
       // 子のコンポがレンダリングされた後にのみ実行されるコード
       //なにこれ　なんのため？ なんか意味があった気がする
       this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
+      this.name__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].name;
+      this.occupation__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].occupation;
+      this.location__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].location;
     });
   },
   methods: {
@@ -2752,7 +2852,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  template: "\n  <main class=\"text-center u-bg-w u-pb-180\">\n    <div class=\"c-Card-Hero\">\n      <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n      <dl class=\"c-Card-Hero__detail text-center\">\n        <dt class=\"\">\u9234\u6728 \u82B1\u5B50</dt>\n        <dd style=\"opacity: 0.5;\">\u5199\u771F\u5BB6,\u5927\u962A</dd>\n        <dd class=\"mt-2 mb-4\">\u307B\u3057</dd>\n      </dl>\n    </div>\n\n    <div class=\"u-Sticky\">\n      <div @click=\"change_Page_Pattern('Prof')\">\n        <router-link class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/set_Prof\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6</router-link>\n      </div>\n\n      <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n                <div @click=\"show_My_Friends\">\n                  <p>\u53CB\u9054</p>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n              <router-link to=\"/my_reviews\">\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          \n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text\">\n                <router-link to=\"/my_posts\">\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n\n  \u3000<router-view name=\"my_profile\"></router-view>\n    <router-view name=\"my_friends\"></router-view>\n    <router-view name=\"friend_reviews\"></router-view>\n    <router-view name=\"my_posts\"></router-view>\n\n  </main>\n  "
+  template: "\n  <main class=\"text-center u-bg-w u-pb-180\">\n    <div class=\"c-Card-Hero\">\n      <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n      <dl class=\"c-Card-Hero__detail text-center\">\n        <dt class=\"\">{{ name__displayed }}</dt>\n        <dd style=\"opacity: 0.5;\">{{ occupation__displayed }},{{ location__displayed }}</dd>\n      </dl>\n    </div>\n\n    <div class=\"u-Sticky\">\n      <div @click=\"change_Page_Pattern('Prof')\">\n        <router-link class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/set_Prof\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6</router-link>\n      </div>\n\n      <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n\n          <div @click=\"show_My_Friends\" class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <div>\n                  <p>\u53CB\u9054</p>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n              <router-link to=\"/my_reviews\">\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          \n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <router-link to=\"/my_posts\">\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n\n  \u3000<router-view name=\"my_profile\"></router-view>\n    <router-view name=\"my_friends\"></router-view>\n    <router-view name=\"friend_reviews\"></router-view>\n    <router-view name=\"my_posts\"></router-view>\n\n  </main>\n  "
 });
 
 /***/ }),
@@ -7718,6 +7818,25 @@ exports.push([module.i, "@charset \"UTF-8\";\n/*\ndata-target=\"#myModal\"とid=
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "i[data-v-678e5018] {\n  font-size: 24px;\n}\ni[data-v-678e5018]:hover {\n  cursor: pointer;\n}\n.modal-margin[data-v-678e5018] {\n  margin-top: 35vh;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/chat/chat.vue?vue&type=style&index=0&id=50f2eb50&lang=scss&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/projects/chat/chat.vue?vue&type=style&index=0&id=50f2eb50&lang=scss&scoped=true& ***!
@@ -7863,7 +7982,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".top_Hero[data-v-2c0dabfc] {\n  background: url(\"/images/avator1.png\") center no-repeat;\n}\n.u-wrapper[data-v-2c0dabfc]:hover {\n  cursor: pointer;\n}\n.u-wrapper:hover > .u-wrapper-text[data-v-2c0dabfc] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-2c0dabfc] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-2c0dabfc] {\n  color: #343a40;\n}\n.js-border[data-v-2c0dabfc] {\n  border-bottom: solid 2px #F271A8;\n}\n.profile-Thumb[data-v-2c0dabfc] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-2c0dabfc] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-2c0dabfc] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-2c0dabfc] {\n  color: #343a40;\n}", ""]);
+exports.push([module.i, ".u-wrapper[data-v-2c0dabfc]:hover {\n  cursor: pointer;\n}\n.u-wrapper:hover > .u-wrapper-text[data-v-2c0dabfc] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-2c0dabfc] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-2c0dabfc] {\n  color: #343a40;\n}\n.js-border[data-v-2c0dabfc] {\n  border-bottom: solid 2px #F271A8;\n}\n.profile-Thumb[data-v-2c0dabfc] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-2c0dabfc] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-2c0dabfc] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-2c0dabfc] {\n  color: #343a40;\n}\ni[data-v-2c0dabfc]:hover {\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -7882,7 +8001,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.top_Hero[data-v-4356c026] {\n  background: url(\"/images/avator1.png\") center no-repeat;\n}\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.u-wrapper:hover > .u-wrapper-text[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.js-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.col:hover > .u-wrapper > .u-wrapper-text.u-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}", ""]);
 
 // exports
 
@@ -38921,6 +39040,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/chat/chat.vue?vue&type=style&index=0&id=50f2eb50&lang=scss&scoped=true&":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/projects/chat/chat.vue?vue&type=style&index=0&id=50f2eb50&lang=scss&scoped=true& ***!
@@ -58136,6 +58285,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _components_ui_button_action_button_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/ui/button/action-button.vue */ "./resources/js/components/ui/button/action-button.vue");
 /* harmony import */ var _components_ui_icon_search_icon_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ui/icon/search_icon.vue */ "./resources/js/components/ui/icon/search_icon.vue");
+/* harmony import */ var _components_ui_icon_edit_icon_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/ui/icon/edit_icon.vue */ "./resources/js/components/ui/icon/edit_icon.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -58180,6 +58330,7 @@ Vue.use(VeeValidate, { locale: 'ja' });
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
 
 
 
@@ -58255,7 +58406,8 @@ Vue.mixin({
   'auth_displaying/getMy_Data_Vuex', 'page_displaying/getPattern_Vuex', 'user_info/getFriends_Vuex', 'user_info/getUser_Vuex'])),
   components: {
     action_btn: _components_ui_button_action_button_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    search_icon: _components_ui_icon_search_icon_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    search_icon: _components_ui_icon_search_icon_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    edit_icon: _components_ui_icon_edit_icon_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }
 });
 var vue_body = new Vue({
@@ -58861,6 +59013,74 @@ component.options.__file = "resources/js/components/ui/footer.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./footer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/footer.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ui/icon/edit_icon.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/ui/icon/edit_icon.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _edit_icon_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./edit_icon.vue?vue&type=script&lang=js& */ "./resources/js/components/ui/icon/edit_icon.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _edit_icon_vue_vue_type_style_index_0_id_678e5018_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true& */ "./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _edit_icon_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  "678e5018",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ui/icon/edit_icon.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ui/icon/edit_icon.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/ui/icon/edit_icon.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_icon_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit_icon.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/icon/edit_icon.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_icon_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true& ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_icon_vue_vue_type_style_index_0_id_678e5018_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_icon_vue_vue_type_style_index_0_id_678e5018_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_icon_vue_vue_type_style_index_0_id_678e5018_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_icon_vue_vue_type_style_index_0_id_678e5018_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_icon_vue_vue_type_style_index_0_id_678e5018_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_icon_vue_vue_type_style_index_0_id_678e5018_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
