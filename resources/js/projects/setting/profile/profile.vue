@@ -7,11 +7,9 @@
         name: "",
         occupation: "",
         location: "",
-        picture: "",
         name_flg: false,
         occupation_flg: false,
         location_flg: false,
-        picture__flg: true,
         json_data: {},
         //プロフィールが更新されると更新内容が即反映されるようにしてます
         name__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].name,
@@ -19,7 +17,11 @@
         location__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].location,
 
         //画像処理
+        picture: "",
+        tmp_picutre: "",
+        picture_flg: false,
         picture__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
+        fileInfo: '',
       }
     },
 
@@ -90,25 +92,57 @@
         //jsonを投げてる
         this.json_data = this.update_Prof(this, text);
       },
-      selectedFile: function(e) {
-        // 選択された File の情報を保存しておく
-        // e.preventDefault();
-        // let files = e.target.files;
-        // this.prof_data.picture = files[0];
-        // this.prof_data.picture_name = files[0].name;
-        alert(111);
-        this.fileInfo = e.targetfiles[0];
+
+      //画像アップロード処理　未完成
+      fileSelected: function(event) {
+        console.log(event.targetfiles);
+        this.fileInfo = event.targetfiles;//[0];
       },
+      fileUpload(){
+        const formData = new FormData()
+
+        formData.append('picture',this.fileInfo)
+
+        axios.post('/api/ctrl_set_prof_img',formData)
+        .then(res => {
+          if (res.data.result_flag === false) {
+            alert("通信成功しましたが、該当データ見当たらないです。");
+            return;
+          }
+          console.log("プロフィール更新成功");
+          obj.json_data = res.data;
+          console.log(obj.json_data);
+          
+          //window.laravel 更新
+          window.Laravel.my_data['picture'] = obj.json_data.my_data['picture'];
+
+          //vuex 更新
+          obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+
+          return obj.json_data;
+        }).catch(err => console.log(err)
+        
+        ).finally(() => {
+            console.log('finally');
+        });
+      }
     },
     template: `
     <main class="text-center u-bg-w u-pb-180">
       <div class="c-Card-Hero">
-        <img class="w-100" src="/images/avator1.png" alt="">
-        <label class="c-Card-Hero__img-input u-text-pink p-2" for="image">
-          <i class="fas fa-camera u-text-orange lead"></i>
-          <input @change="selectedFile" mulitple="multiple" class="text-dark" type="file" id="image">
-        </label>
+        <p class="c-Card-Hero__img">
+          <img class="w-100" src="/images/avator1.png" alt="">
+        </p>
         <dl class="c-Card-Hero__detail text-center">
+          <dt>
+            <label class="c-Card-Hero__img-input u-text-pink p-2" for="image">
+              <i @click.self="display_Input('picture')" class="fas fa-camera u-text-orange lead"></i>
+              <div v-if="picture_flg===true">
+                <input @change.self="fileSelected" mulitple="multiple" class="text-dark" type="file" id="image">
+                <button v-on:click.self="fileUpload">アップロード</button>
+              </div>
+            </label>
+          </dt>
           <dt>
           {{ name__displayed }}
           <i @click="display_Input('name')" class="pl-2 fas fa-pencil-alt u-text-orange lead"></i>
@@ -210,7 +244,9 @@
 <style lang="scss" scoped>
 .c-Card-Hero {
   overflow: hidden;
-  > img {
+}
+.c-Card-Hero__img {
+  img {
     min-height: 400px;
     object-fit: cover;
   }
@@ -281,15 +317,19 @@ i:hover {
 
 
 .c-Card-Hero__img-input {
+  /*
   position: absolute;
-  bottom: 0;
+  bottom: 20%;
   right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
   display: inline-block;
-  border-radius: 4px;
-  box-shadow:  0 2px 6px rgba(146, 146, 146, 0.8);
+  border-radius: 4px;*/
+  color: #fff;
   cursor: pointer;
   input {
-    display: none;
+    //display: none;
   }
 }
 </style>

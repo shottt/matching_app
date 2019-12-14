@@ -115,6 +115,7 @@ Vue.mixin({
       this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
     },
 
+    //プロフィール更新系
     get_Prof_Type: function (obj, text) {
       switch (text) {
         case "name":
@@ -163,7 +164,6 @@ Vue.mixin({
           break;
       };
     },
-
     get_Post_Value_Type: function (obj, text) {
       let my_data = {};
       switch (text) {

@@ -2786,18 +2786,20 @@ __webpack_require__.r(__webpack_exports__);
       name: "",
       occupation: "",
       location: "",
-      picture: "",
       name_flg: false,
       occupation_flg: false,
       location_flg: false,
-      picture__flg: true,
       json_data: {},
       //プロフィールが更新されると更新内容が即反映されるようにしてます
       name__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].name,
       occupation__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].occupation,
       location__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].location,
       //画像処理
-      picture__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture
+      picture: "",
+      tmp_picutre: "",
+      picture_flg: false,
+      picture__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
+      fileInfo: ''
     };
   },
   mounted: function mounted() {
@@ -2868,17 +2870,36 @@ __webpack_require__.r(__webpack_exports__);
       //jsonを投げてる
       this.json_data = this.update_Prof(this, text);
     },
-    selectedFile: function selectedFile(e) {
-      // 選択された File の情報を保存しておく
-      // e.preventDefault();
-      // let files = e.target.files;
-      // this.prof_data.picture = files[0];
-      // this.prof_data.picture_name = files[0].name;
-      alert(111);
-      this.fileInfo = e.targetfiles[0];
+    //画像アップロード処理　未完成
+    fileSelected: function fileSelected(event) {
+      console.log(event.targetfiles);
+      this.fileInfo = event.targetfiles; //[0];
+    },
+    fileUpload: function fileUpload() {
+      var formData = new FormData();
+      formData.append('picture', this.fileInfo);
+      axios.post('/api/ctrl_set_prof_img', formData).then(function (res) {
+        if (res.data.result_flag === false) {
+          alert("通信成功しましたが、該当データ見当たらないです。");
+          return;
+        }
+
+        console.log("プロフィール更新成功");
+        obj.json_data = res.data;
+        console.log(obj.json_data); //window.laravel 更新
+
+        window.Laravel.my_data['picture'] = obj.json_data.my_data['picture']; //vuex 更新
+
+        obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+        return obj.json_data;
+      })["catch"](function (err) {
+        return console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
     }
   },
-  template: "\n  <main class=\"text-center u-bg-w u-pb-180\">\n    <div class=\"c-Card-Hero\">\n      <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n      <label class=\"c-Card-Hero__img-input u-text-pink p-2\" for=\"image\">\n        <i class=\"fas fa-camera u-text-orange lead\"></i>\n        <input @change=\"selectedFile\" mulitple=\"multiple\" class=\"text-dark\" type=\"file\" id=\"image\">\n      </label>\n      <dl class=\"c-Card-Hero__detail text-center\">\n        <dt>\n        {{ name__displayed }}\n        <i @click=\"display_Input('name')\" class=\"pl-2 fas fa-pencil-alt u-text-orange lead\"></i>\n        </dt>\n        <dd v-if=\"name_flg===true\" class=\"input-group mt-2 mb-3\">\n          <input v-model=\"name\" type=\"text\" class=\"form-control\" placeholder=\"\u304A\u540D\u524D\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n          <div class=\"input-group-append\" id=\"button-addon4\">\n            <button @click=\"display_Input('name')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n            <button @click=\"set_Input('name')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n          </div>\n        </dd>\n\n        <dd>\n          <span class=\"u-opa-5\">{{ occupation__displayed }}</span><i @click=\"display_Input('occupation')\" class=\"fas fa-pencil-alt u-text-orange lead\"></i>,\n          <div v-if=\"occupation_flg===true\" class=\"input-group mt-2 mb-3\">\n            <input v-model=\"occupation\" type=\"text\" class=\"form-control\" placeholder=\"\u3054\u8077\u696D\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n            <div class=\"input-group-append\" id=\"button-addon4\">\n              <button @click=\"display_Input('occupation')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n              <button @click=\"set_Input('occupation')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n            </div>\n          </div>\n          \n          <span class=\"u-opa-5\">{{ location__displayed }}</span><i @click=\"display_Input('location')\" class=\"fas fa-pencil-alt u-text-orange lead\"></i>\n          <div v-if=\"location_flg===true\" class=\"input-group mt-2 mb-3\">\n            <input v-model=\"location\" type=\"text\" class=\"form-control\" placeholder=\"\u304A\u4F4F\u307E\u3044\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n            <div class=\"input-group-append\" id=\"button-addon4\">\n              <button @click=\"display_Input('location')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n              <button @click=\"set_Input('location')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n            </div>\n          </div>\n        </dd>\n\n      </dl>\n\n      \n    </div>\n\n    <div class=\"u-Sticky\">\n      <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n\n          <div @click=\"show_My_Friends\" class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <div>\n                  <p>\u53CB\u9054</p>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n              <router-link to=\"/my_reviews\">\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          \n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <router-link to=\"/my_posts\">\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n\n  \u3000<router-view name=\"my_profile\"></router-view>\n    <router-view name=\"my_friends\"></router-view>\n    <router-view name=\"friend_reviews\"></router-view>\n    <router-view name=\"my_posts\"></router-view>\n\n  </main>\n  "
+  template: "\n  <main class=\"text-center u-bg-w u-pb-180\">\n    <div class=\"c-Card-Hero\">\n      <p class=\"c-Card-Hero__img\">\n        <img class=\"w-100\" src=\"/images/avator1.png\" alt=\"\">\n      </p>\n      <dl class=\"c-Card-Hero__detail text-center\">\n        <dt>\n          <label class=\"c-Card-Hero__img-input u-text-pink p-2\" for=\"image\">\n            <i @click.self=\"display_Input('picture')\" class=\"fas fa-camera u-text-orange lead\"></i>\n            <div v-if=\"picture_flg===true\">\n              <input @change.self=\"fileSelected\" mulitple=\"multiple\" class=\"text-dark\" type=\"file\" id=\"image\">\n              <button v-on:click.self=\"fileUpload\">\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9</button>\n            </div>\n          </label>\n        </dt>\n        <dt>\n        {{ name__displayed }}\n        <i @click=\"display_Input('name')\" class=\"pl-2 fas fa-pencil-alt u-text-orange lead\"></i>\n        </dt>\n        <dd v-if=\"name_flg===true\" class=\"input-group mt-2 mb-3\">\n          <input v-model=\"name\" type=\"text\" class=\"form-control\" placeholder=\"\u304A\u540D\u524D\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n          <div class=\"input-group-append\" id=\"button-addon4\">\n            <button @click=\"display_Input('name')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n            <button @click=\"set_Input('name')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n          </div>\n        </dd>\n\n        <dd>\n          <span class=\"u-opa-5\">{{ occupation__displayed }}</span><i @click=\"display_Input('occupation')\" class=\"fas fa-pencil-alt u-text-orange lead\"></i>,\n          <div v-if=\"occupation_flg===true\" class=\"input-group mt-2 mb-3\">\n            <input v-model=\"occupation\" type=\"text\" class=\"form-control\" placeholder=\"\u3054\u8077\u696D\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n            <div class=\"input-group-append\" id=\"button-addon4\">\n              <button @click=\"display_Input('occupation')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n              <button @click=\"set_Input('occupation')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n            </div>\n          </div>\n          \n          <span class=\"u-opa-5\">{{ location__displayed }}</span><i @click=\"display_Input('location')\" class=\"fas fa-pencil-alt u-text-orange lead\"></i>\n          <div v-if=\"location_flg===true\" class=\"input-group mt-2 mb-3\">\n            <input v-model=\"location\" type=\"text\" class=\"form-control\" placeholder=\"\u304A\u4F4F\u307E\u3044\" aria-label=\"...\" aria-describedby=\"button-addon4\">\n            <div class=\"input-group-append\" id=\"button-addon4\">\n              <button @click=\"display_Input('location')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u4E2D\u6B62</button>\n              <button @click=\"set_Input('location')\" type=\"button\" class=\"btn btn-outline-secondary\">\u5909\u66F4\u3059\u308B</button>\n            </div>\n          </div>\n        </dd>\n\n      </dl>\n\n      \n    </div>\n\n    <div class=\"u-Sticky\">\n      <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n        <ul class=\"row l-Simple__list\">\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text d-position-relative\">\n              <router-link to=\"/my_profile\">\n                <figure class=\"profile-Thumb\">\n                  <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                </figure>\n                <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n\n          <div @click=\"show_My_Friends\" class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <div>\n                  <p>\u53CB\u9054</p>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n              <router-link to=\"/my_reviews\">\n                <p>\u53CB\u9054\u306E\u58F0</p>\n              </router-link>\n              </div>\n            </div>\n          </div>\n          \n          <div class=\"col\">\n            <div class=\"u-wrapper\">\n              <div class=\"u-wrapper-text u-border\">\n                <router-link to=\"/my_posts\">\n                  <p>\u6295\u7A3F</p>\n                </router-link>\n              </div>\n            </div>\n          </div>\n        </ul>\n      </div>\n    </div>\n\n  \u3000<router-view name=\"my_profile\"></router-view>\n    <router-view name=\"my_friends\"></router-view>\n    <router-view name=\"friend_reviews\"></router-view>\n    <router-view name=\"my_posts\"></router-view>\n\n  </main>\n  "
 });
 
 /***/ }),
@@ -8027,7 +8048,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.c-Card-Hero[data-v-4356c026] {\n  overflow: hidden;\n}\n.c-Card-Hero > img[data-v-4356c026] {\n  min-height: 400px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-Sticky[data-v-4356c026]:before {\n  content: \"\";\n  display: block;\n  padding: 15px 0;\n  background: linear-gradient(-135deg, #F271A8, #F5B062) fixed;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.col:hover > .u-wrapper > .u-wrapper-text.u-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}\n.input-group[data-v-4356c026] {\n  width: 80%;\n  margin-left: auto;\n  margin-right: auto;\n  background: #fff;\n}\ni[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.c-Card-Hero__img-input[data-v-4356c026] {\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  display: inline-block;\n  border-radius: 4px;\n  box-shadow: 0 2px 6px rgba(146, 146, 146, 0.8);\n  cursor: pointer;\n}\n.c-Card-Hero__img-input input[data-v-4356c026] {\n  display: none;\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.c-Card-Hero[data-v-4356c026] {\n  overflow: hidden;\n}\n.c-Card-Hero__img img[data-v-4356c026] {\n  min-height: 400px;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-Sticky[data-v-4356c026]:before {\n  content: \"\";\n  display: block;\n  padding: 15px 0;\n  background: linear-gradient(-135deg, #F271A8, #F5B062) fixed;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.col:hover > .u-wrapper > .u-wrapper-text.u-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}\n.input-group[data-v-4356c026] {\n  width: 80%;\n  margin-left: auto;\n  margin-right: auto;\n  background: #fff;\n}\ni[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.c-Card-Hero__img-input[data-v-4356c026] {\n  /*\n  position: absolute;\n  bottom: 20%;\n  right: 0;\n  left: 0;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-block;\n  border-radius: 4px;*/\n  color: #fff;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -58427,6 +58448,7 @@ Vue.mixin({
     change_Page_Pattern: function change_Page_Pattern(pattern) {
       this.pattern = this.$store.dispatch('page_displaying/set_Vuex__pattern', pattern);
     },
+    //プロフィール更新系
     get_Prof_Type: function get_Prof_Type(obj, text) {
       switch (text) {
         case "name":
