@@ -148,4 +148,17 @@ class UsersController extends Controller
         return response()->json(['result_flag' => true]);
 
     }
+
+    //set_prof_img
+    public function set_prof_img(Request $request){
+    
+        // 自分のユーザーとPOST値のUser_idを比較
+
+        Log::debug($request->picture);
+        Log::debug($request);
+
+        return response()->json(['result_flag' => true]);
+
+    }
 }
+

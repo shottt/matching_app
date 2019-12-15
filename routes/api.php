@@ -36,7 +36,13 @@ Route::group(['middleware' => 'api'], function() {
     // return result_flag, 
     //        my_data {}
     Route::post('/ctrl_set_prof', 'Api\UsersController@set_prof');
-    
+
+    //settings フォルダ
+    // from  picture,
+    // return result_flag, 
+    //        picture
+    Route::post('/ctrl_set_prof_img', 'Api\UsersController@set_prof_img');
+
     // Route::group(['middleware' => ['auth']], function () {
     //         // この中はログインされている場合のみルーティングされる
     //         Route::get('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
@@ -162,4 +168,6 @@ Route::group(['middleware' => 'api'], function() {
     * return result_flag;
     */
     Route::post('/ctrl_add_chat_comment', 'Api\ChatsController@add_chat_comment');
+
+
 });
