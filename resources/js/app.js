@@ -53,6 +53,7 @@ Vue.component('file-upload', VueUploadComponent);
 
 Vue.mixin({
   data: function(){ return {
+    pattern: "",
     vali_error: {
       
       required : "入力必須項目です。",//required attr
@@ -69,8 +70,11 @@ Vue.mixin({
       regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
       regexp_half: new RegExp("^[a-zA-Z0-9]+$")
     },
-    pattern: "",
+
   }},
+  created: function () {
+
+  },
 
   methods: {
     vali_required: function (type, value) {
@@ -229,6 +233,7 @@ Vue.mixin({
           console.log('finally');
       });
     },
+    
   },
   
   computed: {

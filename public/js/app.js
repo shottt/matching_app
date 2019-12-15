@@ -1844,6 +1844,11 @@ __webpack_require__.r(__webpack_exports__);
       friends: this.$store.getters['user_info/getFriends_Vuex']
     };
   },
+  created: function created() {
+    this.$nextTick(function () {
+      this.friends = this.$store.getters['user_info/getFriends_Vuex'];
+    });
+  },
   methods: {
     showProfile: function showProfile(user_id) {
       var _this = this;
@@ -1877,7 +1882,7 @@ __webpack_require__.r(__webpack_exports__);
       //this.$router.push({ path: '/user_profile' });
     }
   },
-  template: "\n  <li class=\"container bg-white\">\n    <dl v-for=\"friend in friends\" class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        {{ friend.name }}<br><span class=\"u-txt-grey\">{{ friend.occupation }}</span>\n        <i v-on:click=\"showProfile(friend.id)\" class=\"u-icon__detail\"></i></router-link>\n      </dd>\n    </dl>\n  </li>\n  "
+  template: "\n  <ul class=\"table mb-0\">\n    <li  v-for=\"friend in friends\" class=\"container bg-white\">\n      <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n        <dt class=\"col-4 d-inline-block\">\n          <figure class=\"c-PsnCard__img my-3 mx-2\">\n            <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n          </figure>\n        </dt>\n        <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n          {{ friend.name }}<br><span class=\"u-txt-grey\">{{ friend.occupation }}</span>\n          <i v-on:click=\"showProfile(friend.id)\" class=\"u-icon__detail\"></i></router-link>\n        </dd>\n      </dl>\n    </li>\n  </ul>\n  "
 });
 
 /***/ }),
@@ -2206,7 +2211,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       //       };
       //vuexにフレンド情報を保存　
 
-      _this.$store.dispatch('user_info/friends', res.data);
+      _this.$store.dispatch('user_info/friends', res.data.friends);
 
       _this.$router.push('/friends');
     })["catch"](function (err) {
@@ -2316,11 +2321,31 @@ __webpack_require__.r(__webpack_exports__);
     return {
       chat_comments: {},
       my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
-      user_id: this.$store.getters['user_info/getUser_Vuex'].id
+      user_id: this.$store.getters['user_info/getUser_Vuex'].id,
+      chat_id: 0,
+      chat_props: {
+        chat_id: 0,
+        chat_length: 10
+      },
+      scrollY: 0,
+      scroll_cnt: 1
     };
   },
   created: function created() {
-    this.chat_comments = this.get_Comment(true);
+    this.$nextTick(function () {
+      //初期レンダリング時コメントを取得
+      this.get_Comment(true);
+    });
+    window.addEventListener('scroll', this.get_Chat_Scroll);
+  },
+  computed: {
+    chat_comments_displayed: function chat_comments_displayed() {
+      return this.chat_comments;
+    },
+    chat_length_cm: function chat_length_cm() {
+      this.chat_props.chat_length = this.chat_comments.length;
+      return this.chat_props.chat_length;
+    }
   },
   //子のcomment_form.vueから「コメントが増えた」と信号を受け取る。
   methods: {
@@ -2331,6 +2356,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      console.log();
       this.$http.post('/api/ctrl_get_chat', {
         my_id: this.my_id,
         user_id: this.user_id
@@ -2343,18 +2369,90 @@ __webpack_require__.r(__webpack_exports__);
         _this.change_Page_Pattern('chat');
 
         _this.chat_comments = res.data.comments;
+
+        _this.reverse_Comments();
+
+        _this.chat_props.chat_id = _this.chat_comments[0].chat_id;
+        _this.chat_props.chat_length = _this.chat_comments.length;
+        return _this.chat_comments;
         console.log("成功");
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
         console.log('finally');
       });
+    },
+    get_new_comment: function get_new_comment(get_flag) {
+      var _this2 = this;
+
+      if (get_flag !== true) {
+        return;
+      }
+
+      this.$http.post('/api/ctrl_get_new_chat', {
+        chat_id: this.chat_props.chat_id
+      }).then(function (res) {
+        if (res.data.result_flag === false) {
+          alert("最新コメント取得に失敗しました");
+          return;
+        }
+
+        _this2.change_Page_Pattern('chat'); //chat_commentsに追加
+
+
+        console.log(res.data.comment);
+
+        _this2.chat_comments.push(res.data.comment); //this.chat_props.chat_id = this.chat_comments[0].chat_id;
+        //this.chat_props.chat_length = this.chat_comments.length;
+
+
+        return _this2.chat_comments;
+        console.log("成功");
+      })["catch"](function (err) {
+        return console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
+    },
+    reverse_Comments: function reverse_Comments() {
+      this.chat_comments = this.chat_comments.slice().reverse();
+    },
+    get_Chat_Scroll: function get_Chat_Scroll() {
+      var _this3 = this;
+
+      this.scrollY = window.scrollY;
+
+      if (this.scrollY >= 500) {
+        this.$http.post('/api/ctrl_get_chat', {
+          chat_id: this.chat_props.chat_id
+        }).then(function (res) {
+          if (res.data.result_flag === false) {
+            alert("コメント取得に失敗しました");
+            return;
+          }
+
+          _this3.change_Page_Pattern('chat');
+
+          _this3.chat_comments = res.data.comments;
+
+          _this3.reverse_Comments();
+
+          return _this3.chat_comments;
+          console.log("成功");
+        })["catch"](function (err) {
+          return console.log(err);
+        })["finally"](function () {
+          console.log('finally');
+        });
+      }
+
+      console.log(this.scrollY);
     }
   },
   components: {
     comments: _comment_form_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <div>\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n\n        <ul class=\"table mb-0 py-5 Chat\">\n\n          <li class=\"Chat__me\" v-for=\"\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n             <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p>\n            <time>2019 11 02</time>\n          </li>\n          \n\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>       \n          \n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n        </ul>\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_Comment\"/>\n  </div>"
+  template: "\n  <div>\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n     \n        <ul class=\"table mb-0 py-5 Chat\">\n          <li v-for=\"chat in chat_comments_displayed\">\n            <div v-if=\"chat.from_user == my_id\" class=\"Chat__me\">\n              <p class=\"text-left p-2 u-txt-b\">\n              {{chat.detail}}\n              </p>\n              <time>{{chat.updated_at}}</time>\n            </div>\n\n            <div v-if=\"chat.from_user == user_id\" class=\"Chat__friend\">\n              <i class=\"fas fa-male\"></i>\n              <p class=\"text-left p-2 u-txt-b\">\n                {{chat.detail}} \n              </p>\n              <time>{{chat.updated_at}}</time>\n            </div>\n          </li>\n        </ul>\n\n        \n\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_new_comment\" v-bind:chat_props=\"chat_props\"/>\n  </div>"
 });
 
 /***/ }),
@@ -2371,8 +2469,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      comment: ""
+      comment: "",
+      counter: 0
     };
+  },
+  props: {
+    chat_props: {
+      chat_id: 0,
+      chat_length: 10
+    }
   },
   methods: {
     commentting: function commentting() {
@@ -2383,7 +2488,8 @@ __webpack_require__.r(__webpack_exports__);
         //search_query: this.array_query,
         my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
         user_id: this.$store.getters['user_info/getUser_Vuex'].id,
-        comment: this.comment
+        comment: this.comment,
+        chat_id: this.chat_props.chat_id
       }).then(function (res) {
         _this.json_data = res.data;
 
@@ -2430,7 +2536,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <main class=\"u-container-y\">\n    <div class=\"pt-5 container-fluid\">\n      <ul class=\"table mb-0\">\n        <person_card></person_card>\n      </ul>\n    </div>\n  </main>"
+  template: "\n  <main class=\"u-container-y\">\n    <person_card></person_card>\n  </main>"
 });
 
 /***/ }),
@@ -2622,7 +2728,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <main class=\"u-container-y\">\n    <div class=\"container-fluid\">\n      <ul class=\"table mb-0\">\n          <person_card></person_card>\n      </ul>\n    </div>\n  </main>"
+  template: "\n  <main class=\"u-container-y\">\n    <div class=\"container-fluid\">\n      <person_card></person_card>\n    </div>\n  </main>"
 });
 
 /***/ }),
@@ -2684,7 +2790,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <ul class=\"table mb-0\">\n      <person_card></person_card>\n  </ul>\n  "
+  template: "\n  <div>\n      <person_card></person_card>\n  </div>\n  "
 });
 
 /***/ }),
@@ -2795,13 +2901,13 @@ __webpack_require__.r(__webpack_exports__);
       location__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].location,
       //画像処理
       picture: "",
-      //tmp_picutre: "",
       picture_flg: false,
-      picture__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
+      picture__displayed: "",
+      //this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
       fileInfo: ''
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     this.$nextTick(function () {
       // 子のコンポがレンダリングされた後にのみ実行されるコード
       //なにこれ　なんのため？ なんか意味があった気がする
@@ -2828,7 +2934,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.picture__displayed === "") {
         //デフォルトの画像を表示したい
-        this.picture__displayed = "";
+        this.picture__displayed = "aa";
       }
     });
   },
@@ -2914,6 +3020,8 @@ __webpack_require__.r(__webpack_exports__);
         // window.Laravel.my_data['picture'] = this.json_data.my_data['picture'];
         // //vuex 更新
         // this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+        //picture__displayed更新
+        //this.picture__displayed = this.json_data.picture;
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
@@ -3358,7 +3466,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <ul class=\"table mb-0\">\n      <person_card></person_card>\n  </ul>\n  "
+  template: "\n  <div>\n      <person_card></person_card>\n  </div>\n  "
 });
 
 /***/ }),
@@ -7919,7 +8027,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "li[data-v-50f2eb50] {\n  position: relative;\n  display: block;\n  margin-bottom: 32px;\n}\nli > p[data-v-50f2eb50] {\n  background: #fff;\n  border-radius: 10px;\n  min-height: 60px;\n}\nli time[data-v-50f2eb50] {\n  display: block;\n}\n.Chat__me[data-v-50f2eb50]:before {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  right: -10px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n}\n.Chat__me time[data-v-50f2eb50] {\n  text-align: right;\n}\n.Chat__friend[data-v-50f2eb50] {\n  padding-left: 40px !important;\n}\n.Chat__friend[data-v-50f2eb50]:after {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  left: 30px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(225deg);\n          transform: rotate(225deg);\n}\n.Chat__friend time[data-v-50f2eb50] {\n  text-align: left;\n}\n.Chat__friend i[data-v-50f2eb50] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 30px;\n  overflow: hidden;\n}\n.Chat__friend i[data-v-50f2eb50]:before {\n  font-size: 60px;\n}\n.Chat-Form__file i[data-v-50f2eb50]:before {\n  font-size: 24px;\n}", ""]);
+exports.push([module.i, ".Chat__me[data-v-50f2eb50],\n.Chat__friend[data-v-50f2eb50] {\n  position: relative;\n  display: block;\n  margin-bottom: 32px;\n}\n.Chat__me > p[data-v-50f2eb50],\n.Chat__friend > p[data-v-50f2eb50] {\n  background: #fff;\n  border-radius: 10px;\n  min-height: 60px;\n}\n.Chat__me time[data-v-50f2eb50],\n.Chat__friend time[data-v-50f2eb50] {\n  display: block;\n}\n.Chat__me[data-v-50f2eb50]:before {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  right: -10px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n}\n.Chat__me time[data-v-50f2eb50] {\n  text-align: right;\n}\n.Chat__friend[data-v-50f2eb50] {\n  padding-left: 40px !important;\n}\n.Chat__friend[data-v-50f2eb50]:after {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  left: 30px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(225deg);\n          transform: rotate(225deg);\n}\n.Chat__friend time[data-v-50f2eb50] {\n  text-align: left;\n}\n.Chat__friend i[data-v-50f2eb50] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 30px;\n  overflow: hidden;\n}\n.Chat__friend i[data-v-50f2eb50]:before {\n  font-size: 60px;\n}\n.Chat-Form__file i[data-v-50f2eb50]:before {\n  font-size: 24px;\n}", ""]);
 
 // exports
 
@@ -7938,7 +8046,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".Chat-Form[data-v-00fe83a4] {\n  position: fixed;\n  bottom: 0;\n  background: #fff;\n}\n.Chat-Form > fieldset > *[data-v-00fe83a4] {\n  height: 60px;\n  padding: 10px;\n}\n.Chat-Form__file[data-v-00fe83a4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.Chat-Form__file i[data-v-00fe83a4]:before {\n  font-size: 24px;\n  color: #BCC5D3;\n}\n.Chat-Form__comment[data-v-00fe83a4] {\n  border: solid 1px #BCC5D3;\n  border-radius: 10px;\n  color: #4C5264;\n}\n.Chat-Form__btn[data-v-00fe83a4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.Chat-Form__btn button[data-v-00fe83a4] {\n  border: 0;\n  width: 70%;\n  height: 70%;\n}\n.Chat-Form__btn button > i[data-v-00fe83a4] {\n  width: 100%;\n}\n.Chat-Form__btn button > i[data-v-00fe83a4]:before {\n  color: #BCC5D3;\n  font-size: 24px;\n}", ""]);
+exports.push([module.i, ".Chat-Form[data-v-00fe83a4] {\n  position: fixed;\n  bottom: 0;\n  background: #fff;\n}\n.Chat-Form > fieldset > *[data-v-00fe83a4] {\n  height: 60px;\n  padding: 10px;\n}\n.Chat-Form__file[data-v-00fe83a4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.Chat-Form__file i[data-v-00fe83a4]:before {\n  font-size: 24px;\n  color: #BCC5D3;\n}\n.Chat-Form__comment[data-v-00fe83a4] {\n  border: solid 1px #BCC5D3;\n  border-radius: 10px;\n  color: #4C5264;\n}\n.Chat-Form__btn[data-v-00fe83a4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.Chat-Form__btn button[data-v-00fe83a4] {\n  border: 0;\n  width: 70%;\n  height: 70%;\n}\n.Chat-Form__btn button > i[data-v-00fe83a4] {\n  width: 100%;\n}\n.Chat-Form__btn button > i[data-v-00fe83a4]:before {\n  color: #BCC5D3;\n  font-size: 24px;\n}\ntextarea[data-v-00fe83a4] {\n  overflow: scroll;\n}", ""]);
 
 // exports
 
@@ -8071,7 +8179,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.c-Card-Hero[data-v-4356c026] {\n  overflow: hidden;\n}\n.c-Card-Hero__img[data-v-4356c026] {\n  max-height: 50vh;\n  margin-left: auto;\n  margin-right: auto;\n}\n.c-Card-Hero__img img[data-v-4356c026] {\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-Sticky[data-v-4356c026]:before {\n  content: \"\";\n  display: block;\n  padding: 15px 0;\n  background: linear-gradient(-135deg, #F271A8, #F5B062) fixed;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.col:hover > .u-wrapper > .u-wrapper-text.u-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}\n.input-group[data-v-4356c026] {\n  width: 80%;\n  margin-left: auto;\n  margin-right: auto;\n  background: #fff;\n}\ni[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.c-Card-Hero__img-input[data-v-4356c026] {\n  /*\n  position: absolute;\n  bottom: 20%;\n  right: 0;\n  left: 0;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-block;\n  border-radius: 4px;*/\n  color: #fff;\n  cursor: pointer;\n}\n.preview_btns > button[data-v-4356c026] {\n  background: #fff;\n}\n.preview_btns > button[data-v-4356c026]:hover {\n  background-color: #6c757d;\n}\n.input-group[data-v-4356c026] {\n  background: none;\n}\n.input-group button[data-v-4356c026] {\n  background: #fff;\n}\n.input-group button[data-v-4356c026]:hover {\n  background-color: #6c757d;\n}\ninput[type=file][data-v-4356c026] {\n  width: 120px;\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.c-Card-Hero[data-v-4356c026] {\n  overflow: hidden;\n}\n.c-Card-Hero__img[data-v-4356c026] {\n  max-height: 50vh;\n  margin-left: auto;\n  margin-right: auto;\n}\n.c-Card-Hero__img img[data-v-4356c026] {\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-Sticky[data-v-4356c026]:before {\n  content: \"\";\n  display: block;\n  padding: 15px 0;\n  background: linear-gradient(-135deg, #F271A8, #F5B062) fixed;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.col:hover > .u-wrapper > .u-wrapper-text.u-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}\n.input-group[data-v-4356c026] {\n  width: 80%;\n  margin-left: auto;\n  margin-right: auto;\n  background: #fff;\n}\ni[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.c-Card-Hero__img-input[data-v-4356c026] {\n  /*\n  position: absolute;\n  bottom: 20%;\n  right: 0;\n  left: 0;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-block;\n  border-radius: 4px;*/\n  color: #fff;\n  cursor: pointer;\n}\n.preview_btns > button[data-v-4356c026] {\n  background: #fff;\n}\n.preview_btns > button[data-v-4356c026]:hover {\n  background-color: #6c757d;\n}\n.input-group[data-v-4356c026] {\n  background: none;\n}\n.input-group button[data-v-4356c026] {\n  background: #fff;\n}\n.input-group button[data-v-4356c026]:hover {\n  background-color: #6c757d;\n}\ninput[type=file][data-v-4356c026] {\n  width: 120px;\n}\n.modal-dialog[data-v-4356c026] {\n  margin-top: 10vh;\n}", ""]);
 
 // exports
 
@@ -58413,6 +58521,7 @@ Vue.component('file-upload', VueUploadComponent);
 Vue.mixin({
   data: function data() {
     return {
+      pattern: "",
       vali_error: {
         required: "入力必須項目です。",
         //required attr
@@ -58430,10 +58539,10 @@ Vue.mixin({
         xss: "不正なスクリプトが検出されました。",
         regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
         regexp_half: new RegExp("^[a-zA-Z0-9]+$")
-      },
-      pattern: ""
+      }
     };
   },
+  created: function created() {},
   methods: {
     vali_required: function vali_required(type, value) {
       if (value == "") {
@@ -61337,8 +61446,6 @@ var actions = {
 };
 var mutations = {
   change: function change(state, pattern_name) {
-    console.log("sate: ");
-    console.log(state);
     state.pattern = pattern_name;
   }
 };

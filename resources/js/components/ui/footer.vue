@@ -64,7 +64,7 @@ export default {
             //       "friend2": { id: 2, picture: 21, name: 22,occupation: 23},
             //       };
             //vuexにフレンド情報を保存　
-            this.$store.dispatch('user_info/friends', res.data);
+            this.$store.dispatch('user_info/friends', res.data.friends);
             
             this.$router.push('/friends');
 

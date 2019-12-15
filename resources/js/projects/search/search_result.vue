@@ -13,9 +13,7 @@ export default {
   template: `
   <main class="u-container-y">
     <div class="container-fluid">
-      <ul class="table mb-0">
-          <person_card></person_card>
-      </ul>
+      <person_card></person_card>
     </div>
   </main>`
 }
