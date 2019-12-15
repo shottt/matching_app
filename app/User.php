@@ -37,6 +37,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // バリデーション（項目は適当。別途、検討要）
+    public static $rules = array(
+        'name' => 'max:255',
+        'email' => 'email|max:255',
+        'profile_header' => 'max:255',
+        'profile_detail' => 'max:255',
+        'picture' => 'file|image',
+    );
+
     public function posts()
     {
         return $this->hasMany(Post::class);
