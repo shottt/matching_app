@@ -14,7 +14,7 @@ class ChatsController extends Controller
 {   
 
     //chatを新規作成
-    //get_chat でchat_idが見つからない時に使う
+    //get_chat でchat_idが見つからない時に使う　リダイアレクトで使う
     public function create_chat(Request $request){
     }
 
