@@ -18,7 +18,7 @@
 
         //画像処理
         picture: "",
-        tmp_picutre: "",
+        //tmp_picutre: "",
         picture_flg: false,
         picture__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
         fileInfo: '',
@@ -95,9 +95,29 @@
 
       //画像アップロード処理　未完成
       fileSelected: function(event) {
-        console.log(event.targetfiles);
-        this.fileInfo = event.targetfiles;//[0];
+
+        this.fileInfo = event.target.files[0];
+        console.log(this.fileInfo);
+        console.log(this.picture);
+        //初期選択なし
+        if (this.fileInfo === undefined && this.picture === "" ) {
+          return;
+        }
+        //選び直しで選択なし
+        if (this.fileInfo === undefined && this.picture !== "" ) {
+          this.fileInfo = this.picture;
+        }
+
+        const reader = new FileReader();
+        let preview_img = document.querySelector(".js-preview-img > img");
+        
+        reader.onload = function (event) {
+          preview_img.src = event.target.result;
+        }
+        this.picture = this.fileInfo;
+        reader.readAsDataURL(this.fileInfo);
       },
+
       fileUpload(){
         const formData = new FormData()
 
@@ -137,13 +157,40 @@
           <dt>
             <label class="c-Card-Hero__img-input u-text-pink p-2" for="image">
               <i @click.self="display_Input('picture')" class="fas fa-camera u-text-orange lead"></i>
-              <div v-if="picture_flg===true">
-                <input @change.self="fileSelected" mulitple="multiple" class="text-dark" type="file" id="image">
-                <button v-on:click.self="fileUpload">アップロード</button>
+              
+              <div class="u-align-center" v-if="picture_flg===true">
+                <input @change="fileSelected" enctype="multipart/form-data" class="text-dark mb-2" type="file" id="image" name="prf_img">
+                <p>{{ picture["name"] }}</p>
+                <div class="input-group-append preview_btns" id="button-addon4">
+                  <button data-toggle="modal" data-target="#preview" type="button" class="btn btn-outline-secondary">プレビュー</button>
+                  <button v-on:click="fileUpload" type="button" class="btn btn-outline-secondary">アップロード</button>
+                </div>
               </div>
+
             </label>
+            
           </dt>
+
+          <dd class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="previewLabel">
+            <div class="modal-dialog modal-margin" role="document">
+              <div class="modal-content w-75 u-mx-a p-4 text-center">
+                <p class="js-preview-img">
+                  <img class="w-100" src="/images/avator1.png" alt="">
+                </p>
+                <dl class="mt-3">
+                  <dt id="exampleModalLabel" class="modal-title u-txt-b">画像を更新しますか？</dt>
+                  <dd class="u-txt-b">Are you sure you wish to update your profile image?</dd>
+                </dl>
+                <div>
+                  <a v-on:click.self="fileUpload"  class="u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40" data-dismiss="modal">はい</a>
+                  <a class="u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40" data-dismiss="modal">いいえ</a>
+                </div>
+
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </dd><!-- /.modal -->
           <dt>
+
           {{ name__displayed }}
           <i @click="display_Input('name')" class="pl-2 fas fa-pencil-alt u-text-orange lead"></i>
           </dt>
@@ -246,9 +293,12 @@
   overflow: hidden;
 }
 .c-Card-Hero__img {
+  max-height: 50vh;
+  margin-left:auto;
+  margin-right:auto;
+
   img {
-    min-height: 400px;
-    object-fit: cover;
+    object-fit: contain;
   }
 }
 .u-Sticky {
@@ -331,5 +381,25 @@ i:hover {
   input {
     //display: none;
   }
+}
+.preview_btns {
+  > button {
+    background: #fff;
+    &:hover {
+      background-color: #6c757d;
+    }
+  }
+}
+.input-group {
+  background: none;
+    button {
+    background: #fff;
+    &:hover {
+      background-color: #6c757d;
+    }
+  }
+}
+input[type="file"] {
+  width:120px;
 }
 </style>
