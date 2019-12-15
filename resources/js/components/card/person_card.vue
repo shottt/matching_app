@@ -23,7 +23,7 @@
             this.$store.dispatch('user_info/user', this.json_data.friend);
 
             //描画のための画面判定値を更新
-            this.change_Page_Pattern('page_displaying/set_Vuex__pattern', "user_profile");
+            //this.change_Page_Pattern('');
             this.$router.push({ path: '/user_profile' });
 
           } else {

@@ -26,7 +26,9 @@ public function run()
     $this->call(UsersTableSeeder::class);
 }
 
-php artisan db:seed --database=testing
+php artisan db:seed
+or
+php artisan db:seed --class=ChatsTableseeder --database=testing
 
 //ランダムにテストする場合は、Factory
 php artisan make:factory UserFactory

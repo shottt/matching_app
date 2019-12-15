@@ -76,6 +76,8 @@
         });
       },
       start_chat: function () {
+
+        this.change_Page_Pattern('chat');
         this.$router.push('/chat/');
       },
     },

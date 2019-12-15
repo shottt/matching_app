@@ -95,10 +95,7 @@
 
       //画像アップロード処理　未完成
       fileSelected: function(event) {
-
         this.fileInfo = event.target.files[0];
-        console.log(this.fileInfo);
-        console.log(this.picture);
         //初期選択なし
         if (this.fileInfo === undefined && this.picture === "" ) {
           return;
@@ -119,33 +116,34 @@
       },
 
       fileUpload(){
-        const formData = new FormData()
+        let formData = new FormData()
+        formData.append("picture", this.fileInfo);
+        console.log(formData);
 
-        formData.append('picture',this.fileInfo)
-
-        axios.post('/api/ctrl_set_prof_img',formData)
+        axios.post('/api/ctrl_set_prof_img', formData, {
+            headers: { 'content-type': 'multipart/form-data'}
+        })
         .then(res => {
           if (res.data.result_flag === false) {
             alert("通信成功しましたが、該当データ見当たらないです。");
             return;
           }
           console.log("プロフィール更新成功");
-          obj.json_data = res.data;
-          console.log(obj.json_data);
+          this.json_data = res.data;
+          console.log(this.json_data);
           
-          //window.laravel 更新
-          window.Laravel.my_data['picture'] = obj.json_data.my_data['picture'];
+          // //window.laravel 更新
+          // window.Laravel.my_data['picture'] = this.json_data.my_data['picture'];
+          // //vuex 更新
+          // this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
 
-          //vuex 更新
-          obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
-
-          return obj.json_data;
         }).catch(err => console.log(err)
         
         ).finally(() => {
             console.log('finally');
         });
-      }
+      },
+
     },
     template: `
     <main class="text-center u-bg-w u-pb-180">
@@ -161,7 +159,7 @@
               <div class="u-align-center" v-if="picture_flg===true">
                 <input @change="fileSelected" enctype="multipart/form-data" class="text-dark mb-2" type="file" id="image" name="prf_img">
                 <p>{{ picture["name"] }}</p>
-                <div class="input-group-append preview_btns" id="button-addon4">
+                <div v-if="picture !==''" class="input-group-append preview_btns" id="button-addon4">
                   <button data-toggle="modal" data-target="#preview" type="button" class="btn btn-outline-secondary">プレビュー</button>
                   <button v-on:click="fileUpload" type="button" class="btn btn-outline-secondary">アップロード</button>
                 </div>
@@ -175,7 +173,8 @@
             <div class="modal-dialog modal-margin" role="document">
               <div class="modal-content w-75 u-mx-a p-4 text-center">
                 <p class="js-preview-img">
-                  <img class="w-100" src="/images/avator1.png" alt="">
+                  <img class="w-100" alt="プレビュー：プロフィール画像">
+                  <p v-if="picture == '' " class="u-txt-b">画像を選択してください</p>
                 </p>
                 <dl class="mt-3">
                   <dt id="exampleModalLabel" class="modal-title u-txt-b">画像を更新しますか？</dt>
