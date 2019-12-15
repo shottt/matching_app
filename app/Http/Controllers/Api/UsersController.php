@@ -103,48 +103,44 @@ class UsersController extends Controller
 
     }
 
-    // ユーザー情報を更新する　仮でかいた
+    // ユーザー情報を更新する
     public function set_prof(Request $request){
-    
-        // 自分のユーザーとPOST値のUser_idを比較
 
         Log::debug($request);
+        Log::debug($request->my_data);
 
-        // // バリデーション
-        // // $this->validate($request, User::$rules);
+        // 受け取ったデータのkeyを取得する
+        $my_data_key = array_keys($request->my_data);
+        Log::debug($my_data_key[0]);
 
-        // $id = $request->id;
+        // keyに応じたバリデーションを記載
+        // $this->validate($request->my_data, User::$rules);
 
-        // // idが数字かどうかをチェックする
-        // if(!ctype_digit($id)){
-        //     return response()->json(['result_flag' => false]);
-        // }
+        // 自分のIDを取得する
+        $my_id = Auth::id();
 
-        // // 編集するユーザー情報を取得する
-        // $user = User::find($id);
-        // $form = $request->all();
-        // // fillメソッドで一括保存
-        // $user->fill($form)->save();
-
-        // $auth_id = Auth::id();
-        // $user_id = $request->user_id;
+        // 編集するユーザー情報を取得する
+        $user = User::find($my_id);
         
-        // if(empty($user_id)){
-        //     return response()->json(['result_flag' => false]);
-        // }
-        
-        // //update 
+        // fillメソッドで一括保存
+        $user->fill($request->my_data)->save();
 
-        // //select * from users where user_id = user_id;
-        // $user = DB::table('users')->where('id', '=', $user_id)->where('delete_flag', 0)->first();
-        // // Log::debug(print_r($user, true));
+        // 異常判定
+        if(empty($user)){
+            return response()->json(['result_flag' => false]);
+        }
+        
+        //update 
+
+        //select * from users where my_id = my_id;
+        // $user = DB::table('users')->where('id', '=', $my_id)->where('delete_flag', 0)->first();
 
         // // 異常判定
         // if(empty($user)){
         //     return response()->json(['result_flag' => false]);
         // }
 
-        // // Log::debug(response()->json(['result_flag' => true, 'friend' => $user]));
+        // Log::debug(response()->json(['result_flag' => true, 'friend' => $user]));
         return response()->json(['result_flag' => true]);
 
     }
