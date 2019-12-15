@@ -90,8 +90,8 @@ class UsersController extends Controller
             return response()->json(['result_flag' => false]);
         }
         
-        $user = DB::table('users')->where('id', '!=', $auth_id)->where('id', '=', $user_id)->where('delete_flag', 0)->first();
-        // Log::debug('自分のユーザー情報：' .print_r($user, true));
+        $user = User::where('id', '!=', $auth_id)->where('id', $user_id)->where('delete_flag', 0)->first();
+        // Log::debug('ユーザー情報詳細：' .print_r($user, true));
 
         // 異常判定
         if(empty($user)){
@@ -103,49 +103,44 @@ class UsersController extends Controller
 
     }
 
-    // ユーザー情報を更新する　仮でかいた
+    // ユーザー情報を更新する
     public function set_prof(Request $request){
-    
-        // 自分のユーザーとPOST値のUser_idを比較
-
-        Log::debug($request);
 
         // バリデーション
-        // $this->validate($request, User::$rules);
+        $this->validate($request, User::$rules);
+        // Log::debug('バリデーションOK');
 
-        $id = $request->id;
+         // my_dataを変数に格納
+         $my_data = $request->my_data;
+        //  Log::debug($my_data);
 
-        // idが数字かどうかをチェックする
-        if(!ctype_digit($id)){
+        // 自分のIDを取得する
+        $my_id =$request->header('aut_id');
+        // ログインユーザーIDと一致しているか確認
+        if($my_id != Auth::id()){
             return response()->json(['result_flag' => false]);
         }
 
         // 編集するユーザー情報を取得する
-        $user = User::find($id);
-        $form = $request->all();
-        // fillメソッドで一括保存
-        $user->fill($form)->save();
+        $user = User::where('id', $my_id)->where('delete_flag', 0)->first();
 
-        // $auth_id = Auth::id();
-        // $user_id = $request->user_id;
-        
-        // if(empty($user_id)){
-        //     return response()->json(['result_flag' => false]);
-        // }
-        
-        // //update 
+        // 異常判定
+        if(empty($user)){
+            return response()->json(['result_flag' => false]);
+        }
+        // 受け取ったmy_dataをfillメソッドで保存する
+        $result = $user->fill($my_data)->save();
 
-        // //select * from users where user_id = user_id;
-        // $user = DB::table('users')->where('id', '=', $user_id)->where('delete_flag', 0)->first();
-        // // Log::debug(print_r($user, true));
+        // 結果がfalseの場合、result_flagをfalseでreturn
+        if(!$result){
+            return response()->json(['result_flag' => false]);
+        }
 
-        // // 異常判定
-        // if(empty($user)){
-        //     return response()->json(['result_flag' => false]);
-        // }
+        // 更新後のユーザー情報を取得する
+        $my_data = User::where('id', $my_id)->where('delete_flag', 0)->first();
 
-        // // Log::debug(response()->json(['result_flag' => true, 'friend' => $user]));
-        return response()->json(['result_flag' => true]);
+        // Log::debug(response()->json(['result_flag' => true, 'my_data' => $my_data]));
+        return response()->json(['result_flag' => true, 'my_data' => $my_data]);
 
     }
 

@@ -21,28 +21,7 @@ Route::group(['middleware' => 'api'], function() {
     //
     
     Auth::routes();
-
-    //1209 カラム名が変わっていたのでその変更に合わせてコメントを修正
-    //settings フォルダ
-    // from  user_id, 
-    //       
-    //         name,
-    //         occupation,
-    //         birthday,
-    //         profile_header,
-    //         profile_detail,
-    //         picture,
-
-    // return result_flag, 
-    //        my_data {}
-    Route::post('/ctrl_set_prof', 'Api\UsersController@set_prof');
-
-    //settings フォルダ
-    // from  picture,
-    // return result_flag, 
-    //        picture
-    Route::post('/ctrl_set_prof_img', 'Api\UsersController@set_prof_img');
-
+    
     // Route::group(['middleware' => ['auth']], function () {
     //         // この中はログインされている場合のみルーティングされる
     //         Route::get('/ctrl_set_prof', 'Ajax\UsersController@set_prof');
@@ -144,9 +123,27 @@ Route::group(['middleware' => 'api'], function() {
     */
     Route::post('/ctrl_user_profile', 'Api\UsersController@user_profile');
 
+    /***********************************
+     * 登録ユーザー編集機能
+    ***********************************/
+    //1209 カラム名が変わっていたのでその変更に合わせてコメントを修正
+    //settings フォルダ
+    // from  user_id, 
+    //       
+    //         name,
+    //         occupation,
+    //         birthday,
+    //         profile_header,
+    //         profile_detail,
+    //         picture,
+
+    // return result_flag, 
+    //        my_data {}
+    Route::post('/ctrl_set_prof', 'Api\UsersController@set_prof');
+
 
     /***********************************
-     * メッセージ機能
+     * チャット機能
     ***********************************/
 
     /* チャットコメントを取得する

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'occupation', 'profile', 'location', 'picture', 'review', 'block_user', 'delete_flag'
+        'name', 'email', 'password', 'occupation', 'profile_header', 'profile_detail', 'birthday', 'location', 'picture', 'review', 'block_user', 'delete_flag'
     ];
 
     /**
@@ -36,6 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // バリデーション（項目は適当。別途、検討要）
+    public static $rules = array(
+        'name' => 'max:255',
+        'email' => 'email|max:255',
+        'profile_header' => 'max:255',
+        'profile_detail' => 'max:255',
+        'picture' => 'file|image',
+    );
 
     public function posts()
     {
