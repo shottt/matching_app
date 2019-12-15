@@ -12,10 +12,56 @@ use Log;
 
 class ChatsController extends Controller
 {   
-
     //chatを新規作成
-    //get_chat でchat_idが見つからない時に使う　リダイアレクトで使う
+    //get_chat でchat_idが見つからない時に使う　リダイレクトで使う
     public function create_chat(Request $request){
+        // 自分のユーザーIDを取得
+        // $my_id = $request->my_id;
+        $my_id = 2;
+        Log::debug('1 自分のユーザーID：' .$my_id);
+        // 受け取った自分のユーザーIDがログインユーザーのIDか判定（同時にmy_idを受け取れているか確認）
+        if($my_id != Auth::id()){
+            return response()->json(['result_flag' => false]);
+        }
+        // 相手のユーザーIDを取得
+        // $user_id = $request->user_id;
+        $user_id = 7;
+        Log::debug('2 相手のユーザーID：' .$user_id);
+
+        // 異常判定
+        if(empty($user_id)){
+            return response()->json(['result_flag' => false]);
+        }
+
+        // 自分のユーザーIDと相手のユーザーIDにマッチするチャット情報があるか確認し
+        // ある場合はresult_flag：falseを返す
+        $chat_id = Chat::where('from_user', $my_id)->where('to_user', $user_id)->first(['id']);
+        // Log::debug(print_r($chat_id, true));
+        if($chat_id){
+            return response()->json(['result_flag' => false]);
+        }
+
+        // モデル作成
+        $chat = new Chat;
+        $chat->to_user = $user_id;
+        $chat->from_user = $my_id;
+        $chat->save();
+
+        // 作成したレコードのチャットIDを取ってくる
+        $chat_id = $chat->id;
+        Log::debug('3 チャットID：' .print_r($chat_id, true));
+
+        // 異常判定
+        if(empty($chat_id)){
+            return response()->json(['result_flag' => false]);
+        }
+
+        // コメントを降順で10件取得する
+        $comments = Comment::where('chat_id', $chat_id)->orderBy('created_at', 'desc')->take(10)->get();
+        Log::debug('4 コメント情報一覧：' .print_r($comments, true));
+
+        return response()->json(['result_flag' => true, 'comments' => $comments]);
+
     }
 
     // チャットコメントを取得
