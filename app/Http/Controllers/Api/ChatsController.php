@@ -11,12 +11,18 @@ use App\Comment;
 use Log;
 
 class ChatsController extends Controller
-{
+{   
+
+    //chatを新規作成
+    //get_chat でchat_idが見つからない時に使う
+    public function create_chat(Request $request){
+    }
+
     // チャットコメントを取得
     public function get_chat(Request $request){
         // 自分のユーザーIDを取得
         $my_id = $request->my_id;
-        Log::debug('自分のユーザーID：' .$my_id);
+        Log::debug('1 自分のユーザーID：' .$my_id);
 
         // 変数の型をログに出力
         // Log::debug('自分のユーザーID：' . gettype($my_id));
@@ -29,7 +35,7 @@ class ChatsController extends Controller
 
         // 相手のユーザーIDを取得
         $user_id = $request->user_id;
-        Log::debug('相手のユーザーID：' .$user_id);
+        Log::debug('2 相手のユーザーID：' .$user_id);
 
         // 異常判定
         if(empty($user_id)){
@@ -43,16 +49,15 @@ class ChatsController extends Controller
             $chat_id = DB::table('chats')->where('from_user', $user_id)->where('to_user', $my_id)->first(['id'])->id;
         }
 
-        Log::debug('チャットID：' .print_r($chat_id, true));
+        Log::debug('3 チャットID：' .print_r($chat_id, true));
 
         // 異常判定
         if(empty($chat_id)){
             return response()->json(['result_flag' => false]);
         }
-
         // コメントを降順で10件取得する
         $comments = DB::table('comments')->where('chat_id', $chat_id)->orderBy('created_at', 'desc')->take(10)->get();
-        Log::debug('コメント情報一覧：' .print_r($comments, true));
+        Log::debug('4 コメント情報一覧：' .print_r($comments, true));
 
         // 異常判定
         if(empty($comments)){

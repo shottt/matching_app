@@ -169,5 +169,16 @@ Route::group(['middleware' => 'api'], function() {
     */
     Route::post('/ctrl_add_chat_comment', 'Api\ChatsController@add_chat_comment');
 
+    /* chat作成　
+    * from my_id, user_id
+    * return result_flag;
+    *        comments:
+    *               id,
+    *               detail,
+    *               user_id,
+    *               attachment
+    *               updated_at,
+    */
+    Route::post('/create_chat', 'Api\ChatsController@get_chat');
 
 });

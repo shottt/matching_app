@@ -1860,9 +1860,8 @@ __webpack_require__.r(__webpack_exports__);
         if (_this.json_data.result_flag === true) {
           //ユーザー情報
           _this.$store.dispatch('user_info/user', _this.json_data.friend); //描画のための画面判定値を更新
+          //this.change_Page_Pattern('');
 
-
-          _this.change_Page_Pattern('page_displaying/set_Vuex__pattern', "user_profile");
 
           _this.$router.push({
             path: '/user_profile'
@@ -3320,6 +3319,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     start_chat: function start_chat() {
+      this.change_Page_Pattern('chat');
       this.$router.push('/chat/');
     }
   },
