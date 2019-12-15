@@ -66,7 +66,7 @@
       <i @click="display_Input('profile_detail')" class="fas fa-pencil-alt u-text-orange u-abs-rb lead"></i>
       </p>
       <div v-if="profile_detail_flg===true" class="input-group mt-2">
-        <textarea class="form-control w-100" aria-label="テキストエリア付き" aria-describedby="basic-textarea"></textarea>
+        <textarea v-model="profile_detail" class="form-control w-100" aria-label="テキストエリア付き" aria-describedby="basic-textarea"></textarea>
         <div class="input-group-prepend mt-2">
           <button @click="display_Input('profile_detail')" type="button" class="btn btn-outline-secondary">変更中止</button>
           <button @click="set_Input('profile_detail')" type="button" class="btn btn-outline-secondary">変更する</button>

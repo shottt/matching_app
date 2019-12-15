@@ -13563,7 +13563,7 @@ a.text-dark:focus {
 
 .c-Card-Hero__detail {
   position: absolute;
-  bottom: 15%;
+  bottom: 5%;
   left: 0;
   right: 0;
   text-align: center;
@@ -13625,6 +13625,21 @@ a.text-dark:focus {
   bottom: 0;
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.u-mask {
+  position: relative;
+}
+
+.u-mask::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 /*=====================

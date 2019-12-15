@@ -1,0 +1,21 @@
+<input typet="file" enctype="multipart/form-data">
+
+１changeイベントでリッスンし
+
+２event.target.filesの中身を取ってくる
+画像一個なら
+let file = event.target.files[0];
+
+画像が複数なら
+let file = event.target.files[0];
+let file = event.target.files[1];
+.
+.
+let file = event.target.files[last];
+
+3 FileReaderでfileにアクセス
+const reader = new FileReader();
+reader.addEventListener('load',{
+  dom.src = even.target.result;
+});
+reader.readDataURL(file);

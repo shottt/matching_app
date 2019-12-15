@@ -7,11 +7,9 @@
         name: "",
         occupation: "",
         location: "",
-        picture: "",
         name_flg: false,
         occupation_flg: false,
         location_flg: false,
-        picture__flg: true,
         json_data: {},
         //プロフィールが更新されると更新内容が即反映されるようにしてます
         name__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].name,
@@ -19,7 +17,11 @@
         location__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].location,
 
         //画像処理
+        picture: "",
+        //tmp_picutre: "",
+        picture_flg: false,
         picture__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
+        fileInfo: '',
       }
     },
 
@@ -90,26 +92,105 @@
         //jsonを投げてる
         this.json_data = this.update_Prof(this, text);
       },
-      selectedFile: function(e) {
-        // 選択された File の情報を保存しておく
-        // e.preventDefault();
-        // let files = e.target.files;
-        // this.prof_data.picture = files[0];
-        // this.prof_data.picture_name = files[0].name;
-        alert(111);
-        this.fileInfo = e.targetfiles[0];
+
+      //画像アップロード処理　未完成
+      fileSelected: function(event) {
+
+        this.fileInfo = event.target.files[0];
+        console.log(this.fileInfo);
+        console.log(this.picture);
+        //初期選択なし
+        if (this.fileInfo === undefined && this.picture === "" ) {
+          return;
+        }
+        //選び直しで選択なし
+        if (this.fileInfo === undefined && this.picture !== "" ) {
+          this.fileInfo = this.picture;
+        }
+
+        const reader = new FileReader();
+        let preview_img = document.querySelector(".js-preview-img > img");
+        
+        reader.onload = function (event) {
+          preview_img.src = event.target.result;
+        }
+        this.picture = this.fileInfo;
+        reader.readAsDataURL(this.fileInfo);
       },
+
+      fileUpload(){
+        const formData = new FormData()
+
+        formData.append('picture',this.fileInfo)
+
+        axios.post('/api/ctrl_set_prof_img',formData)
+        .then(res => {
+          if (res.data.result_flag === false) {
+            alert("通信成功しましたが、該当データ見当たらないです。");
+            return;
+          }
+          console.log("プロフィール更新成功");
+          obj.json_data = res.data;
+          console.log(obj.json_data);
+          
+          //window.laravel 更新
+          window.Laravel.my_data['picture'] = obj.json_data.my_data['picture'];
+
+          //vuex 更新
+          obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+
+          return obj.json_data;
+        }).catch(err => console.log(err)
+        
+        ).finally(() => {
+            console.log('finally');
+        });
+      }
     },
     template: `
     <main class="text-center u-bg-w u-pb-180">
       <div class="c-Card-Hero">
-        <img class="w-100" src="/images/avator1.png" alt="">
-        <label class="c-Card-Hero__img-input u-text-pink p-2" for="image">
-          <i class="fas fa-camera u-text-orange lead"></i>
-          <input @change="selectedFile" mulitple="multiple" class="text-dark" type="file" id="image">
-        </label>
+        <p class="c-Card-Hero__img">
+          <img class="w-100" src="/images/avator1.png" alt="">
+        </p>
         <dl class="c-Card-Hero__detail text-center">
           <dt>
+            <label class="c-Card-Hero__img-input u-text-pink p-2" for="image">
+              <i @click.self="display_Input('picture')" class="fas fa-camera u-text-orange lead"></i>
+              
+              <div class="u-align-center" v-if="picture_flg===true">
+                <input @change="fileSelected" enctype="multipart/form-data" class="text-dark mb-2" type="file" id="image" name="prf_img">
+                <p>{{ picture["name"] }}</p>
+                <div class="input-group-append preview_btns" id="button-addon4">
+                  <button data-toggle="modal" data-target="#preview" type="button" class="btn btn-outline-secondary">プレビュー</button>
+                  <button v-on:click="fileUpload" type="button" class="btn btn-outline-secondary">アップロード</button>
+                </div>
+              </div>
+
+            </label>
+            
+          </dt>
+
+          <dd class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="previewLabel">
+            <div class="modal-dialog modal-margin" role="document">
+              <div class="modal-content w-75 u-mx-a p-4 text-center">
+                <p class="js-preview-img">
+                  <img class="w-100" src="/images/avator1.png" alt="">
+                </p>
+                <dl class="mt-3">
+                  <dt id="exampleModalLabel" class="modal-title u-txt-b">画像を更新しますか？</dt>
+                  <dd class="u-txt-b">Are you sure you wish to update your profile image?</dd>
+                </dl>
+                <div>
+                  <a v-on:click.self="fileUpload"  class="u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40" data-dismiss="modal">はい</a>
+                  <a class="u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40" data-dismiss="modal">いいえ</a>
+                </div>
+
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </dd><!-- /.modal -->
+          <dt>
+
           {{ name__displayed }}
           <i @click="display_Input('name')" class="pl-2 fas fa-pencil-alt u-text-orange lead"></i>
           </dt>
@@ -210,9 +291,14 @@
 <style lang="scss" scoped>
 .c-Card-Hero {
   overflow: hidden;
-  > img {
-    min-height: 400px;
-    object-fit: cover;
+}
+.c-Card-Hero__img {
+  max-height: 50vh;
+  margin-left:auto;
+  margin-right:auto;
+
+  img {
+    object-fit: contain;
   }
 }
 .u-Sticky {
@@ -281,15 +367,39 @@ i:hover {
 
 
 .c-Card-Hero__img-input {
+  /*
   position: absolute;
-  bottom: 0;
+  bottom: 20%;
   right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
   display: inline-block;
-  border-radius: 4px;
-  box-shadow:  0 2px 6px rgba(146, 146, 146, 0.8);
+  border-radius: 4px;*/
+  color: #fff;
   cursor: pointer;
   input {
-    display: none;
+    //display: none;
   }
+}
+.preview_btns {
+  > button {
+    background: #fff;
+    &:hover {
+      background-color: #6c757d;
+    }
+  }
+}
+.input-group {
+  background: none;
+    button {
+    background: #fff;
+    &:hover {
+      background-color: #6c757d;
+    }
+  }
+}
+input[type="file"] {
+  width:120px;
 }
 </style>
