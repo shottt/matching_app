@@ -35,6 +35,7 @@ export default {
         //親chat.vueにコメント追加を連絡する
         this.$emit('emit-add-comment', true,);
         this.change_Page_Pattern('chat');
+        this.comment = "";
         console.log("成功");
 
       })

@@ -23,7 +23,12 @@
         fileInfo: '',
       }
     },
+    beforeUpdate: function () {
+      
+    },
+    computed: {
 
+    },
     created: function() {
      
         this.$nextTick(function () {
@@ -31,10 +36,10 @@
         //なにこれ　なんのため？ なんか意味があった気がする
         this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
         
-        this.name__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].name;
-        if (this.name__displayed === "") {
-          this.name__displayed = "お名前を教えてください。";
-        }
+        // this.name__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].name;
+        // if (this.name__displayed === "") {
+        //   this.name__displayed = "お名前を教えてください。";
+        // }
         this.occupation__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].occupation;
         if (this.occupation__displayed === "") {
           this.occupation__displayed = "ご職業を教えてください。";

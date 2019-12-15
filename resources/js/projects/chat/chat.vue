@@ -61,8 +61,7 @@ export default {
         }
 
         this.change_Page_Pattern('chat');
-        this.chat_comments = res.data.comments; 
-        this.reverse_Comments();
+        this.chat_comments = this.reverse_Comments(res.data.comments);
         this.chat_props.chat_id = this.chat_comments[0].chat_id;
         this.chat_props.chat_length = this.chat_comments.length
 
@@ -110,15 +109,17 @@ export default {
       });
     },
 
-    reverse_Comments: function () {
-      this.chat_comments = this.chat_comments.slice().reverse();
+    reverse_Comments: function (list) {
+      return list.slice().reverse();
       
     },
     get_Chat_Scroll() {
+      return;
       this.scrollY = window.scrollY;
-      if (this.scrollY >= 500) {
-      this.$http.post('/api/ctrl_get_chat', {
+      if (this.scrollY >= 500 * this.scroll_cnt) {
+      this.$http.post('/api/ctrl_get_chat_by_scroll', {
         chat_id: this.chat_props.chat_id,
+        chat_length: this.chat_props.chat_length,
       })
       .then(res => {
 
@@ -128,10 +129,10 @@ export default {
         }
 
         this.change_Page_Pattern('chat');
-        this.chat_comments = res.data.comments; 
-        this.reverse_Comments();
 
+        this.chat_comments = this.chat_comments.cancat(this.reverse_Comments(res.data.comments));
 
+        ++this.scroll_cnt;
         return this.chat_comments;
         console.log("成功");
 

@@ -2368,10 +2368,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.change_Page_Pattern('chat');
 
-        _this.chat_comments = res.data.comments;
-
-        _this.reverse_Comments();
-
+        _this.chat_comments = _this.reverse_Comments(res.data.comments);
         _this.chat_props.chat_id = _this.chat_comments[0].chat_id;
         _this.chat_props.chat_length = _this.chat_comments.length;
         return _this.chat_comments;
@@ -2414,17 +2411,19 @@ __webpack_require__.r(__webpack_exports__);
         console.log('finally');
       });
     },
-    reverse_Comments: function reverse_Comments() {
-      this.chat_comments = this.chat_comments.slice().reverse();
+    reverse_Comments: function reverse_Comments(list) {
+      return list.slice().reverse();
     },
     get_Chat_Scroll: function get_Chat_Scroll() {
       var _this3 = this;
 
+      return;
       this.scrollY = window.scrollY;
 
-      if (this.scrollY >= 500) {
-        this.$http.post('/api/ctrl_get_chat', {
-          chat_id: this.chat_props.chat_id
+      if (this.scrollY >= 500 * this.scroll_cnt) {
+        this.$http.post('/api/ctrl_get_chat_by_scroll', {
+          chat_id: this.chat_props.chat_id,
+          chat_length: this.chat_props.chat_length
         }).then(function (res) {
           if (res.data.result_flag === false) {
             alert("コメント取得に失敗しました");
@@ -2433,10 +2432,8 @@ __webpack_require__.r(__webpack_exports__);
 
           _this3.change_Page_Pattern('chat');
 
-          _this3.chat_comments = res.data.comments;
-
-          _this3.reverse_Comments();
-
+          _this3.chat_comments = _this3.chat_comments.cancat(_this3.reverse_Comments(res.data.comments));
+          ++_this3.scroll_cnt;
           return _this3.chat_comments;
           console.log("成功");
         })["catch"](function (err) {
@@ -2503,6 +2500,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.change_Page_Pattern('chat');
 
+        _this.comment = "";
         console.log("成功");
       })["catch"](function (err) {
         return console.log(err);
@@ -2907,16 +2905,16 @@ __webpack_require__.r(__webpack_exports__);
       fileInfo: ''
     };
   },
+  beforeUpdate: function beforeUpdate() {},
+  computed: {},
   created: function created() {
     this.$nextTick(function () {
       // 子のコンポがレンダリングされた後にのみ実行されるコード
       //なにこれ　なんのため？ なんか意味があった気がする
-      this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex'];
-      this.name__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].name;
-
-      if (this.name__displayed === "") {
-        this.name__displayed = "お名前を教えてください。";
-      }
+      this.pattern_data = this.$store.getters['page_displaying/getPattern_Vuex']; // this.name__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].name;
+      // if (this.name__displayed === "") {
+      //   this.name__displayed = "お名前を教えてください。";
+      // }
 
       this.occupation__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].occupation;
 
@@ -58677,6 +58675,8 @@ Vue.mixin({
       ;
     },
     update_Prof: function update_Prof(obj, text) {
+      var _this = this;
+
       var my_data = this.get_Post_Value_Type(obj, text);
       console.log(my_data);
 
@@ -58707,7 +58707,27 @@ Vue.mixin({
         window.Laravel.my_data['birthday'] = obj.json_data.my_data['birthday'];
         window.Laravel.my_data['picture'] = obj.json_data.my_data['picture']; //vuex 更新
 
-        obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+        obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data); //表示内容更新
+
+        obj.name__displayed = obj.json_data.my_data['name'];
+        obj.email__displayed = obj.json_data.my_data['email'];
+        obj.occupation__displayed = obj.json_data.my_data['occupation'];
+        obj.location__displayed = obj.json_data.my_data['location'];
+        obj.profile_header__displayed = obj.json_data.my_data['profile_header'];
+        obj.profile_detail__displayed = obj.json_data.my_data['profile_detail'];
+        obj.birthday__displayed = obj.json_data.my_data['birthday'];
+        obj.picture__displayed = obj.json_data.my_data['picture'];
+        obj.name__displayed = "";
+        obj.email = "";
+        obj.occupation = "";
+        obj.location = "";
+        obj.profile_header = "";
+        obj.profile_detail = "";
+        obj.birthday = "";
+        obj.picture = "";
+
+        _this.get_Prof_Type(obj, text);
+
         return obj.json_data;
       })["catch"](function (err) {
         return console.log(err);
@@ -61602,8 +61622,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/matching_app/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/matching_app/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/matching/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/matching/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

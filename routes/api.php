@@ -192,4 +192,18 @@ Route::group(['middleware' => 'api'], function() {
     */
     Route::post('/create_chat', 'Api\ChatsController@get_chat');
 
+
+    
+    /* チャットコメントを取得する
+    * 
+    * from chat_id, chat_length
+    * return result_flag;
+    *        comments:
+    *               id,
+    *               detail,
+    *               user_id,
+    *               attachment
+    *               updated_at,
+    */
+    Route::post('/ctrl_get_chat_by_scroll', 'Api\ChatsController@get_chat_by_scroll');
 });
