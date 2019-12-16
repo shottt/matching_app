@@ -18,14 +18,18 @@
 
         //画像処理
         picture: "",
-        //tmp_picutre: "",
         picture_flg: false,
-        picture__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
+        picture__displayed: "",//this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
         fileInfo: '',
       }
     },
+    beforeUpdate: function () {
+      
+    },
+    computed: {
 
-    mounted: function() {
+    },
+    created: function() {
      
         this.$nextTick(function () {
         // 子のコンポがレンダリングされた後にのみ実行されるコード
@@ -44,11 +48,10 @@
         if (this.location__displayed === "") {
           this.location__displayed = "お住まいを教えてください。";
         }
-
         this.picture__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture;
         if (this.picture__displayed === "") {
           //デフォルトの画像を表示したい
-          this.picture__displayed = "";
+          this.picture__displayed = "aa";
         }
 
       })
@@ -136,6 +139,8 @@
           // window.Laravel.my_data['picture'] = this.json_data.my_data['picture'];
           // //vuex 更新
           // this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+          //picture__displayed更新
+          //this.picture__displayed = this.json_data.picture;
 
         }).catch(err => console.log(err)
         
@@ -360,6 +365,9 @@
   margin-right: auto;
   background: #fff;
 }
+i {
+  padding-left: 10px;
+}
 i:hover {
   cursor: pointer;
 }
@@ -400,5 +408,8 @@ i:hover {
 }
 input[type="file"] {
   width:120px;
+}
+.modal-dialog  {
+  margin-top: 10vh;
 }
 </style>

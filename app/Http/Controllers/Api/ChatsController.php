@@ -109,6 +109,25 @@ class ChatsController extends Controller
 
     }
 
+    // 最新チャットコメント1件を取得
+    public function get_new_chat(Request $request){
+        $chat_id = $request->chat_id;
+        
+        $comment = DB::table('comments')->where('chat_id', $chat_id)->orderBy('created_at', 'desc')->first();
+        Log::debug('4 コメント情報一覧：' .print_r($comment, true));
+
+        /*
+        // 異常判定
+        if(empty($comment)){
+            return response()->json(['result_flag' => false]);
+        }
+*/
+        Log::debug(response()->json(['result_flag' => true, 'commnet' => $comment]));
+        return response()->json(['result_flag' => true, 'comment' => $comment]);
+
+    }
+    
+
     // チャットコメント追加
     public function add_chat_comment(Request $request){
         // バリデーション
@@ -117,19 +136,20 @@ class ChatsController extends Controller
 
         $my_id = $request->my_id;
         $user_id = $request->user_id;
-
+        $chat_id = $request->chat_id;
+        
         // 受け取った自分のユーザーIDがログインユーザーのIDか判定
         if($my_id != Auth::id()){
             return response()->json(['result_flag' => false]);
         }
 
-        // チャットIDを取得する
-        // 自分のユーザーIDと相手のユーザーIDにマッチするチャット情報を取得する
-        $chat_id = DB::table('chats')->where('from_user', $my_id)->where('to_user', $user_id)->first(['id'])->id;
+        // // チャットIDを取得する
+        // // 自分のユーザーIDと相手のユーザーIDにマッチするチャット情報を取得する
+        // $chat_id = DB::table('chats')->where('from_user', $my_id)->where('to_user', $user_id)->first(['id'])->id;
 
-        if (empty($chat_id)) {
-            $chat_id = DB::table('chats')->where('from_user', $user_id)->where('to_user', $my_id)->first(['id'])->id;
-        }
+        // if (empty($chat_id)) {
+        //     $chat_id = DB::table('chats')->where('from_user', $user_id)->where('to_user', $my_id)->first(['id'])->id;
+        // }
 
         // モデル作成
         $comment = new Comment;

@@ -17,19 +17,41 @@ export default {
     chat_comments: {},
     my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
     user_id: this.$store.getters['user_info/getUser_Vuex'].id,
+    chat_id: 0,
+    chat_props: {
+      chat_id: 0,
+      chat_length: 10,
+    },
+    scrollY: 0,
+    scroll_cnt: 1,
   }},
   created: function () {
-    this.chat_comments = this.get_Comment(true);
+    this.$nextTick(function () {
+      //初期レンダリング時コメントを取得
+      this.get_Comment(true);
+    });
+    window.addEventListener('scroll', this.get_Chat_Scroll);
+  },
+  computed: {
+    chat_comments_displayed: function () {
+      return this.chat_comments;
+    },
+    chat_length_cm: function () {
+      this.chat_props.chat_length = this.chat_comments.length;
+      return this.chat_props.chat_length;
+    }
   },
   //子のcomment_form.vueから「コメントが増えた」と信号を受け取る。
   methods: {
-    get_Comment: function (get_flag) {
+    get_Comment: function (get_flag,) {
       if (get_flag !== true) {
         return;
-      }
+      } 
+      console.log();
+
       this.$http.post('/api/ctrl_get_chat', {
         my_id: this.my_id,
-        user_id: this.user_id
+        user_id: this.user_id,
       })
       .then(res => {
 
@@ -39,7 +61,11 @@ export default {
         }
 
         this.change_Page_Pattern('chat');
-        this.chat_comments = res.data.comments; 
+        this.chat_comments = this.reverse_Comments(res.data.comments);
+        this.chat_props.chat_id = this.chat_comments[0].chat_id;
+        this.chat_props.chat_length = this.chat_comments.length
+
+        return this.chat_comments;
         console.log("成功");
 
       })
@@ -48,6 +74,76 @@ export default {
         console.log('finally')
       });
     },
+
+    get_new_comment: function (get_flag) {
+      if (get_flag !== true) {
+        return;
+      }
+
+      this.$http.post('/api/ctrl_get_new_chat', {
+        chat_id: this.chat_props.chat_id,
+      })
+      .then(res => {
+
+        if (res.data.result_flag === false) {
+          alert("最新コメント取得に失敗しました");
+          return;
+        }
+
+        this.change_Page_Pattern('chat');
+        
+        //chat_commentsに追加
+        console.log(res.data.comment);
+        this.chat_comments.push(res.data.comment);
+
+        //this.chat_props.chat_id = this.chat_comments[0].chat_id;
+        //this.chat_props.chat_length = this.chat_comments.length;
+
+        return this.chat_comments;
+        console.log("成功");
+
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        console.log('finally')
+      });
+    },
+
+    reverse_Comments: function (list) {
+      return list.slice().reverse();
+      
+    },
+    get_Chat_Scroll() {
+      return;
+      this.scrollY = window.scrollY;
+      if (this.scrollY >= 500 * this.scroll_cnt) {
+      this.$http.post('/api/ctrl_get_chat_by_scroll', {
+        chat_id: this.chat_props.chat_id,
+        chat_length: this.chat_props.chat_length,
+      })
+      .then(res => {
+
+        if (res.data.result_flag === false) {
+          alert("コメント取得に失敗しました");
+          return;
+        }
+
+        this.change_Page_Pattern('chat');
+
+        this.chat_comments = this.chat_comments.cancat(this.reverse_Comments(res.data.comments));
+
+        ++this.scroll_cnt;
+        return this.chat_comments;
+        console.log("成功");
+
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        console.log('finally')
+      });
+      }
+      console.log(this.scrollY);
+    }
   },
   components: {
     comments,
@@ -56,74 +152,39 @@ export default {
   <div>
     <main class="u-container-y--short">
       <div class="container">
-
+     
         <ul class="table mb-0 py-5 Chat">
+          <li v-for="chat in chat_comments_displayed">
+            <div v-if="chat.from_user == my_id" class="Chat__me">
+              <p class="text-left p-2 u-txt-b">
+              {{chat.detail}}
+              </p>
+              <time>{{chat.updated_at}}</time>
+            </div>
 
-          <li class="Chat__me" v-for="">
-            <p class="text-left p-2 u-txt-b">
-              me me me me me me me me me me me me
-            </p>
-             <time>2019 11 02</time>
+            <div v-if="chat.from_user == user_id" class="Chat__friend">
+              <i class="fas fa-male"></i>
+              <p class="text-left p-2 u-txt-b">
+                {{chat.detail}} 
+              </p>
+              <time>{{chat.updated_at}}</time>
+            </div>
           </li>
-
-          <li class="Chat__friend">
-            <i class="fas fa-male"></i>
-            <p class="text-left p-2 u-txt-b">
-              friend friend friend friend friend friend friend friend friend friend 
-            </p>
-            <time>2019 11 02</time>
-          </li>
-          
-
-
-          <li class="Chat__me">
-            <p class="text-left p-2 u-txt-b">
-              me me me me me me me me me me me me
-            </p>
-            <time>2019 11 02</time>
-          </li>
-
-          <li class="Chat__friend">
-            <i class="fas fa-male"></i>
-            <p class="text-left p-2 u-txt-b">
-              friend friend friend friend friend friend friend friend friend friend 
-            </p> 
-            <time>2019 11 02</time>
-          </li>
-
-          <li class="Chat__friend">
-            <i class="fas fa-male"></i>
-            <p class="text-left p-2 u-txt-b">
-              friend friend friend friend friend friend friend friend friend friend 
-            </p> 
-            <time>2019 11 02</time>
-          </li>
-
-          <li class="Chat__me">
-            <p class="text-left p-2 u-txt-b">
-              me me me me me me me me me me me me
-            </p>
-            <time>2019 11 02</time>
-          </li>       
-          
-          <li class="Chat__me">
-            <p class="text-left p-2 u-txt-b">
-              me me me me me me me me me me me me
-            </p>
-            <time>2019 11 02</time>
-          </li>
-
         </ul>
+
+        
+
       </div>
     </main>
-    <comments v-on:emit-add-comment="get_Comment"/>
+    <comments v-on:emit-add-comment="get_new_comment" v-bind:chat_props="chat_props"/>
   </div>`
 }
 </script>
 
 <style lang="scss" scoped>
 
-li {
+.Chat__me,
+.Chat__friend{
   position: relative;
   display: block;
   margin-bottom: 32px;

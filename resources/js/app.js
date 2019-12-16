@@ -53,6 +53,7 @@ Vue.component('file-upload', VueUploadComponent);
 
 Vue.mixin({
   data: function(){ return {
+    pattern: "",
     vali_error: {
       
       required : "入力必須項目です。",//required attr
@@ -69,8 +70,11 @@ Vue.mixin({
       regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
       regexp_half: new RegExp("^[a-zA-Z0-9]+$")
     },
-    pattern: "",
+
   }},
+  created: function () {
+
+  },
 
   methods: {
     vali_required: function (type, value) {
@@ -222,6 +226,29 @@ Vue.mixin({
         //vuex 更新
         obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
 
+        //表示内容更新
+
+        obj.name__displayed = obj.json_data.my_data['name'];
+        obj.email__displayed = obj.json_data.my_data['email'];
+        obj.occupation__displayed = obj.json_data.my_data['occupation'];
+        obj.location__displayed = obj.json_data.my_data['location'];
+        obj.profile_header__displayed = obj.json_data.my_data['profile_header'];
+        obj.profile_detail__displayed = obj.json_data.my_data['profile_detail'];
+        obj.birthday__displayed = obj.json_data.my_data['birthday'];
+        obj.picture__displayed = obj.json_data.my_data['picture'];
+
+
+        obj.name__displayed = "";
+        obj.email = "";
+        obj.occupation = "";
+        obj.location = "";
+        obj.profile_header = "";
+        obj.profile_detail = "";
+        obj.birthday = "";
+        obj.picture = "";
+
+        this.get_Prof_Type(obj, text);
+        
         return obj.json_data;
       }).catch(err => console.log(err)
       
@@ -229,6 +256,7 @@ Vue.mixin({
           console.log('finally');
       });
     },
+    
   },
   
   computed: {

@@ -15,8 +15,6 @@ const actions = {
 
 const mutations = {
   change: function (state, pattern_name) {
-    console.log("sate: " );
-    console.log(state);
     state.pattern = pattern_name;
   },   
 }

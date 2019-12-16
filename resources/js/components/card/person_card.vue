@@ -4,6 +4,11 @@
       friends: this.$store.getters['user_info/getFriends_Vuex'],
       }
     },
+    created: function (){
+      this.$nextTick(function () {
+        this.friends = this.$store.getters['user_info/getFriends_Vuex'];
+      });
+    },
     methods: {
       showProfile: function (user_id) {
         //IDをフックさせてプロフィールを表示する ctrl_profile
@@ -42,19 +47,21 @@
       }
     },
     template: `
-    <li class="container bg-white">
-      <dl v-for="friend in friends" class="row align-items-center c-PsnCard u-bt-border-grey mb-0">
-        <dt class="col-4 d-inline-block">
-          <figure class="c-PsnCard__img my-3 mx-2">
-            <img src="/images/avator2.png" class="img-fluid" alt="">
-          </figure>
-        </dt>
-        <dd class="col-8 pl-0 text-left u-txt-b c-PsnCard__text">
-          {{ friend.name }}<br><span class="u-txt-grey">{{ friend.occupation }}</span>
-          <i v-on:click="showProfile(friend.id)" class="u-icon__detail"></i></router-link>
-        </dd>
-      </dl>
-    </li>
+    <ul class="table mb-0">
+      <li  v-for="friend in friends" class="container bg-white">
+        <dl class="row align-items-center c-PsnCard u-bt-border-grey mb-0">
+          <dt class="col-4 d-inline-block">
+            <figure class="c-PsnCard__img my-3 mx-2">
+              <img src="/images/avator2.png" class="img-fluid" alt="">
+            </figure>
+          </dt>
+          <dd class="col-8 pl-0 text-left u-txt-b c-PsnCard__text">
+            {{ friend.name }}<br><span class="u-txt-grey">{{ friend.occupation }}</span>
+            <i v-on:click="showProfile(friend.id)" class="u-icon__detail"></i></router-link>
+          </dd>
+        </dl>
+      </li>
+    </ul>
     `
   }
 

@@ -1844,6 +1844,11 @@ __webpack_require__.r(__webpack_exports__);
       friends: this.$store.getters['user_info/getFriends_Vuex']
     };
   },
+  created: function created() {
+    this.$nextTick(function () {
+      this.friends = this.$store.getters['user_info/getFriends_Vuex'];
+    });
+  },
   methods: {
     showProfile: function showProfile(user_id) {
       var _this = this;
@@ -1877,7 +1882,7 @@ __webpack_require__.r(__webpack_exports__);
       //this.$router.push({ path: '/user_profile' });
     }
   },
-  template: "\n  <li class=\"container bg-white\">\n    <dl v-for=\"friend in friends\" class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n      <dt class=\"col-4 d-inline-block\">\n        <figure class=\"c-PsnCard__img my-3 mx-2\">\n          <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n        </figure>\n      </dt>\n      <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n        {{ friend.name }}<br><span class=\"u-txt-grey\">{{ friend.occupation }}</span>\n        <i v-on:click=\"showProfile(friend.id)\" class=\"u-icon__detail\"></i></router-link>\n      </dd>\n    </dl>\n  </li>\n  "
+  template: "\n  <ul class=\"table mb-0\">\n    <li  v-for=\"friend in friends\" class=\"container bg-white\">\n      <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n        <dt class=\"col-4 d-inline-block\">\n          <figure class=\"c-PsnCard__img my-3 mx-2\">\n            <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n          </figure>\n        </dt>\n        <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n          {{ friend.name }}<br><span class=\"u-txt-grey\">{{ friend.occupation }}</span>\n          <i v-on:click=\"showProfile(friend.id)\" class=\"u-icon__detail\"></i></router-link>\n        </dd>\n      </dl>\n    </li>\n  </ul>\n  "
 });
 
 /***/ }),
@@ -1891,8 +1896,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//data-target="#ここはユニークなIDを設定したい" 
+//id="ここも同じ"
+//post_idをhash化するとかで対応する
 /* harmony default export */ __webpack_exports__["default"] = ({
-  template: "\n  <div class=\"u-bt-border-grey px-4 pt-5 pb-3\">\n    <dt class=\"d-inline-block w-auto\">\n      <figure class=\"d-inline-block post-Main-Img  w-auto\">\n        <img class=\"img- w-100\" src=\"/images/posts/post_images/landscape-1.png\" alt=\"\">\n      </figure>\n    </dt>\n    <dd class=\"post-Detail pl-4\">\n      <p class=\"u-txt-b text-left\">\u7D76\u666F\u3060\u30FC\uFF01</p>\n      <div class=\"post-Icons c-opition-icon pt-2\">\n        <figure><img src=\"/images/posts/heart-line-icon.png\" alt=\"\" class=\"img-fluid mr-1\"></figure>\n        <figure><img src=\"/images/posts/options-icon.png\" alt=\"\"class=\"img-fluid\"  data-toggle=\"modal\" data-target=\"#myModal\"></figure>\n\n      </div>\n    </dd>\n    <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n    <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n      <div class=\"modal-dialog\" role=\"document\">\n\n        <div class=\"modal-content\">\n\n          <div class=\"modal-body\">\n            \n            <form>\n              <textarea class=\"u-txt-b w-100\" id=\"\" name=\"post-text\" rows=\"10\" cols=\"33\"></textarea>\n            </form>\n            \n          </div>\n\n          <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">\u9589\u3058\u308B</button>\n            <button type=\"button\" class=\"btn btn-primary\">\u30B3\u30E1\u30F3\u30C8\u3092\u6295\u7A3F\u3059\u308B</button>\n          </div><!-- /.modal-footer -->\n\n        </div><!-- /.modal-content -->\n\n      </div><!-- /.modal-dialog -->\n    </div><!-- /.modal -->\n  </div>\n  "
+  template: "\n    <div>\n\n      <dl class=\"u-bt-border-grey px-4 pt-5 pb-3\">\n        <dt class=\"d-inline-block w-auto\">\n          <figure class=\"d-inline-block post-Main-Img  w-auto\">\n            <img class=\"img- w-100\" src=\"/images/posts/post_images/landscape-1.png\" alt=\"\">\n          </figure>\n        </dt>\n        <dd class=\"post-Detail pl-4\">\n          <p class=\"u-txt-b text-left\">\u7D76\u666F\u3060\u30FC\uFF01</p>\n          <div class=\"post-Icons c-opition-icon pt-2\">\n            <figure><img src=\"/images/posts/heart-line-icon.png\" alt=\"\" class=\"img-fluid mr-1\"></figure>\n            <figure><img src=\"/images/posts/options-icon.png\" alt=\"\"class=\"img-fluid\"  data-toggle=\"modal\" data-target=\"#myModal\"></figure>\n\n          </div>\n        </dd>\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n          <div class=\"modal-dialog\" role=\"document\">\n\n            <div class=\"modal-content\">\n\n              <div class=\"modal-body\">\n                \n                <form>\n                  <textarea class=\"u-txt-b w-100\" id=\"\" name=\"post-text\" rows=\"10\" cols=\"33\"></textarea>\n                </form>\n                \n              </div>\n\n              <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">\u9589\u3058\u308B</button>\n                <button type=\"button\" class=\"btn btn-primary\">\u30B3\u30E1\u30F3\u30C8\u3092\u6295\u7A3F\u3059\u308B</button>\n              </div><!-- /.modal-footer -->\n\n            </div><!-- /.modal-content -->\n\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n      </dl>\n\n      <dl class=\"u-bt-border-grey px-4 pt-5 pb-3\">\n        <dt class=\"d-inline-block w-auto\">\n          <figure class=\"d-inline-block post-Main-Img  w-auto\">\n            <img class=\"img- w-100\" src=\"/images/posts/post_images/landscape-1.png\" alt=\"\">\n          </figure>\n        </dt>\n        <dd class=\"post-Detail pl-4\">\n          <p class=\"u-txt-b text-left\">\u7D76\u666F\u3060\u30FC\uFF01</p>\n          <div class=\"post-Icons c-opition-icon pt-2\">\n            <figure><img src=\"/images/posts/heart-line-icon.png\" alt=\"\" class=\"img-fluid mr-1\"></figure>\n            <figure><img src=\"/images/posts/options-icon.png\" alt=\"\"class=\"img-fluid\"  data-toggle=\"modal\" data-target=\"#myModal\"></figure>\n\n          </div>\n        </dd>\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n          <div class=\"modal-dialog\" role=\"document\">\n\n            <div class=\"modal-content\">\n\n              <div class=\"modal-body\">\n                \n                <form>\n                  <textarea class=\"u-txt-b w-100\" id=\"\" name=\"post-text\" rows=\"10\" cols=\"33\"></textarea>\n                </form>\n                \n              </div>\n\n              <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">\u9589\u3058\u308B</button>\n                <button type=\"button\" class=\"btn btn-primary\">\u30B3\u30E1\u30F3\u30C8\u3092\u6295\u7A3F\u3059\u308B</button>\n              </div><!-- /.modal-footer -->\n\n            </div><!-- /.modal-content -->\n\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n      </dl>\n\n\n      <dl class=\"u-bt-border-grey px-4 pt-5 pb-3\">\n        <dt class=\"d-inline-block w-auto\">\n          <figure class=\"d-inline-block post-Main-Img  w-auto\">\n            <img class=\"img- w-100\" src=\"/images/posts/post_images/landscape-1.png\" alt=\"\">\n          </figure>\n        </dt>\n        <dd class=\"post-Detail pl-4\">\n          <p class=\"u-txt-b text-left\">\u7D76\u666F\u3060\u30FC\uFF01</p>\n          <div class=\"post-Icons c-opition-icon pt-2\">\n            <figure><img src=\"/images/posts/heart-line-icon.png\" alt=\"\" class=\"img-fluid mr-1\"></figure>\n            <figure><img src=\"/images/posts/options-icon.png\" alt=\"\"class=\"img-fluid\"  data-toggle=\"modal\" data-target=\"#myModal\"></figure>\n\n          </div>\n        </dd>\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n          <div class=\"modal-dialog\" role=\"document\">\n\n            <div class=\"modal-content\">\n\n              <div class=\"modal-body\">\n                \n                <form>\n                  <textarea class=\"u-txt-b w-100\" id=\"\" name=\"post-text\" rows=\"10\" cols=\"33\"></textarea>\n                </form>\n                \n              </div>\n\n              <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">\u9589\u3058\u308B</button>\n                <button type=\"button\" class=\"btn btn-primary\">\u30B3\u30E1\u30F3\u30C8\u3092\u6295\u7A3F\u3059\u308B</button>\n              </div><!-- /.modal-footer -->\n\n            </div><!-- /.modal-content -->\n\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n      </dl>\n      <dl class=\"u-bt-border-grey px-4 pt-5 pb-3\">\n        <dt class=\"d-inline-block w-auto\">\n          <figure class=\"d-inline-block post-Main-Img  w-auto\">\n            <img class=\"img- w-100\" src=\"/images/posts/post_images/landscape-1.png\" alt=\"\">\n          </figure>\n        </dt>\n        <dd class=\"post-Detail pl-4\">\n          <p class=\"u-txt-b text-left\">\u7D76\u666F\u3060\u30FC\uFF01</p>\n          <div class=\"post-Icons c-opition-icon pt-2\">\n            <figure><img src=\"/images/posts/heart-line-icon.png\" alt=\"\" class=\"img-fluid mr-1\"></figure>\n            <figure><img src=\"/images/posts/options-icon.png\" alt=\"\"class=\"img-fluid\"  data-toggle=\"modal\" data-target=\"#myModal\"></figure>\n\n          </div>\n        </dd>\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n          <div class=\"modal-dialog\" role=\"document\">\n\n            <div class=\"modal-content\">\n\n              <div class=\"modal-body\">\n                \n                <form>\n                  <textarea class=\"u-txt-b w-100\" id=\"\" name=\"post-text\" rows=\"10\" cols=\"33\"></textarea>\n                </form>\n                \n              </div>\n\n              <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">\u9589\u3058\u308B</button>\n                <button type=\"button\" class=\"btn btn-primary\">\u30B3\u30E1\u30F3\u30C8\u3092\u6295\u7A3F\u3059\u308B</button>\n              </div><!-- /.modal-footer -->\n\n            </div><!-- /.modal-content -->\n\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n      </dl>\n    </div>\n\n\n    "
 });
 
 /***/ }),
@@ -2151,71 +2159,121 @@ var usr = new URLSearchParams();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var _props$data$mounted$m;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
-/* harmony default export */ __webpack_exports__["default"] = (_props$data$mounted$m = {
+/* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     profile_header: String,
     profile_detail: String
   },
   data: function data() {
     return {
-      pattern: "default"
+      pattern: "default",
+      styles: {
+        isActive_home: false,
+        isActive_profile: false,
+        isActive_friends: false,
+        isActive_settings: false,
+        isActive_post: false
+      }
     };
   },
   mounted: function mounted() {
     this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
-  },
-  methods: {
-    edit_Prof__txt: function edit_Prof__txt() {},
-    edit_Prof__mage: function edit_Prof__mage() {}
   },
   computed: {
     com_pattern: function com_pattern() {
       this.pattern = this.$store.getters['page_displaying/getPattern_Vuex'];
       return this.pattern;
     }
-  }
-}, _defineProperty(_props$data$mounted$m, "methods", {
-  //友達一覧取得
-  show_Friends: function show_Friends() {
-    var _this = this;
+  },
+  methods: {
+    //友達一覧取得
+    show_Friends: function show_Friends() {
+      var _this = this;
 
-    //一旦　全検索
-    //this.$http.post('/api/ctrl_search_for_friends', {
-    this.$http.post('/api/ctrl_all_users', {
-      //search_query: this.array_query,
-      user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
-    }).then(function (res) {
-      if (res.data.result_flag === false) {
-        alert("通信成功しましたが、該当データ見当たらないです。");
-        return;
+      //一旦　全検索
+      //this.$http.post('/api/ctrl_search_for_friends', {
+      this.$http.post('/api/ctrl_all_users', {
+        //search_query: this.array_query,
+        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
+      }).then(function (res) {
+        if (res.data.result_flag === false) {
+          alert("通信成功しましたが、該当データ見当たらないです。");
+          return;
+        }
+
+        _this.change_Page_Pattern('friends');
+
+        console.log("成功"); //検索キーワード(search_query)と検索結果が欲しい
+        //this.json_data = res.data;
+        //仮の値を準備
+        // res.data = {
+        //       "friend1": { id: 1, picture: 11, name: 12,occupation: 13},
+        //       "friend2": { id: 2, picture: 21, name: 22,occupation: 23},
+        //       };
+        //vuexにフレンド情報を保存　
+
+        _this.$store.dispatch('user_info/friends', res.data.friends);
+
+        _this.$router.push('/friends');
+      })["catch"](function (err) {
+        return console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
+    },
+    reset_Styles: function reset_Styles() {
+      this.styles.isActive_home = false;
+      this.styles.isActive_profile = false;
+      this.styles.isActive_friends = false;
+      this.styles.isActive_settings = false;
+      this.styles.isActive_post = false;
+    },
+    activate_Icon: function activate_Icon() {
+      switch (this.com_pattern) {
+        case "home":
+          this.reset_Styles();
+          this.styles.isActive_home = true;
+          this.$router.push("/home");
+          break;
+
+        case "my_profile":
+          this.reset_Styles();
+          this.styles.isActive_profile = true;
+          this.$router.push("/my_profile");
+          break;
+
+        case "friends":
+          this.reset_Styles();
+          this.styles.isActive_friends = true; //pushは不要、show_Friends()から飛ぶので
+
+          break;
+
+        case "settings":
+          this.reset_Styles();
+          this.styles.isActive_settings = true;
+          this.$router.push("/settings");
+          break;
+
+        case "post":
+          this.reset_Styles();
+          this.styles.isActive_post = true;
+          this.$router.push("/post");
+          break;
+
+        default:
+          {
+            this.reset_Styles();
+            this.styles.isActive_home = true;
+            this.change_Page_Pattern('home');
+            this.$router.push("/home");
+            break;
+          }
       }
-
-      _this.change_Page_Pattern('friends');
-
-      console.log("成功"); //検索キーワード(search_query)と検索結果が欲しい
-      //this.json_data = res.data;
-      //仮の値を準備
-      // res.data = {
-      //       "friend1": { id: 1, picture: 11, name: 12,occupation: 13},
-      //       "friend2": { id: 2, picture: 21, name: 22,occupation: 23},
-      //       };
-      //vuexにフレンド情報を保存　
-
-      _this.$store.dispatch('user_info/friends', res.data);
-
-      _this.$router.push('/friends');
-    })["catch"](function (err) {
-      return console.log(err);
-    })["finally"](function () {
-      console.log('finally');
-    });
-  }
-}), _defineProperty(_props$data$mounted$m, "template", "\n    <footer class=\"c-Footer u-top-border-grey container\">\n        <ul class=\"nav\">\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('home')\">\n            <router-link class=\"nav-link active\" to='/home'>\n                <img v-if=\"com_pattern ==='home'\" src=\"/images/footer/home-icon--active.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u30DB\u30FC\u30E0\" class=\"img-fluid\">\n                <img v-if=\"com_pattern !=='home'\" src=\"/images/footer/home-icon.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u30DB\u30FC\u30E0\" class=\"img-fluid\">\n            </router-link><br>\n            </li>\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('friends')\">\n            <p v-on:click.capture=\"show_Friends\" class=\"nav-link\">\n                <img v-if=\"com_pattern ==='friend'\" src=\"/images/footer/friends-icon--active.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u53CB\u9054\" class=\"img-fluid\">\n                <img v-if=\"com_pattern !=='friend'\" src=\"/images/footer/friends-icon.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u53CB\u9054\" class=\"img-fluid\">\n            </p>\n            </li>\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('settings')\">\n            <router-link class=\"nav-link\" to=\"/settings\">\n                <img v-if=\"com_pattern ==='settings'\" src=\"/images/footer/settings-icon--active.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u8A2D\u5B9A\" class=\"img-fluid\">\n                <img v-if=\"com_pattern !=='settings'\" src=\"/images/footer/settings-icon.png\" alt=\"\u30A2\u30A4\u30B3\u30F3\uFF1A\u8A2D\u5B9A\" class=\"img-fluid\">\n            </router-link>\n            </li>\n        </ul>\n    </footer>\n    "), _props$data$mounted$m);
+    }
+  },
+  template: "\n    <footer class=\"c-Footer u-top-border-grey container\">\n        <ul class=\"nav\">\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('home')\">\n                <a @click.capture=\"activate_Icon()\" class=\"nav-link active\">\n                <i v-bind:class=\"{is_Acitve: styles.isActive_home,}\" class=\"fas fa-home is_NoAcitve\"></i>\n                </a>\n            </li>\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('my_profile')\">\n                <a @click.capture=\"activate_Icon()\" class=\"nav-link active\">\n                    <i v-bind:class=\"{is_Acitve: styles.isActive_profile,}\" class=\"fas fa-user-check is_NoAcitve\"></i>\n                </a>\n            </li>\n\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('friends')\">\n                <p @click.capture=\"activate_Icon()\">\n                    <a v-on:click.capture=\"show_Friends\" class=\"nav-link\">\n                        <i v-bind:class=\"{is_Acitve: styles.isActive_friends,}\" class=\"fas fa-user-friends is_NoAcitve\"></i>\n                    </a>\n                </p>\n            </li>\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('post')\">\n                <a @click.capture=\"activate_Icon()\" class=\"nav-link active\">\n                    <i v-bind:class=\"{is_Acitve: styles.isActive_post,}\" class=\"far fa-comment-alt is_NoAcitve\"></i>\n                </a>\n            </li>\n            <li class=\"nav-item col\" @click.capture=\"change_Page_Pattern('settings')\">\n                <a @click.capture=\"activate_Icon()\" class=\"nav-link active\">\n                    <i v-bind:class=\"{is_Acitve: styles.isActive_settings,}\" class=\"fas fa-cog is_NoAcitve\"></i>\n                </a>\n            </li>\n        </ul>\n    </footer>\n    "
+});
 
 /***/ }),
 
@@ -2316,11 +2374,31 @@ __webpack_require__.r(__webpack_exports__);
     return {
       chat_comments: {},
       my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
-      user_id: this.$store.getters['user_info/getUser_Vuex'].id
+      user_id: this.$store.getters['user_info/getUser_Vuex'].id,
+      chat_id: 0,
+      chat_props: {
+        chat_id: 0,
+        chat_length: 10
+      },
+      scrollY: 0,
+      scroll_cnt: 1
     };
   },
   created: function created() {
-    this.chat_comments = this.get_Comment(true);
+    this.$nextTick(function () {
+      //初期レンダリング時コメントを取得
+      this.get_Comment(true);
+    });
+    window.addEventListener('scroll', this.get_Chat_Scroll);
+  },
+  computed: {
+    chat_comments_displayed: function chat_comments_displayed() {
+      return this.chat_comments;
+    },
+    chat_length_cm: function chat_length_cm() {
+      this.chat_props.chat_length = this.chat_comments.length;
+      return this.chat_props.chat_length;
+    }
   },
   //子のcomment_form.vueから「コメントが増えた」と信号を受け取る。
   methods: {
@@ -2331,6 +2409,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      console.log();
       this.$http.post('/api/ctrl_get_chat', {
         my_id: this.my_id,
         user_id: this.user_id
@@ -2342,19 +2421,88 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.change_Page_Pattern('chat');
 
-        _this.chat_comments = res.data.comments;
+        _this.chat_comments = _this.reverse_Comments(res.data.comments);
+        _this.chat_props.chat_id = _this.chat_comments[0].chat_id;
+        _this.chat_props.chat_length = _this.chat_comments.length;
+        return _this.chat_comments;
         console.log("成功");
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
         console.log('finally');
       });
+    },
+    get_new_comment: function get_new_comment(get_flag) {
+      var _this2 = this;
+
+      if (get_flag !== true) {
+        return;
+      }
+
+      this.$http.post('/api/ctrl_get_new_chat', {
+        chat_id: this.chat_props.chat_id
+      }).then(function (res) {
+        if (res.data.result_flag === false) {
+          alert("最新コメント取得に失敗しました");
+          return;
+        }
+
+        _this2.change_Page_Pattern('chat'); //chat_commentsに追加
+
+
+        console.log(res.data.comment);
+
+        _this2.chat_comments.push(res.data.comment); //this.chat_props.chat_id = this.chat_comments[0].chat_id;
+        //this.chat_props.chat_length = this.chat_comments.length;
+
+
+        return _this2.chat_comments;
+        console.log("成功");
+      })["catch"](function (err) {
+        return console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
+    },
+    reverse_Comments: function reverse_Comments(list) {
+      return list.slice().reverse();
+    },
+    get_Chat_Scroll: function get_Chat_Scroll() {
+      var _this3 = this;
+
+      return;
+      this.scrollY = window.scrollY;
+
+      if (this.scrollY >= 500 * this.scroll_cnt) {
+        this.$http.post('/api/ctrl_get_chat_by_scroll', {
+          chat_id: this.chat_props.chat_id,
+          chat_length: this.chat_props.chat_length
+        }).then(function (res) {
+          if (res.data.result_flag === false) {
+            alert("コメント取得に失敗しました");
+            return;
+          }
+
+          _this3.change_Page_Pattern('chat');
+
+          _this3.chat_comments = _this3.chat_comments.cancat(_this3.reverse_Comments(res.data.comments));
+          ++_this3.scroll_cnt;
+          return _this3.chat_comments;
+          console.log("成功");
+        })["catch"](function (err) {
+          return console.log(err);
+        })["finally"](function () {
+          console.log('finally');
+        });
+      }
+
+      console.log(this.scrollY);
     }
   },
   components: {
     comments: _comment_form_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <div>\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n\n        <ul class=\"table mb-0 py-5 Chat\">\n\n          <li class=\"Chat__me\" v-for=\"\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n             <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p>\n            <time>2019 11 02</time>\n          </li>\n          \n\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__friend\">\n            <i class=\"fas fa-male\"></i>\n            <p class=\"text-left p-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p> \n            <time>2019 11 02</time>\n          </li>\n\n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>       \n          \n          <li class=\"Chat__me\">\n            <p class=\"text-left p-2 u-txt-b\">\n              me me me me me me me me me me me me\n            </p>\n            <time>2019 11 02</time>\n          </li>\n\n        </ul>\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_Comment\"/>\n  </div>"
+  template: "\n  <div>\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n     \n        <ul class=\"table mb-0 py-5 Chat\">\n          <li v-for=\"chat in chat_comments_displayed\">\n            <div v-if=\"chat.from_user == my_id\" class=\"Chat__me\">\n              <p class=\"text-left p-2 u-txt-b\">\n              {{chat.detail}}\n              </p>\n              <time>{{chat.updated_at}}</time>\n            </div>\n\n            <div v-if=\"chat.from_user == user_id\" class=\"Chat__friend\">\n              <i class=\"fas fa-male\"></i>\n              <p class=\"text-left p-2 u-txt-b\">\n                {{chat.detail}} \n              </p>\n              <time>{{chat.updated_at}}</time>\n            </div>\n          </li>\n        </ul>\n\n        \n\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_new_comment\" v-bind:chat_props=\"chat_props\"/>\n  </div>"
 });
 
 /***/ }),
@@ -2371,8 +2519,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      comment: ""
+      comment: "",
+      counter: 0
     };
+  },
+  props: {
+    chat_props: {
+      chat_id: 0,
+      chat_length: 10
+    }
   },
   methods: {
     commentting: function commentting() {
@@ -2383,7 +2538,8 @@ __webpack_require__.r(__webpack_exports__);
         //search_query: this.array_query,
         my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
         user_id: this.$store.getters['user_info/getUser_Vuex'].id,
-        comment: this.comment
+        comment: this.comment,
+        chat_id: this.chat_props.chat_id
       }).then(function (res) {
         _this.json_data = res.data;
 
@@ -2397,6 +2553,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.change_Page_Pattern('chat');
 
+        _this.comment = "";
         console.log("成功");
       })["catch"](function (err) {
         return console.log(err);
@@ -2430,7 +2587,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <main class=\"u-container-y\">\n    <div class=\"pt-5 container-fluid\">\n      <ul class=\"table mb-0\">\n        <person_card></person_card>\n      </ul>\n    </div>\n  </main>"
+  template: "\n  <main class=\"u-container-y\">\n    <person_card></person_card>\n  </main>"
 });
 
 /***/ }),
@@ -2460,6 +2617,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _post_form_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./post_form.vue */ "./resources/js/projects/post/post_form.vue");
+/* harmony import */ var _components_card_post_card_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/card/post_card.vue */ "./resources/js/components/card/post_card.vue");
 //実装のポイント
 //⑴自分と相手のIDをどうってくるか？
 //
@@ -2471,6 +2629,7 @@ __webpack_require__.r(__webpack_exports__);
 //最新20件だけとってくる
 //⑷コメントはcreated_atの順で。
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2478,18 +2637,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   beforeMount: function beforeMount() {
-    comments = this.get_Comment(true);
+    return;
+    comments = this.get_Posts(true);
   },
   //子のcomment_form.vueから「コメントが増えた」と信号を受け取る。
   methods: {
-    get_Comment: function get_Comment(get_flag) {
+    get_get_Posts: function get_get_Posts(get_flag) {
       var _this = this;
 
       if (get_flag !== true) {
         return;
       }
 
-      this.$http.post('/api/ctrl_get_chat', {
+      this.$http.post('/api/ctrl_get_posts', {
         my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
         user_id: this.$store.getters['user_info/getUser_Vuex'].id
       }).then(function (res) {
@@ -2509,9 +2669,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    comments: _post_form_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    post_card: _components_card_post_card_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  template: "\n  <div>\n    <main class=\"u-pt-100 u-pb-80\">\n\n      <div class=\"u-py-30\">\n        <ul class=\"table mb-0 \">\n\n\n\n          <li class=\"Post py-3 u-pl-100 u-pr-60 u-top-border-grey\">\n            <i class=\"fas fa-user-injured\"></i>\n            <div class=\"Post__header\">\n              <p class=\"u-txt-b mr-3\">\u307B\u3057\u306E\u3042\u304D</p>\n              <time class=\"u-txt-b text-right\">2019 11 02</time>\n            </div>\n            \n\n            <p class=\"text-left my-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p>\n            <figure class=\"Post__img m-0\">\n              <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n            </figure>\n          </li>\n\n          <li class=\"Post py-3 u-pl-100 u-pr-60 u-top-border-grey\">\n            <i class=\"fas fa-user-injured\"></i>\n            <div class=\"Post__header\">\n              <p class=\"u-txt-b mr-3\">\u307B\u3057\u306E\u3042\u304D</p>\n              <time class=\"u-txt-b text-right\">2019 11 02</time>\n            </div>\n            \n\n            <p class=\"text-left my-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p>\n            <figure class=\"Post__img m-0\">\n              <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n            </figure>\n          </li>\n          \n\n          <li class=\"Post py-3 u-pl-100 u-pr-60 u-top-border-grey\">\n            <i class=\"fas fa-user-injured\"></i>\n            <div class=\"Post__header\">\n              <p class=\"u-txt-b mr-3\">\u307B\u3057\u306E\u3042\u304D</p>\n              <time class=\"u-txt-b text-right\">2019 11 02</time>\n            </div>\n            \n\n            <p class=\"text-left my-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p>\n            <figure class=\"Post__img m-0\">\n              <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n            </figure>\n          </li>\n\n          <li class=\"Post py-3 u-pl-100 u-pr-60 u-top-border-grey\">\n            <i class=\"fas fa-user-injured\"></i>\n            <div class=\"Post__header\">\n              <p class=\"u-txt-b mr-3\">\u307B\u3057\u306E\u3042\u304D</p>\n              <time class=\"u-txt-b text-right\">2019 11 02</time>\n            </div>\n            \n\n            <p class=\"text-left my-2 u-txt-b\">\n              friend friend friend friend friend friend friend friend friend friend \n            </p>\n            <figure class=\"Post__img m-0\">\n              <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n            </figure>\n          </li>\n\n        </ul>\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_Comment\"/>\n  </div>"
+  template: "\n  <main class=\"text-center u-bg-w u-pb-180 u-pt-100\">\n    <post_card></post_card>\n    <i class=\"fas fa-plus-circle\" data-toggle=\"modal\" data-target=\"#posting\"></i>\n    <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n\n        <div class=\"modal fade\" id=\"posting\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n          <div class=\"modal-dialog\" role=\"document\">\n\n            <div class=\"modal-content\">\n\n              <div class=\"modal-body\">\n                \n                <form>\n                  <textarea class=\"post-Txtarea u-txt-b w-100\" id=\"\" name=\"post-text\" rows=\"10\" cols=\"33\"></textarea>\n                </form>\n                \n              </div>\n\n              <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">\u9589\u3058\u308B</button>\n                <button type=\"button\" class=\"btn btn-primary\">\u6295\u7A3F\u3059\u308B</button>\n              </div><!-- /.modal-footer -->\n\n            </div><!-- /.modal-content -->\n\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n  </main>"
 });
 
 /***/ }),
@@ -2622,7 +2782,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <main class=\"u-container-y\">\n    <div class=\"container-fluid\">\n      <ul class=\"table mb-0\">\n          <person_card></person_card>\n      </ul>\n    </div>\n  </main>"
+  template: "\n  <main class=\"u-container-y\">\n    <div class=\"container-fluid\">\n      <person_card></person_card>\n    </div>\n  </main>"
 });
 
 /***/ }),
@@ -2684,7 +2844,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <ul class=\"table mb-0\">\n      <person_card></person_card>\n  </ul>\n  "
+  template: "\n  <div>\n      <person_card></person_card>\n  </div>\n  "
 });
 
 /***/ }),
@@ -2704,7 +2864,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     post_card: _components_card_post_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n    <dl>\n      <post_card></post_card>\n    </dl>\n    "
+  template: "\n    <div>\n      <post_card></post_card>\n    </div>\n    "
 });
 
 /***/ }),
@@ -2795,13 +2955,15 @@ __webpack_require__.r(__webpack_exports__);
       location__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].location,
       //画像処理
       picture: "",
-      //tmp_picutre: "",
       picture_flg: false,
-      picture__displayed: this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
+      picture__displayed: "",
+      //this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
       fileInfo: ''
     };
   },
-  mounted: function mounted() {
+  beforeUpdate: function beforeUpdate() {},
+  computed: {},
+  created: function created() {
     this.$nextTick(function () {
       // 子のコンポがレンダリングされた後にのみ実行されるコード
       //なにこれ　なんのため？ なんか意味があった気がする
@@ -2828,7 +2990,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.picture__displayed === "") {
         //デフォルトの画像を表示したい
-        this.picture__displayed = "";
+        this.picture__displayed = "aa";
       }
     });
   },
@@ -2914,6 +3076,8 @@ __webpack_require__.r(__webpack_exports__);
         // window.Laravel.my_data['picture'] = this.json_data.my_data['picture'];
         // //vuex 更新
         // this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+        //picture__displayed更新
+        //this.picture__displayed = this.json_data.picture;
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
@@ -3022,7 +3186,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  template: "\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n\n        <div @click.capture=\"change_Page_Pattern('my_Prof')\">\n          <router-link class=\"d-block mt-3\" to=\"/my_profile\">\n            \u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u78BA\u8A8D\u3059\u308B\n          </router-link>\n        </div>\n        <div @click.capture=\"change_Page_Pattern('set_Prof')\">\n          <router-link class=\"d-block mt-3\" to=\"/set_Prof\">\u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u7DE8\u96C6</router-link>\n        </div>\n\n        <div @click.capture=\"change_Page_Pattern('set_Pass')\">\n          <router-link class=\"d-block my-3\" to=\"/set_Pass\" >\u30D1\u30B9\u30EF\u30FC\u30C9\u5909\u66F4</router-link>\n        </div> \n\n        <p class=\"d-block my-3\" data-toggle=\"modal\" data-target=\"#sign_out\">\n          \u30B5\u30A4\u30F3\u30A2\u30A6\u30C8\n        </p>\n\n        <p class=\"d-block my-3\" data-toggle=\"modal\" data-target=\"#unSub\">\n          \u9000\u4F1A\u51E6\u7406\n        </p>\n\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"sign_out\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"sign_outLabel\">\n          <div class=\"modal-dialog modal-margin\" role=\"document\">\n            <div class=\"modal-content w-75 u-mx-a p-4 text-center\">\n              <dl>\n                <dt id=\"exampleModalLabel\" class=\"modal-title u-txt-b\">\u30B5\u30A4\u30F3\u30A2\u30A6\u30C8\u3057\u307E\u3059\u304B\uFF1F</dt>\n                <dd class=\"u-txt-b\">Are you sure you wish to sign out?</dd>\n              </dl>\n              <div class=\"sing_out_button\">\n                <a @click.prevent=\"doSign_out\" class=\"u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u306F\u3044</a>\n                <a class=\"u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u3044\u3044\u3048</a>\n              </div>\n            </div><!-- /.modal-content -->\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"unSub\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"sign_outLabel\">\n          <div class=\"modal-dialog modal-margin\" role=\"document\">\n            <div class=\"modal-content w-75 u-mx-a p-4 text-center\">\n              <dl>\n                <dt id=\"exampleModalLabel\" class=\"modal-title u-txt-b\">\u672C\u5F53\u306B\u9000\u4F1A\u3055\u308C\u307E\u3059\u304B\uFF1F</dt>\n                <dd class=\"u-txt-b\">Are you sure you wish to unbSubscribe ?</dd>\n              </dl>\n              <div class=\"sing_out_button\">\n                <a @click.prevent=\"unSubscripton\" class=\"u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u306F\u3044</a>\n                <a class=\"u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u3044\u3044\u3048</a>\n              </div>\n            </div><!-- /.modal-content -->\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n\n      </div>\n    </main>\n\n  "
+  template: "\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n\n        <div @click.capture=\"change_Page_Pattern('my_Prof')\">\n          <router-link class=\"d-block mt-3\" to=\"/my_profile\">\n            \u30D7\u30ED\u30D5\u30A3\u30FC\u30EB\u78BA\u8A8D\u3059\u308B\n          </router-link>\n        </div>\n\n        <div @click.capture=\"change_Page_Pattern('set_Pass')\">\n          <router-link class=\"d-block my-3\" to=\"/set_Pass\" >\u30D1\u30B9\u30EF\u30FC\u30C9\u5909\u66F4</router-link>\n        </div> \n\n        <p class=\"d-block my-3\" data-toggle=\"modal\" data-target=\"#sign_out\">\n          \u30B5\u30A4\u30F3\u30A2\u30A6\u30C8\n        </p>\n\n        <p class=\"d-block my-3\" data-toggle=\"modal\" data-target=\"#unSub\">\n          \u9000\u4F1A\u51E6\u7406\n        </p>\n\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"sign_out\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"sign_outLabel\">\n          <div class=\"modal-dialog modal-margin\" role=\"document\">\n            <div class=\"modal-content w-75 u-mx-a p-4 text-center\">\n              <dl>\n                <dt id=\"exampleModalLabel\" class=\"modal-title u-txt-b\">\u30B5\u30A4\u30F3\u30A2\u30A6\u30C8\u3057\u307E\u3059\u304B\uFF1F</dt>\n                <dd class=\"u-txt-b\">Are you sure you wish to sign out?</dd>\n              </dl>\n              <div class=\"sing_out_button\">\n                <a @click.prevent=\"doSign_out\" class=\"u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u306F\u3044</a>\n                <a class=\"u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u3044\u3044\u3048</a>\n              </div>\n            </div><!-- /.modal-content -->\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n\n        <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n        <div class=\"modal fade\" id=\"unSub\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"sign_outLabel\">\n          <div class=\"modal-dialog modal-margin\" role=\"document\">\n            <div class=\"modal-content w-75 u-mx-a p-4 text-center\">\n              <dl>\n                <dt id=\"exampleModalLabel\" class=\"modal-title u-txt-b\">\u672C\u5F53\u306B\u9000\u4F1A\u3055\u308C\u307E\u3059\u304B\uFF1F</dt>\n                <dd class=\"u-txt-b\">Are you sure you wish to unbSubscribe ?</dd>\n              </dl>\n              <div class=\"sing_out_button\">\n                <a @click.prevent=\"unSubscripton\" class=\"u-txt-p p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u306F\u3044</a>\n                <a class=\"u-txt-grey p-3 u-bg-grey3 d-inline-block u-w-40\" data-dismiss=\"modal\">\u3044\u3044\u3048</a>\n              </div>\n            </div><!-- /.modal-content -->\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n\n      </div>\n    </main>\n\n  "
 });
 
 /***/ }),
@@ -3358,7 +3522,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     person_card: _components_card_person_card_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <ul class=\"table mb-0\">\n      <person_card></person_card>\n  </ul>\n  "
+  template: "\n  <div>\n      <person_card></person_card>\n  </div>\n  "
 });
 
 /***/ }),
@@ -7888,6 +8052,25 @@ exports.push([module.i, "@charset \"UTF-8\";\n/*\ndata-target=\"#myModal\"とid=
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ui/footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".nav[data-v-5af8ee8a] {\n  width: 100%;\n}\ni[data-v-5af8ee8a]:before {\n  font-size: 24px;\n}\n.is_NoAcitve[data-v-5af8ee8a]:before {\n  color: #BCC5D3;\n}\ni[data-v-5af8ee8a]:hover:before {\n  color: #F271A8;\n}\n.is_Acitve[data-v-5af8ee8a]:before {\n  color: #F271A8;\n}\nli[data-v-5af8ee8a] {\n  padding-left: 5px;\n  padding-right: 5px;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true& ***!
@@ -7919,7 +8102,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "li[data-v-50f2eb50] {\n  position: relative;\n  display: block;\n  margin-bottom: 32px;\n}\nli > p[data-v-50f2eb50] {\n  background: #fff;\n  border-radius: 10px;\n  min-height: 60px;\n}\nli time[data-v-50f2eb50] {\n  display: block;\n}\n.Chat__me[data-v-50f2eb50]:before {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  right: -10px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n}\n.Chat__me time[data-v-50f2eb50] {\n  text-align: right;\n}\n.Chat__friend[data-v-50f2eb50] {\n  padding-left: 40px !important;\n}\n.Chat__friend[data-v-50f2eb50]:after {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  left: 30px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(225deg);\n          transform: rotate(225deg);\n}\n.Chat__friend time[data-v-50f2eb50] {\n  text-align: left;\n}\n.Chat__friend i[data-v-50f2eb50] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 30px;\n  overflow: hidden;\n}\n.Chat__friend i[data-v-50f2eb50]:before {\n  font-size: 60px;\n}\n.Chat-Form__file i[data-v-50f2eb50]:before {\n  font-size: 24px;\n}", ""]);
+exports.push([module.i, ".Chat__me[data-v-50f2eb50],\n.Chat__friend[data-v-50f2eb50] {\n  position: relative;\n  display: block;\n  margin-bottom: 32px;\n}\n.Chat__me > p[data-v-50f2eb50],\n.Chat__friend > p[data-v-50f2eb50] {\n  background: #fff;\n  border-radius: 10px;\n  min-height: 60px;\n}\n.Chat__me time[data-v-50f2eb50],\n.Chat__friend time[data-v-50f2eb50] {\n  display: block;\n}\n.Chat__me[data-v-50f2eb50]:before {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  right: -10px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n}\n.Chat__me time[data-v-50f2eb50] {\n  text-align: right;\n}\n.Chat__friend[data-v-50f2eb50] {\n  padding-left: 40px !important;\n}\n.Chat__friend[data-v-50f2eb50]:after {\n  content: \"\";\n  position: absolute;\n  display: block;\n  width: 0;\n  height: 0;\n  left: 30px;\n  top: 2px;\n  border-left: 20px solid #fff;\n  border-top: 10px solid transparent;\n  border-bottom: 10px solid transparent;\n  -webkit-transform: rotate(225deg);\n          transform: rotate(225deg);\n}\n.Chat__friend time[data-v-50f2eb50] {\n  text-align: left;\n}\n.Chat__friend i[data-v-50f2eb50] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  width: 30px;\n  overflow: hidden;\n}\n.Chat__friend i[data-v-50f2eb50]:before {\n  font-size: 60px;\n}\n.Chat-Form__file i[data-v-50f2eb50]:before {\n  font-size: 24px;\n}", ""]);
 
 // exports
 
@@ -7938,7 +8121,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".Chat-Form[data-v-00fe83a4] {\n  position: fixed;\n  bottom: 0;\n  background: #fff;\n}\n.Chat-Form > fieldset > *[data-v-00fe83a4] {\n  height: 60px;\n  padding: 10px;\n}\n.Chat-Form__file[data-v-00fe83a4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.Chat-Form__file i[data-v-00fe83a4]:before {\n  font-size: 24px;\n  color: #BCC5D3;\n}\n.Chat-Form__comment[data-v-00fe83a4] {\n  border: solid 1px #BCC5D3;\n  border-radius: 10px;\n  color: #4C5264;\n}\n.Chat-Form__btn[data-v-00fe83a4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.Chat-Form__btn button[data-v-00fe83a4] {\n  border: 0;\n  width: 70%;\n  height: 70%;\n}\n.Chat-Form__btn button > i[data-v-00fe83a4] {\n  width: 100%;\n}\n.Chat-Form__btn button > i[data-v-00fe83a4]:before {\n  color: #BCC5D3;\n  font-size: 24px;\n}", ""]);
+exports.push([module.i, ".Chat-Form[data-v-00fe83a4] {\n  position: fixed;\n  bottom: 0;\n  background: #fff;\n}\n.Chat-Form > fieldset > *[data-v-00fe83a4] {\n  height: 60px;\n  padding: 10px;\n}\n.Chat-Form__file[data-v-00fe83a4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.Chat-Form__file i[data-v-00fe83a4]:before {\n  font-size: 24px;\n  color: #BCC5D3;\n}\n.Chat-Form__comment[data-v-00fe83a4] {\n  border: solid 1px #BCC5D3;\n  border-radius: 10px;\n  color: #4C5264;\n}\n.Chat-Form__btn[data-v-00fe83a4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n.Chat-Form__btn button[data-v-00fe83a4] {\n  border: 0;\n  width: 70%;\n  height: 70%;\n}\n.Chat-Form__btn button > i[data-v-00fe83a4] {\n  width: 100%;\n}\n.Chat-Form__btn button > i[data-v-00fe83a4]:before {\n  color: #BCC5D3;\n  font-size: 24px;\n}\ntextarea[data-v-00fe83a4] {\n  overflow: scroll;\n}", ""]);
 
 // exports
 
@@ -7957,7 +8140,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "li[data-v-79901758] {\n  position: relative;\n  display: block;\n  min-height: 100px;\n  background: #fff;\n  width: calc(100% - 30px);\n  margin-left: 15px;\n  margin-right: 15px;\n}\nli[data-v-79901758]:last-child {\n  border-bottom: solid 2px #E2E8ED;\n}\nli > p[data-v-79901758] {\n  min-height: 60px;\n}\nli time[data-v-79901758] {\n  display: block;\n}\n.Post i[data-v-79901758] {\n  position: absolute;\n  top: 18px;\n  bottom: 0;\n  left: 20px;\n  width: 55px;\n  overflow: hidden;\n}\n.Post i[data-v-79901758]:before {\n  font-size: 60px;\n  color: blue;\n  z-index: 2;\n}\n.Post__header p[data-v-79901758] {\n  display: inline-block;\n}\n.Post__header time[data-v-79901758] {\n  display: inline-block;\n}\n.Post__img[data-v-79901758] {\n  text-align: right;\n  max-height: 200px;\n}\n.Post__img img[data-v-79901758] {\n  display: inline-block;\n  border-radius: 10px;\n  width: 40%;\n}\n.Chat-Form__file i[data-v-79901758]:before {\n  font-size: 24px;\n}", ""]);
+exports.push([module.i, ".modal[data-v-79901758] {\n  top: 30vh;\n}\n.post-Txtarea[data-v-79901758] {\n  height: 30vh;\n}\ni[data-v-79901758] {\n  position: fixed;\n  bottom: 100px;\n  right: 20px;\n}\ni[data-v-79901758]:before {\n  display: inline-block;\n  text-align: center;\n  padding-top: 5px;\n}\ni[data-v-79901758]:before {\n  font-size: 50px;\n  color: #F271A8;\n  -webkit-transition: all;\n  transition: all;\n}\ni[data-v-79901758]:hover {\n  cursor: pointer;\n}\ni[data-v-79901758]:hover:before {\n  font-size: 55px;\n  -webkit-transition: all;\n  transition: all;\n}\ni[data-v-79901758]:active:before {\n  font-size: 50px;\n  -webkit-transition: all;\n  transition: all;\n}", ""]);
 
 // exports
 
@@ -8021,25 +8204,6 @@ exports.push([module.i, ".top_Hero[data-v-ea962d46] {\n  background: url(\"/imag
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/setting/profile/my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/projects/setting/profile/my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".top_Hero[data-v-6c57936c] {\n  background: url(\"/images/avator1.png\") center no-repeat;\n}\n.u-wrapper[data-v-6c57936c]:hover {\n  cursor: pointer;\n}\n.u-wrapper:hover > .u-wrapper-text[data-v-6c57936c] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-6c57936c] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-6c57936c] {\n  color: #343a40;\n}\n.js-border[data-v-6c57936c] {\n  border-bottom: solid 2px #F271A8;\n}\n.profile-Thumb[data-v-6c57936c] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-6c57936c] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-6c57936c] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-6c57936c] {\n  color: #343a40;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/setting/profile/my_profile.vue?vue&type=style&index=0&id=2c0dabfc&lang=scss&scoped=true&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/projects/setting/profile/my_profile.vue?vue&type=style&index=0&id=2c0dabfc&lang=scss&scoped=true& ***!
@@ -8071,7 +8235,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.c-Card-Hero[data-v-4356c026] {\n  overflow: hidden;\n}\n.c-Card-Hero__img[data-v-4356c026] {\n  max-height: 50vh;\n  margin-left: auto;\n  margin-right: auto;\n}\n.c-Card-Hero__img img[data-v-4356c026] {\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-Sticky[data-v-4356c026]:before {\n  content: \"\";\n  display: block;\n  padding: 15px 0;\n  background: linear-gradient(-135deg, #F271A8, #F5B062) fixed;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.col:hover > .u-wrapper > .u-wrapper-text.u-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}\n.input-group[data-v-4356c026] {\n  width: 80%;\n  margin-left: auto;\n  margin-right: auto;\n  background: #fff;\n}\ni[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.c-Card-Hero__img-input[data-v-4356c026] {\n  /*\n  position: absolute;\n  bottom: 20%;\n  right: 0;\n  left: 0;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-block;\n  border-radius: 4px;*/\n  color: #fff;\n  cursor: pointer;\n}\n.preview_btns > button[data-v-4356c026] {\n  background: #fff;\n}\n.preview_btns > button[data-v-4356c026]:hover {\n  background-color: #6c757d;\n}\n.input-group[data-v-4356c026] {\n  background: none;\n}\n.input-group button[data-v-4356c026] {\n  background: #fff;\n}\n.input-group button[data-v-4356c026]:hover {\n  background-color: #6c757d;\n}\ninput[type=file][data-v-4356c026] {\n  width: 120px;\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.c-Card-Hero[data-v-4356c026] {\n  overflow: hidden;\n}\n.c-Card-Hero__img[data-v-4356c026] {\n  max-height: 50vh;\n  margin-left: auto;\n  margin-right: auto;\n}\n.c-Card-Hero__img img[data-v-4356c026] {\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.u-Sticky[data-v-4356c026] {\n  position: -webkit-sticky;\n  /* safari用 */\n  position: sticky;\n  z-index: 1;\n  top: 0;\n}\n.u-Sticky[data-v-4356c026]:before {\n  content: \"\";\n  display: block;\n  padding: 15px 0;\n  background: linear-gradient(-135deg, #F271A8, #F5B062) fixed;\n}\n.u-wrapper[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.col:hover > .u-wrapper > .u-wrapper-text.u-border[data-v-4356c026] {\n  border-bottom: solid 2px #F271A8;\n  -webkit-transition: border-bottom 1s;\n  transition: border-bottom 1s;\n}\n.u-wrapper-text[data-v-4356c026] {\n  text-align: center;\n  width: 100%;\n  padding: 1rem 0;\n}\n.u-wrapper-text p[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Thumb[data-v-4356c026] {\n  margin-bottom: 0;\n  position: absolute;\n  top: -15px;\n  left: 0;\n  right: 0;\n  display: inline-block;\n  margin: 0 auto;\n  width: 70px;\n  border-radius: 4px;\n  border: solid #fff 2px;\n}\n.profile-Me[data-v-4356c026] {\n  margin-top: 30px;\n}\n.profile-Detail__head[data-v-4356c026] {\n  color: #343a40;\n}\n.profile-Detail__text[data-v-4356c026] {\n  color: #343a40;\n}\n.input-group[data-v-4356c026] {\n  width: 80%;\n  margin-left: auto;\n  margin-right: auto;\n  background: #fff;\n}\ni[data-v-4356c026] {\n  padding-left: 10px;\n}\ni[data-v-4356c026]:hover {\n  cursor: pointer;\n}\n.c-Card-Hero__img-input[data-v-4356c026] {\n  /*\n  position: absolute;\n  bottom: 20%;\n  right: 0;\n  left: 0;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-block;\n  border-radius: 4px;*/\n  color: #fff;\n  cursor: pointer;\n}\n.preview_btns > button[data-v-4356c026] {\n  background: #fff;\n}\n.preview_btns > button[data-v-4356c026]:hover {\n  background-color: #6c757d;\n}\n.input-group[data-v-4356c026] {\n  background: none;\n}\n.input-group button[data-v-4356c026] {\n  background: #fff;\n}\n.input-group button[data-v-4356c026]:hover {\n  background-color: #6c757d;\n}\ninput[type=file][data-v-4356c026] {\n  width: 120px;\n}\n.modal-dialog[data-v-4356c026] {\n  margin-top: 10vh;\n}", ""]);
 
 // exports
 
@@ -39110,6 +39274,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ui/footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ui/icon/edit_icon.vue?vue&type=style&index=0&id=678e5018&lang=scss&scoped=true& ***!
@@ -39299,36 +39493,6 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./friend_review.vue?vue&type=style&index=0&id=ea962d46&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/setting/profile/friend_review.vue?vue&type=style&index=0&id=ea962d46&lang=scss&scoped=true&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/setting/profile/my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true&":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/projects/setting/profile/my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/setting/profile/my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -58413,6 +58577,7 @@ Vue.component('file-upload', VueUploadComponent);
 Vue.mixin({
   data: function data() {
     return {
+      pattern: "",
       vali_error: {
         required: "入力必須項目です。",
         //required attr
@@ -58430,10 +58595,10 @@ Vue.mixin({
         xss: "不正なスクリプトが検出されました。",
         regexp_email: new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$"),
         regexp_half: new RegExp("^[a-zA-Z0-9]+$")
-      },
-      pattern: ""
+      }
     };
   },
+  created: function created() {},
   methods: {
     vali_required: function vali_required(type, value) {
       if (value == "") {
@@ -58568,6 +58733,8 @@ Vue.mixin({
       ;
     },
     update_Prof: function update_Prof(obj, text) {
+      var _this = this;
+
       var my_data = this.get_Post_Value_Type(obj, text);
       console.log(my_data);
 
@@ -58598,7 +58765,27 @@ Vue.mixin({
         window.Laravel.my_data['birthday'] = obj.json_data.my_data['birthday'];
         window.Laravel.my_data['picture'] = obj.json_data.my_data['picture']; //vuex 更新
 
-        obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+        obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data); //表示内容更新
+
+        obj.name__displayed = obj.json_data.my_data['name'];
+        obj.email__displayed = obj.json_data.my_data['email'];
+        obj.occupation__displayed = obj.json_data.my_data['occupation'];
+        obj.location__displayed = obj.json_data.my_data['location'];
+        obj.profile_header__displayed = obj.json_data.my_data['profile_header'];
+        obj.profile_detail__displayed = obj.json_data.my_data['profile_detail'];
+        obj.birthday__displayed = obj.json_data.my_data['birthday'];
+        obj.picture__displayed = obj.json_data.my_data['picture'];
+        obj.name__displayed = "";
+        obj.email = "";
+        obj.occupation = "";
+        obj.location = "";
+        obj.profile_header = "";
+        obj.profile_detail = "";
+        obj.birthday = "";
+        obj.picture = "";
+
+        _this.get_Prof_Type(obj, text);
+
         return obj.json_data;
       })["catch"](function (err) {
         return console.log(err);
@@ -59183,21 +59370,23 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./footer.vue?vue&type=script&lang=js& */ "./resources/js/components/ui/footer.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _footer_vue_vue_type_style_index_0_id_5af8ee8a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true& */ "./resources/js/components/ui/footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
+
 
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
   render,
   staticRenderFns,
   false,
   null,
-  null,
+  "5af8ee8a",
   null
   
 )
@@ -59220,6 +59409,22 @@ component.options.__file = "resources/js/components/ui/footer.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./footer.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/footer.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ui/footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/ui/footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true& ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_style_index_0_id_5af8ee8a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ui/footer.vue?vue&type=style&index=0&id=5af8ee8a&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_style_index_0_id_5af8ee8a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_style_index_0_id_5af8ee8a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_style_index_0_id_5af8ee8a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_style_index_0_id_5af8ee8a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_footer_vue_vue_type_style_index_0_id_5af8ee8a_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -60059,23 +60264,21 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _my_posts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./my_posts.vue?vue&type=script&lang=js& */ "./resources/js/projects/setting/profile/my_posts.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _my_posts_vue_vue_type_style_index_0_id_6c57936c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true& */ "./resources/js/projects/setting/profile/my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
-
 
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
   _my_posts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
   render,
   staticRenderFns,
   false,
   null,
-  "6c57936c",
+  null,
   null
   
 )
@@ -60098,22 +60301,6 @@ component.options.__file = "resources/js/projects/setting/profile/my_posts.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_my_posts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./my_posts.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/setting/profile/my_posts.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_my_posts_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/projects/setting/profile/my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true&":
-/*!**********************************************************************************************************************!*\
-  !*** ./resources/js/projects/setting/profile/my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true& ***!
-  \**********************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_my_posts_vue_vue_type_style_index_0_id_6c57936c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/projects/setting/profile/my_posts.vue?vue&type=style&index=0&id=6c57936c&lang=scss&scoped=true&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_my_posts_vue_vue_type_style_index_0_id_6c57936c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_my_posts_vue_vue_type_style_index_0_id_6c57936c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_my_posts_vue_vue_type_style_index_0_id_6c57936c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_my_posts_vue_vue_type_style_index_0_id_6c57936c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_my_posts_vue_vue_type_style_index_0_id_6c57936c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -61185,8 +61372,8 @@ var routes = [{
   name: "post",
   components: {
     c_header: _components_header_header_simple_vue__WEBPACK_IMPORTED_MODULE_28__["default"],
-    c_main: _projects_post_post_vue__WEBPACK_IMPORTED_MODULE_22__["default"] //c_footer: chat_comment_form
-
+    c_main: _projects_post_post_vue__WEBPACK_IMPORTED_MODULE_22__["default"],
+    c_footer: _components_ui_footer_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
   }
 }]; // 5.
 
@@ -61337,8 +61524,6 @@ var actions = {
 };
 var mutations = {
   change: function change(state, pattern_name) {
-    console.log("sate: ");
-    console.log(state);
     state.pattern = pattern_name;
   }
 };
@@ -61495,8 +61680,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/matching_app/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/matching_app/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/matching/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/matching/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

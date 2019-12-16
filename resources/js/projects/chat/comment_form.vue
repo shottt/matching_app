@@ -3,8 +3,14 @@
 export default {
   data: function () { return{
     comment: "",
+    counter: 0,
   }},
-
+  props: {
+    chat_props: {
+      chat_id: 0,
+      chat_length: 10,
+    },
+  },
   methods: {
     commentting: function () {
 
@@ -15,6 +21,7 @@ export default {
         my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
         user_id: this.$store.getters['user_info/getUser_Vuex'].id,
         comment: this.comment,
+        chat_id: this.chat_props.chat_id,
       })
       .then(res => {
 
@@ -26,8 +33,9 @@ export default {
         }
         
         //親chat.vueにコメント追加を連絡する
-        this.$emit('emit-add-comment', true);
+        this.$emit('emit-add-comment', true,);
         this.change_Page_Pattern('chat');
+        this.comment = "";
         console.log("成功");
 
       })
@@ -112,5 +120,9 @@ export default {
     }
   }
 }}
+
+textarea {
+  overflow: scroll;
+}
 </style>
 

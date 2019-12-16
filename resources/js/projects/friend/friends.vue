@@ -12,11 +12,7 @@ export default {
   },
   template: `
   <main class="u-container-y">
-    <div class="pt-5 container-fluid">
-      <ul class="table mb-0">
-        <person_card></person_card>
-      </ul>
-    </div>
+    <person_card></person_card>
   </main>`
 }
 </script>

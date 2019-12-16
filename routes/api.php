@@ -152,7 +152,7 @@ Route::group(['middleware' => 'api'], function() {
 
     /* チャットコメントを取得する
     * 
-    * from my_id, user_id
+    * from my_id, user_id, puls_recore
     * return result_flag;
     *        comments:
     *               id,
@@ -163,9 +163,23 @@ Route::group(['middleware' => 'api'], function() {
     */
     Route::post('/ctrl_get_chat', 'Api\ChatsController@get_chat');
 
+
+    /* 最新コメント取得
+    * 
+    * from chat_id
+    * return result_flag;
+    *        comment:
+    *               id,
+    *               detail,
+    *               user_id,
+    *               attachment
+    *               updated_at,
+    */
+    Route::post('/ctrl_get_new_chat', 'Api\ChatsController@get_new_chat');
+
     /* チャットコメントを追加する
     * 
-    * from my_id, user_id, comment
+    * from my_id, user_id, comment, chat_id
     * return result_flag;
     */
     Route::post('/ctrl_add_chat_comment', 'Api\ChatsController@add_chat_comment');
