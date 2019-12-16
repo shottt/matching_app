@@ -178,6 +178,11 @@ i:hover {
 .is_Acitve:before {
     color:#F271A8;
 }
+
+li {
+    padding-left: 5px;
+    padding-right: 5px;
+}
 </style>
 
        <!--

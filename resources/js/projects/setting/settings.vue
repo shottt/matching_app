@@ -63,9 +63,6 @@ export default {
             プロフィール確認する
           </router-link>
         </div>
-        <div @click.capture="change_Page_Pattern('set_Prof')">
-          <router-link class="d-block mt-3" to="/set_Prof">プロフィール編集</router-link>
-        </div>
 
         <div @click.capture="change_Page_Pattern('set_Pass')">
           <router-link class="d-block my-3" to="/set_Pass" >パスワード変更</router-link>

@@ -54,14 +54,42 @@ export default {
   template: `
   <main class="text-center u-bg-w u-pb-180 u-pt-100">
     <post_card></post_card>
-    <i class="fas fa-plus-circle"></i>
+    <i class="fas fa-plus-circle" data-toggle="modal" data-target="#posting"></i>
+    <!-- モーダルの設定 -->
+
+        <div class="modal fade" id="posting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+              <div class="modal-body">
+                
+                <form>
+                  <textarea class="post-Txtarea u-txt-b w-100" id="" name="post-text" rows="10" cols="33"></textarea>
+                </form>
+                
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary">投稿する</button>
+              </div><!-- /.modal-footer -->
+
+            </div><!-- /.modal-content -->
+
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
   </main>`
 }
 </script>
 
 <style lang="scss" scoped>
-
-
+.modal {
+  top: 30vh;
+}
+.post-Txtarea {
+  height: 30vh;
+}
 i {
   position: fixed;
   bottom: 100px;
