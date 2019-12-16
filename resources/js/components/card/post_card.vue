@@ -1,44 +1,169 @@
 <script>
+//data-target="#ここはユニークなIDを設定したい" 
+//id="ここも同じ"
+//post_idをhash化するとかで対応する
   export default {
     template: `
-    <div class="u-bt-border-grey px-4 pt-5 pb-3">
-      <dt class="d-inline-block w-auto">
-        <figure class="d-inline-block post-Main-Img  w-auto">
-          <img class="img- w-100" src="/images/posts/post_images/landscape-1.png" alt="">
-        </figure>
-      </dt>
-      <dd class="post-Detail pl-4">
-        <p class="u-txt-b text-left">絶景だー！</p>
-        <div class="post-Icons c-opition-icon pt-2">
-          <figure><img src="/images/posts/heart-line-icon.png" alt="" class="img-fluid mr-1"></figure>
-          <figure><img src="/images/posts/options-icon.png" alt=""class="img-fluid"  data-toggle="modal" data-target="#myModal"></figure>
+    <div>
 
-        </div>
-      </dd>
-      <!-- モーダルの設定 -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+      <dl class="u-bt-border-grey px-4 pt-5 pb-3">
+        <dt class="d-inline-block w-auto">
+          <figure class="d-inline-block post-Main-Img  w-auto">
+            <img class="img- w-100" src="/images/posts/post_images/landscape-1.png" alt="">
+          </figure>
+        </dt>
+        <dd class="post-Detail pl-4">
+          <p class="u-txt-b text-left">絶景だー！</p>
+          <div class="post-Icons c-opition-icon pt-2">
+            <figure><img src="/images/posts/heart-line-icon.png" alt="" class="img-fluid mr-1"></figure>
+            <figure><img src="/images/posts/options-icon.png" alt=""class="img-fluid"  data-toggle="modal" data-target="#myModal"></figure>
 
-          <div class="modal-content">
+          </div>
+        </dd>
+        <!-- モーダルの設定 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
 
-            <div class="modal-body">
-              
-              <form>
-                <textarea class="u-txt-b w-100" id="" name="post-text" rows="10" cols="33"></textarea>
-              </form>
-              
-            </div>
+            <div class="modal-content">
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-              <button type="button" class="btn btn-primary">コメントを投稿する</button>
-            </div><!-- /.modal-footer -->
+              <div class="modal-body">
+                
+                <form>
+                  <textarea class="u-txt-b w-100" id="" name="post-text" rows="10" cols="33"></textarea>
+                </form>
+                
+              </div>
 
-          </div><!-- /.modal-content -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary">コメントを投稿する</button>
+              </div><!-- /.modal-footer -->
 
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
+            </div><!-- /.modal-content -->
+
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </dl>
+
+      <dl class="u-bt-border-grey px-4 pt-5 pb-3">
+        <dt class="d-inline-block w-auto">
+          <figure class="d-inline-block post-Main-Img  w-auto">
+            <img class="img- w-100" src="/images/posts/post_images/landscape-1.png" alt="">
+          </figure>
+        </dt>
+        <dd class="post-Detail pl-4">
+          <p class="u-txt-b text-left">絶景だー！</p>
+          <div class="post-Icons c-opition-icon pt-2">
+            <figure><img src="/images/posts/heart-line-icon.png" alt="" class="img-fluid mr-1"></figure>
+            <figure><img src="/images/posts/options-icon.png" alt=""class="img-fluid"  data-toggle="modal" data-target="#myModal"></figure>
+
+          </div>
+        </dd>
+        <!-- モーダルの設定 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+              <div class="modal-body">
+                
+                <form>
+                  <textarea class="u-txt-b w-100" id="" name="post-text" rows="10" cols="33"></textarea>
+                </form>
+                
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary">コメントを投稿する</button>
+              </div><!-- /.modal-footer -->
+
+            </div><!-- /.modal-content -->
+
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </dl>
+
+
+      <dl class="u-bt-border-grey px-4 pt-5 pb-3">
+        <dt class="d-inline-block w-auto">
+          <figure class="d-inline-block post-Main-Img  w-auto">
+            <img class="img- w-100" src="/images/posts/post_images/landscape-1.png" alt="">
+          </figure>
+        </dt>
+        <dd class="post-Detail pl-4">
+          <p class="u-txt-b text-left">絶景だー！</p>
+          <div class="post-Icons c-opition-icon pt-2">
+            <figure><img src="/images/posts/heart-line-icon.png" alt="" class="img-fluid mr-1"></figure>
+            <figure><img src="/images/posts/options-icon.png" alt=""class="img-fluid"  data-toggle="modal" data-target="#myModal"></figure>
+
+          </div>
+        </dd>
+        <!-- モーダルの設定 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+              <div class="modal-body">
+                
+                <form>
+                  <textarea class="u-txt-b w-100" id="" name="post-text" rows="10" cols="33"></textarea>
+                </form>
+                
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary">コメントを投稿する</button>
+              </div><!-- /.modal-footer -->
+
+            </div><!-- /.modal-content -->
+
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </dl>
+      <dl class="u-bt-border-grey px-4 pt-5 pb-3">
+        <dt class="d-inline-block w-auto">
+          <figure class="d-inline-block post-Main-Img  w-auto">
+            <img class="img- w-100" src="/images/posts/post_images/landscape-1.png" alt="">
+          </figure>
+        </dt>
+        <dd class="post-Detail pl-4">
+          <p class="u-txt-b text-left">絶景だー！</p>
+          <div class="post-Icons c-opition-icon pt-2">
+            <figure><img src="/images/posts/heart-line-icon.png" alt="" class="img-fluid mr-1"></figure>
+            <figure><img src="/images/posts/options-icon.png" alt=""class="img-fluid"  data-toggle="modal" data-target="#myModal"></figure>
+
+          </div>
+        </dd>
+        <!-- モーダルの設定 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+              <div class="modal-body">
+                
+                <form>
+                  <textarea class="u-txt-b w-100" id="" name="post-text" rows="10" cols="33"></textarea>
+                </form>
+                
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                <button type="button" class="btn btn-primary">コメントを投稿する</button>
+              </div><!-- /.modal-footer -->
+
+            </div><!-- /.modal-content -->
+
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+      </dl>
     </div>
+
+
     `
   }
 

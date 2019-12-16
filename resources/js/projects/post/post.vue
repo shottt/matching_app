@@ -12,21 +12,23 @@
 
 //⑷コメントはcreated_atの順で。
 import comments from './post_form.vue';
+import post_card from '../../components/card/post_card.vue';
 export default {
   data: function () { return {
     comments: {},
   }},
   beforeMount: function () {
-    comments = this.get_Comment(true);
+    return;
+    comments = this.get_Posts(true);
   },
   //子のcomment_form.vueから「コメントが増えた」と信号を受け取る。
   methods: {
-    get_Comment: function (get_flag) {
+    get_get_Posts: function (get_flag) {
 
       if (get_flag !== true) {
         return;
       }
-        this.$http.post('/api/ctrl_get_chat', {
+        this.$http.post('/api/ctrl_get_posts', {
         my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
         user_id: this.$store.getters['user_info/getUser_Vuex'].id,
       })
@@ -47,162 +49,46 @@ export default {
     },
   },
   components: {
-    comments,
+    post_card,
   },
   template: `
-  <div>
-    <main class="u-pt-100 u-pb-80">
-
-      <div class="u-py-30">
-        <ul class="table mb-0 ">
-
-
-
-          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
-            <i class="fas fa-user-injured"></i>
-            <div class="Post__header">
-              <p class="u-txt-b mr-3">ほしのあき</p>
-              <time class="u-txt-b text-right">2019 11 02</time>
-            </div>
-            
-
-            <p class="text-left my-2 u-txt-b">
-              friend friend friend friend friend friend friend friend friend friend 
-            </p>
-            <figure class="Post__img m-0">
-              <img src="/images/avator2.png" class="img-fluid" alt="">
-            </figure>
-          </li>
-
-          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
-            <i class="fas fa-user-injured"></i>
-            <div class="Post__header">
-              <p class="u-txt-b mr-3">ほしのあき</p>
-              <time class="u-txt-b text-right">2019 11 02</time>
-            </div>
-            
-
-            <p class="text-left my-2 u-txt-b">
-              friend friend friend friend friend friend friend friend friend friend 
-            </p>
-            <figure class="Post__img m-0">
-              <img src="/images/avator2.png" class="img-fluid" alt="">
-            </figure>
-          </li>
-          
-
-          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
-            <i class="fas fa-user-injured"></i>
-            <div class="Post__header">
-              <p class="u-txt-b mr-3">ほしのあき</p>
-              <time class="u-txt-b text-right">2019 11 02</time>
-            </div>
-            
-
-            <p class="text-left my-2 u-txt-b">
-              friend friend friend friend friend friend friend friend friend friend 
-            </p>
-            <figure class="Post__img m-0">
-              <img src="/images/avator2.png" class="img-fluid" alt="">
-            </figure>
-          </li>
-
-          <li class="Post py-3 u-pl-100 u-pr-60 u-top-border-grey">
-            <i class="fas fa-user-injured"></i>
-            <div class="Post__header">
-              <p class="u-txt-b mr-3">ほしのあき</p>
-              <time class="u-txt-b text-right">2019 11 02</time>
-            </div>
-            
-
-            <p class="text-left my-2 u-txt-b">
-              friend friend friend friend friend friend friend friend friend friend 
-            </p>
-            <figure class="Post__img m-0">
-              <img src="/images/avator2.png" class="img-fluid" alt="">
-            </figure>
-          </li>
-
-        </ul>
-      </div>
-    </main>
-    <comments v-on:emit-add-comment="get_Comment"/>
-  </div>`
+  <main class="text-center u-bg-w u-pb-180 u-pt-100">
+    <post_card></post_card>
+    <i class="fas fa-plus-circle"></i>
+  </main>`
 }
 </script>
 
 <style lang="scss" scoped>
 
-li {
-  position: relative;
-  display: block;
-  min-height: 100px;
-  background: #fff;
-  width: calc(100% - 30px);
-  margin-left: 15px;
-  margin-right: 15px;
-  &:last-child {
-    border-bottom: solid 2px #E2E8ED;
-  }
-  > p {
-    
-    min-height: 60px;
-  }
-  time {
-    display: block;
+
+i {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  &:before {
+    display: inline-block;
+    text-align: center;
+    padding-top:5px;
   }
 }
-
-.Post {
-
-  i {
-    position: absolute;
-    top: 18px;
-    bottom: 0;
-    left: 20px;
-    width: 55px;
-    overflow: hidden;
+i:before {
+  font-size: 50px;
+  color: #F271A8;
+  transition: all;
+}
+i:hover {
+  cursor: pointer;
+  &:before {
+    font-size: 55px;
+    transition: all;
+  }
+}
+i:active {
     &:before {
-      font-size: 60px;
-      color: blue;
-      z-index: 2;
-    }
-  }
-
-}
-.Post__header {
-  p {
-    display: inline-block;
-  }
-  time {
-    display: inline-block;
+    font-size: 50px;
+    transition: all;
   }
 }
-.Post__img {
-  text-align: right;
-  max-height: 200px;
-  img {
-    display: inline-block;
-
-    border-radius: 10px;
-    width: 40%;
-  }
-}
-.Chat-Form {
-@at-root {
-  .Chat-Form__file {
-    i {
-      &:before {
-        font-size: 24px;
-      }
-    }
-  }
-  .Chat-Form__comment {
-    
-  }
-  .Chat-Form__btn {
-    
-  }
-}}
 </style>
 
