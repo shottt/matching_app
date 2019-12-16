@@ -15,29 +15,21 @@ class ChatsController extends Controller
     //chatを新規作成
     //get_chat でchat_idが見つからない時に使う　リダイレクトで使う
     public function create_chat(Request $request){
-        // 自分のユーザーIDを取得
-        // $my_id = $request->my_id;
-        $my_id = 2;
+        // 自分のユーザーIDを取得（$my_idをベタ書きで動作確認した）
+        $my_id = $request->my_id;
+        // $my_id = 2;
         Log::debug('1 自分のユーザーID：' .$my_id);
         // 受け取った自分のユーザーIDがログインユーザーのIDか判定（同時にmy_idを受け取れているか確認）
         if($my_id != Auth::id()){
             return response()->json(['result_flag' => false]);
         }
-        // 相手のユーザーIDを取得
-        // $user_id = $request->user_id;
-        $user_id = 7;
+        // 相手のユーザーIDを取得（$user_idをベタ書きで動作確認した）
+        $user_id = $request->user_id;
+        // $user_id = 8;
         Log::debug('2 相手のユーザーID：' .$user_id);
 
         // 異常判定
         if(empty($user_id)){
-            return response()->json(['result_flag' => false]);
-        }
-
-        // 自分のユーザーIDと相手のユーザーIDにマッチするチャット情報があるか確認し
-        // ある場合はresult_flag：falseを返す
-        $chat_id = Chat::where('from_user', $my_id)->where('to_user', $user_id)->first(['id']);
-        // Log::debug(print_r($chat_id, true));
-        if($chat_id){
             return response()->json(['result_flag' => false]);
         }
 
@@ -60,6 +52,7 @@ class ChatsController extends Controller
         $comments = Comment::where('chat_id', $chat_id)->orderBy('created_at', 'desc')->take(10)->get();
         Log::debug('4 コメント情報一覧：' .print_r($comments, true));
 
+        Log::debug(response()->json(['result_flag' => true, 'comments' => $comments]));
         return response()->json(['result_flag' => true, 'comments' => $comments]);
 
     }
@@ -89,18 +82,19 @@ class ChatsController extends Controller
         }
 
         // 自分のユーザーIDと相手のユーザーIDにマッチするチャット情報を取得する
-        $chat_id = DB::table('chats')->where('from_user', $my_id)->where('to_user', $user_id)->first(['id'])->id;
-
-        if (empty($chat_id)) {
-            $chat_id = DB::table('chats')->where('from_user', $user_id)->where('to_user', $my_id)->first(['id'])->id;
+        $chat = DB::table('chats')->where('from_user', $my_id)->where('to_user', $user_id)->first(['id']);
+        if (empty($chat)) {
+            $chat = DB::table('chats')->where('from_user', $user_id)->where('to_user', $my_id)->first(['id']);
         }
 
-        Log::debug('3 チャットID：' .print_r($chat_id, true));
+        Log::debug('3 チャットID：' .print_r($chat, true));
 
-        // 異常判定
-        if(empty($chat_id)){
-            return response()->json(['result_flag' => false]);
+        // チャット情報が見つからない場合にcreate_chatアクションを呼び出す
+        if(empty($chat)){
+            return redirect()->action('Api\ChatsController@create_chat', ['my_id' => $my_id, 'user_id' => $user_id]);
         }
+        // チャットIDを取得する
+        $chat_id = $chat->id;
         // コメントを降順で10件取得する
         $comments = DB::table('comments')->where('chat_id', $chat_id)->orderBy('created_at', 'desc')->take(10)->get();
         Log::debug('4 コメント情報一覧：' .print_r($comments, true));

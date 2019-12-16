@@ -140,6 +140,10 @@ Route::group(['middleware' => 'api'], function() {
     // return result_flag, 
     //        my_data {}
     Route::post('/ctrl_set_prof', 'Api\UsersController@set_prof');
+    // 画像アップロードのリクエスト
+    Route::post('/ctrl_set_prof_img', 'Api\UsersController@set_prof_img');
+    
+
 
 
     /***********************************
@@ -176,6 +180,9 @@ Route::group(['middleware' => 'api'], function() {
     *               attachment
     *               updated_at,
     */
+    // 直リンク
     Route::get('/create_chat', 'Api\ChatsController@create_chat');
-
+    // get_chatからリダイレクト
+    Route::post('/create_chat', 'Api\ChatsController@create_chat');
+    
 });
