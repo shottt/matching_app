@@ -15,17 +15,15 @@ class ChatsController extends Controller
     //chatを新規作成
     //get_chat でchat_idが見つからない時に使う　リダイレクトで使う
     public function create_chat(Request $request){
-        // 自分のユーザーIDを取得（$my_idをベタ書きで動作確認した）
+        // 自分のユーザーIDを取得
         $my_id = $request->my_id;
-        // $my_id = 2;
         Log::debug('1 自分のユーザーID：' .$my_id);
         // 受け取った自分のユーザーIDがログインユーザーのIDか判定（同時にmy_idを受け取れているか確認）
         if($my_id != Auth::id()){
             return response()->json(['result_flag' => false]);
         }
-        // 相手のユーザーIDを取得（$user_idをベタ書きで動作確認した）
+        // 相手のユーザーIDを取得
         $user_id = $request->user_id;
-        // $user_id = 8;
         Log::debug('2 相手のユーザーID：' .$user_id);
 
         // 異常判定
