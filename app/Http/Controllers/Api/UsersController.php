@@ -13,16 +13,19 @@ use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
-    public function user_search(){
+    public function user_search(Request $request){
         
-        // 自分のユーザーIDを取得
-        $auth_id = Auth::id();
-        // Log::debug($auth_id);
+        // 自分のIDを取得する
+        $my_id =$request->header('aut_id');
+        // ログインユーザーIDと一致しているか確認
+        if($my_id != Auth::id()){
+            return response()->json(['result_flag' => false]);
+        }
 
         // 必要なカラムだけ取ってくる、自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
-        // $user = User::whereNotIn('id', $auth_id)->get(); → この書き方だとエラー
-        // $users = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
-        $users = DB::table('users')->where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
+        // $user = User::whereNotIn('id', $my_id)->get(); → この書き方だとエラー
+        // $users = User::where('id', '!=', $my_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
+        $users = DB::table('users')->where('id', '!=', $my_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         Log::debug('ユーザー情報一覧：' .print_r($users, true));
 
         // 異常判定
@@ -50,12 +53,12 @@ class UsersController extends Controller
     public function friend_search(Request $request){
         
         // 自分のユーザーIDを取得
-        //$auth_id = Auth::id();
-        // Log::debug($auth_id);
+        //$my_id = Auth::id();
+        // Log::debug($my_id);
 
         // 必要なカラムだけ取ってくる、自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
-        // $user = User::whereNotIn('id', $auth_id)->get(); → この書き方だとエラー
-        // $users = User::where('id', '!=', $auth_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
+        // $user = User::whereNotIn('id', $my_id)->get(); → この書き方だとエラー
+        // $users = User::where('id', '!=', $my_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         $users = DB::table('users')->where('id', '!=',  $request->user_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
 
         // Log::debug(print_r($users, true));
@@ -81,8 +84,12 @@ class UsersController extends Controller
     // ユーザー情報詳細（自分以外）を取得する
     public function user_profile(Request $request){
         
-        // 自分のユーザーIDを取得
-        $auth_id = Auth::id();
+        // 自分のIDを取得する
+        $my_id =$request->header('aut_id');
+        // ログインユーザーIDと一致しているか確認
+        if($my_id != Auth::id()){
+            return response()->json(['result_flag' => false]);
+        }
         
         $user_id = $request->user_id;
         
@@ -90,7 +97,7 @@ class UsersController extends Controller
             return response()->json(['result_flag' => false]);
         }
         
-        $user = User::where('id', '!=', $auth_id)->where('id', $user_id)->where('delete_flag', 0)->first();
+        $user = User::where('id', '!=', $my_id)->where('id', $user_id)->where('delete_flag', 0)->first();
         // Log::debug('ユーザー情報詳細：' .print_r($user, true));
 
         // 異常判定
@@ -147,12 +154,43 @@ class UsersController extends Controller
     //set_prof_img
     public function set_prof_img(Request $request){
     
-        // 自分のユーザーとPOST値のUser_idを比較
-
-        Log::debug($request->picture);
         Log::debug($request);
+        // バリデーション
+        $this->validate($request, User::$rules);
 
-        return response()->json(['result_flag' => true]);
+        // 自分のIDを取得する
+        $my_id =$request->header('aut_id');
+
+        // ログインユーザーIDと一致しているか確認
+        if($my_id != Auth::id()){
+            return response()->json(['result_flag' => false]);
+        }
+        $uploadImg =$request->picture;
+        // Log::debug($uploadImg);
+
+        // アップロードに成功している確認し、ファイルパスに保存
+        if($uploadImg->isValid()){
+            $filePath = $uploadImg->store('public');
+            // Log::debug($filePath);
+            // 編集するユーザー情報を取得する
+            $user = User::where('id', $my_id)->where('delete_flag', 0)->first();
+
+            $user->picture = str_replace('public/', '', $filePath);
+        }
+        // DBに画像のパスを保存
+        $result = $user->save();
+
+         // 結果がfalseの場合、result_flagをfalseでreturn
+         if(!$result){
+            return response()->json(['result_flag' => false]);
+        }
+
+        // 更新後のプロフ画像を取得する
+        $prof_img = User::where('id', $my_id)->where('delete_flag', 0)->first()->picture;
+        // Log::debug($prof_img);
+
+        // Log::debug(response()->json(['result_flag' => true, 'picture' => $prof_img]));
+        return response()->json(['result_flag' => true, 'picture' => $prof_img]);
 
     }
 }

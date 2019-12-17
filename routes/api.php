@@ -194,7 +194,7 @@ Route::group(['middleware' => 'api'], function() {
     *               attachment
     *               updated_at,
     */
-    // 直リンク
+    // 直リンク（まだ実装できていない）
     Route::get('/create_chat', 'Api\ChatsController@create_chat');
     // get_chatからリダイレクト
     Route::post('/create_chat', 'Api\ChatsController@create_chat');

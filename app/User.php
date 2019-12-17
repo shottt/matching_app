@@ -43,7 +43,7 @@ class User extends Authenticatable
         'email' => 'email|max:255',
         'profile_header' => 'max:255',
         'profile_detail' => 'max:255',
-        'picture' => 'file|image',
+        'picture' => 'file|image|mimes:jpeg,png,jpg,gif|max:2048',
     );
 
     public function posts()
