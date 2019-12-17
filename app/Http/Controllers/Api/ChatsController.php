@@ -16,7 +16,7 @@ class ChatsController extends Controller
     //get_chat でchat_idが見つからない時に使う　リダイレクトで使う
     public function create_chat(Request $request){
         // 自分のユーザーIDを取得
-        $my_id = $request->my_id;
+        $my_id = $request->header('aut_id');
         Log::debug('1 自分のユーザーID：' .$my_id);
         // 受け取った自分のユーザーIDがログインユーザーのIDか判定（同時にmy_idを受け取れているか確認）
         if($my_id != Auth::id()){
@@ -58,7 +58,7 @@ class ChatsController extends Controller
     // チャットコメントを取得
     public function get_chat(Request $request){
         // 自分のユーザーIDを取得
-        $my_id = $request->my_id;
+        $my_id = $request->header('aut_id');
         Log::debug('1 自分のユーザーID：' .$my_id);
 
         // 変数の型をログに出力
@@ -132,7 +132,7 @@ class ChatsController extends Controller
         // $this->validate($request, Comment::$rules);
         // Log::debug($request);
 
-        $my_id = $request->my_id;
+        $my_id = $request->header('aut_id');
         $user_id = $request->user_id;
         $chat_id = $request->chat_id;
         
