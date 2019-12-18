@@ -107,27 +107,15 @@
         if (this.fileInfo === undefined && this.picture !== "" ) {
           this.fileInfo = this.picture;
         }
-        
-        const reader = new FileReader();  
-        let m_file_name = this.fileInfo.name;
-        //エンコーどなし？
-        // reader.onload = function (event) {
-        //   document.querySelector(".js-preview-img > img") = event.target.result;
-        // }
-        // this.picture = this.fileInfo;
-        // reader.readAsDataURL(this.fileInfo);
 
-        //エンコードあり？
-        reader.readAsDataURL(this.fileInfo);
-        reader.onload = function (event) {
-          document.querySelector(".js-preview-img > img").src = event.target.result;//resultはbase64
-          let data_url_scheme = event.target.result;
-          this.base64 = btoa(data_url_scheme);
-          this.base64 = this.base64.replace(/^.*,/, '');
-          this.file_name = encodeURIComponent(m_file_name);
-        }
+        const reader = new FileReader();
+        let preview_img = document.querySelector(".js-preview-img > img");
         
+        reader.onload = function (event) {
+          preview_img.src = event.target.result;
+        }
         this.picture = this.fileInfo;
+        reader.readAsDataURL(this.fileInfo);
       },
 
       fileUpload(){
@@ -136,11 +124,7 @@
         console.log(formData);
 
         axios.post('/api/ctrl_set_prof_img', formData, {
-        //axios.post('/api/ctrl_set_prof_img', {'picture': 'base64=' + base64 + '&this.file_name=' + this.file_name,}, {
-          'responseType': 'arraybuffer',
-          'headers': {
-            'Content-Type': 'image/png'
-          }
+            headers: { 'content-type': 'multipart/form-data'}
         })
         .then(res => {
           if (res.data.result_flag === false) {
@@ -148,16 +132,9 @@
             return;
           }
           console.log("プロフィール更新成功");
-
-          const base64 = new Buffer(res.data, "binary").toString("base64")
-          const prefix = `data:${res.headers["content-type"]};base64,`
-          //res.send(`<img src=${prefix}${base64} />`)
-           console.log(base64);
-          console.log(prefix);
-          console.log('base64=' + base64 + '&this.file_name=' + this.file_name);
-
-          // this.json_data = res.data;
-          // console.log(this.json_data);
+          this.json_data = res.data;
+          console.log(this.json_data);
+          
           // //window.laravel 更新
           // window.Laravel.my_data['picture'] = this.json_data.my_data['picture'];
           // //vuex 更新
@@ -176,7 +153,7 @@
     template: `
     <main class="text-center u-bg-w u-pb-180">
       <div class="c-Card-Hero">
-        <p class="c-Card-Hero__img js-my-img">
+        <p class="c-Card-Hero__img">
           <img class="w-100" src="/images/avator1.png" alt="">
         </p>
         <dl class="c-Card-Hero__detail text-center">
