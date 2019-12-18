@@ -80,7 +80,7 @@ Route::group(['middleware' => 'api'], function() {
      * ],
      * result_flag;
      */
-    Route::post('/ctrl_all_users', 'Api\UsersController@user_search');
+    Route::post('/ctrl_all_users', 'Api\UsersController@user_search')->middleware('check');
     // 簡易確認用にgetのルーティングを配置
     // Route::get('/ctrl_all_users', 'Api\UsersController@user_search');
 
@@ -121,7 +121,7 @@ Route::group(['middleware' => 'api'], function() {
     *               name,
     *               occupation
     */
-    Route::post('/ctrl_user_profile', 'Api\UsersController@user_profile');
+    Route::post('/ctrl_user_profile', 'Api\UsersController@user_profile')->middleware('check');
 
     /***********************************
      * 登録ユーザー編集機能
@@ -139,9 +139,9 @@ Route::group(['middleware' => 'api'], function() {
 
     // return result_flag, 
     //        my_data {}
-    Route::post('/ctrl_set_prof', 'Api\UsersController@set_prof');
+    Route::post('/ctrl_set_prof', 'Api\UsersController@set_prof')->middleware('check');
     // 画像アップロードのリクエスト
-    Route::post('/ctrl_set_prof_img', 'Api\UsersController@set_prof_img');
+    Route::post('/ctrl_set_prof_img', 'Api\UsersController@set_prof_img')->middleware('check');
     
 
 
@@ -161,7 +161,7 @@ Route::group(['middleware' => 'api'], function() {
     *               attachment
     *               updated_at,
     */
-    Route::post('/ctrl_get_chat', 'Api\ChatsController@get_chat');
+    Route::post('/ctrl_get_chat', 'Api\ChatsController@get_chat')->middleware('check');
 
 
     /* 最新コメント取得
@@ -175,14 +175,14 @@ Route::group(['middleware' => 'api'], function() {
     *               attachment
     *               updated_at,
     */
-    Route::post('/ctrl_get_new_chat', 'Api\ChatsController@get_new_chat');
+    Route::post('/ctrl_get_new_chat', 'Api\ChatsController@get_new_chat')->middleware('check');
 
     /* チャットコメントを追加する
     * 
     * from my_id, user_id, comment, chat_id
     * return result_flag;
     */
-    Route::post('/ctrl_add_chat_comment', 'Api\ChatsController@add_chat_comment');
+    Route::post('/ctrl_add_chat_comment', 'Api\ChatsController@add_chat_comment')->middleware('check');
 
     /* chat作成　※Api\ChatsController@get_chat　リダイレクトでも使えるように
     * from my_id, user_id
@@ -195,8 +195,8 @@ Route::group(['middleware' => 'api'], function() {
     *               updated_at,
     */
     // 直リンク（まだ実装できていない）
-    Route::get('/create_chat', 'Api\ChatsController@create_chat');
+    Route::get('/create_chat', 'Api\ChatsController@create_chat')->middleware('check');
     // get_chatからリダイレクト
-    Route::post('/create_chat', 'Api\ChatsController@create_chat');
+    Route::post('/create_chat', 'Api\ChatsController@create_chat')->middleware('check');
     
 });

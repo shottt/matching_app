@@ -17,30 +17,16 @@ class UsersController extends Controller
         
         // 自分のIDを取得する
         $my_id =$request->header('aut_id');
-        // ログインユーザーIDと一致しているか確認
-        if($my_id != Auth::id()){
-            return response()->json(['result_flag' => false]);
-        }
 
-        // 必要なカラムだけ取ってくる、自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
-        // $user = User::whereNotIn('id', $my_id)->get(); → この書き方だとエラー
-        // $users = User::where('id', '!=', $my_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
-        $users = DB::table('users')->where('id', '!=', $my_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
+        // 自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
+        // $users = DB::table('users')->where('id', '!=', $my_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
+        $users = User::where('id', '!=', $my_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         Log::debug('ユーザー情報一覧：' .print_r($users, true));
 
         // 異常判定
         if(empty($users)){
-            // ユーザーデータが空の場合はfalseを返す
             return response()->json(['result_flag' => false]);
         }
-        
-        // keyをフレンドにする
-        // foreach($users as $key => $user){
-        //     $userlist_key[] = "friend${key}";
-        //     $userlist_val[] = $user;
-
-        //     $userlist = array_combine($userlist_key, $userlist_val);
-        // }
         
         // Log::debug('jsonレスポンス内容：' .response()->json(['result_flag' => true, 'friends' => $users]));
         return response()->json(['result_flag' => true, 'friends' => $users]);
@@ -56,8 +42,7 @@ class UsersController extends Controller
         //$my_id = Auth::id();
         // Log::debug($my_id);
 
-        // 必要なカラムだけ取ってくる、自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
-        // $user = User::whereNotIn('id', $my_id)->get(); → この書き方だとエラー
+        // 自分のユーザーID以外かつdelete_flagが0のユーザー取って来る
         // $users = User::where('id', '!=', $my_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
         $users = DB::table('users')->where('id', '!=',  $request->user_id)->where('delete_flag', 0)->get(['id', 'name', 'occupation', 'picture']);
 
@@ -86,11 +71,6 @@ class UsersController extends Controller
         
         // 自分のIDを取得する
         $my_id =$request->header('aut_id');
-        // ログインユーザーIDと一致しているか確認
-        if($my_id != Auth::id()){
-            return response()->json(['result_flag' => false]);
-        }
-        
         $user_id = $request->user_id;
         
         if(empty($user_id)){
@@ -123,10 +103,6 @@ class UsersController extends Controller
 
         // 自分のIDを取得する
         $my_id =$request->header('aut_id');
-        // ログインユーザーIDと一致しているか確認
-        if($my_id != Auth::id()){
-            return response()->json(['result_flag' => false]);
-        }
 
         // 編集するユーザー情報を取得する
         $user = User::where('id', $my_id)->where('delete_flag', 0)->first();
@@ -151,7 +127,7 @@ class UsersController extends Controller
 
     }
 
-    //set_prof_img
+    //set_prof_img（base64でDBに保存し、base64でreturnする）
     public function set_prof_img(Request $request){
     
         Log::debug($request);
@@ -161,10 +137,10 @@ class UsersController extends Controller
         // 自分のIDを取得する
         $my_id =$request->header('aut_id');
 
-        // ログインユーザーIDと一致しているか確認
-        if($my_id != Auth::id()){
-            return response()->json(['result_flag' => false]);
-        }
+        // // ログインユーザーIDと一致しているか確認
+        // if($my_id != Auth::id()){
+        //     return response()->json(['result_flag' => false]);
+        // }
         $uploadImg =$request->picture;
         // Log::debug($uploadImg);
 
