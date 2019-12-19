@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->text('profile_detail')->nullable();
             $table->date('birthday')->nullable();
             $table->string('location')->nullable();
-            $table->string('picture')->nullable();
+            $table->binary('picture')->nullable();
             $table->string('review')->nullable();
             $table->integer('block_user')->nullable();
             $table->boolean('delete_flag')->default(0);

@@ -131,6 +131,7 @@ class UsersController extends Controller
     public function set_prof_img(Request $request){
     
         Log::debug($request);
+        // Log:debug(gettype($request->picture));
         // バリデーション
         $this->validate($request, User::$rules);
 
@@ -141,19 +142,22 @@ class UsersController extends Controller
         // if($my_id != Auth::id()){
         //     return response()->json(['result_flag' => false]);
         // }
-        $uploadImg =$request->picture;
+        // $uploadImg =$ request->picture;
+        $uploadImg = base64_encode(file_get_contents($request->picture));
         // Log::debug($uploadImg);
 
         // アップロードに成功している確認し、ファイルパスに保存
-        if($uploadImg->isValid()){
-            $filePath = $uploadImg->store('public');
+        // if($uploadImg->isValid()){
+            // $filePath = $uploadImg->store('public');
             // Log::debug($filePath);
             // 編集するユーザー情報を取得する
             $user = User::where('id', $my_id)->where('delete_flag', 0)->first();
 
-            $user->picture = str_replace('public/', '', $filePath);
-        }
-        // DBに画像のパスを保存
+            // $user->picture = str_replace('public/', '', $filePath);
+            $user->picture = $uploadImg;
+
+        // }
+        // DBに画像を保存
         $result = $user->save();
 
          // 結果がfalseの場合、result_flagをfalseでreturn

@@ -5,11 +5,9 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <script>
-        window.Laravel = { 
-          csrfToken: '{{ csrf_token() }}',}
-          // ログインしているかどうかで条件分岐する
         '{{ $user = Auth::user()}}'
         window.Laravel = { 
+          csrfToken: '{{ csrf_token() }}',
           my_data: { 
             'id': '{{ $user->id }}',
             'name': '{{ $user->name }}',

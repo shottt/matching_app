@@ -36,10 +36,10 @@ class AppServiceProvider extends ServiceProvider
         Blade::include('includes.footer.footer', 'footer');
 
         // 商用環境以外だった場合、SQLログを出力させる
-        if(config('app.env') !== 'production'){
-            \DB::listen(function ($query){
-                \Log::info("Query Time:{$query->time}s] $query->sql");
-            });
-        }
+        // if(config('app.env') !== 'production'){
+        //     \DB::listen(function ($query){
+        //         \Log::info("Query Time:{$query->time}s] $query->sql");
+        //     });
+        // }
     }
 }
