@@ -160,17 +160,18 @@ class UsersController extends Controller
         // DBに画像を保存
         $result = $user->save();
 
-         // 結果がfalseの場合、result_flagをfalseでreturn
-         if(!$result){
-            return response()->json(['result_flag' => false]);
-        }
+        //  // 結果がfalseの場合、result_flagをfalseでreturn
+        //  if(!$result){
+        //     return response()->json(['result_flag' => false]);
+        // }
 
-        // 更新後のプロフ画像を取得する
-        $prof_img = User::where('id', $my_id)->where('delete_flag', 0)->first()->picture;
-        // Log::debug($prof_img);
+        // // 更新後のプロフ画像を取得する
+        // $prof_img = User::where('id', $my_id)->where('delete_flag', 0)->first()->picture;
+        // // Log::debug($prof_img);
 
-        // Log::debug(response()->json(['result_flag' => true, 'picture' => $prof_img]));
-        return response()->json(['result_flag' => true, 'picture' => $prof_img]);
+        // // Log::debug(response()->json(['result_flag' => true, 'picture' => $prof_img]));
+        // return response()->json(['result_flag' => true, 'picture' => $prof_img]);
+        return response()->json(['result_flag' => true]);
 
     }
 }
