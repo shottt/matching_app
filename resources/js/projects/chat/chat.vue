@@ -22,15 +22,34 @@ export default {
       chat_id: 0,
       chat_length: 10,
     },
-    scrollY: 0,
-    scroll_cnt: 1,
+    init_render: true,
   }},
+
   created: function () {
     this.$nextTick(function () {
       //初期レンダリング時コメントを取得
       this.get_Comment(true);
+     
     });
-    window.addEventListener('scroll', this.get_Chat_Scroll);
+    //window.addEventListener('scroll', this.get_Chat_Scroll);
+  },
+  updated: function () {
+
+    //チャット画面を開いた時の表示位置の設定
+    if (this.init_render === true) {
+      window.scrollTo(0, window.innerHeight);
+    }
+    //チャットした時の表示位を一旦置固定※たぶんあとで固定する
+    this.init_render = false;
+  },
+  mounted: function () {
+
+    window.addEventListener("scroll", function (e) {
+      console.log("window : "+  window.scrollY);
+      if (window.scrollY <= 0) {
+        get_Chat_Scroll();
+      }
+    });
   },
   computed: {
     chat_comments_displayed: function () {
@@ -39,7 +58,7 @@ export default {
     chat_length_cm: function () {
       this.chat_props.chat_length = this.chat_comments.length;
       return this.chat_props.chat_length;
-    }
+    },
   },
   //子のcomment_form.vueから「コメントが増えた」と信号を受け取る。
   methods: {
@@ -67,7 +86,6 @@ export default {
 
         return this.chat_comments;
         console.log("成功");
-
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -114,9 +132,7 @@ export default {
       
     },
     get_Chat_Scroll() {
-      return;
-      this.scrollY = window.scrollY;
-      if (this.scrollY >= 500 * this.scroll_cnt) {
+      
       this.$http.post('/api/ctrl_get_chat_by_scroll', {
         chat_id: this.chat_props.chat_id,
         chat_length: this.chat_props.chat_length,
@@ -132,7 +148,7 @@ export default {
 
         this.chat_comments = this.chat_comments.cancat(this.reverse_Comments(res.data.comments));
 
-        ++this.scroll_cnt;
+       
         return this.chat_comments;
         console.log("成功");
 
@@ -141,7 +157,6 @@ export default {
       .finally(() => {
         console.log('finally')
       });
-      }
       console.log(this.scrollY);
     }
   },
@@ -154,7 +169,7 @@ export default {
       <div class="container">
      
         <ul class="table mb-0 py-5 Chat">
-          <li v-for="chat in chat_comments_displayed">
+          <li v-for="chat in chat_comments_displayed" class="u-clearfix">
             <div v-if="chat.from_user == my_id" class="Chat__me">
               <p class="text-left p-2 u-txt-b">
               {{chat.detail}}
@@ -188,6 +203,7 @@ export default {
   position: relative;
   display: block;
   margin-bottom: 32px;
+  display: inline-block;
   > p {
     background: #fff;
     border-radius: 10px;
@@ -199,7 +215,7 @@ export default {
 }
 
 .Chat__me {
-
+  float: right;
   &:before {
   content: '';
   position: absolute;
@@ -221,7 +237,7 @@ export default {
 
 .Chat__friend {
   padding-left: 40px!important;
-
+  float: left;
   &:after {
     content: '';
     position: absolute;

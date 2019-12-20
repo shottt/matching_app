@@ -21,6 +21,10 @@
         picture_flg: false,
         picture__displayed: "",//this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture,
         fileInfo: '',
+        // base64: "",
+        // file_name: "",
+        // data_url_scheme: "",
+        // dataUrl: "",
       }
     },
     beforeUpdate: function () {
@@ -49,9 +53,10 @@
           this.location__displayed = "お住まいを教えてください。";
         }
         this.picture__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture;
+        console.log("created : " + typeof this.picture__displayed);
         if (this.picture__displayed === "") {
           //デフォルトの画像を表示したい
-          this.picture__displayed = "aa";
+          this.picture__displayed = "/images/avator1.png";
         }
 
       })
@@ -119,12 +124,13 @@
 
         //エンコードあり？
         reader.readAsDataURL(this.fileInfo);
+        let that = this;
         reader.onload = function (event) {
           document.querySelector(".js-preview-img > img").src = event.target.result;//resultはbase64
-          let data_url_scheme = event.target.result;
-          this.base64 = btoa(data_url_scheme);
-          this.base64 = this.base64.replace(/^.*,/, '');
-          this.file_name = encodeURIComponent(m_file_name);
+          // that.data_url_scheme = event.target.result;
+          // that.base64 = btoa(that.data_url_scheme);
+          // that.base64 = that.base64.replace(/^.*,/, '');
+          // that.file_name = encodeURIComponent(m_file_name);
         }
         
         this.picture = this.fileInfo;
@@ -133,38 +139,38 @@
       fileUpload(){
         let formData = new FormData()
         formData.append("picture", this.fileInfo);
+        //formData.append("name", "test");
         console.log(formData);
 
         axios.post('/api/ctrl_set_prof_img', formData, {
         //axios.post('/api/ctrl_set_prof_img', {'picture': 'base64=' + base64 + '&this.file_name=' + this.file_name,}, {
           'responseType': 'arraybuffer',
           'headers': {
-            'Content-Type': 'image/png'
+            'content-type': 'multipart/form-data',
           }
         })
         .then(res => {
-          if (res.data.result_flag === false) {
+          if (res.data === "") {
             alert("通信成功しましたが、該当データ見当たらないです。");
             return;
           }
           console.log("プロフィール更新成功");
 
           const base64 = new Buffer(res.data, "binary").toString("base64")
-          const prefix = `data:${res.headers["content-type"]};base64,`
-          //res.send(`<img src=${prefix}${base64} />`)
-           console.log(base64);
-          console.log(prefix);
-          console.log('base64=' + base64 + '&this.file_name=' + this.file_name);
+          const prefix = `data:${res.headers["content-type"]};base64,`;
+          this.picture = prefix + base64;
 
-          // this.json_data = res.data;
-          // console.log(this.json_data);
+          //document.querySelector(".js-my-img > img").src = this.picture;
+
           // //window.laravel 更新
-          // window.Laravel.my_data['picture'] = this.json_data.my_data['picture'];
+          window.Laravel.my_data['picture'] = this.picture;
           // //vuex 更新
-          // this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
+          this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
           //picture__displayed更新
-          //this.picture__displayed = this.json_data.picture;
-
+          this.picture__displayed = this.picture;
+          this.picture_flg = false;
+          let test = this.picture;
+          // $(".test").css('background-image', `url('${test}')`);
         }).catch(err => console.log(err)
         
         ).finally(() => {
@@ -176,9 +182,12 @@
     template: `
     <main class="text-center u-bg-w u-pb-180">
       <div class="c-Card-Hero">
+      
         <p class="c-Card-Hero__img js-my-img">
-          <img class="w-100" src="/images/avator1.png" alt="">
+          <img class="w-100" v-bind:src="picture__displayed" alt="my-image">
         </p>
+
+
         <dl class="c-Card-Hero__detail text-center">
           <dt>
             <label class="c-Card-Hero__img-input u-text-pink p-2" for="image">
@@ -196,7 +205,6 @@
             </label>
             
           </dt>
-
           <dd class="modal fade" id="preview" tabindex="-1" role="dialog" aria-labelledby="previewLabel">
             <div class="modal-dialog modal-margin" role="document">
               <div class="modal-content w-75 u-mx-a p-4 text-center">
@@ -216,11 +224,9 @@
               </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
           </dd><!-- /.modal -->
-          <dt>
 
-          {{ name__displayed }}
-          <i @click="display_Input('name')" class="pl-2 fas fa-pencil-alt u-text-orange lead"></i>
-          </dt>
+          <dt>{{ name__displayed }}<i @click="display_Input('name')" class="pl-2 fas fa-pencil-alt u-text-orange lead"></i></dt>
+
           <dd v-if="name_flg===true" class="input-group mt-2 mb-3">
             <input v-model="name" type="text" class="form-control" placeholder="お名前" aria-label="..." aria-describedby="button-addon4">
             <div class="input-group-append" id="button-addon4">
@@ -250,10 +256,9 @@
           </dd>
 
         </dl>
-
         
       </div>
-
+      
       <div class="u-Sticky">
         <div class="container-fluid u-bg-w u-bt-border-grey">
           <ul class="row l-Simple__list">
@@ -263,7 +268,7 @@
                 <div class="u-wrapper-text d-position-relative">
                 <router-link to="/my_profile">
                   <figure class="profile-Thumb">
-                    <img src="/images/avator1.png" class="img-fluid">
+                    <img v-bind:src="picture__displayed" class="img-fluid">
                   </figure>
                   <p class="profile-Me">私について</p>
                 </router-link>
@@ -369,8 +374,14 @@
   display: inline-block;
   margin: 0 auto;
   width: 70px;
+  
   border-radius: 4px;
   border: solid #fff 2px;
+  > img {
+    min-height: 54px;
+    object-fit: cover;
+    background: #BCC5D3;
+  }
 }
 
 .profile-Me {

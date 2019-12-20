@@ -131,7 +131,7 @@ class UsersController extends Controller
     public function set_prof_img(Request $request){
     
         Log::debug($request);
-        // Log:debug(gettype($request->picture));
+        // Log::debug(gettype($request->picture));
         // バリデーション
         $this->validate($request, User::$rules);
 
@@ -143,8 +143,10 @@ class UsersController extends Controller
         //     return response()->json(['result_flag' => false]);
         // }
         // $uploadImg =$ request->picture;
+        // log::debug("before : ". $request->picture);
         $uploadImg = base64_encode(file_get_contents($request->picture));
-        // Log::debug($uploadImg);
+
+        // Log::debug("after : ".$uploadImg);
 
         // アップロードに成功している確認し、ファイルパスに保存
         // if($uploadImg->isValid()){
@@ -157,7 +159,10 @@ class UsersController extends Controller
             $user->picture = $uploadImg;
 
         // }
+
         // DBに画像を保存
+        // $user->fill(['picture'=> $request->picture, ])->save();//ゆくゆくは画像と同時にテキストも同時で更新したい。post機能実装のため
+
         $result = $user->save();
 
         //  // 結果がfalseの場合、result_flagをfalseでreturn
@@ -166,13 +171,16 @@ class UsersController extends Controller
         // }
 
         // // 更新後のプロフ画像を取得する
-        // $prof_img = User::where('id', $my_id)->where('delete_flag', 0)->first()->picture;
-        // // Log::debug($prof_img);
+        $prof_img = User::where('id', $my_id)->where('delete_flag', 0)->first()->picture;
+        // Log::debug($prof_img);
 
-        // // Log::debug(response()->json(['result_flag' => true, 'picture' => $prof_img]));
-        // return response()->json(['result_flag' => true, 'picture' => $prof_img]);
-        return response()->json(['result_flag' => true]);
+        // Log::debug(response()->json(['result_flag' => true, 'picture' => $prof_img]));
+        //return response()->json(['result_flag' => true, 'picture' => $prof_img]);
+        
+        // return response()->json(['result_flag' => true]);
 
+        return response(base64_decode($prof_img));
+        return response()->json(['result_flag' => true,'picture'=>base64_decode($prof_img), ]);
     }
 }
 
