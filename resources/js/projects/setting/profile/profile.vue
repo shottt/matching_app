@@ -54,7 +54,7 @@
         }
         this.picture__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture;
         console.log("created : " + typeof this.picture__displayed);
-        if (this.picture__displayed === "") {
+        if (this.picture__displayed === "data:text/html; charset=UTF-8;base64," || this.picture__displayed === "") {
           //デフォルトの画像を表示したい
           this.picture__displayed = "/images/avator1.png";
         }
