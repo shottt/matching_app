@@ -11,4 +11,9 @@ class Chat extends Model
     protected $fillable = [
         'to_user', 'from_user',
     ];
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

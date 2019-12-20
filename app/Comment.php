@@ -14,4 +14,9 @@ class Comment extends Model
         'comment' => 'required|max:255',
         'attachment' => 'file|image|',
     );
+
+    public function chat()
+    {
+        return $this->belongsTo('App\Chat');
+    }
 }
