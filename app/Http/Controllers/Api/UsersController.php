@@ -180,7 +180,7 @@ class UsersController extends Controller
         // return response()->json(['result_flag' => true]);
 
         return response(base64_decode($prof_img));
-        return response()->json(['result_flag' => true,'picture'=>base64_decode($prof_img), ]);
+        // return response()->json(['result_flag' => true,'picture'=>base64_decode($prof_img), ]);
     }
 }
 
