@@ -17,7 +17,7 @@
             'profile_detail': '{{ $user->profile_detail }}',
             'birthday': '{{ $user->birthday }}',
             'location': '{{ $user->location }}',
-            'picture': '{{ $user->picture }}',
+            'picture': 'data:text/html; charset=UTF-8;base64,'+'{{ $user->picture }}',
             //'review': '{{ $user->review }}',
           },
           id : '{{ $user->id }}',
@@ -49,8 +49,22 @@
 
       </div><!--end vue_body-->
       <script src=" {{ mix('js/app.js') }} "></script>
+      <!-- <script>
+
+        function dis_win() {
+          let count = 1;
+          return function (){
+            console.log(window.scrollY);
+            if(window.scrollY > 500 * count){
+              ++count;
+            }
+          }
+        }
+       
+        let test = dis_win();
+        window.onscroll = function() {
+          test();
+        }
+      </script> -->
     </body>
 </html>
-
-
-  

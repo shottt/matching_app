@@ -9,7 +9,13 @@
     content: "";
   }
 }
-
+.u-clearfix {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
 //beforeで使う
 .u-cover {
   position: absolute;

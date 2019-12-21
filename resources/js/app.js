@@ -221,13 +221,12 @@ Vue.mixin({
         window.Laravel.my_data['profile_header'] = obj.json_data.my_data['profile_header'];
         window.Laravel.my_data['profile_detail'] = obj.json_data.my_data['profile_detail'];
         window.Laravel.my_data['birthday'] = obj.json_data.my_data['birthday'];
-        window.Laravel.my_data['picture'] = obj.json_data.my_data['picture'];
+        window.Laravel.my_data['picture'] = 'data:text/html; charset=UTF-8;base64,' + obj.json_data.my_data['picture'];
 
         //vuex 更新
         obj.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data);
 
         //表示内容更新
-
         obj.name__displayed = obj.json_data.my_data['name'];
         obj.email__displayed = obj.json_data.my_data['email'];
         obj.occupation__displayed = obj.json_data.my_data['occupation'];
@@ -235,17 +234,17 @@ Vue.mixin({
         obj.profile_header__displayed = obj.json_data.my_data['profile_header'];
         obj.profile_detail__displayed = obj.json_data.my_data['profile_detail'];
         obj.birthday__displayed = obj.json_data.my_data['birthday'];
-        obj.picture__displayed = obj.json_data.my_data['picture'];
+        obj.picture__displayed = 'data:text/html; charset=UTF-8;base64,' + obj.json_data.my_data['picture'];
 
 
-        obj.name__displayed = "";
-        obj.email = "";
-        obj.occupation = "";
-        obj.location = "";
-        obj.profile_header = "";
-        obj.profile_detail = "";
-        obj.birthday = "";
-        obj.picture = "";
+        // obj.name__displayed = "";
+        // obj.email = "";
+        // obj.occupation = "";
+        // obj.location = "";
+        // obj.profile_header = "";
+        // obj.profile_detail = "";
+        // obj.birthday = "";
+        // obj.picture = "";
 
         this.get_Prof_Type(obj, text);
         
