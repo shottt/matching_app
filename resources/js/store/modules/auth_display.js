@@ -5,7 +5,8 @@
 const state = () => ({
     disiplay: 1,
     //user_id: 0,
-    my_data: {}
+    my_data: {},
+    draft_post: {},
 })
 
 const actions = {
@@ -27,6 +28,9 @@ const actions = {
 */
     set_my_data: function (context, my_data) {
         context.commit('set_my_data', my_data);
+    },
+    set_draft_post: function (context, draft_post) {
+        context.commit('set_draft_post', draft_post);
     }
 }
 
@@ -45,6 +49,9 @@ const mutations = {
 
     set_my_data: function (state, my_data) {
         state.my_data = my_data;
+    },
+    set_draft_post: function (state, draft_post) {
+        state.draft_post = draft_post;
     }
     
 }
@@ -60,6 +67,9 @@ const getters = {
 */
     getMy_Data_Vuex:  state => {
         return state.my_data;
+    },
+    getDraf_Post_Vuex:  state => {
+        return state.draft_post;
     },
 
 }

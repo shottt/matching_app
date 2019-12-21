@@ -316,7 +316,12 @@ display: none;
     }
   }
 }
-
+.u-float-l {
+  float: left;
+}
+.u-float-r {
+  float: right;
+}
 /*=====================
   　中央揃え
 =======================*/
@@ -485,3 +490,4 @@ display: none;
 @import "./_active-flg";
 @import "./position";
 @import "./mask";
+@import "./button";

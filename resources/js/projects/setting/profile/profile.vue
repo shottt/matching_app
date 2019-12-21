@@ -53,7 +53,7 @@
           this.location__displayed = "お住まいを教えてください。";
         }
         this.picture__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture;
-        console.log("created : " + typeof this.picture__displayed);
+
         if (this.picture__displayed === "data:text/html; charset=UTF-8;base64," || this.picture__displayed === "") {
           //デフォルトの画像を表示したい
           this.picture__displayed = "/images/avator1.png";
@@ -64,29 +64,38 @@
 
     methods: {
       show_My_Friends: function () {
+      this.$router.push('/my_friends');
 
-        //友達リストを作ってvueのstateをmutate
-        this.$http.post('/api/ctrl_all_friends', {
-          user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
-        })
-        .then(res => {
-          this.json_data = res.data;
+        // //友達リストを作ってvueのstateをmutate
+        // this.$http.post('/api/ctrl_all_friends', {
+        //   user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
+        // })
+        // .then(res => {
+        //   this.json_data = res.data;
 
-          if (this.json_data.result_flag === false) {
-            alert("通信成功しましたが、該当データ見当たらないです。");
-            return;
-          }
-          console.log("検索成功");
-          this.change_Page_Pattern('my_friends');
-        
-          this.$store.dispatch('user_info/friends', this.json_data.friends);
-          this.$router.push('/my_friends');
+        //   if (this.json_data.result_flag === false) {
+        //     alert("通信成功しましたが、該当データ見当たらないです。");
+        //     return;
+        //   }
+        //   console.log("検索成功");
+        //   this.change_Page_Pattern('my_friends');
 
-        })
-        .catch(err => console.log(err))
-        .finally(() => {
-          console.log('finally')
-        });
+        //   for (let i = 0; i < Object.keys(this.json_data.friends).length; i ++) {
+        //     if (this.json_data.friends[i].picture === null) {
+        //       this.json_data.friends[i].picture =  "/images/avator1.png";
+        //     } else {
+        //     this.json_data.friends[i].picture = "data:text/html; charset=UTF-8;base64," + this.json_data.friends[i].picture;
+        //     }
+        //   }
+
+        //   this.$store.dispatch('user_info/friends', this.json_data.friends);
+        //   this.$router.push('/my_friends');
+
+        // })
+        // .catch(err => console.log(err))
+        // .finally(() => {
+        //   console.log('finally')
+        // });
 
         
       },
