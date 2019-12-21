@@ -255,7 +255,9 @@ Vue.mixin({
           console.log('finally');
       });
     },
-    
+    referback: function () {
+      this.$router.back();
+    }
   },
   
   computed: {
@@ -263,10 +265,20 @@ Vue.mixin({
     'auth_displaying/getDisplay_Vuex',
     //'auth_displaying/getUser_Id_Vuex',
     'auth_displaying/getMy_Data_Vuex',
+    'auth_displaying/getDraf_Post_Vuex',
     'page_displaying/getPattern_Vuex',
     'user_info/getFriends_Vuex',
     'user_info/getUser_Vuex',
     ]),
+    my_data: function () {
+      return store.state.auth_displaying.my_data;
+    },
+    draft_post_vuex: function () {
+      return store.state.auth_displaying.draft_post;
+    },
+    user_data: function () {
+      return store.state.user_info.user;
+    },
   },
   components: {
     action_btn,search_icon,edit_icon,

@@ -1841,36 +1841,80 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      friends: this.$store.getters['user_info/getFriends_Vuex']
+      // friends: this.$store.getters['user_info/getFriends_Vuex'],
+      json_data: {} // click_flag: false,
+
     };
+  },
+  computed: {
+    friends: function friends() {
+      return this.$store.getters['user_info/getFriends_Vuex'];
+    }
   },
   created: function created() {
     this.$nextTick(function () {
-      this.friends = this.$store.getters['user_info/getFriends_Vuex'];
+      var _this = this;
+
+      //友達リストを作ってvueのstateをmutate
+      this.$http.post('/api/ctrl_all_friends', {
+        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
+      }).then(function (res) {
+        _this.json_data = res.data;
+
+        if (_this.json_data.result_flag === false) {
+          alert("通信成功しましたが、該当データ見当たらないです。");
+          return;
+        }
+
+        _this.change_Page_Pattern('my_friends');
+
+        for (var i = 0; i < Object.keys(_this.json_data.friends).length; i++) {
+          if (_this.json_data.friends[i].picture === null) {
+            _this.json_data.friends[i].picture = "/images/avator1.png";
+          } else {
+            _this.json_data.friends[i].picture = "data:text/html; charset=UTF-8;base64," + _this.json_data.friends[i].picture;
+          }
+        }
+
+        _this.$store.dispatch('user_info/friends', _this.json_data.friends); //this.$router.push('/my_friends');
+
+      })["catch"](function (err) {
+        return console.log(err);
+      })["finally"](function () {
+        console.log('finally');
+      });
     });
   },
   methods: {
+    //start_chatから呼び出されると、flag=falseになってpushを止める
     showProfile: function showProfile(user_id) {
-      var _this = this;
+      var _this2 = this;
 
+      var flag = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       //IDをフックさせてプロフィールを表示する ctrl_profile
       this.$http.post('/api/ctrl_user_profile', {
         user_id: user_id
       }).then(function (res) {
         console.log("サインイン成功");
-        _this.json_data = res.data;
-        console.log("user: " + JSON.stringify(_this.json_data.friend));
-        console.log("result_flag : " + _this.json_data.result_flag); //結果判定
+        _this2.json_data = res.data; //結果判定
 
-        if (_this.json_data.result_flag === true) {
+        if (_this2.json_data.result_flag === true) {
           //ユーザー情報
-          _this.$store.dispatch('user_info/user', _this.json_data.friend); //描画のための画面判定値を更新
+          if (_this2.json_data.friend.picture === null) {
+            _this2.json_data.friend.picture = "/images/avator1.png";
+          } else {
+            _this2.json_data.friend.picture = "data:text/html; charset=UTF-8;base64," + _this2.json_data.friend.picture;
+          }
+
+          _this2.$store.dispatch('user_info/user', _this2.json_data.friend); //描画のための画面判定値を更新
           //this.change_Page_Pattern('');
 
 
-          _this.$router.push({
-            path: '/user_profile'
-          });
+          if (flag === true) {
+            _this2.$router.push({
+              path: '/user_profile'
+            });
+          }
         } else {
           alert("サインイン失敗です。");
         }
@@ -1880,9 +1924,19 @@ __webpack_require__.r(__webpack_exports__);
         console.log('finally');
       }); // this.$store.dispatch('page_displaying/set_Vuex__pattern', "user_profile");
       //this.$router.push({ path: '/user_profile' });
+    },
+    start_chat: function start_chat(user_id) {
+      this.showProfile(user_id, false);
+      this.change_Page_Pattern('chat');
+      this.$router.push({
+        name: 'chat',
+        query: {
+          id: user_id
+        }
+      });
     }
   },
-  template: "\n  <ul class=\"table mb-0\">\n    <li  v-for=\"friend in friends\" class=\"container bg-white\">\n      <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n        <dt class=\"col-4 d-inline-block\">\n          <figure class=\"c-PsnCard__img my-3 mx-2\">\n            <img src=\"/images/avator2.png\" class=\"img-fluid\" alt=\"\">\n          </figure>\n        </dt>\n        <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text\">\n          {{ friend.name }}<br><span class=\"u-txt-grey\">{{ friend.occupation }}</span>\n          <i v-on:click=\"showProfile(friend.id)\" class=\"u-icon__detail\"></i></router-link>\n        </dd>\n      </dl>\n    </li>\n  </ul>\n  "
+  template: "\n  <ul class=\"table mb-0\">\n    <li  v-for=\"friend in friends\" class=\"container bg-white\">\n      <dl class=\"row align-items-center c-PsnCard u-bt-border-grey mb-0\">\n        <dt class=\"col-4 d-inline-block\">\n          <figure class=\"c-PsnCard__img my-3 mx-2\">\n            <img v-bind:src=\"friend.picture\" class=\"img-fluid\" alt=\"img\">\n          </figure>\n        </dt>\n        <dd class=\"col-8 pl-0 text-left u-txt-b c-PsnCard__text container\">\n          <div class=\"row\">\n\n            <p v-on:click=\"showProfile(friend.id)\" class=\"col-7  u-txt-b\">{{ friend.name }}<br><span class=\"u-txt-grey\">{{ friend.occupation }}</span></p>\n              \n            <div class=\"col-5 person-card-Action\">\n              <div class=\"u-f-l-2\">\n                <div @click=\"start_chat(friend.id)\"><i class=\"far fa-comment person-card-Action_chat\"></i></div>\n                <div><i class=\"far fa-calendar person-card-Action_sche\"></i></div>\n              </div>\n            </div>\n            \n          </div>\n        </dd>\n      </dl>\n    </li>\n  </ul>\n  "
 });
 
 /***/ }),
@@ -2002,7 +2056,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  template: "\n  <header class=\"c-Header--short\">\n    <div class=\"c-Header--short__inner\">\n      \n      <h1 class=\"u-text-pink text-center\">\n        <a class=\"c-left-icon\" href=\"/home\"><img src=\"/images/arrow-left-icon.png\" alt=\"\"></a> \n        {{ $store.state.page_displaying.pattern }} \n      </h1>\n    </div>\n  </header>\n  "
+  template: "\n  <header class=\"c-Header--short\">\n    <div class=\"c-Header--short__inner\">\n      \n      <h1 class=\"u-text-pink text-center\">\n        <a class=\"c-left-icon\" v-on:click=\"referback\"><img src=\"/images/arrow-left-icon.png\" alt=\"\"></a> \n        {{ $store.state.page_displaying.pattern }} \n      </h1>\n    </div>\n  </header>\n  "
 });
 
 /***/ }),
@@ -2374,7 +2428,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       chat_comments: {},
       my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
-      user_id: this.$store.getters['user_info/getUser_Vuex'].id,
+      user_id: 0,
+      //this.$store.getters['user_info/getUser_Vuex'].id,
       chat_id: 0,
       chat_props: {
         chat_id: 0,
@@ -2385,9 +2440,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.$nextTick(function () {
-      //初期レンダリング時コメントを取得
+      this.user_id = this.$route.query['id']; //初期レンダリング時コメントを取得
+
       this.get_Comment(true);
-    }); //window.addEventListener('scroll', this.get_Chat_Scroll);
+    });
   },
   updated: function updated() {
     //チャット画面を開いた時の表示位置の設定
@@ -2425,7 +2481,7 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
-      console.log();
+      alert("my_id : " + this.my_id + ",, user_id : " + this.user_id);
       this.$http.post('/api/ctrl_get_chat', {
         my_id: this.my_id,
         user_id: this.user_id
@@ -2437,6 +2493,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.change_Page_Pattern('chat');
 
+        console.log(res.data.comments);
         _this.chat_comments = _this.reverse_Comments(res.data.comments);
         _this.chat_props.chat_id = _this.chat_comments[0].chat_id;
         _this.chat_props.chat_length = _this.chat_comments.length;
@@ -2511,7 +2568,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     comments: _comment_form_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  template: "\n  <div>\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n     \n        <ul class=\"table mb-0 py-5 Chat\">\n          <li v-for=\"chat in chat_comments_displayed\" class=\"u-clearfix\">\n            <div v-if=\"chat.from_user == my_id\" class=\"Chat__me\">\n              <p class=\"text-left p-2 u-txt-b\">\n              {{chat.detail}}\n              </p>\n              <time>{{chat.updated_at}}</time>\n            </div>\n\n            <div v-if=\"chat.from_user == user_id\" class=\"Chat__friend\">\n              <i class=\"fas fa-male\"></i>\n              <p class=\"text-left p-2 u-txt-b\">\n                {{chat.detail}} \n              </p>\n              <time>{{chat.updated_at}}</time>\n            </div>\n          </li>\n        </ul>\n\n        \n\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_new_comment\" v-bind:chat_props=\"chat_props\"/>\n  </div>"
+  template: "\n  <div>\n    <main class=\"u-container-y--short\">\n      <div class=\"container\">\n     \n        <ul class=\"table mb-0 py-5 Chat\">\n          <li v-for=\"chat in chat_comments_displayed\" class=\"u-clearfix\">\n            <div v-if=\"chat.from_user == my_id\" class=\"Chat__me\">\n              <p class=\"text-left p-2 u-txt-b\">\n              {{chat.detail}}\n              </p>\n              <time>{{chat.updated_at}}</time>\n            </div>\n\n            <div v-if=\"chat.from_user == user_data.id\" class=\"Chat__friend\">\n              <i class=\"fas fa-male\"></i>\n              <p class=\"text-left p-2 u-txt-b\">\n                {{chat.detail}} \n              </p>\n              <time>{{chat.updated_at}}</time>\n            </div>\n          </li>\n        </ul>\n\n        \n\n      </div>\n    </main>\n    <comments v-on:emit-add-comment=\"get_new_comment\" v-bind:chat_props=\"chat_props\"/>\n  </div>"
 });
 
 /***/ }),
@@ -2642,7 +2699,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      comments: {}
+      post_action: "投稿",
+      post_content: {
+        comment: ""
+      }
     };
   },
   beforeMount: function beforeMount() {
@@ -2675,12 +2735,34 @@ __webpack_require__.r(__webpack_exports__);
       })["finally"](function () {
         console.log('finally');
       });
-    }
+    },
+    cancel_post: function cancel_post() {
+      this.post_action = "投稿";
+    },
+    draft_post: function draft_post() {
+      //下書きする
+      if (this.post_action === "投稿") {
+        //下書きのdataとvuexが完全に繋がってしまう。一度繋げて、そして切りたい。どうしたらいいかな？
+        this.$store.dispatch('auth_displaying/set_draft_post', this.post_content);
+        this.post_action = "編集";
+        return;
+      } //下書きから投稿に変更
+
+
+      if (this.post_action === "編集" && this.post_content.comment === "") {
+        this.post_action = "投稿";
+        return;
+      } //下書きを参照する
+
+
+      this.post_action = "編集";
+    },
+    create_new_post: function create_new_post() {}
   },
   components: {
     post_card: _components_card_post_card_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  template: "\n  <main class=\"text-center u-bg-w u-pb-180 u-pt-100\">\n    <post_card></post_card>\n    <i class=\"fas fa-plus-circle\" data-toggle=\"modal\" data-target=\"#posting\"></i>\n    <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n\n        <div class=\"modal fade\" id=\"posting\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n          <div class=\"modal-dialog\" role=\"document\">\n\n            <div class=\"modal-content\">\n\n              <div class=\"modal-body\">\n                \n                <form>\n                  <textarea class=\"post-Txtarea u-txt-b w-100\" id=\"\" name=\"post-text\" rows=\"10\" cols=\"33\"></textarea>\n                </form>\n                \n              </div>\n\n              <div class=\"modal-footer\">\n                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">\u9589\u3058\u308B</button>\n                <button type=\"button\" class=\"btn btn-primary\">\u6295\u7A3F\u3059\u308B</button>\n              </div><!-- /.modal-footer -->\n\n            </div><!-- /.modal-content -->\n\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n  </main>"
+  template: "\n  <main class=\"text-center u-bg-w u-pb-180 u-pt-100\">\n    <post_card></post_card>\n    <i class=\"fas fa-plus-circle\" data-toggle=\"modal\" data-target=\"#posting\"></i>\n    <!-- \u30E2\u30FC\u30C0\u30EB\u306E\u8A2D\u5B9A -->\n\n        <div class=\"modal fade\" id=\"posting\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n\n          <div class=\"modal-dialog\" role=\"document\">\n\n\n            <div class=\"modal-content\">\n\n              <div class=\"post-My-Action u-align-right u-clearfix u-pl-10\">\n                <button v-on:click=\"cancel_post\"\u3000type=\"button\" class=\"btn u-float-l\" data-dismiss=\"modal\">\u9589\u3058\u308B</button>\n                <button v-on:click=\"draft_post\" type=\"button\" class=\"btn is-NoActive mx-3\">\u4E0B\u66F8\u304D</button>\n                <button type=\"button\" class=\"btn is-NoActive\">{{post_action}}</button>\n              </div>\n               \n              <div class=\"modal-body\">\n                <figure class=\"post-My-Img\"><img v-bind:src=\"my_data.picture\" class=\"img-fluid\"/></figure>\n                <form v-if=\"post_action === '\u6295\u7A3F'\">\n                  <textarea v-model=\"post_content.comment\" placeholder=\"\u3044\u307E\u3069\u3046\u3057\u3066\u308B\uFF1F\" class=\"post-Txtarea u-txt-b w-100\" name=\"post-text\" cols=\"33\"></textarea>\n                </form>\n                <p class=\"u-txt-b text-left test\" v-if=\"post_action === '\u7DE8\u96C6'\">aaaa</p>\n              </div>\n\n\n\n            </div><!-- /.modal-content -->\n\n          </div><!-- /.modal-dialog -->\n        </div><!-- /.modal -->\n\n\n  </main>"
 });
 
 /***/ }),
@@ -2947,9 +3029,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(Buffer) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       pattern_data: "",
@@ -3002,7 +3082,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.picture__displayed = this.$store.getters['auth_displaying/getMy_Data_Vuex'].picture;
-      console.log("created : " + _typeof(this.picture__displayed));
 
       if (this.picture__displayed === "data:text/html; charset=UTF-8;base64," || this.picture__displayed === "") {
         //デフォルトの画像を表示したい
@@ -3012,31 +3091,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     show_My_Friends: function show_My_Friends() {
-      var _this = this;
-
-      //友達リストを作ってvueのstateをmutate
-      this.$http.post('/api/ctrl_all_friends', {
-        user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
-      }).then(function (res) {
-        _this.json_data = res.data;
-
-        if (_this.json_data.result_flag === false) {
-          alert("通信成功しましたが、該当データ見当たらないです。");
-          return;
-        }
-
-        console.log("検索成功");
-
-        _this.change_Page_Pattern('my_friends');
-
-        _this.$store.dispatch('user_info/friends', _this.json_data.friends);
-
-        _this.$router.push('/my_friends');
-      })["catch"](function (err) {
-        return console.log(err);
-      })["finally"](function () {
-        console.log('finally');
-      });
+      this.$router.push('/my_friends'); // //友達リストを作ってvueのstateをmutate
+      // this.$http.post('/api/ctrl_all_friends', {
+      //   user_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id
+      // })
+      // .then(res => {
+      //   this.json_data = res.data;
+      //   if (this.json_data.result_flag === false) {
+      //     alert("通信成功しましたが、該当データ見当たらないです。");
+      //     return;
+      //   }
+      //   console.log("検索成功");
+      //   this.change_Page_Pattern('my_friends');
+      //   for (let i = 0; i < Object.keys(this.json_data.friends).length; i ++) {
+      //     if (this.json_data.friends[i].picture === null) {
+      //       this.json_data.friends[i].picture =  "/images/avator1.png";
+      //     } else {
+      //     this.json_data.friends[i].picture = "data:text/html; charset=UTF-8;base64," + this.json_data.friends[i].picture;
+      //     }
+      //   }
+      //   this.$store.dispatch('user_info/friends', this.json_data.friends);
+      //   this.$router.push('/my_friends');
+      // })
+      // .catch(err => console.log(err))
+      // .finally(() => {
+      //   console.log('finally')
+      // });
     },
     //インプットの表示非表示
     display_Input: function display_Input(text) {
@@ -3083,7 +3163,7 @@ __webpack_require__.r(__webpack_exports__);
       this.picture = this.fileInfo;
     },
     fileUpload: function fileUpload() {
-      var _this2 = this;
+      var _this = this;
 
       var formData = new FormData();
       formData.append("picture", this.fileInfo); //formData.append("name", "test");
@@ -3104,17 +3184,17 @@ __webpack_require__.r(__webpack_exports__);
         console.log("プロフィール更新成功");
         var base64 = new Buffer(res.data, "binary").toString("base64");
         var prefix = "data:".concat(res.headers["content-type"], ";base64,");
-        _this2.picture = prefix + base64; //document.querySelector(".js-my-img > img").src = this.picture;
+        _this.picture = prefix + base64; //document.querySelector(".js-my-img > img").src = this.picture;
         // //window.laravel 更新
 
-        window.Laravel.my_data['picture'] = _this2.picture; // //vuex 更新
+        window.Laravel.my_data['picture'] = _this.picture; // //vuex 更新
 
-        _this2.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data); //picture__displayed更新
+        _this.$store.dispatch('auth_displaying/set_my_data', window.Laravel.my_data); //picture__displayed更新
 
 
-        _this2.picture__displayed = _this2.picture;
-        _this2.picture_flg = false;
-        var test = _this2.picture; // $(".test").css('background-image', `url('${test}')`);
+        _this.picture__displayed = _this.picture;
+        _this.picture_flg = false;
+        var test = _this.picture; // $(".test").css('background-image', `url('${test}')`);
       })["catch"](function (err) {
         return console.log(err);
       })["finally"](function () {
@@ -3522,10 +3602,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     start_chat: function start_chat() {
       this.change_Page_Pattern('chat');
-      this.$router.push('/chat/');
+      this.$router.push({
+        name: 'chat',
+        query: {
+          id: this.user.id
+        }
+      });
     }
   },
-  template: "\n    <main class=\"text-center u-bg-w u-pb-180\">\n      <div class=\"c-Card-Hero\">\n        <img class=\"w-100\" src=\"/images/avator2.png\" alt=\"\">\n        <dl class=\"c-Card-Hero__detail text-center\">\n          <dt class=\"\">{{ user.name }}</dt>\n          <dd style=\"opacity: 0.5;\">{{ user.occupation }}</dd>\n          <dd class=\"mt-2 mb-4\">\u307B\u3057</dd>\n        </dl>\n      </div>\n\n      <div class=\"u-Sticky\">\n        <div @click=\"start_chat()\">\n          <p class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/chat\">\n          \u30E1\u30C3\u30BB\u30FC\u30B8\u3092\u9001\u308B\n          </p>\n        </div>\n\n        <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n          <ul class=\"row l-Simple__list\">\n\n            <div class=\"col\">\n              <div class=\"u-wrapper\">\n                <div class=\"u-wrapper-text d-position-relative\">\n                <router-link to=\"/user_profile\">\n                  <figure class=\"profile-Thumb\">\n                    <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                  </figure>\n                  <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n                </router-link>\n                </div>\n              </div>\n            </div>\n\n            <div class=\"col\">\n              <div class=\"u-wrapper\">\n                <div class=\"u-wrapper-text\">\n                  <div @click=\"show_My_Friends\">\n                    <p>\u53CB\u9054</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <div class=\"col\">\n              <div class=\"u-wrapper\">\n                <div class=\"u-wrapper-text\">\n                <router-link to=\"/user_friend_reviews\">\n                  <p>\u53CB\u9054\u306E\u58F0</p>\n                </router-link>\n                </div>\n              </div>\n            </div>\n            \n            <div class=\"col\">\n              <div class=\"u-wrapper\">\n                <div class=\"u-wrapper-text\">\n                  <router-link to=\"/user_posts\">\n                    <p>\u6295\u7A3F</p>\n                  </router-link>\n                </div>\n              </div>\n            </div>\n          </ul>\n        </div>\n      </div>\n\n    \u3000<router-view name=\"user_profile\"></router-view>\n      <router-view name=\"user_friends\"></router-view>\n      <router-view name=\"user_friend_reviews\"></router-view>\n      <router-view name=\"user_posts\"></router-view>\n\n    </main>\n    "
+  template: "\n    <main class=\"text-center u-bg-w u-pb-180\">\n      <div class=\"c-Card-Hero\">\n        <img class=\"w-100\" v-bind:src=\"user_data.picture\" alt=\"\">\n        <dl class=\"c-Card-Hero__detail text-center\">\n          <dt class=\"\">{{ user.name }}</dt>\n          <dd style=\"opacity: 0.5;\">{{ user.occupation }}</dd>\n          <dd class=\"mt-2 mb-4\">\u307B\u3057</dd>\n        </dl>\n      </div>\n\n      <div class=\"u-Sticky\">\n        <div @click=\"start_chat()\">\n          <p class=\"w-100 bg-main text-light d-inline-block py-2\" to=\"/chat\">\n          \u30E1\u30C3\u30BB\u30FC\u30B8\u3092\u9001\u308B\n          </p>\n        </div>\n\n        <div class=\"container-fluid u-bg-w u-bt-border-grey\">\n          <ul class=\"row l-Simple__list\">\n\n            <div class=\"col\">\n              <div class=\"u-wrapper\">\n                <div class=\"u-wrapper-text d-position-relative\">\n                <router-link to=\"/user_profile\">\n                  <figure class=\"profile-Thumb\">\n                    <img src=\"/images/avator1.png\" class=\"img-fluid\">\n                  </figure>\n                  <p class=\"profile-Me\">\u79C1\u306B\u3064\u3044\u3066</p>\n                </router-link>\n                </div>\n              </div>\n            </div>\n\n            <div class=\"col\">\n              <div class=\"u-wrapper\">\n                <div class=\"u-wrapper-text\">\n                  <div @click=\"show_My_Friends\">\n                    <p>\u53CB\u9054</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n\n            <div class=\"col\">\n              <div class=\"u-wrapper\">\n                <div class=\"u-wrapper-text\">\n                <router-link to=\"/user_friend_reviews\">\n                  <p>\u53CB\u9054\u306E\u58F0</p>\n                </router-link>\n                </div>\n              </div>\n            </div>\n            \n            <div class=\"col\">\n              <div class=\"u-wrapper\">\n                <div class=\"u-wrapper-text\">\n                  <router-link to=\"/user_posts\">\n                    <p>\u6295\u7A3F</p>\n                  </router-link>\n                </div>\n              </div>\n            </div>\n          </ul>\n        </div>\n      </div>\n\n    \u3000<router-view name=\"user_profile\"></router-view>\n      <router-view name=\"user_friends\"></router-view>\n      <router-view name=\"user_friend_reviews\"></router-view>\n      <router-view name=\"user_posts\"></router-view>\n\n    </main>\n    "
 });
 
 /***/ }),
@@ -10030,7 +10115,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".c-PsnCard__img[data-v-625b23f4] {\n  border-radius: 10px;\n  overflow: hidden;\n}\n.c-PsnCard__text[data-v-625b23f4] {\n  position: relative;\n  margin-bottom: 0;\n  max-width: 200px;\n}\n.u-icon__detail[data-v-625b23f4]:after {\n  background: url(\"/images/options-icon.png\") no-repeat;\n  content: \"\";\n  display: inline-block;\n  width: 20px;\n  height: 5px;\n  text-align: right;\n  position: absolute;\n  right: -40px;\n  top: 0;\n  bottom: 0;\n  margin-top: auto;\n  margin-bottom: auto;\n}", ""]);
+exports.push([module.i, ".c-PsnCard[data-v-625b23f4] {\n  cursor: pointer;\n}\n.c-PsnCard__img[data-v-625b23f4] {\n  border-radius: 10px;\n  overflow: hidden;\n}\n.c-PsnCard__text[data-v-625b23f4] {\n  position: relative;\n  margin-bottom: 0;\n}\n.c-PsnCard__text > *[data-v-625b23f4] {\n  height: 60px;\n}\n.c-PsnCard__text > * > *[data-v-625b23f4] {\n  height: 100%;\n  display: inline-block;\n}\n.person-card-Action[data-v-625b23f4] {\n  display: inline-block;\n}\n.person-card-Action > *[data-v-625b23f4] {\n  border-radius: 15px;\n  overflow: hidden;\n}\n.person-card-Action > * i[data-v-625b23f4] {\n  width: 100%;\n  text-align: center;\n}\n.person-card-Action > * i[data-v-625b23f4]:before {\n  font-size: 16px;\n  display: inline-block;\n  margin: auto;\n}\n.person-card-Click-Flag > i[data-v-625b23f4] {\n  height: 100%;\n  padding-top: 15px;\n  padding-bottom: 15px;\n}\n.person-card-Click-Flag > i[data-v-625b23f4]:before {\n  display: inline-block;\n}\n.person-card-Action_chat[data-v-625b23f4] {\n  padding-top: 20px;\n  padding-bottom: 20px;\n  background: linear-gradient(-135deg, #F271A8, #F5B062) fixed;\n  border-right: solid 1px #fff;\n}\n.person-card-Action_sche[data-v-625b23f4] {\n  padding-top: 20px;\n  padding-bottom: 20px;\n  background: linear-gradient(-135deg, #F271A8, #F5B062) fixed;\n}\n.fa-check-circle[data-v-625b23f4]::before {\n  color: #F271A8;\n  font-size: 30px;\n}", ""]);
 
 // exports
 
@@ -10144,7 +10229,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modal[data-v-79901758] {\n  top: 30vh;\n}\n.post-Txtarea[data-v-79901758] {\n  height: 30vh;\n}\ni[data-v-79901758] {\n  position: fixed;\n  bottom: 100px;\n  right: 20px;\n}\ni[data-v-79901758]:before {\n  display: inline-block;\n  text-align: center;\n  padding-top: 5px;\n}\ni[data-v-79901758]:before {\n  font-size: 50px;\n  color: #F271A8;\n  -webkit-transition: all;\n  transition: all;\n}\ni[data-v-79901758]:hover {\n  cursor: pointer;\n}\ni[data-v-79901758]:hover:before {\n  font-size: 55px;\n  -webkit-transition: all;\n  transition: all;\n}\ni[data-v-79901758]:active:before {\n  font-size: 50px;\n  -webkit-transition: all;\n  transition: all;\n}", ""]);
+exports.push([module.i, ".post-Txtarea[data-v-79901758] {\n  height: 30vh;\n}\ni[data-v-79901758] {\n  position: fixed;\n  bottom: 100px;\n  right: 20px;\n}\ni[data-v-79901758]:before {\n  display: inline-block;\n  text-align: center;\n  padding-top: 5px;\n}\ni[data-v-79901758]:before {\n  font-size: 50px;\n  color: #F271A8;\n  -webkit-transition: all;\n  transition: all;\n}\ni[data-v-79901758]:hover {\n  cursor: pointer;\n}\ni[data-v-79901758]:hover:before {\n  font-size: 55px;\n  -webkit-transition: all;\n  transition: all;\n}\ni[data-v-79901758]:active:before {\n  font-size: 50px;\n  -webkit-transition: all;\n  transition: all;\n}\nform[data-v-79901758] {\n  border: none;\n}\ntextarea[data-v-79901758] {\n  border: none;\n}\n.post-My-Img[data-v-79901758] {\n  position: absolute;\n  left: 10px;\n  display: inline-block;\n  margin: 0 auto;\n  border: solid #fff 2px;\n}\n.post-My-Img img[data-v-79901758] {\n  width: 60px;\n  height: 60px;\n  background: #BCC5D3;\n  -o-object-fit: cover;\n     object-fit: cover;\n  border-radius: 50%;\n  -o-object-position: center;\n     object-position: center;\n}\n.modal-content[data-v-79901758] {\n  padding-right: 10px;\n  border-radius: 0.7rem;\n  height: 90vh;\n}\n.modal-body[data-v-79901758] {\n  padding: 0;\n  padding-left: 85px;\n  margin-top: 20px;\n}\n.post-My-Action *[data-v-79901758] {\n  color: #F271A8;\n  font-size: 18px;\n}\n.is-NoActive[data-v-79901758] {\n  color: #BCC5D3 !important;\n}", ""]);
 
 // exports
 
@@ -60906,10 +60991,23 @@ Vue.mixin({
       })["finally"](function () {
         console.log('finally');
       });
+    },
+    referback: function referback() {
+      this.$router.back();
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['auth_displaying/getDisplay_Vuex', //'auth_displaying/getUser_Id_Vuex',
-  'auth_displaying/getMy_Data_Vuex', 'page_displaying/getPattern_Vuex', 'user_info/getFriends_Vuex', 'user_info/getUser_Vuex'])),
+  'auth_displaying/getMy_Data_Vuex', 'auth_displaying/getDraf_Post_Vuex', 'page_displaying/getPattern_Vuex', 'user_info/getFriends_Vuex', 'user_info/getUser_Vuex']), {
+    my_data: function my_data() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.auth_displaying.my_data;
+    },
+    draft_post_vuex: function draft_post_vuex() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.auth_displaying.draft_post;
+    },
+    user_data: function user_data() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.user_info.user;
+    }
+  }),
   components: {
     action_btn: _components_ui_button_action_button_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     search_icon: _components_ui_icon_search_icon_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -63547,7 +63645,8 @@ var state = function state() {
   return {
     disiplay: 1,
     //user_id: 0,
-    my_data: {}
+    my_data: {},
+    draft_post: {}
   };
 };
 
@@ -63570,6 +63669,9 @@ var actions = {
   */
   set_my_data: function set_my_data(context, my_data) {
     context.commit('set_my_data', my_data);
+  },
+  set_draft_post: function set_draft_post(context, draft_post) {
+    context.commit('set_draft_post', draft_post);
   }
 };
 var mutations = {
@@ -63584,6 +63686,9 @@ var mutations = {
   */
   set_my_data: function set_my_data(state, my_data) {
     state.my_data = my_data;
+  },
+  set_draft_post: function set_draft_post(state, draft_post) {
+    state.draft_post = draft_post;
   }
 };
 var getters = {
@@ -63598,6 +63703,9 @@ var getters = {
   */
   getMy_Data_Vuex: function getMy_Data_Vuex(state) {
     return state.my_data;
+  },
+  getDraf_Post_Vuex: function getDraf_Post_Vuex(state) {
+    return state.draft_post;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

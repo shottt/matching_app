@@ -78,14 +78,14 @@
       start_chat: function () {
 
         this.change_Page_Pattern('chat');
-        this.$router.push('/chat/');
+        this.$router.push({name:'chat', query:{ id: this.user.id},});
       },
     },
       
     template: `
     <main class="text-center u-bg-w u-pb-180">
       <div class="c-Card-Hero">
-        <img class="w-100" src="/images/avator2.png" alt="">
+        <img class="w-100" v-bind:src="user_data.picture" alt="">
         <dl class="c-Card-Hero__detail text-center">
           <dt class="">{{ user.name }}</dt>
           <dd style="opacity: 0.5;">{{ user.occupation }}</dd>

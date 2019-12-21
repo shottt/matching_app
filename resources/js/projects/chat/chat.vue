@@ -16,7 +16,7 @@ export default {
   data: function () { return {
     chat_comments: {},
     my_id: this.$store.getters['auth_displaying/getMy_Data_Vuex'].id,
-    user_id: this.$store.getters['user_info/getUser_Vuex'].id,
+    user_id: 0,//this.$store.getters['user_info/getUser_Vuex'].id,
     chat_id: 0,
     chat_props: {
       chat_id: 0,
@@ -24,14 +24,12 @@ export default {
     },
     init_render: true,
   }},
-
   created: function () {
     this.$nextTick(function () {
+      this.user_id = this.$route.query['id'];
       //初期レンダリング時コメントを取得
       this.get_Comment(true);
-     
     });
-    //window.addEventListener('scroll', this.get_Chat_Scroll);
   },
   updated: function () {
 
@@ -66,7 +64,7 @@ export default {
       if (get_flag !== true) {
         return;
       } 
-      console.log();
+      alert("my_id : " + this.my_id + ",, user_id : " + this.user_id);
 
       this.$http.post('/api/ctrl_get_chat', {
         my_id: this.my_id,
@@ -80,10 +78,11 @@ export default {
         }
 
         this.change_Page_Pattern('chat');
+        console.log(res.data.comments);
+
         this.chat_comments = this.reverse_Comments(res.data.comments);
         this.chat_props.chat_id = this.chat_comments[0].chat_id;
-        this.chat_props.chat_length = this.chat_comments.length
-
+        this.chat_props.chat_length = this.chat_comments.length;
         return this.chat_comments;
         console.log("成功");
       })
@@ -177,7 +176,7 @@ export default {
               <time>{{chat.updated_at}}</time>
             </div>
 
-            <div v-if="chat.from_user == user_id" class="Chat__friend">
+            <div v-if="chat.from_user == user_data.id" class="Chat__friend">
               <i class="fas fa-male"></i>
               <p class="text-left p-2 u-txt-b">
                 {{chat.detail}} 

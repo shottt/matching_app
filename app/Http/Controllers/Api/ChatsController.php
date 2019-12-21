@@ -16,6 +16,7 @@ class ChatsController extends Controller
     //get_chat でchat_idが見つからない時に使う　リダイレクトで使う
     public function create_chat(Request $request){
         // 自分のユーザーIDを取得
+        log::debug("create_chat : start");
         $my_id = $request->header('aut_id');
         Log::debug('1 自分のユーザーID：' .$my_id);
         // 受け取った自分のユーザーIDがログインユーザーのIDか判定（同時にmy_idを受け取れているか確認）
@@ -85,12 +86,13 @@ class ChatsController extends Controller
             $chat = DB::table('chats')->where('from_user', $user_id)->where('to_user', $my_id)->first(['id']);
         }
 
-        Log::debug('3 チャットID：' .print_r($chat, true));
+        Log::debug('3 チャットID：' .print_r($chat->id, true));
 
         // チャット情報が見つからない場合にcreate_chatアクションを呼び出す
         if(empty($chat)){
             return redirect()->action('Api\ChatsController@create_chat', ['my_id' => $my_id, 'user_id' => $user_id]);
         }
+
         // チャットIDを取得する
         $chat_id = $chat->id;
         // コメントを降順で10件取得する
@@ -102,7 +104,7 @@ class ChatsController extends Controller
             return response()->json(['result_flag' => false]);
         }
 
-        Log::debug(response()->json(['result_flag' => true, 'commnets' => $comments]));
+        // Log::debug(response()->json(['result_flag' => true, 'commnets' => $comments]));
         return response()->json(['result_flag' => true, 'comments' => $comments]);
 
     }
